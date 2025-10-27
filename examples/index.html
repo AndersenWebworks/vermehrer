@@ -1,0 +1,2508 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bin ich bereit für ein Tier?</title>
+
+    <!-- UIkit CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.17.11/dist/css/uikit.min.css" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;600&family=Nunito:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-green: #3A7D44;
+            --secondary-gray: #F5F5F5;
+            --accent-orange: #E67E22;
+            --accent-orange-dark: #CA5F0A;
+            --accent-pink: #FFB6B6;
+            --accent-red: #C0392B;
+            --white: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            color: var(--primary-green);
+        }
+
+        .info-text {
+            font-family: 'Nunito', sans-serif;
+        }
+
+        /* Header - Sticky */
+        .header {
+            background: var(--white);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        /* Edit Button */
+        .edit-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: linear-gradient(135deg, var(--accent-orange) 0%, var(--accent-orange-dark) 100%);
+            color: var(--white);
+            border: none;
+            padding: 12px 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            z-index: 10000;
+            box-shadow: 0 4px 15px rgba(230, 126, 34, 0.4);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .edit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(230, 126, 34, 0.6);
+        }
+
+        .edit-btn.active {
+            background: linear-gradient(135deg, var(--primary-green) 0%, #2d6335 100%);
+        }
+
+        /* Edit Mode Styles */
+        body.edit-mode [contenteditable="true"] {
+            outline: 2px dashed var(--accent-orange);
+            outline-offset: 3px;
+            padding: 5px;
+            transition: all 0.2s ease;
+            cursor: text;
+        }
+
+        body.edit-mode [contenteditable="true"]:hover {
+            outline-color: var(--primary-green);
+            background: rgba(58, 125, 68, 0.05);
+        }
+
+        body.edit-mode [contenteditable="true"]:focus {
+            outline: 2px solid var(--primary-green);
+            background: rgba(58, 125, 68, 0.1);
+        }
+
+        body.edit-mode img {
+            cursor: pointer;
+            border: 2px dashed transparent;
+            transition: all 0.3s ease;
+        }
+
+        body.edit-mode img:hover {
+            border-color: var(--accent-orange);
+            box-shadow: 0 4px 15px rgba(230, 126, 34, 0.3);
+        }
+
+        /* Edit Toolbar */
+        .edit-toolbar {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--white);
+            padding: 15px 30px;
+            border-radius: 50px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+            z-index: 10000;
+            display: none;
+            gap: 15px;
+            align-items: center;
+        }
+
+        body.edit-mode .edit-toolbar {
+            display: flex;
+        }
+
+        .edit-toolbar button {
+            background: var(--primary-green);
+            color: var(--white);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .edit-toolbar button:hover {
+            background: var(--accent-orange);
+            transform: scale(1.05);
+        }
+
+        .header.uk-active {
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+
+        .header .uk-navbar-nav > li > a {
+            color: var(--primary-green);
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .header .uk-navbar-nav > li > a:hover {
+            color: var(--accent-orange);
+            transform: translateY(-2px);
+        }
+
+        .header .uk-navbar-nav > li > a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--accent-orange);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .header .uk-navbar-nav > li > a:hover::after {
+            width: 80%;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 90vh;
+            min-height: 700px;
+            background: linear-gradient(120deg, rgba(58, 125, 68, 0.9) 0%, rgba(58, 125, 68, 0.7) 50%, rgba(230, 126, 34, 0.3) 100%),
+                        url('https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=1600&h=900&fit=crop') center center;
+            background-size: cover;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            color: var(--white);
+            overflow: hidden;
+        }
+
+        .hero > .uk-container > div {
+            text-align: left;
+            max-width: 700px;
+            padding-left: 40px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 50%, rgba(230, 126, 34, 0.1) 0%, transparent 50%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 0.8; }
+        }
+
+        .hero h1 {
+            color: var(--white);
+            font-size: 5.5rem;
+            line-height: 1.1;
+            margin-bottom: 2rem;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.4);
+            animation: fadeInUp 1s ease;
+            font-weight: 900;
+            letter-spacing: -2px;
+        }
+
+        .hero p {
+            font-size: 1.6rem;
+            line-height: 1.7;
+            margin-bottom: 3rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: fadeInUp 1s ease 0.2s both;
+            opacity: 0.95;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background: linear-gradient(135deg, #f39c12 0%, var(--accent-orange) 50%, var(--accent-orange-dark) 100%);
+            color: var(--white);
+            border: none;
+            padding: 20px 50px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            text-transform: none;
+            box-shadow: 0 6px 20px rgba(230, 126, 34, 0.4);
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn-primary:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, var(--accent-orange) 0%, var(--accent-orange-dark) 50%, #b34700 100%);
+            color: var(--white);
+            transform: translateY(-4px) scale(1.06);
+            box-shadow: 0 12px 35px rgba(230, 126, 34, 0.5);
+        }
+
+        .btn-primary:active {
+            transform: translateY(-1px) scale(1.02);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary-green);
+            border: 2px solid var(--primary-green);
+            padding: 16px 43px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-secondary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-green);
+            transition: left 0.4s ease;
+            z-index: -1;
+        }
+
+        .btn-secondary:hover::before {
+            left: 0;
+        }
+
+        .btn-secondary:hover {
+            color: var(--white);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(58, 125, 68, 0.4);
+        }
+
+        /* Sections */
+        .section-white {
+            background: var(--white);
+            padding: 140px 0;
+            position: relative;
+        }
+
+        .section-gray {
+            background: var(--secondary-gray);
+            padding: 140px 0;
+            position: relative;
+        }
+
+        .section-title {
+            font-size: 3.8rem;
+            margin-bottom: 5rem;
+            text-align: center;
+            position: relative;
+            display: inline-block;
+            width: 100%;
+            font-weight: 900;
+            letter-spacing: -1.5px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 6px;
+            background: linear-gradient(90deg, var(--accent-orange) 0%, var(--primary-green) 100%);
+            border-radius: 3px;
+        }
+
+        .section-title::before {
+            content: '✦';
+            position: absolute;
+            left: 50%;
+            top: -40px;
+            transform: translateX(-50%);
+            font-size: 2rem;
+            color: var(--accent-orange);
+            opacity: 0.6;
+        }
+
+        /* Info Cards */
+        .info-card {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.06), 0 2px 6px rgba(0,0,0,0.04);
+            margin-bottom: 30px;
+            border-left: 6px solid var(--primary-green);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform: translateY(0);
+        }
+
+        .info-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(58, 125, 68, 0.12), 0 4px 10px rgba(58, 125, 68, 0.08);
+        }
+
+        .info-card.warning {
+            background: var(--accent-pink);
+            border-left-color: var(--accent-red);
+        }
+
+        .info-card.warning:hover {
+            box-shadow: 0 12px 30px rgba(192, 57, 43, 0.2), 0 4px 10px rgba(192, 57, 43, 0.15);
+        }
+
+        .info-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            transition: color 0.3s ease;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .info-card:hover h3 {
+            color: var(--accent-orange);
+        }
+
+        /* Fact boxes */
+        .fact-box {
+            background: var(--white);
+            padding: 50px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .fact-box h3 {
+            font-size: 2rem;
+            margin-bottom: 1.8rem;
+        }
+
+        .fact-box p {
+            font-size: 1.1rem;
+            line-height: 1.9;
+        }
+
+        .fact-box ul {
+            font-size: 1.1rem;
+            line-height: 1.9;
+            margin-left: 20px;
+        }
+
+        .fact-box ul li {
+            margin: 12px 0;
+            position: relative;
+            padding-left: 10px;
+        }
+
+        .fact-box ul li::before {
+            content: '🐾';
+            position: absolute;
+            left: -20px;
+        }
+
+        /* Emotional fact box (rosa) */
+        .emotional-box {
+            position: relative;
+            background: linear-gradient(135deg, #fef7f9 0%, #ffeef5 50%, #ffe8f0 100%);
+            padding: 50px 60px 50px 80px;
+            border-radius: 20px;
+            margin: 50px 0;
+            font-family: 'Nunito', sans-serif;
+            box-shadow: 0 8px 30px rgba(255, 182, 182, 0.2);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            overflow: hidden;
+            border: 2px solid #ffd4e5;
+            transform: rotate(-0.5deg);
+        }
+
+        .emotional-box::before {
+            content: '💭';
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            font-size: 3.5rem;
+            opacity: 0.4;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .emotional-box::after {
+            content: '"';
+            position: absolute;
+            top: -20px;
+            right: 30px;
+            font-size: 12rem;
+            font-family: Georgia, serif;
+            color: #ffc4d6;
+            opacity: 0.3;
+            line-height: 1;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-8px) rotate(5deg); }
+        }
+
+
+        .emotional-box h4 {
+            position: absolute;
+            left: -9999px;
+            opacity: 0;
+        }
+
+        .emotional-box p {
+            font-size: 1.3rem;
+            line-height: 2.1;
+            color: #555;
+            font-weight: 500;
+            font-style: italic;
+            position: relative;
+            z-index: 1;
+            quotes: "„" """;
+        }
+
+        .emotional-box p::before {
+            content: open-quote;
+            font-size: 1.5em;
+            color: #e89bb8;
+            margin-right: 8px;
+            font-family: Georgia, serif;
+            vertical-align: -0.2em;
+        }
+
+        .emotional-box p::after {
+            content: close-quote;
+            font-size: 1.5em;
+            color: #e89bb8;
+            margin-left: 8px;
+            font-family: Georgia, serif;
+            vertical-align: -0.2em;
+        }
+
+        /* Warning box (rot) */
+        .warning-box {
+            background: radial-gradient(circle at top right, #e74c3c 0%, var(--accent-red) 40%, #a93226 100%);
+            color: var(--white);
+            padding: 40px;
+            border-radius: 16px;
+            margin: 40px 0;
+            box-shadow: 0 8px 25px rgba(192, 57, 43, 0.35), 0 3px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+
+        .warning-box h4 {
+            color: var(--white);
+            font-size: 1.6rem;
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .warning-box p {
+            font-size: 1.15rem;
+            line-height: 1.8;
+        }
+
+        .warning-box ul {
+            margin-left: 20px;
+            margin-top: 18px;
+        }
+
+        .warning-box ul li {
+            margin: 10px 0;
+            position: relative;
+            padding-left: 10px;
+        }
+
+        .warning-box ul li::marker {
+            content: '⚠️ ';
+        }
+
+        /* Stats */
+        .stat-box {
+            padding: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .stat-box:hover .stat-number {
+            transform: scale(1.2);
+            color: var(--accent-orange);
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: bold;
+            color: var(--primary-green);
+            font-family: 'Montserrat', sans-serif;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .stat-label {
+            font-size: 1.2rem;
+            color: #555;
+            margin-top: 15px;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        /* Test Section - Frage für Frage */
+        .question-card {
+            background: var(--white);
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .question-card.active {
+            display: block;
+            animation: slideInRight 0.5s ease;
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .question-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            color: var(--primary-green);
+        }
+
+        .question-number {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary-green) 0%, #2d6335 100%);
+            color: var(--white);
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            border-radius: 50%;
+            margin-right: 20px;
+            font-weight: bold;
+            font-size: 1.3rem;
+            box-shadow: 0 4px 10px rgba(58, 125, 68, 0.3);
+        }
+
+        .answer-option {
+            margin: 18px 0;
+        }
+
+        .answer-option label {
+            display: flex;
+            align-items: center;
+            padding: 22px 25px;
+            background: var(--secondary-gray);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            font-family: 'Nunito', sans-serif;
+            font-size: 1.15rem;
+            border: 3px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .answer-option label::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(58, 125, 68, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .answer-option label:hover::before {
+            left: 100%;
+        }
+
+        .answer-option input[type="radio"] {
+            margin-right: 15px;
+            transform: scale(1.5);
+            cursor: pointer;
+            accent-color: var(--primary-green);
+        }
+
+        .answer-option label:hover {
+            background: #e8e8e8;
+            border-color: var(--accent-orange);
+            transform: translateX(5px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .answer-option label:has(input[type="radio"]:checked) {
+            background: linear-gradient(135deg, var(--primary-green) 0%, #2d6335 100%);
+            color: var(--white);
+            border-color: var(--primary-green);
+            transform: translateX(10px) scale(1.02);
+            box-shadow: 0 6px 20px rgba(58, 125, 68, 0.4);
+        }
+
+        /* Navigation Buttons */
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            gap: 20px;
+        }
+
+        .btn-nav {
+            padding: 15px 35px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+
+        /* Result Section */
+        .result-box {
+            background: var(--white);
+            padding: 60px;
+            border-radius: 20px;
+            box-shadow: 0 10px 50px rgba(0,0,0,0.15);
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+            animation: scaleIn 0.5s ease;
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .result-box.not-ready {
+            border-top: 10px solid var(--accent-red);
+        }
+
+        .result-box.partially-ready {
+            border-top: 10px solid var(--accent-orange);
+        }
+
+        .result-box.ready {
+            border-top: 10px solid var(--primary-green);
+        }
+
+        .result-box.perfect {
+            border-top: 10px solid var(--primary-green);
+            background: linear-gradient(to bottom, #f0f9f1 0%, var(--white) 100%);
+        }
+
+        .result-icon {
+            font-size: 6rem;
+            margin-bottom: 25px;
+            animation: bounceIn 0.8s ease;
+        }
+
+        @keyframes bounceIn {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-30px); }
+            60% { transform: translateY(-15px); }
+        }
+
+        .result-title {
+            font-size: 2.8rem;
+            margin-bottom: 2rem;
+        }
+
+        .result-text {
+            font-size: 1.25rem;
+            line-height: 1.9;
+            color: #555;
+        }
+
+        .result-text ul {
+            text-align: left;
+            margin: 25px auto;
+            max-width: 700px;
+        }
+
+        .result-text ul li {
+            margin: 15px 0;
+            padding-left: 10px;
+        }
+
+        /* Loading Animation */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .loading-spinner {
+            width: 80px;
+            height: 80px;
+            border: 6px solid var(--secondary-gray);
+            border-top: 6px solid var(--primary-green);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            margin-top: 25px;
+            font-size: 1.3rem;
+            color: var(--primary-green);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+        }
+
+        /* Scroll to Top Button */
+        #scrollTop {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 55px;
+            height: 55px;
+            background: linear-gradient(135deg, var(--accent-orange) 0%, var(--accent-orange-dark) 100%);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(230, 126, 34, 0.4);
+            z-index: 999;
+            font-size: 1.5rem;
+        }
+
+        #scrollTop.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        #scrollTop:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(230, 126, 34, 0.6);
+        }
+
+        /* Hide/Show sections */
+        .hidden {
+            display: none !important;
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, var(--primary-green) 0%, #2d6335 100%);
+            color: var(--white);
+            padding: 50px 0;
+            text-align: center;
+        }
+
+        .footer a {
+            color: var(--accent-orange);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+            color: #f39c12;
+        }
+
+        /* Myth Cards */
+        .myth-card {
+            background: var(--white);
+            padding: 25px 30px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            transition: all 0.3s ease;
+            border-left: 5px solid var(--accent-red);
+        }
+
+        .myth-card:hover {
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+        }
+
+        .myth-icon {
+            font-size: 3rem;
+            flex-shrink: 0;
+        }
+
+        .myth-content h4 {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-green);
+        }
+
+        .myth-content p {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: #555;
+        }
+
+        .myth-label {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        .myth-label.false {
+            background: #ffe0e0;
+            color: var(--accent-red);
+        }
+
+        .myth-label.true {
+            background: #d4edda;
+            color: var(--primary-green);
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .stat-card {
+            background: radial-gradient(circle at top left, #4a9d54 0%, var(--primary-green) 40%, #2d6335 100%);
+            color: var(--white);
+            padding: 50px 35px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(58, 125, 68, 0.25), 0 4px 10px rgba(0,0,0,0.1);
+            transition: all 0.4s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(58, 125, 68, 0.35), 0 6px 15px rgba(0,0,0,0.12);
+        }
+
+        .stat-card-number {
+            font-size: 4rem;
+            font-weight: 900;
+            font-family: 'Montserrat', sans-serif;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+
+        @keyframes countUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .stat-card.animate .stat-card-number {
+            animation: countUp 0.8s ease-out forwards;
+        }
+
+        .stat-card-label {
+            font-size: 1.2rem;
+            font-family: 'Nunito', sans-serif;
+            line-height: 1.6;
+        }
+
+        /* Animal Warning Cards */
+        .animal-warning-card {
+            background: var(--white);
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            margin-bottom: 25px;
+            border-top: 5px solid var(--accent-red);
+            transition: all 0.3s ease;
+        }
+
+        .animal-warning-card:hover {
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+        }
+
+        .animal-warning-card h4 {
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            color: var(--accent-red);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .animal-warning-card p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .animal-warning-card ul {
+            margin-left: 20px;
+        }
+
+        .animal-warning-card ul li {
+            margin: 10px 0;
+            font-size: 1.05rem;
+        }
+
+        /* Test Intro Box */
+        .test-intro {
+            background: linear-gradient(135deg, var(--accent-pink) 0%, #ffcccc 100%);
+            padding: 40px;
+            border-radius: 15px;
+            margin-bottom: 50px;
+            text-align: center;
+            border: 3px solid var(--accent-orange);
+        }
+
+        .test-intro h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--primary-green);
+        }
+
+        .test-intro p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #444;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 500;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            margin-bottom: 50px;
+        }
+
+        .uk-progress {
+            height: 15px;
+            border-radius: 10px;
+            background: var(--secondary-gray);
+            overflow: hidden;
+        }
+
+        .uk-progress::-webkit-progress-value {
+            background: linear-gradient(90deg, var(--accent-orange) 0%, var(--primary-green) 100%);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .uk-progress::-moz-progress-bar {
+            background: linear-gradient(90deg, var(--accent-orange) 0%, var(--primary-green) 100%);
+            border-radius: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                height: 70vh;
+                min-height: 500px;
+            }
+
+            .hero > .uk-container > div {
+                padding-left: 20px;
+                max-width: 100%;
+            }
+
+            .hero h1 {
+                font-size: 3rem;
+                letter-spacing: -1px;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+                margin-bottom: 3rem;
+            }
+
+            .section-white, .section-gray {
+                padding: 80px 0;
+            }
+
+            .question-card, .fact-box, .result-box {
+                padding: 30px;
+            }
+
+            .stat-number {
+                font-size: 2.5rem;
+            }
+
+            .stat-card-number {
+                font-size: 3rem;
+            }
+
+            .info-card, .fact-box {
+                padding: 25px;
+            }
+
+            .btn-primary {
+                padding: 16px 40px;
+                font-size: 1.1rem;
+            }
+
+            #scrollTop {
+                bottom: 20px;
+                right: 20px;
+                width: 50px;
+                height: 50px;
+            }
+
+            .edit-btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Edit Button -->
+    <button class="edit-btn" id="editBtn" onclick="toggleEditMode()">
+        <span uk-icon="icon: pencil; ratio: 1.2"></span>
+        <span id="editBtnText">Bearbeiten</span>
+    </button>
+
+    <!-- Edit Toolbar -->
+    <div class="edit-toolbar">
+        <button onclick="saveChanges()">
+            <span uk-icon="icon: check"></span> Speichern
+        </button>
+        <button onclick="discardChanges()">
+            <span uk-icon="icon: close"></span> Verwerfen
+        </button>
+    </div>
+
+    <!-- Header - Sticky -->
+    <header class="header" uk-sticky="animation: uk-animation-slide-top">
+        <nav class="uk-navbar-container uk-navbar-transparent" uk-navbar>
+            <div class="uk-container">
+                <div class="uk-navbar-left">
+                    <a class="uk-navbar-item uk-logo" href="#start" style="color: var(--primary-green); font-weight: bold; font-size: 1.4rem;">
+                        <span uk-icon="icon: heart; ratio: 1.6"></span> Tierliebe
+                    </a>
+                </div>
+                <div class="uk-navbar-right">
+                    <ul class="uk-navbar-nav">
+                        <li><a href="#start">Start</a></li>
+                        <li><a href="#info">Info</a></li>
+                        <li><a href="#" onclick="scrollToTest(); return false;">Test</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="start" class="hero">
+        <div class="uk-container">
+            <div>
+                <h1>Bin ich bereit für ein Tier?</h1>
+                <p>Tiere sind Lebewesen, keine Deko oder Unterhaltung.<br>Finde heraus, ob du wirklich bereit bist.</p>
+                <button class="btn-primary uk-button uk-button-large" onclick="scrollToTest()">Test jetzt starten</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Info Section -->
+    <section id="info" class="section-gray">
+        <div class="uk-container">
+            <h2 class="section-title" uk-scrollspy="cls: uk-animation-slide-bottom-small; delay: 100">Warum dieser Test?</h2>
+            <div class="uk-grid uk-grid-match uk-child-width-1-2@m" uk-grid uk-scrollspy="cls: uk-animation-slide-bottom-small; target: > div; delay: 150">
+                <div>
+                    <div class="info-card">
+                        <h3><span style="font-size: 2rem;">⏰</span> Zeit ist entscheidend</h3>
+                        <p class="info-text">Ein Hund braucht täglich mehrere Stunden Beschäftigung und darf nicht länger als 4 Stunden allein bleiben. Katzen brauchen mindestens einen Artgenossen und regelmäßige Interaktion.</p>
+                    </div>
+                </div>
+                <div>
+                    <div class="info-card">
+                        <h3><span style="font-size: 2rem;">💰</span> Finanzielle Verantwortung</h3>
+                        <p class="info-text">Futter, Tierarzt, Vorsorge, Notfälle – ein Tier kostet Geld. Du solltest in der Lage sein, auch teure Behandlungen zu bezahlen, ohne das Tier zu vernachlässigen.</p>
+                    </div>
+                </div>
+                <div>
+                    <div class="info-card">
+                        <h3><span style="font-size: 2rem;">🏡</span> Platz und Umgebung</h3>
+                        <p class="info-text">Kleintiere und Vögel sind keine Käfigtiere – sie brauchen viel Platz und artgerechte Umgebung. Ein kleiner Käfig ist Tierquälerei.</p>
+                    </div>
+                </div>
+                <div>
+                    <div class="info-card warning">
+                        <h3><span style="font-size: 2rem;">⚠️</span> Wichtiger Hinweis</h3>
+                        <p class="info-text">Kaufe nicht im Zoohandel oder beim Züchter – im Tierschutz warten viele Tiere auf ein liebevolles Zuhause!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Facts Section 1: Kosten -->
+    <section class="section-white">
+        <div class="uk-container" uk-scrollspy="cls: uk-animation-slide-bottom-small; delay: 100">
+            <div class="fact-box">
+                <h3><span style="font-size: 2.5rem; margin-right: 10px;">💳</span> Was kostet ein Tier wirklich?</h3>
+                <p>Viele unterschätzen die tatsächlichen Kosten für ein Tier. Es geht nicht nur um Futter – sondern um lebenslange Verantwortung.</p>
+
+                <div class="warning-box">
+                    <h4><span style="font-size: 1.8rem;">⚠️</span> Wichtiger Hinweis: Reale Kosten</h4>
+                    <p><strong>Ein Hund kostet durchschnittlich 1.200–2.500 € pro Jahr</strong></p>
+                    <ul>
+                        <li>Futter: 300–800 € jährlich</li>
+                        <li>Tierarzt & Vorsorge: 200–500 € jährlich</li>
+                        <li>Versicherung: 200–600 € jährlich</li>
+                        <li>Notfallbehandlungen: bis zu mehreren Tausend Euro</li>
+                    </ul>
+                </div>
+
+                <div class="emotional-box">
+                    <p>Ein Tier ist kein Spontankauf. Wer nicht bereit ist, langfristig Zeit und Geld zu investieren, sollte kein Tier halten – denn die Tiere zahlen den Preis für unsere Fehlentscheidungen.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Facts Section 2: Zeit -->
+    <section class="section-gray">
+        <div class="uk-container" uk-scrollspy="cls: uk-animation-slide-bottom-small; delay: 100">
+            <div class="fact-box">
+                <h3><span style="font-size: 2.5rem; margin-right: 10px;">⏱️</span> Zeitaufwand: Mehr als du denkst</h3>
+
+                <div class="uk-grid uk-grid-match uk-child-width-1-3@m" uk-grid>
+                    <div class="uk-text-center stat-box">
+                        <div><span uk-icon="icon: future; ratio: 2.5" style="color: var(--primary-green)"></span></div>
+                        <div class="stat-number">3-5h</div>
+                        <div class="stat-label">Täglich für einen Hund (Gassi, Training, Pflege)</div>
+                    </div>
+                    <div class="uk-text-center stat-box">
+                        <div><span uk-icon="icon: clock; ratio: 2.5" style="color: var(--primary-green)"></span></div>
+                        <div class="stat-number">2-3h</div>
+                        <div class="stat-label">Täglich für Katzen (Spiel, Pflege, Beschäftigung)</div>
+                    </div>
+                    <div class="uk-text-center stat-box">
+                        <div><span uk-icon="icon: history; ratio: 2.5" style="color: var(--primary-green)"></span></div>
+                        <div class="stat-number">1-2h</div>
+                        <div class="stat-label">Täglich für Kleintiere (Freilauf, Beschäftigung, Reinigung)</div>
+                    </div>
+                </div>
+
+                <div class="emotional-box">
+                    <p>Tiere sind soziale Wesen. Ein Hund, der 8 Stunden allein ist, leidet. Eine Katze ohne Artgenossen ist einsam. Kaninchen im Käfig vegetieren nur – sie leben nicht.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Facts Section 3: Verantwortung -->
+    <section class="section-white">
+        <div class="uk-container" uk-scrollspy="cls: uk-animation-slide-bottom-small; delay: 100">
+            <div class="fact-box">
+                <h3><span style="font-size: 2.5rem; margin-right: 10px;">❤️</span> Langfristige Verantwortung</h3>
+                <p>Ein Tier zu haben bedeutet nicht nur Freude, sondern auch jahrelange Verpflichtung:</p>
+                <ul>
+                    <li><strong>Hunde</strong> leben 10–15 Jahre</li>
+                    <li><strong>Katzen</strong> leben 15–20 Jahre</li>
+                    <li><strong>Kaninchen</strong> leben 8–12 Jahre</li>
+                    <li><strong>Vögel</strong> können über 20 Jahre alt werden</li>
+                </ul>
+
+                <div class="warning-box">
+                    <h4><span style="font-size: 1.8rem;">🚫</span> Häufige Fehler vermeiden</h4>
+                    <ul>
+                        <li>Kauf im Zoohandel oder bei Züchtern – unterstützt Tierausbeutung</li>
+                        <li>Spontankauf ohne Vorbereitung – endet oft im Tierheim</li>
+                        <li>Tiere als Geschenk – Lebewesen sind keine Überraschung</li>
+                        <li>Einzelhaltung sozialer Tiere – ist Tierquälerei</li>
+                    </ul>
+                </div>
+
+                <div class="emotional-box">
+                    <p>Jedes Jahr landen Tausende Tiere im Tierheim, weil Menschen sie unterschätzt haben. Echte Tierliebe bedeutet auch, ehrlich zu sich selbst zu sein – und im Zweifel KEIN Tier zu nehmen.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Facts Section 4: Alternative Möglichkeiten -->
+    <section class="section-gray">
+        <div class="uk-container" uk-scrollspy="cls: uk-animation-slide-bottom-small; delay: 100">
+            <div class="fact-box">
+                <h3><span style="font-size: 2.5rem; margin-right: 10px;">⭐</span> Du liebst Tiere, aber bist nicht bereit?</h3>
+                <p>Es gibt viele Wege, Tieren zu helfen, ohne sie selbst zu halten:</p>
+                <ul>
+                    <li><strong>Tierpatenschaften</strong> – Unterstütze Tiere im Tierschutz finanziell</li>
+                    <li><strong>Ehrenamtliche Arbeit</strong> – Hilf im Tierheim oder bei Tierschutzorganisationen</li>
+                    <li><strong>Spenden</strong> – Jeder Euro hilft Tieren in Not</li>
+                    <li><strong>Pflegestellen</strong> – Biete temporär ein Zuhause für Tiere in Not</li>
+                    <li><strong>Aufklärung</strong> – Teile Wissen über artgerechte Haltung</li>
+                </ul>
+
+                <div class="emotional-box">
+                    <p>Die ehrlichste Form der Tierliebe ist es, ihre Bedürfnisse über unsere eigenen Wünsche zu stellen. Manchmal bedeutet Tiere lieben auch, sie nicht zu besitzen.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Statistiken Section -->
+    <section class="section-white">
+        <div class="uk-container" uk-scrollspy="cls: uk-animation-slide-bottom-small; delay: 100">
+            <h2 class="section-title">Die harten Fakten</h2>
+            <p style="text-align: center; font-size: 1.2rem; margin-bottom: 40px; color: #555;">
+                Zahlen, die nachdenklich machen sollten
+            </p>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-card-number">300.000+</div>
+                    <div class="stat-card-label">Tiere landen jährlich in deutschen Tierheimen</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-card-number">~30%</div>
+                    <div class="stat-card-label">der abgegebenen Tiere werden wieder vermittelt</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-card-number">#1 Grund</div>
+                    <div class="stat-card-label">für Abgabe: Unterschätzter Zeitaufwand & Kosten</div>
+                </div>
+            </div>
+
+            <div class="emotional-box" style="margin-top: 50px;">
+                <p>Hinter jeder dieser Zahlen stehen lebende, fühlende Wesen, die eine zweite Chance verdient haben. Viele von ihnen werden nie ein liebevolles Zuhause finden – weil Menschen ihre Verantwortung unterschätzt haben.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mythen vs. Realität Section -->
+    <section class="section-gray">
+        <div class="uk-container" uk-scrollspy="cls: uk-animation-slide-bottom-small; delay: 100">
+            <h2 class="section-title">Mythen vs. Realität</h2>
+            <p style="text-align: center; font-size: 1.2rem; margin-bottom: 40px; color: #555;">
+                Diese weit verbreiteten Irrtümer kosten Tierleben
+            </p>
+
+            <div class="myth-card">
+                <div class="myth-icon">❌</div>
+                <div class="myth-content">
+                    <span class="myth-label false">MYTHOS</span>
+                    <h4>Katzen sind Einzelgänger</h4>
+                    <p><strong>Realität:</strong> Katzen sind soziale Tiere und brauchen Artgenossen. Einzelhaltung führt zu Verhaltensstörungen, Aggression und Depression. Mindestens 2 Katzen sind Pflicht – nicht Kür.</p>
+                </div>
+            </div>
+
+            <div class="myth-card">
+                <div class="myth-icon">❌</div>
+                <div class="myth-content">
+                    <span class="myth-label false">MYTHOS</span>
+                    <h4>Kaninchen brauchen nur einen kleinen Käfig</h4>
+                    <p><strong>Realität:</strong> Kaninchen brauchen mehrere Quadratmeter Platz zum Hoppeln und Buddeln. Ein Käfig ist Tierquälerei. Sie brauchen mindestens einen Partner und täglichen Freilauf.</p>
+                </div>
+            </div>
+
+            <div class="myth-card">
+                <div class="myth-icon">❌</div>
+                <div class="myth-content">
+                    <span class="myth-label false">MYTHOS</span>
+                    <h4>Hunde sind das perfekte Geschenk für Kinder</h4>
+                    <p><strong>Realität:</strong> Hunde sind kein Spielzeug. Die Verantwortung liegt IMMER bei den Erwachsenen. Ein Hund braucht konsequente Erziehung, Zeit und Geduld – nichts für Spontankäufe.</p>
+                </div>
+            </div>
+
+            <div class="myth-card">
+                <div class="myth-icon">❌</div>
+                <div class="myth-content">
+                    <span class="myth-label false">MYTHOS</span>
+                    <h4>Im Zoohandel sind die Tiere gesünder</h4>
+                    <p><strong>Realität:</strong> Zoohandel = Massenproduktion. Tiere werden unter schlimmsten Bedingungen gezüchtet, von der Mutter gerissen und verkauft. Tierschutz-Tiere sind tierärztlich untersucht, geimpft und sozialisiert.</p>
+                </div>
+            </div>
+
+            <div class="myth-card">
+                <div class="myth-icon">❌</div>
+                <div class="myth-content">
+                    <span class="myth-label false">MYTHOS</span>
+                    <h4>Vögel sind pflegeleicht und brauchen wenig Platz</h4>
+                    <p><strong>Realität:</strong> Vögel brauchen große Volieren, täglichen Freiflug, Artgenossen und geistige Beschäftigung. Einzelhaltung im Käfig ist Folter. Viele Vogelarten werden über 20 Jahre alt.</p>
+                </div>
+            </div>
+
+            <div class="myth-card" style="border-left-color: var(--primary-green);">
+                <div class="myth-icon">✅</div>
+                <div class="myth-content">
+                    <span class="myth-label true">WAHRHEIT</span>
+                    <h4>Tiere aus dem Tierschutz brauchen besondere Zuwendung</h4>
+                    <p><strong>Aber:</strong> Sie sind nicht "kaputt". Mit Geduld, Liebe und Zeit werden sie zu treuen Begleitern. Viele sind bestens sozialisiert und warten nur auf ihre zweite Chance.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Artspezifische Warnungen Section -->
+    <section class="section-white">
+        <div class="uk-container" uk-scrollspy="cls: uk-animation-slide-bottom-small; delay: 100">
+            <h2 class="section-title">Diese Tiere gehören NICHT in Privathand</h2>
+            <p style="text-align: center; font-size: 1.2rem; margin-bottom: 40px; color: #555;">
+                Exoten sind keine Haustiere
+            </p>
+
+            <div class="animal-warning-card">
+                <h4><span style="font-size: 2rem;">🐢</span> Schildkröten</h4>
+                <p><strong>Warum nicht?</strong></p>
+                <ul>
+                    <li>Werden 50-100 Jahre alt (lebenslange Verpflichtung!)</li>
+                    <li>Brauchen spezielle Winterruhe, UV-Licht, großes Außengehege</li>
+                    <li>Meist aus illegalem Wildtierhandel</li>
+                    <li>Landen massenweise in Auffangstationen</li>
+                </ul>
+                <p><strong>Fazit:</strong> Keine Kuscheltiere, sehr anspruchsvoll, oft Fehlinformation im Handel.</p>
+            </div>
+
+            <div class="animal-warning-card">
+                <h4><span style="font-size: 2rem;">🦜</span> Papageien & Großsittiche</h4>
+                <p><strong>Warum nicht?</strong></p>
+                <ul>
+                    <li>Werden 30-80 Jahre alt</li>
+                    <li>Extrem laut (Nachbarn!), zerstörerisch</li>
+                    <li>Brauchen riesige Volieren, täglichen Freiflug, Partnertiere</li>
+                    <li>Hochintelligent – Langeweile führt zu Selbstverstümmelung</li>
+                </ul>
+                <p><strong>Fazit:</strong> Für 99% der Menschen ungeeignet. Oft jahrzehntelanges Leid.</p>
+            </div>
+
+            <div class="animal-warning-card">
+                <h4><span style="font-size: 2rem;">🦎</span> Reptilien (Schlangen, Echsen, etc.)</h4>
+                <p><strong>Warum nicht?</strong></p>
+                <ul>
+                    <li>Brauchen teure Terrarien mit exakter Temperatur/Luftfeuchtigkeit</li>
+                    <li>Futter oft lebende/tote Wirbeltiere (moralisch fragwürdig)</li>
+                    <li>Keine Kuscheltiere, oft gestresst durch Haltung</li>
+                    <li>Viele Arten artgeschützt, illegaler Handel</li>
+                </ul>
+                <p><strong>Fazit:</strong> Wildtiere, die in Terrarien leiden. Nicht anfassen.</p>
+            </div>
+
+            <div class="animal-warning-card">
+                <h4><span style="font-size: 2rem;">🐹</span> Exotische Kleinsäuger (Chinchillas, Degus, etc.)</h4>
+                <p><strong>Warum nicht?</strong></p>
+                <ul>
+                    <li>Extrem spezialisierte Bedürfnisse (Sandbäder, Temperatur, Futter)</li>
+                    <li>Nachtaktiv – stören den Schlaf</li>
+                    <li>Werden oft krank durch Unwissenheit der Halter</li>
+                    <li>Brauchen riesige Gehege und Artgenossen</li>
+                </ul>
+                <p><strong>Fazit:</strong> Unterschätzt, anspruchsvoll, nicht für Anfänger.</p>
+            </div>
+
+            <div class="warning-box">
+                <h4><span style="font-size: 1.8rem;">⚠️</span> Grundsatzregel</h4>
+                <p><strong>Wenn ein Tier aus einem anderen Kontinent kommt, gehört es mit 99% Wahrscheinlichkeit nicht in dein Wohnzimmer.</strong></p>
+                <p>Der Handel mit Exoten ist oft illegal, grausam und führt zu unermesslichem Tierleid. Tiere sterben beim Transport, in Zoohandlungen und in Privathand.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Test Section -->
+    <section id="test" class="section-white hidden">
+        <div class="uk-container">
+            <h2 class="section-title">Mach den Test</h2>
+
+            <div class="test-intro">
+                <h3>⏱️ Dieser Test dauert ca. 5 Minuten</h3>
+                <p><strong>Sei ehrlich zu dir selbst</strong> – die Tiere werden es dir danken. Dieser Test zeigt dir ehrlich und ohne Beschönigung, ob du wirklich bereit bist für ein Tier.</p>
+                <p style="margin-top: 15px; font-size: 1.1rem;">Es geht nicht darum, perfekt zu sein. Es geht darum, realistisch zu sein.</p>
+            </div>
+
+            <div class="progress-container">
+                <p class="info-text uk-text-center" style="margin-bottom: 15px; font-size: 1.2rem; font-weight: 600;">
+                    Frage <span id="current-question">1</span> von 8
+                </p>
+                <progress id="progress-bar" class="uk-progress" value="12.5" max="100"></progress>
+            </div>
+
+            <form id="test-form">
+                <!-- Questions will be shown one by one -->
+                <div id="questions-container"></div>
+
+                <div class="nav-buttons">
+                    <button type="button" id="prevBtn" class="btn-secondary uk-button btn-nav hidden" onclick="changeQuestion(-1)">
+                        <span uk-icon="icon: chevron-left"></span> Zurück
+                    </button>
+                    <button type="button" id="nextBtn" class="btn-primary uk-button btn-nav" onclick="changeQuestion(1)">
+                        Weiter <span uk-icon="icon: chevron-right"></span>
+                    </button>
+                    <button type="submit" id="submitBtn" class="btn-primary uk-button btn-nav hidden">
+                        Ergebnis anzeigen <span uk-icon="icon: check"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Result Section -->
+    <section id="result" class="section-gray hidden">
+        <div class="uk-container">
+            <div id="result-content"></div>
+            <div class="uk-text-center" style="margin-top: 50px;">
+                <button class="btn-secondary uk-button uk-button-large" onclick="resetTest()">
+                    <span uk-icon="icon: refresh"></span> Test erneut machen
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="uk-container">
+            <p style="margin-bottom: 15px; font-size: 1.1rem;">
+                <strong>🌍 Bitte denken Sie an Tiere, Wälder und Klima</strong>
+            </p>
+            <p style="font-size: 0.95rem; opacity: 0.9;">
+                Jeder unnötige Ausdruck kostet Ressourcen, zerstört Lebensräume und belastet das Klima.
+            </p>
+            <p style="margin-top: 30px; font-size: 0.9rem;">
+                &copy; 2025 Annemarie Andersen | <a href="https://www.annemarie-andersen.de">www.annemarie-andersen.de</a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollTop" onclick="scrollToTop()">
+        <span uk-icon="icon: chevron-up; ratio: 1.5"></span>
+    </button>
+
+    <!-- UIkit JS -->
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.17.11/dist/js/uikit.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.17.11/dist/js/uikit-icons.min.js"></script>
+
+    <script>
+        // Questions data
+        const questions = [
+            {
+                number: 1,
+                question: "Wie lange bist du werktags außer Haus (Arbeit, Schule, Studium)?",
+                answers: [
+                    { id: "q1a", value: "1", text: "Weniger als 4 Stunden" },
+                    { id: "q1b", value: "2", text: "4–6 Stunden" },
+                    { id: "q1c", value: "3", text: "6–8 Stunden" },
+                    { id: "q1d", value: "4", text: "Mehr als 8 Stunden" }
+                ]
+            },
+            {
+                number: 2,
+                question: "Kann dein Tier dich regelmäßig begleiten oder betreut werden?",
+                answers: [
+                    { id: "q2a", value: "1", text: "Ja, fast immer" },
+                    { id: "q2b", value: "2", text: "Manchmal" },
+                    { id: "q2c", value: "3", text: "Nein, es wäre meist allein" }
+                ]
+            },
+            {
+                number: 3,
+                question: "Warum möchtest du ein Tier?",
+                answers: [
+                    { id: "q3a", value: "1", text: "Um einem Tier aus dem Tierschutz ein Zuhause zu geben" },
+                    { id: "q3b", value: "2", text: "Aus Liebe zu Tieren, ich möchte langfristig Verantwortung übernehmen" },
+                    { id: "q3c", value: "3", text: "Ich möchte Gesellschaft / Unterhaltung" },
+                    { id: "q3d", value: "4", text: "Mein Kind / Partner möchte eins" },
+                    { id: "q3e", value: "5", text: "Ich finde Tiere süß, es wäre schön eins zu haben" }
+                ]
+            },
+            {
+                number: 4,
+                question: "Wie viel Geld kannst du pro Monat realistisch für ein Tier ausgeben?",
+                answers: [
+                    { id: "q4a", value: "1", text: "Unter 50 €" },
+                    { id: "q4b", value: "2", text: "50–100 €" },
+                    { id: "q4c", value: "3", text: "100–200 €" },
+                    { id: "q4d", value: "4", text: "Über 200 €" }
+                ]
+            },
+            {
+                number: 5,
+                question: "Wärst du in der Lage, im Notfall mehrere Tausend Euro für eine Tierbehandlung zu bezahlen?",
+                answers: [
+                    { id: "q5a", value: "1", text: "Ja" },
+                    { id: "q5b", value: "2", text: "Mit Einschränkungen / müsste ich mir stark überlegen" },
+                    { id: "q5c", value: "3", text: "Nein" }
+                ]
+            },
+            {
+                number: 6,
+                question: "Welche Wohnsituation hast du?",
+                answers: [
+                    { id: "q6a", value: "1", text: "Wohnung ohne Balkon/Garten" },
+                    { id: "q6b", value: "2", text: "Wohnung mit Balkon/Garten" },
+                    { id: "q6c", value: "3", text: "Haus mit Garten" },
+                    { id: "q6d", value: "4", text: "Ländlich mit großem Grundstück" }
+                ]
+            },
+            {
+                number: 7,
+                question: "Wie viel Platz hast du für Käfig/Gehege/Voliere?",
+                answers: [
+                    { id: "q7a", value: "1", text: "Nur kleiner Käfig möglich" },
+                    { id: "q7b", value: "2", text: "Mittelgroßer Bereich (z. B. ein Zimmerteil, kleiner Balkon)" },
+                    { id: "q7c", value: "3", text: "Mehrere m² Platz / eigener Raum" },
+                    { id: "q7d", value: "4", text: "Garten oder große Voliere möglich" }
+                ]
+            },
+            {
+                number: 8,
+                question: "Wie gut kennst du die Bedürfnisse der Tierart, die dich interessiert?",
+                answers: [
+                    { id: "q8a", value: "1", text: "Ich habe mich gründlich informiert (Fachbücher, Tierschutzseiten, Tierärzte)" },
+                    { id: "q8b", value: "2", text: "Ich kenne mich ein bisschen aus" },
+                    { id: "q8c", value: "3", text: "Ich verlasse mich auf Ratschläge von Freunden, Familie oder Zoohandel" },
+                    { id: "q8d", value: "4", text: "Gar nicht, ich probiere es aus" }
+                ]
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        const totalQuestions = questions.length;
+        const form = document.getElementById('test-form');
+        const questionsContainer = document.getElementById('questions-container');
+        const userAnswers = {}; // Store answers separately
+
+        // Initialize test
+        function initTest() {
+            currentQuestionIndex = 0;
+            Object.keys(userAnswers).forEach(key => delete userAnswers[key]); // Clear answers
+            renderQuestion(currentQuestionIndex);
+            updateProgress();
+            updateNavigationButtons();
+        }
+
+        // Render current question
+        function renderQuestion(index) {
+            const q = questions[index];
+            const answersHTML = q.answers.map(a => `
+                <div class="answer-option">
+                    <label for="${a.id}">
+                        <input type="radio" name="q${q.number}" id="${a.id}" value="${a.value}">
+                        ${a.text}
+                    </label>
+                </div>
+            `).join('');
+
+            questionsContainer.innerHTML = `
+                <div class="question-card active">
+                    <h3><span class="question-number">${q.number}</span>${q.question}</h3>
+                    ${answersHTML}
+                </div>
+            `;
+
+            // Restore previous answer if exists
+            if (userAnswers[q.number]) {
+                const radio = document.querySelector(`input[name="q${q.number}"][value="${userAnswers[q.number]}"]`);
+                if (radio) radio.checked = true;
+            }
+
+            // Add change listener to save answer
+            questionsContainer.querySelectorAll('input[type="radio"]').forEach(radio => {
+                radio.addEventListener('change', (e) => {
+                    userAnswers[q.number] = e.target.value;
+                    updateProgress();
+                });
+            });
+        }
+
+        // Get answer for question
+        function getAnswer(questionNumber) {
+            return userAnswers[questionNumber] || null;
+        }
+
+        // Change question
+        function changeQuestion(direction) {
+            const currentAnswer = getAnswer(questions[currentQuestionIndex].number);
+
+            if (direction === 1 && !currentAnswer) {
+                UIkit.notification({
+                    message: 'Bitte wähle eine Antwort aus!',
+                    status: 'warning',
+                    pos: 'top-center',
+                    timeout: 2000
+                });
+                return;
+            }
+
+            currentQuestionIndex += direction;
+
+            if (currentQuestionIndex >= 0 && currentQuestionIndex < totalQuestions) {
+                renderQuestion(currentQuestionIndex);
+                updateNavigationButtons();
+                updateProgress();
+
+                // Scroll to question
+                document.getElementById('questions-container').scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center'
+                });
+            }
+        }
+
+        // Update navigation buttons
+        function updateNavigationButtons() {
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const submitBtn = document.getElementById('submitBtn');
+
+            if (currentQuestionIndex === 0) {
+                prevBtn.classList.add('hidden');
+            } else {
+                prevBtn.classList.remove('hidden');
+            }
+
+            if (currentQuestionIndex === totalQuestions - 1) {
+                nextBtn.classList.add('hidden');
+                submitBtn.classList.remove('hidden');
+            } else {
+                nextBtn.classList.remove('hidden');
+                submitBtn.classList.add('hidden');
+            }
+        }
+
+        // Update progress bar
+        function updateProgress() {
+            let answeredCount = 0;
+            for (let i = 1; i <= totalQuestions; i++) {
+                if (getAnswer(i)) {
+                    answeredCount++;
+                }
+            }
+
+            const progress = (answeredCount / totalQuestions) * 100;
+            document.getElementById('progress-bar').value = progress;
+            document.getElementById('current-question').textContent = answeredCount;
+        }
+
+        // Scroll to test section
+        function scrollToTest() {
+            document.getElementById('test').classList.remove('hidden');
+            initTest();
+            document.getElementById('test').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Form submission
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Check if all questions are answered
+            let allAnswered = true;
+            for (let i = 1; i <= totalQuestions; i++) {
+                if (!getAnswer(i)) {
+                    allAnswered = false;
+                    break;
+                }
+            }
+
+            if (!allAnswered) {
+                UIkit.notification({
+                    message: 'Bitte beantworte alle Fragen!',
+                    status: 'warning',
+                    pos: 'top-center',
+                    timeout: 3000
+                });
+                return;
+            }
+
+            // Show loading
+            showLoading();
+
+            // Get answers
+            const answers = {};
+            for (let i = 1; i <= totalQuestions; i++) {
+                answers[`q${i}`] = parseInt(getAnswer(i));
+            }
+
+            // Evaluate with delay for loading animation
+            setTimeout(() => {
+                const result = evaluateTest(answers);
+                hideLoading();
+                showResult(result);
+            }, 1500);
+        });
+
+        function evaluateTest(answers) {
+            // Scoring-System: Jede Kategorie bekommt 0-100 Punkte
+            const scores = {
+                time: 0,
+                money: 0,
+                motivation: 0,
+                knowledge: 0,
+                space: 0
+            };
+
+            // ZEIT-SCORE (Gewichtung: 25%)
+            if (answers.q1 === 1) scores.time = 100; // <4h
+            else if (answers.q1 === 2) scores.time = 70; // 4-6h
+            else if (answers.q1 === 3) scores.time = 40; // 6-8h
+            else scores.time = 0; // >8h = Knockout
+
+            // Betreuung modifiziert Zeit-Score
+            if (answers.q2 === 1) scores.time = Math.min(100, scores.time + 20);
+            else if (answers.q2 === 2) scores.time = scores.time; // neutral
+            else scores.time = Math.max(0, scores.time - 30); // keine Betreuung = kritisch
+
+            // GELD-SCORE (Gewichtung: 25%)
+            if (answers.q4 === 1) scores.money = 0; // <50€ = Knockout
+            else if (answers.q4 === 2) scores.money = 40; // 50-100€
+            else if (answers.q4 === 3) scores.money = 70; // 100-200€
+            else scores.money = 90; // >200€
+
+            // Notfall-Rücklage modifiziert Geld-Score massiv
+            if (answers.q5 === 1) scores.money = Math.min(100, scores.money + 30);
+            else if (answers.q5 === 2) scores.money = Math.max(0, scores.money - 20);
+            else scores.money = 0; // Kein Notfall-Budget = Knockout
+
+            // MOTIVATIONS-SCORE (Gewichtung: 30% - WICHTIGSTE Kategorie!)
+            if (answers.q3 === 1) scores.motivation = 100; // Tierschutz
+            else if (answers.q3 === 2) scores.motivation = 90; // Verantwortung
+            else if (answers.q3 === 3) scores.motivation = 30; // Gesellschaft
+            else if (answers.q3 === 4) scores.motivation = 0; // Kind/Partner will = Knockout
+            else scores.motivation = 0; // süß = Knockout
+
+            // WISSENS-SCORE (Gewichtung: 15%)
+            if (answers.q8 === 1) scores.knowledge = 100; // gründlich
+            else if (answers.q8 === 2) scores.knowledge = 60; // bisschen
+            else if (answers.q8 === 3) scores.knowledge = 20; // Zoohandel/Freunde
+            else scores.knowledge = 0; // gar nicht
+
+            // PLATZ-SCORE (Gewichtung: 5%)
+            if (answers.q7 === 1) scores.space = 0; // Käfig = Knockout
+            else if (answers.q7 === 2) scores.space = 50; // mittel
+            else if (answers.q7 === 3) scores.space = 80; // mehrere m²
+            else scores.space = 100; // Garten
+
+            // Wohnsituation ergänzt Platz-Score
+            if (answers.q6 === 4) scores.space = Math.min(100, scores.space + 20); // ländlich
+            else if (answers.q6 === 3) scores.space = Math.min(100, scores.space + 10); // Haus
+
+            // GESAMT-SCORE (gewichtet)
+            const totalScore =
+                scores.time * 0.25 +
+                scores.money * 0.25 +
+                scores.motivation * 0.30 +
+                scores.knowledge * 0.15 +
+                scores.space * 0.05;
+
+            // Knockout-Bedingungen (überschreiben Score)
+            const knockouts = [];
+            if (scores.motivation === 0) knockouts.push({
+                text: 'Deine Motivation ist inakzeptabel',
+                detail: 'Tiere sind keine Geschenke oder Dekoration. Überdenke grundlegend, ob du ein Tier willst.'
+            });
+            if (scores.money === 0) knockouts.push({
+                text: 'Finanziell nicht tragbar',
+                detail: 'Ohne Notfall-Rücklage kannst du im Ernstfall kein Tier retten. Das ist unverantwortlich.'
+            });
+            if (scores.time === 0) knockouts.push({
+                text: 'Keine Zeit für ein Tier',
+                detail: 'Mehr als 8h außer Haus ohne Betreuung = Tierquälerei. Keine Ausnahmen.'
+            });
+            if (scores.space === 0) knockouts.push({
+                text: 'Käfighaltung ist Tierquälerei',
+                detail: 'Kein Tier passt in einen kleinen Käfig. Punkt.'
+            });
+            if (scores.knowledge === 0) knockouts.push({
+                text: 'Null Vorbereitung',
+                detail: 'Sich gar nicht zu informieren ist grob fahrlässig. Ein Tier ist kein Experiment.'
+            });
+
+            // Detaillierte Probleme und Stärken basierend auf Scores
+            const issues = [];
+            const strengths = [];
+            const recommendations = [];
+
+            // Zeit-Analyse
+            if (scores.time >= 80) {
+                strengths.push('⏰ Zeit: Sehr gut! Du hast ausreichend Zeit für ein Tier.');
+            } else if (scores.time >= 60) {
+                strengths.push('⏰ Zeit: Gut. Mit Betreuung machbar.');
+            } else if (scores.time >= 30) {
+                issues.push('⏰ Zeit: Kritisch. 6-8h außer Haus ist grenzwertig.');
+                recommendations.push({
+                    priority: 2,
+                    action: 'Organisiere zuverlässige Betreuung (Gassi-Service, Nachbarn, Partner)',
+                    timeframe: 'Vor Anschaffung'
+                });
+            } else {
+                issues.push('⏰ Zeit: Inakzeptabel. >8h allein = Tierquälerei.');
+                recommendations.push({
+                    priority: 1,
+                    action: 'Warte, bis sich deine Arbeitssituation ändert',
+                    timeframe: 'Minimum 1 Jahr'
+                });
+            }
+
+            // Geld-Analyse
+            if (scores.money >= 90) {
+                strengths.push('💰 Finanzen: Hervorragend. Budget + Notfall-Rücklage vorhanden.');
+            } else if (scores.money >= 60) {
+                strengths.push('💰 Finanzen: Solide Basis, aber Notfall-Rücklage aufbauen.');
+                recommendations.push({
+                    priority: 2,
+                    action: 'Spare 2.000€ als Tier-Notfall-Budget an',
+                    timeframe: '6-12 Monate'
+                });
+            } else if (scores.money >= 30) {
+                issues.push('💰 Finanzen: Zu knapp. 50-100€/Monat reicht kaum.');
+                recommendations.push({
+                    priority: 1,
+                    action: 'Erhöhe dein Budget auf mind. 150€/Monat + 2.000€ Reserve',
+                    timeframe: '12-24 Monate'
+                });
+            } else {
+                issues.push('💰 Finanzen: Nicht tragbar. Ohne Geld kein Tier.');
+                recommendations.push({
+                    priority: 1,
+                    action: 'Stabilisiere erst deine finanzielle Situation',
+                    timeframe: 'Unbegrenzt'
+                });
+            }
+
+            // Motivations-Analyse
+            if (scores.motivation >= 90) {
+                strengths.push('❤️ Motivation: Perfekt! Du verstehst die Verantwortung.');
+            } else if (scores.motivation >= 60) {
+                strengths.push('❤️ Motivation: Okay, aber prüfe deine Erwartungen.');
+                recommendations.push({
+                    priority: 3,
+                    action: 'Reflektiere: Willst DU ein Tier oder will jemand anderes es?',
+                    timeframe: '1 Monat'
+                });
+            } else {
+                issues.push('❤️ Motivation: Falsche Gründe. Tiere sind keine Deko.');
+                recommendations.push({
+                    priority: 1,
+                    action: 'Überdenke deine Motivation fundamental. Kein Tier jetzt!',
+                    timeframe: 'Unbegrenzt'
+                });
+            }
+
+            // Wissens-Analyse
+            if (scores.knowledge >= 90) {
+                strengths.push('📚 Wissen: Sehr gut vorbereitet!');
+            } else if (scores.knowledge >= 50) {
+                issues.push('📚 Wissen: Lückenhaft. Informiere dich noch mehr.');
+                recommendations.push({
+                    priority: 2,
+                    action: 'Lies 2-3 Fachbücher, besuche Tierheime, sprich mit Tierärzten',
+                    timeframe: '2-3 Monate'
+                });
+            } else {
+                issues.push('📚 Wissen: Gefährlich wenig! Zoohandel = Fehlinformationen.');
+                recommendations.push({
+                    priority: 1,
+                    action: 'DRINGEND: Gründliche Recherche bei seriösen Quellen',
+                    timeframe: '3-6 Monate'
+                });
+            }
+
+            // Platz-Analyse
+            if (scores.space >= 80) {
+                strengths.push('🏡 Platz: Ausgezeichnet. Artgerechte Haltung möglich.');
+            } else if (scores.space >= 50) {
+                strengths.push('🏡 Platz: Ausreichend für bestimmte Tierarten.');
+            } else {
+                issues.push('🏡 Platz: Zu wenig. Käfig = Tierquälerei.');
+                recommendations.push({
+                    priority: 1,
+                    action: 'Warte auf größere Wohnung oder verzichte auf eigenes Tier',
+                    timeframe: 'Unbegrenzt'
+                });
+            }
+
+            // TIER-MATCHING basierend auf Scores
+            const suitableAnimals = [];
+            if (scores.time >= 70 && scores.money >= 70) {
+                if (scores.space >= 80) {
+                    suitableAnimals.push({name: 'Hund', requirements: 'Braucht 3-5h täglich, großen Auslauf, Hundeschule'});
+                }
+                if (scores.space >= 50) {
+                    suitableAnimals.push({name: '2 Katzen', requirements: 'MINDESTENS zu zweit, Freigang oder große Wohnung'});
+                }
+                if (scores.space >= 70) {
+                    suitableAnimals.push({name: '2+ Kaninchen', requirements: 'Großes Gehege (min. 6m²), kein Käfig!'});
+                }
+            }
+
+            // Empfehlungen nach Priorität sortieren
+            recommendations.sort((a, b) => a.priority - b.priority);
+
+            // SCORE-BASIERTE KATEGORISIERUNG (8 Kategorien statt 4!)
+            let resultType, resultIcon, resultTitle, resultText;
+
+            // 1. KNOCKOUT (Score 0-20) - Kritische Mängel
+            if (knockouts.length > 0 || totalScore < 20) {
+                resultType = 'knockout';
+                resultIcon = '🚫';
+                resultTitle = 'Absolut nicht bereit - Kritische Mängel';
+                resultText = `
+                    <p style="margin-bottom: 25px; font-size: 1.3rem; font-weight: 700; color: var(--accent-red);">
+                        Gesamtscore: ${Math.round(totalScore)}/100 - Du darfst KEIN Tier halten!
+                    </p>
+                    <div style="background: rgba(192, 57, 43, 0.15); padding: 30px; border-radius: 12px; margin-bottom: 25px; border-left: 5px solid var(--accent-red);">
+                        <h4 style="color: var(--accent-red); margin-bottom: 15px; font-size: 1.4rem;">🚫 KNOCKOUT-Kriterien:</h4>
+                        <ul style="margin: 0;">${knockouts.map(k => `<li style="margin: 12px 0;"><strong>${k.text}</strong><br><span style="font-size: 0.95rem;">${k.detail}</span></li>`).join('')}</ul>
+                    </div>
+                    ${issues.length > 0 ? `
+                    <div style="background: rgba(230, 126, 34, 0.1); padding: 25px; border-radius: 12px; margin-bottom: 20px;">
+                        <h4 style="color: var(--accent-orange); margin-bottom: 15px;">⚠️ Zusätzliche Probleme:</h4>
+                        <ul style="margin: 0;">${issues.map(i => `<li style="margin: 8px 0;">${i}</li>`).join('')}</ul>
+                    </div>` : ''}
+                    <div style="background: rgba(192, 57, 43, 0.1); padding: 30px; border-radius: 12px;">
+                        <h4 style="color: var(--accent-red); margin-bottom: 15px;">📋 Was du JETZT tun musst:</h4>
+                        <ol style="margin: 0;">${recommendations.map(r => `<li style="margin: 12px 0;"><strong>Priorität ${r.priority}:</strong> ${r.action} <em>(Zeitrahmen: ${r.timeframe})</em></li>`).join('')}</ol>
+                        <p style="margin-top: 20px; font-weight: 600;">Alternative: Unterstütze Tiere über Patenschaften, Spenden oder Ehrenamt.</p>
+                    </div>
+                `;
+
+            // 2. SEHR SCHLECHT (Score 20-35)
+            } else if (totalScore < 35) {
+                resultType = 'very-bad';
+                resultIcon = '❌';
+                resultTitle = 'Nicht bereit - Massive Defizite';
+                resultText = `
+                    <p style="margin-bottom: 25px; font-size: 1.2rem; font-weight: 600;">Gesamtscore: ${Math.round(totalScore)}/100</p>
+                    <div style="background: rgba(192, 57, 43, 0.1); padding: 25px; border-radius: 12px; margin-bottom: 25px;">
+                        <h4 style="color: var(--accent-red); margin-bottom: 15px;">❌ Massive Problembereiche:</h4>
+                        <ul style="margin: 0;">${issues.map(i => `<li style="margin: 8px 0;">${i}</li>`).join('')}</ul>
+                    </div>
+                    <div style="background: rgba(230, 126, 34, 0.1); padding: 25px; border-radius: 12px;">
+                        <h4 style="color: var(--accent-orange); margin-bottom: 15px;">📋 Handlungsplan (priorisiert):</h4>
+                        <ol style="margin: 0;">${recommendations.map(r => `<li style="margin: 10px 0;"><strong>${r.action}</strong><br><em>Zeitrahmen: ${r.timeframe}</em></li>`).join('')}</ol>
+                    </div>
+                `;
+
+            // 3. SCHLECHT (Score 35-50)
+            } else if (totalScore < 50) {
+                resultType = 'bad';
+                resultIcon = '⛔';
+                resultTitle = 'Noch nicht bereit - Viele Lücken';
+                resultText = `
+                    <p style="margin-bottom: 25px; font-size: 1.2rem;">Gesamtscore: ${Math.round(totalScore)}/100 - Unzureichend</p>
+                    ${strengths.length > 0 ? `
+                    <div style="background: rgba(58, 125, 68, 0.1); padding: 25px; border-radius: 12px; margin-bottom: 20px;">
+                        <h4 style="color: var(--primary-green); margin-bottom: 15px;">✅ Positive Aspekte:</h4>
+                        <ul style="margin: 0;">${strengths.map(s => `<li style="margin: 8px 0;">${s}</li>`).join('')}</ul>
+                    </div>` : ''}
+                    <div style="background: rgba(230, 126, 34, 0.1); padding: 25px; border-radius: 12px; margin-bottom: 20px;">
+                        <h4 style="color: var(--accent-orange); margin-bottom: 15px;">⚠️ Kritische Lücken:</h4>
+                        <ul style="margin: 0;">${issues.map(i => `<li style="margin: 8px 0;">${i}</li>`).join('')}</ul>
+                    </div>
+                    <div style="background: rgba(58, 125, 68, 0.1); padding: 25px; border-radius: 12px;">
+                        <h4 style="color: var(--primary-green); margin-bottom: 15px;">📋 Dein Weg zum Tier (ca. 12-24 Monate):</h4>
+                        <ol style="margin: 0;">${recommendations.map(r => `<li style="margin: 10px 0;">${r.action} <em>(${r.timeframe})</em></li>`).join('')}</ol>
+                    </div>
+                `;
+
+            // 4. MITTELMÄSSIG (Score 50-65)
+            } else if (totalScore < 65) {
+                resultType = 'mediocre';
+                resultIcon = '⚠️';
+                resultTitle = 'Teilweise bereit - Arbeit nötig';
+                resultText = `
+                    <p style="margin-bottom: 25px; font-size: 1.2rem;">Gesamtscore: ${Math.round(totalScore)}/100 - Du bist auf dem richtigen Weg, aber noch nicht da.</p>
+                    <div style="background: rgba(58, 125, 68, 0.1); padding: 25px; border-radius: 12px; margin-bottom: 20px;">
+                        <h4 style="color: var(--primary-green); margin-bottom: 15px;">✅ Deine Stärken:</h4>
+                        <ul style="margin: 0;">${strengths.map(s => `<li style="margin: 8px 0;">${s}</li>`).join('')}</ul>
+                    </div>
+                    ${issues.length > 0 ? `
+                    <div style="background: rgba(230, 126, 34, 0.1); padding: 25px; border-radius: 12px; margin-bottom: 20px;">
+                        <h4 style="color: var(--accent-orange); margin-bottom: 15px;">⚠️ Verbesserungsbedarf:</h4>
+                        <ul style="margin: 0;">${issues.map(i => `<li style="margin: 8px 0;">${i}</li>`).join('')}</ul>
+                    </div>` : ''}
+                    <div style="background: rgba(58, 125, 68, 0.1); padding: 25px; border-radius: 12px;">
+                        <h4 style="color: var(--primary-green); margin-bottom: 15px;">📋 Nächste Schritte (ca. 6-12 Monate):</h4>
+                        <ol style="margin: 0;">${recommendations.map(r => `<li style="margin: 10px 0;">${r.action} <em>(${r.timeframe})</em></li>`).join('')}</ol>
+                    </div>
+                `;
+
+            // 5. OKAY (Score 65-75)
+            } else if (totalScore < 75) {
+                resultType = 'okay';
+                resultIcon = '👍';
+                resultTitle = 'Grundsätzlich bereit - Feinschliff nötig';
+                resultText = `
+                    <p style="margin-bottom: 25px; font-size: 1.2rem;">Gesamtscore: ${Math.round(totalScore)}/100 - Solide Basis!</p>
+                    <div style="background: rgba(58, 125, 68, 0.1); padding: 25px; border-radius: 12px; margin-bottom: 20px;">
+                        <h4 style="color: var(--primary-green); margin-bottom: 15px;">✅ Deine Stärken:</h4>
+                        <ul style="margin: 0;">${strengths.map(s => `<li style="margin: 8px 0;">${s}</li>`).join('')}</ul>
+                    </div>
+                    ${suitableAnimals.length > 0 ? `
+                    <div style="background: rgba(58, 125, 68, 0.1); padding: 25px; border-radius: 12px; margin-bottom: 20px;">
+                        <h4 style="color: var(--primary-green); margin-bottom: 15px;">🐾 Diese Tiere könnten passen:</h4>
+                        <ul style="margin: 0;">${suitableAnimals.map(a => `<li style="margin: 10px 0;"><strong>${a.name}</strong><br><span style="font-size: 0.95rem;">${a.requirements}</span></li>`).join('')}</ul>
+                    </div>` : ''}
+                    ${recommendations.length > 0 ? `
+                    <div style="background: rgba(230, 126, 34, 0.1); padding: 25px; border-radius: 12px; margin-bottom: 20px;">
+                        <h4 style="color: var(--accent-orange); margin-bottom: 15px;">💡 Optimierungen (ca. 3-6 Monate):</h4>
+                        <ul style="margin: 0;">${recommendations.map(r => `<li style="margin: 8px 0;">${r.action} <em>(${r.timeframe})</em></li>`).join('')}</ul>
+                    </div>` : ''}
+                    <div style="background: rgba(58, 125, 68, 0.1); padding: 25px; border-radius: 12px;">
+                        <h4 style="color: var(--primary-green); margin-bottom: 15px;">🏠 Nächste Schritte:</h4>
+                        <ul style="margin: 0;">
+                            <li style="margin: 8px 0;">Besuche lokale Tierheime</li>
+                            <li style="margin: 8px 0;">Lass dich von Tierschutzver einen beraten</li>
+                            <li style="margin: 8px 0;">NIEMALS im Zoohandel oder bei Züchtern kaufen!</li>
+                        </ul>
+                    </div>
+                `;
+
+            // 6. GUT (Score 75-85)
+            } else if (totalScore < 85) {
+                resultType = 'good';
+                resultIcon = '✅';
+                resultTitle = 'Bereit - Gute Voraussetzungen';
+                resultText = `
+                    <p style="margin-bottom: 25px; font-size: 1.2rem; font-weight: 600; color: var(--primary-green);">Gesamtscore: ${Math.round(totalScore)}/100 - Sehr gut!</p>
+                    <div style="background: rgba(58, 125, 68, 0.1); padding: 25px; border-radius: 12px; margin-bottom: 20px;">
+                        <h4 style="color: var(--primary-green); margin-bottom: 15px;">✅ Deine Stärken:</h4>
+                        <ul style="margin: 0;">${strengths.map(s => `<li style="margin: 8px 0;">${s}</li>`).join('')}</ul>
+                    </div>
+                    ${suitableAnimals.length > 0 ? `
+                    <div style="background: rgba(58, 125, 68, 0.15); padding: 30px; border-radius: 12px; margin-bottom: 20px;">
+                        <h4 style="color: var(--primary-green); margin-bottom: 15px;">🐾 Empfohlene Tierarten:</h4>
+                        <ul style="margin: 0;">${suitableAnimals.map(a => `<li style="margin: 12px 0;"><strong style="font-size: 1.1rem;">${a.name}</strong><br><span style="font-size: 0.95rem; color: #555;">${a.requirements}</span></li>`).join('')}</ul>
+                    </div>` : ''}
+                    <div style="background: rgba(230, 126, 34, 0.1); padding: 25px; border-radius: 12px; margin-bottom: 20px;">
+                        <h4 style="color: var(--accent-orange); margin-bottom: 15px;">🏠 So geht's weiter:</h4>
+                        <ul style="margin: 0;">
+                            <li style="margin: 10px 0;">Besuche mehrere Tierheime in deiner Region</li>
+                            <li style="margin: 10px 0;">Nimm dir Zeit beim Kennenlernen - Chemie muss stimmen</li>
+                            <li style="margin: 10px 0;">Lass dich vom Tierheim beraten - die kennen ihre Tiere</li>
+                            <li style="margin: 10px 0;">Bereite dein Zuhause VOR der Anschaffung vor</li>
+                        </ul>
+                    </div>
+                    <p style="font-style: italic; color: #666; font-size: 1.05rem;">Denk dran: Kauf NIEMALS im Zoohandel oder bei Züchtern. Tierschutz-Tiere brauchen dich!</p>
+                `;
+
+            // 7. SEHR GUT (Score 85-95)
+            } else if (totalScore < 95) {
+                resultType = 'very-good';
+                resultIcon = '🌟';
+                resultTitle = 'Hervorragend vorbereitet!';
+                resultText = `
+                    <p style="margin-bottom: 25px; font-size: 1.3rem; font-weight: 700; color: var(--primary-green);">Gesamtscore: ${Math.round(totalScore)}/100 - Beeindruckend!</p>
+                    <div style="background: rgba(58, 125, 68, 0.15); padding: 30px; border-radius: 12px; margin-bottom: 25px; border-left: 5px solid var(--primary-green);">
+                        <h4 style="color: var(--primary-green); margin-bottom: 15px; font-size: 1.3rem;">✅ Deine Stärken:</h4>
+                        <ul style="margin: 0;">${strengths.map(s => `<li style="margin: 10px 0; font-size: 1.05rem;">${s}</li>`).join('')}</ul>
+                    </div>
+                    ${suitableAnimals.length > 0 ? `
+                    <div style="background: rgba(58, 125, 68, 0.15); padding: 30px; border-radius: 12px; margin-bottom: 20px;">
+                        <h4 style="color: var(--primary-green); margin-bottom: 15px;">🐾 Perfekt geeignet für:</h4>
+                        <ul style="margin: 0;">${suitableAnimals.map(a => `<li style="margin: 12px 0;"><strong style="font-size: 1.15rem;">${a.name}</strong><br><span style="font-size: 1rem; color: #555;">${a.requirements}</span></li>`).join('')}</ul>
+                    </div>` : ''}
+                    <div style="background: rgba(230, 126, 34, 0.1); padding: 30px; border-radius: 12px; margin-bottom: 20px;">
+                        <h4 style="color: var(--accent-orange); margin-bottom: 15px;">🏆 Nächste Schritte:</h4>
+                        <ul style="margin: 0; font-size: 1.05rem;">
+                            <li style="margin: 12px 0;">Besuche Tierheime und Pflegestellen</li>
+                            <li style="margin: 12px 0;">Sprich mit den Pflegern über die Charaktere der Tiere</li>
+                            <li style="margin: 12px 0;">Nimm dir Zeit - das richtige Tier findet dich</li>
+                            <li style="margin: 12px 0;">Bereite dein Zuhause artgerecht vor</li>
+                        </ul>
+                    </div>
+                    <p style="background: rgba(58, 125, 68, 0.1); padding: 20px; border-radius: 8px; font-style: italic; font-size: 1.05rem;">
+                        <strong>Du bist ein Vorbild!</strong> Mit deiner Einstellung rettest du einem Tier das Leben. Respekt!
+                    </p>
+                `;
+
+            // 8. PERFEKT (Score 95-100)
+            } else {
+                resultType = 'perfect';
+                resultIcon = '❤️';
+                resultTitle = 'Perfekt - Du bist ein Held!';
+                resultText = `
+                    <p style="margin-bottom: 30px; font-size: 1.5rem; font-weight: 900; color: var(--primary-green); text-align: center;">
+                        Gesamtscore: ${Math.round(totalScore)}/100 🎉
+                    </p>
+                    <div style="background: linear-gradient(135deg, rgba(58, 125, 68, 0.2), rgba(58, 125, 68, 0.1)); padding: 40px; border-radius: 16px; margin-bottom: 30px; border: 3px solid var(--primary-green);">
+                        <h4 style="color: var(--primary-green); margin-bottom: 20px; font-size: 1.5rem; text-align: center;">🏆 Du hast ALLES richtig gemacht!</h4>
+                        <ul style="margin: 0; font-size: 1.1rem;">${strengths.map(s => `<li style="margin: 12px 0;">${s}</li>`).join('')}</ul>
+                    </div>
+                    ${suitableAnimals.length > 0 ? `
+                    <div style="background: rgba(58, 125, 68, 0.15); padding: 35px; border-radius: 12px; margin-bottom: 25px;">
+                        <h4 style="color: var(--primary-green); margin-bottom: 15px; font-size: 1.3rem;">🐾 Ideal für dich:</h4>
+                        <ul style="margin: 0;">${suitableAnimals.map(a => `<li style="margin: 15px 0;"><strong style="font-size: 1.2rem;">${a.name}</strong><br><span style="font-size: 1.05rem; color: #555;">${a.requirements}</span></li>`).join('')}</ul>
+                    </div>` : ''}
+                    <div style="background: rgba(230, 126, 34, 0.1); padding: 35px; border-radius: 12px; margin-bottom: 25px;">
+                        <h4 style="color: var(--accent-orange); margin-bottom: 15px; font-size: 1.3rem;">🏠 Hol dir dein Tier!</h4>
+                        <ul style="margin: 0; font-size: 1.1rem;">
+                            <li style="margin: 12px 0;">Geh JETZT ins Tierheim - dein Tier wartet auf dich</li>
+                            <li style="margin: 12px 0;">Nimm dir Zeit beim Kennenlernen - Vertrauen braucht Zeit</li>
+                            <li style="margin: 12px 0;">Höre auf die Tierheim-Mitarbeiter - sie kennen ihre Schützlinge</li>
+                            <li style="margin: 12px 0;">Bereite dein Zuhause liebevoll vor</li>
+                        </ul>
+                    </div>
+                    <div style="background: linear-gradient(135deg, var(--accent-orange), var(--accent-orange-dark)); color: white; padding: 30px; border-radius: 12px; text-align: center;">
+                        <p style="font-size: 1.3rem; font-weight: 700; margin: 0;">
+                            Menschen wie du retten Tierleben. Du bist ein Held! ❤️
+                        </p>
+                    </div>
+                `;
+            }
+
+            return {
+                type: resultType,
+                icon: resultIcon,
+                title: resultTitle,
+                text: resultText,
+                score: Math.round(totalScore),
+                scores: scores
+            };
+        }
+
+        function showLoading() {
+            const overlay = document.createElement('div');
+            overlay.className = 'loading-overlay';
+            overlay.id = 'loading-overlay';
+            overlay.innerHTML = `
+                <div class="loading-spinner"></div>
+                <div class="loading-text">Werte deine Antworten aus...</div>
+            `;
+            document.body.appendChild(overlay);
+        }
+
+        function hideLoading() {
+            const overlay = document.getElementById('loading-overlay');
+            if (overlay) {
+                overlay.remove();
+            }
+        }
+
+        function showResult(result) {
+            const resultContent = document.getElementById('result-content');
+
+            resultContent.innerHTML = `
+                <div class="result-box ${result.type}">
+                    <div class="result-icon">${result.icon}</div>
+                    <h2 class="result-title">${result.title}</h2>
+                    <div class="result-text">${result.text}</div>
+                </div>
+            `;
+
+            document.getElementById('test').classList.add('hidden');
+            document.getElementById('result').classList.remove('hidden');
+            document.getElementById('result').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function resetTest() {
+            currentQuestionIndex = 0;
+            document.getElementById('result').classList.add('hidden');
+            document.getElementById('test').classList.remove('hidden');
+            initTest();
+            document.getElementById('test').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Scroll to top button
+        const scrollTopBtn = document.getElementById('scrollTop');
+
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                scrollTopBtn.classList.add('visible');
+            } else {
+                scrollTopBtn.classList.remove('visible');
+            }
+        });
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Stats Animation on Scroll
+        const observerOptions = {
+            threshold: 0.5,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const statCards = document.querySelectorAll('.stat-card');
+            statCards.forEach(card => {
+                statsObserver.observe(card);
+            });
+        });
+
+        // === CMS FUNCTIONALITY ===
+        let editMode = false;
+        let originalContent = {};
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSavedContent();
+            makeElementsEditable();
+        });
+
+        // Toggle Edit Mode
+        function toggleEditMode() {
+            editMode = !editMode;
+            const body = document.body;
+            const editBtn = document.getElementById('editBtn');
+            const editBtnText = document.getElementById('editBtnText');
+
+            if (editMode) {
+                body.classList.add('edit-mode');
+                editBtn.classList.add('active');
+                editBtnText.textContent = 'Bearbeitung aktiv';
+                enableEditing();
+                backupContent();
+            } else {
+                body.classList.remove('edit-mode');
+                editBtn.classList.remove('active');
+                editBtnText.textContent = 'Bearbeiten';
+                disableEditing();
+            }
+        }
+
+        // Backup current content
+        function backupContent() {
+            const editableElements = document.querySelectorAll('[data-editable]');
+            editableElements.forEach(el => {
+                originalContent[el.dataset.editableId] = el.innerHTML;
+            });
+        }
+
+        // Make elements editable
+        function makeElementsEditable() {
+            const selectors = 'h1, h2, h3, h4, h5, h6, p, li, .info-text, .stat-label, .myth-content p, .myth-content h4';
+            const elements = document.querySelectorAll(selectors);
+
+            elements.forEach((el, index) => {
+                // Skip elements inside the edit toolbar and form elements
+                if (el.closest('.edit-toolbar') || el.closest('#test-form') || el.closest('#questions-container')) {
+                    return;
+                }
+
+                el.dataset.editable = 'true';
+                el.dataset.editableId = 'text-' + index;
+            });
+
+            // Make images clickable for editing
+            const images = document.querySelectorAll('img');
+            images.forEach((img, index) => {
+                img.dataset.editableImg = 'true';
+                img.dataset.editableId = 'img-' + index;
+            });
+        }
+
+        // Enable editing
+        function enableEditing() {
+            // Enable text editing
+            const editableElements = document.querySelectorAll('[data-editable]');
+            editableElements.forEach(el => {
+                el.contentEditable = 'true';
+            });
+
+            // Enable image editing
+            const images = document.querySelectorAll('[data-editable-img]');
+            images.forEach(img => {
+                img.addEventListener('click', handleImageClick);
+            });
+        }
+
+        // Disable editing
+        function disableEditing() {
+            // Disable text editing
+            const editableElements = document.querySelectorAll('[data-editable]');
+            editableElements.forEach(el => {
+                el.contentEditable = 'false';
+            });
+
+            // Disable image editing
+            const images = document.querySelectorAll('[data-editable-img]');
+            images.forEach(img => {
+                img.removeEventListener('click', handleImageClick);
+            });
+        }
+
+        // Handle image click
+        function handleImageClick(e) {
+            if (!editMode) return;
+
+            const img = e.target;
+            const currentSrc = img.src;
+            const newSrc = prompt('Neue Bild-URL eingeben:', currentSrc);
+
+            if (newSrc && newSrc !== currentSrc) {
+                img.src = newSrc;
+            }
+        }
+
+        // Save changes to LocalStorage
+        function saveChanges() {
+            const content = {};
+
+            // Save text content
+            const editableElements = document.querySelectorAll('[data-editable]');
+            editableElements.forEach(el => {
+                content[el.dataset.editableId] = el.innerHTML;
+            });
+
+            // Save images
+            const images = document.querySelectorAll('[data-editable-img]');
+            images.forEach(img => {
+                content[img.dataset.editableId] = img.src;
+            });
+
+            localStorage.setItem('cmsContent', JSON.stringify(content));
+
+            UIkit.notification({
+                message: 'Änderungen gespeichert!',
+                status: 'success',
+                pos: 'top-center',
+                timeout: 2000
+            });
+
+            toggleEditMode();
+        }
+
+        // Discard changes
+        function discardChanges() {
+            if (!confirm('Änderungen verwerfen?')) return;
+
+            // Restore original content
+            const editableElements = document.querySelectorAll('[data-editable]');
+            editableElements.forEach(el => {
+                if (originalContent[el.dataset.editableId]) {
+                    el.innerHTML = originalContent[el.dataset.editableId];
+                }
+            });
+
+            UIkit.notification({
+                message: 'Änderungen verworfen',
+                status: 'warning',
+                pos: 'top-center',
+                timeout: 2000
+            });
+
+            toggleEditMode();
+        }
+
+        // Load saved content from LocalStorage
+        function loadSavedContent() {
+            const savedContent = localStorage.getItem('cmsContent');
+            if (!savedContent) return;
+
+            const content = JSON.parse(savedContent);
+
+            // Load text content
+            Object.keys(content).forEach(key => {
+                if (key.startsWith('text-')) {
+                    const el = document.querySelector(`[data-editable-id="${key}"]`);
+                    if (el) {
+                        el.innerHTML = content[key];
+                    }
+                } else if (key.startsWith('img-')) {
+                    const img = document.querySelector(`[data-editable-img][data-editable-id="${key}"]`);
+                    if (img) {
+                        img.src = content[key];
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>

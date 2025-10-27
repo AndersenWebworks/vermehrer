@@ -19,7 +19,8 @@
       "Read(//c/Andersen/Webworks/GitHub/Webworks/**)",
       "Read(//c/Andersen/Webworks/GitHub/**)",
       "Read(//c/Andersen/Webworks/**)",
-      "Bash(dir:*)"
+      "Bash(dir:*)",
+      "Bash(findstr:*)"
     ],
     "deny": [],
     "ask": []

@@ -1,15 +1,106 @@
 /*
-Name: Andersen Webworks
-Background: White
-Color: Black
-Type: Flat
+Name: Vermehrer - Tierliebe Check
+Background: #F5F5F5
+Color: #3A7D44
+Type: Natural
 Preview: ../screenshot.jpg
 */
 
 
-/* BASE STYLE
+/* BASE STYLE - Yard (Natural, Organic)
 _______________________________*/
-@import "../../yootheme/less/theme.fuse.less";
+@import "../../yootheme/less/theme.yard.less";
+
+
+/* CUSTOM FONTS
+_______________________________*/
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&family=Nunito:wght@400;600;700&display=swap');
+
+
+/* COLOR PALETTE - Briefing
+_______________________________*/
+// Primary - Vertrauen & Natur
+@global-primary-background: #3A7D44;
+@global-link-color: #3A7D44;
+@global-link-hover-color: #2D6335;
+
+// Secondary - Heller Hintergrund
+@global-background: #F5F5F5;
+@global-muted-background: #FFFFFF;
+
+// Accent 1 - Orange (CTAs)
+@global-secondary-background: #E67E22;
+@button-primary-background: #E67E22;
+@button-primary-hover-background: #CA5F0A;
+
+// Accent 2 - Rosa (Infoboxen)
+@global-warning-background: #FFB6B6;
+
+// Contrast - Rot (Warnungen)
+@global-danger-background: #C0392B;
+
+// Text
+@global-color: #2C3E50;
+@global-emphasis-color: #1A252F;
+@global-muted-color: #7F8C8D;
+
+
+/* TYPOGRAPHY
+_______________________________*/
+@global-font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+@base-heading-font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+@base-heading-font-weight: 700;
+
+// Alternative für Infoboxen/Quiz
+@card-font-family: 'Nunito', 'Open Sans', sans-serif;
+
+
+/* BUTTONS
+_______________________________*/
+// Primary Button (Orange)
+@button-primary-background: #E67E22;
+@button-primary-color: #FFFFFF;
+@button-primary-hover-background: #CA5F0A;
+@button-primary-hover-color: #FFFFFF;
+
+// Secondary Button (Grün Outline)
+@button-default-background: transparent;
+@button-default-color: #3A7D44;
+@button-default-border: #3A7D44;
+@button-default-hover-background: #3A7D44;
+@button-default-hover-color: #FFFFFF;
+
+// Rounded Buttons
+@button-border-radius: 25px;
+
+
+/* SECTIONS & BACKGROUNDS
+_______________________________*/
+@section-primary-background: #FFFFFF;
+@section-secondary-background: #F5F5F5;
+@section-muted-background: #E8F5E9; // Leichtes Grün
+
+
+/* CARDS & BOXES
+_______________________________*/
+@card-default-background: #FFFFFF;
+@card-default-color: @global-color;
+@card-primary-background: #3A7D44;
+@card-primary-color: #FFFFFF;
+@card-secondary-background: #FFB6B6;
+@card-secondary-color: @global-color;
+
+// Rounded Corners
+@global-border-radius: 20px;
+@card-border-radius: 20px;
+
+
+/* NAVBAR
+_______________________________*/
+@navbar-background: #FFFFFF;
+@navbar-nav-item-color: #3A7D44;
+@navbar-nav-item-hover-color: #E67E22;
+@navbar-nav-item-active-color: #E67E22;
 
 
 /* MEDIA QUERIES
@@ -20,18 +111,129 @@ _______________________________*/
 @phone  : ~"only screen and (max-width: 767px)";
 
 
-/* USAGE 
+/* CUSTOM COMPONENTS
 _______________________________*/
 
-.footer {
-  width: 100%;
+// Info Boxes (rosa/freundlich)
+.info-box {
+  background: @global-warning-background;
+  padding: 30px;
+  border-radius: @global-border-radius;
+  border-left: 5px solid #FF8E8E;
+  margin: 30px 0;
 
-  @media @tablet {
-    width: 768px;
+  h3, h4 {
+    color: @global-primary-background;
+    margin-bottom: 15px;
+  }
+}
+
+// Warning Boxes (rot/wichtig)
+.warning-box {
+  background: #FFEBEE;
+  padding: 30px;
+  border-radius: @global-border-radius;
+  border-left: 5px solid @global-danger-background;
+  margin: 30px 0;
+
+  h3, h4 {
+    color: @global-danger-background;
+    margin-bottom: 15px;
+  }
+}
+
+// Quiz Cards
+.quiz-card {
+  background: #FFFFFF;
+  padding: 35px;
+  border-radius: @global-border-radius;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  margin-bottom: 25px;
+  font-family: @card-font-family;
+
+  .question-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    background: @global-secondary-background;
+    color: #FFFFFF;
+    border-radius: 50%;
+    font-weight: 700;
+    margin-right: 15px;
   }
 
-  @media @desktop {
-    width: 940px;
+  label {
+    padding: 15px 20px;
+    border: 2px solid #E0E0E0;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      border-color: @global-primary-background;
+      background: #F0F9F1;
+    }
   }
 
+  input[type="radio"]:checked + label {
+    border-color: @global-secondary-background;
+    background: #FFF5ED;
+  }
+}
+
+// Hero Section Overlay
+.hero-overlay {
+  background: rgba(58, 125, 68, 0.6);
+
+  h1, h2, p {
+    color: #FFFFFF;
+  }
+}
+
+// Stat Cards
+.stat-card {
+  background: #FFFFFF;
+  padding: 40px 30px;
+  border-radius: @global-border-radius;
+  text-align: center;
+  border-top: 5px solid @global-primary-background;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+
+  .stat-number {
+    font-size: 3rem;
+    font-weight: 700;
+    color: @global-secondary-background;
+    font-family: @base-heading-font-family;
+  }
+
+  .stat-label {
+    color: @global-muted-color;
+    margin-top: 10px;
+  }
+}
+
+// Animal Info Cards
+.animal-card {
+  background: #FFFFFF;
+  border-radius: @global-border-radius;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+
+  .animal-header {
+    background: @global-primary-background;
+    color: #FFFFFF;
+    padding: 25px;
+    text-align: center;
+
+    h3 {
+      color: #FFFFFF;
+      margin: 0;
+    }
+  }
+
+  .animal-body {
+    padding: 25px;
+  }
 }
