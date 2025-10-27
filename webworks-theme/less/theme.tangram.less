@@ -7,37 +7,39 @@ Preview: ../screenshot.jpg
 */
 
 
-/* BASE STYLE - Yard (Natural, Organic)
+/* BASE STYLE - Florence (Warm, Friendly, Organic)
 _______________________________*/
-@import "../../yootheme/less/theme.yard.less";
+@import "../../yootheme/less/theme.florence.less";
 
 
 /* COLOR PALETTE - Briefing
 _______________________________*/
-// Primary - Vertrauen & Natur
+// Primary - Vertrauen & Natur (Grün)
 @global-primary-background: #3A7D44;
 @global-link-color: #3A7D44;
 @global-link-hover-color: #2D6335;
 
-// Secondary - Heller Hintergrund
-@global-background: #F5F5F5;
-@global-muted-background: #FFFFFF;
-
-// Accent 1 - Orange (CTAs)
+// Secondary - Orange (CTAs)
 @global-secondary-background: #E67E22;
-@button-primary-background: #E67E22;
-@button-primary-hover-background: #CA5F0A;
 
-// Accent 2 - Rosa (Infoboxen)
+// Backgrounds
+@global-background: #F5F5F5;
+@global-muted-background: #E8F5E9; // Leichtes Grün
+
+// Accent - Rosa (Infoboxen)
 @global-warning-background: #FFB6B6;
 
-// Contrast - Rot (Warnungen)
+// Danger - Rot (Warnungen)
 @global-danger-background: #C0392B;
 
-// Text
+// Success - Grün
+@global-success-background: #3A7D44;
+
+// Text Colors
 @global-color: #2C3E50;
 @global-emphasis-color: #1A252F;
 @global-muted-color: #7F8C8D;
+@global-inverse-color: #FFFFFF;
 
 
 /* TYPOGRAPHY
@@ -45,57 +47,96 @@ _______________________________*/
 @global-font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, sans-serif;
 @base-heading-font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
 @base-heading-font-weight: 700;
+@base-body-font-weight: 400;
+@base-body-line-height: 1.7;
 
-// Alternative für Infoboxen/Quiz
-@card-font-family: 'Nunito', 'Open Sans', sans-serif;
+// Font Sizes
+@global-font-size: 17px;
+@global-large-font-size: 19px;
+@global-small-font-size: 14px;
+@global-line-height: 1.7;
+
+// Heading Sizes
+@base-h1-font-size-m: 3rem;
+@base-h2-font-size-m: 2.4rem;
+@base-h3-font-size-m: 1.9rem;
+@base-h4-font-size: 1.4rem;
 
 
-/* BUTTONS
+/* BUTTONS - UIkit Variables
 _______________________________*/
-// Primary Button (Orange)
-@button-primary-background: #E67E22;
-@button-primary-color: #FFFFFF;
+// Primary Button (Orange - warm und einladend)
+@button-primary-background: @global-secondary-background;
+@button-primary-color: @global-inverse-color;
 @button-primary-hover-background: #CA5F0A;
-@button-primary-hover-color: #FFFFFF;
+@button-primary-hover-color: @global-inverse-color;
 
-// Secondary Button (Grün Outline)
+// Default Button (Grün Outline)
 @button-default-background: transparent;
-@button-default-color: #3A7D44;
-@button-default-border: #3A7D44;
-@button-default-hover-background: #3A7D44;
-@button-default-hover-color: #FFFFFF;
+@button-default-color: @global-primary-background;
+@button-default-border: @global-primary-background;
+@button-default-hover-background: @global-primary-background;
+@button-default-hover-color: @global-inverse-color;
 
-// Rounded Buttons
-@button-border-radius: 25px;
+// Secondary Button
+@button-secondary-background: @global-primary-background;
+@button-secondary-color: @global-inverse-color;
+@button-secondary-hover-background: #2D6335;
+
+// Button Styling
+@button-border-radius: 30px;
+@button-padding-horizontal: 35px;
+@button-padding-vertical: 12px;
+@button-line-height: 1.5;
+@button-font-size: @global-font-size;
 
 
-/* SECTIONS & BACKGROUNDS
+/* SECTIONS & BACKGROUNDS - UIkit Variables
 _______________________________*/
-@section-primary-background: #FFFFFF;
-@section-secondary-background: #F5F5F5;
-@section-muted-background: #E8F5E9; // Leichtes Grün
+@section-primary-background: @global-inverse-color;
+@section-secondary-background: @global-background;
+@section-muted-background: @global-muted-background;
+
+@section-primary-color-mode: light;
+@section-secondary-color-mode: light;
+@section-muted-color-mode: light;
 
 
-/* CARDS & BOXES
+/* CARDS & BOXES - UIkit Variables
 _______________________________*/
-@card-default-background: #FFFFFF;
+@card-default-background: @global-inverse-color;
 @card-default-color: @global-color;
-@card-primary-background: #3A7D44;
-@card-primary-color: #FFFFFF;
-@card-secondary-background: #FFB6B6;
+@card-primary-background: @global-primary-background;
+@card-primary-color: @global-inverse-color;
+@card-secondary-background: @global-warning-background;
 @card-secondary-color: @global-color;
 
 // Rounded Corners
-@global-border-radius: 20px;
-@card-border-radius: 20px;
+@border-rounded-border-radius: 25px;
+@global-border-radius: 25px;
+
+// Card Styling
+@card-body-padding-horizontal: 35px;
+@card-body-padding-vertical: 35px;
+
+// Shadows
+@global-small-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+@global-medium-box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+@global-large-box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
 
 
-/* NAVBAR
+/* NAVBAR - UIkit Variables
 _______________________________*/
-@navbar-background: #FFFFFF;
-@navbar-nav-item-color: #3A7D44;
-@navbar-nav-item-hover-color: #E67E22;
-@navbar-nav-item-active-color: #E67E22;
+@navbar-background: @global-inverse-color;
+@navbar-nav-item-color: @global-primary-background;
+@navbar-nav-item-hover-color: @global-secondary-background;
+@navbar-nav-item-onclick-color: @global-secondary-background;
+@navbar-nav-item-active-color: @global-secondary-background;
+
+// Navbar Dropdown
+@navbar-dropdown-background: @global-inverse-color;
+@navbar-dropdown-nav-item-color: @global-color;
+@navbar-dropdown-nav-item-hover-color: @global-primary-background;
 
 
 /* MEDIA QUERIES
@@ -106,129 +147,41 @@ _______________________________*/
 @phone  : ~"only screen and (max-width: 767px)";
 
 
-/* CUSTOM COMPONENTS
+/* UIKIT COMPONENT OVERRIDES
 _______________________________*/
 
-// Info Boxes (rosa/freundlich)
-.info-box {
+// List - Custom bullet style mit Paw-Icon
+.uk-list-bullet > li::before {
+  content: '🐾';
+  margin-right: 10px;
+}
+
+// Alert - Rosa für Info
+.uk-alert-primary {
   background: @global-warning-background;
-  padding: 30px;
-  border-radius: @global-border-radius;
-  border-left: 5px solid #FF8E8E;
-  margin: 30px 0;
-
-  h3, h4 {
-    color: @global-primary-background;
-    margin-bottom: 15px;
-  }
+  color: @global-color;
+  border-left: 6px solid #FF8E8E;
 }
 
-// Warning Boxes (rot/wichtig)
-.warning-box {
+// Alert - Rot für Warnungen
+.uk-alert-danger {
   background: #FFEBEE;
-  padding: 30px;
-  border-radius: @global-border-radius;
-  border-left: 5px solid @global-danger-background;
-  margin: 30px 0;
-
-  h3, h4 {
-    color: @global-danger-background;
-    margin-bottom: 15px;
-  }
+  border-left: 6px solid @global-danger-background;
 }
 
-// Quiz Cards
-.quiz-card {
-  background: #FFFFFF;
-  padding: 35px;
-  border-radius: @global-border-radius;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-  margin-bottom: 25px;
-  font-family: @card-font-family;
-
-  .question-number {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 45px;
-    height: 45px;
-    background: @global-secondary-background;
-    color: #FFFFFF;
-    border-radius: 50%;
-    font-weight: 700;
-    margin-right: 15px;
-  }
-
-  label {
-    padding: 15px 20px;
-    border: 2px solid #E0E0E0;
-    border-radius: 15px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-
-    &:hover {
-      border-color: @global-primary-background;
-      background: #F0F9F1;
-    }
-  }
-
-  input[type="radio"]:checked + label {
-    border-color: @global-secondary-background;
-    background: #FFF5ED;
-  }
+// Card Hover Effect
+.uk-card-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: @global-large-box-shadow;
+  transition: all 0.3s ease;
 }
 
-// Hero Section Overlay
-.hero-overlay {
-  background: rgba(58, 125, 68, 0.6);
-
-  h1, h2, p {
-    color: #FFFFFF;
-  }
+// Icon Color
+.uk-icon {
+  color: @global-secondary-background;
 }
 
-// Stat Cards
-.stat-card {
-  background: #FFFFFF;
-  padding: 40px 30px;
-  border-radius: @global-border-radius;
-  text-align: center;
-  border-top: 5px solid @global-primary-background;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-
-  .stat-number {
-    font-size: 3rem;
-    font-weight: 700;
-    color: @global-secondary-background;
-    font-family: @base-heading-font-family;
-  }
-
-  .stat-label {
-    color: @global-muted-color;
-    margin-top: 10px;
-  }
-}
-
-// Animal Info Cards
-.animal-card {
-  background: #FFFFFF;
-  border-radius: @global-border-radius;
-  overflow: hidden;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-
-  .animal-header {
-    background: @global-primary-background;
-    color: #FFFFFF;
-    padding: 25px;
-    text-align: center;
-
-    h3 {
-      color: #FFFFFF;
-      margin: 0;
-    }
-  }
-
-  .animal-body {
-    padding: 25px;
-  }
+// Section Overlay
+.uk-overlay-primary {
+  background: rgba(58, 125, 68, 0.7);
 }
