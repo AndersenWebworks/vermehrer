@@ -1,0 +1,37 @@
+/*
+Name: Andersen Webworks
+Background: White
+Color: Black
+Type: Flat
+Preview: ../screenshot.jpg
+*/
+
+
+/* BASE STYLE
+_______________________________*/
+@import "../../yootheme/less/theme.fuse.less";
+
+
+/* MEDIA QUERIES
+_______________________________*/
+@desktop: ~"only screen and (min-width: 1500px)";
+@laptop : ~"only screen and (min-width: 1025px) and (max-width: 1500px)";
+@tablet : ~"only screen and (min-width: 768px) and (max-width: 1024px)";
+@phone  : ~"only screen and (max-width: 767px)";
+
+
+/* USAGE 
+_______________________________*/
+
+.footer {
+  width: 100%;
+
+  @media @tablet {
+    width: 768px;
+  }
+
+  @media @desktop {
+    width: 940px;
+  }
+
+}

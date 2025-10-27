@@ -1,0 +1,41 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Git Commit and Push",
+      "type": "shell",
+      "command": "git add . ; if ($LASTEXITCODE -eq 0) { git diff-index --quiet HEAD ; if ($LASTEXITCODE -ne 0) { git commit -m 'Auto commit' } ; git push }",
+      "options": {
+        "shell": {
+          "executable": "powershell.exe"
+        }
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "FTP Upload",
+      "type": "shell",
+      "command": "${workspaceFolder}\\.vscode\\ftp-upload.ps1",
+      "options": {
+        "shell": {
+          "executable": "powershell.exe",
+          "args": ["-ExecutionPolicy", "Bypass", "-File"]
+        }
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Auto Commit and Upload",
+      "dependsOn": [
+        "FTP Upload",
+        "Git Commit and Push"
+      ],
+      "dependsOrder": "sequence",
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+# IDE
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/ftp-upload.ps1
+!.vscode/upload-sql.ps1
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Dependencies
+node_modules/
+vendor/
+
+# Build files
+dist/
+build/
+
+# WordPress specific
+wp-config-local.php
+wp-content/uploads/*
+wp-content/cache/*
+.htaccess.local
+
+# SFTP credentials (if containing sensitive data)
+sftp.json
+
+# Temporary files
+*.tmp
+*.temp
+*~
+
+# E-Mail Daten & Import
+*.eml
+import-utm-data.sql
