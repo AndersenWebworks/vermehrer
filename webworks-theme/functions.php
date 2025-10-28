@@ -3,8 +3,8 @@
 /* TIERLIEBE QUIZ - INTEGRATION
 _______________________________*/
 
-// Load Tierliebe Shortcodes - TEMPORÄR DEAKTIVIERT
-// require_once get_stylesheet_directory() . '/includes/tierliebe-shortcodes.php';
+// Load Tierliebe Shortcodes
+require_once get_stylesheet_directory() . '/includes/tierliebe-shortcodes.php';
 
 // TEMPLATE META BOX - TEMPORÄR DEAKTIVIERT - DEBUGGING
 /*
