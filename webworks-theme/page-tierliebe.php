@@ -3,11 +3,26 @@
  * Template Name: Tierliebe Quiz
  * Template Post Type: page
  * Description: Landing Page - Bin ich bereit für ein Tier?
- * Version: 1.0
+ * Version: 1.1
  */
 
-get_header();
+// Kein WordPress Header/Footer - komplett eigenständige Seite
 ?>
+<!DOCTYPE html>
+<html <?php language_attributes(); ?>>
+<head>
+    <meta charset="<?php bloginfo('charset'); ?>">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><?php wp_title('|', true, 'right'); bloginfo('name'); ?></title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Fredoka:wght@400;500;600&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+
+    <?php wp_head(); ?>
+</head>
+<body <?php body_class(); ?>>
 
 <!-- Floating Decorations -->
 <div class="float-decoration" style="font-size: 8rem;">🐾</div>
@@ -15,108 +30,80 @@ get_header();
 <div class="float-decoration" style="font-size: 7rem;">🐾</div>
 <div class="float-decoration" style="font-size: 5rem;">💕</div>
 
-<!-- Custom Header für Tierliebe-Seite -->
-<header class="tierliebe-header">
-    <div class="uk-container">
-        <div class="uk-flex uk-flex-between uk-flex-middle">
-            <a href="#start" class="logo">
-                <span class="logo-icon">🐾</span> Tierliebe-Check
-            </a>
-            <nav>
-                <ul class="nav-links">
-                    <li><a href="#start">Start</a></li>
-                    <li><a href="#warum">Warum</a></li>
-                    <li><a href="#tiere">Tiere</a></li>
-                    <li><a href="#test">Test</a></li>
-                </ul>
-            </nav>
-        </div>
+<!-- Header -->
+<header class="header">
+    <div class="header-content">
+        <a href="#start" class="logo">
+            <span class="logo-icon">🐾</span> Tierliebe-Check
+        </a>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="#start">Start</a></li>
+                <li><a href="#warum">Warum</a></li>
+                <li><a href="#tiere">Tiere</a></li>
+                <li><a href="#test">Test</a></li>
+            </ul>
+        </nav>
     </div>
 </header>
 
-<!-- Hero Section -->
-<section id="start" class="tierliebe-hero section-blob">
+<!-- Hero -->
+<section id="start" class="hero">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
     <div class="hero-content">
-        <div class="uk-grid uk-grid-large uk-flex-middle" uk-grid>
-            <div class="uk-width-1-2@m">
-                <div class="hero-text">
-                    <h1>
-                        Bin ich bereit für<br>
-                        ein <span class="highlight">Tier</span>?
-                    </h1>
-                    <p class="uk-text-lead">
-                        Tiere sind wunderbare Lebewesen mit echten Bedürfnissen.
-                        Finde ehrlich heraus, ob du wirklich bereit bist! 💕
-                    </p>
-                    <button class="btn btn-primary" onclick="scrollToTest()">
-                        ✨ Test starten
-                    </button>
-                </div>
-            </div>
-            <div class="uk-width-1-2@m">
-                <div class="hero-visual">
-                    <div class="hero-main-icon">🐶</div>
-                    <div class="hero-floating-icons">🐱</div>
-                    <div class="hero-floating-icons">🐰</div>
-                    <div class="hero-floating-icons">🐦</div>
-                </div>
-            </div>
+        <div class="hero-text">
+            <h1>Bin ich bereit für<br>ein <span class="highlight">Tier</span>?</h1>
+            <p class="subtitle">Tiere sind wunderbare Lebewesen mit echten Bedürfnissen. Finde ehrlich heraus, ob du wirklich bereit bist! 💕</p>
+            <button class="btn btn-primary" onclick="scrollToTest()">✨ Test starten</button>
+        </div>
+        <div class="hero-visual">
+            <div class="hero-main-icon">🐶</div>
+            <div class="hero-floating-icons">🐱</div>
+            <div class="hero-floating-icons">🐰</div>
+            <div class="hero-floating-icons">🐦</div>
         </div>
     </div>
 </section>
 
-<!-- Warum Section -->
+<!-- Why Section -->
 <section id="warum" class="section">
     <div class="section-header">
-        <h2 class="section-title">
-            <span class="emoji">💭</span> Warum dieser Test?
-        </h2>
-        <p class="section-subtitle">
-            Weil jedes Jahr Tausende Tiere leiden, weil Menschen ihre Verantwortung unterschätzt haben.
-        </p>
+        <h2 class="section-title"><span class="emoji">💭</span> Warum dieser Test?</h2>
+        <p class="section-subtitle">Weil jedes Jahr Tausende Tiere leiden, weil Menschen ihre Verantwortung unterschätzt haben.</p>
     </div>
 
     <div class="cards-grid">
-        <div class="uk-card uk-card-default uk-card-hover uk-card-mint">
-            <div class="uk-card-body">
-                <span class="card-icon">⏰</span>
-                <h3>Zeit ist Liebe</h3>
-                <p>Hunde brauchen täglich 3-5 Stunden Aufmerksamkeit, Training und Gassi. Katzen mindestens 2-3h Spiel und Pflege. Ein Tier ist kein Nebenbei-Projekt!</p>
-            </div>
+        <div class="card mint">
+            <span class="card-icon">⏰</span>
+            <h3>Zeit ist Liebe</h3>
+            <p>Hunde brauchen täglich 3-5 Stunden Aufmerksamkeit, Training und Gassi. Katzen mindestens 2-3h Spiel und Pflege. Ein Tier ist kein Nebenbei-Projekt!</p>
         </div>
 
-        <div class="uk-card uk-card-default uk-card-hover uk-card-pink">
-            <div class="uk-card-body">
-                <span class="card-icon">💰</span>
-                <h3>Geld & Verantwortung</h3>
-                <p>1.200-2.500€ pro Jahr für einen Hund. Dazu Notfall-Rücklagen. Tiere kosten Geld - wer das nicht hat, darf kein Tier halten. Punkt.</p>
-            </div>
+        <div class="card pink">
+            <span class="card-icon">💰</span>
+            <h3>Geld & Verantwortung</h3>
+            <p>1.200-2.500€ pro Jahr für einen Hund. Dazu Notfall-Rücklagen. Tiere kosten Geld - wer das nicht hat, darf kein Tier halten. Punkt.</p>
         </div>
 
-        <div class="uk-card uk-card-default uk-card-hover uk-card-peach">
-            <div class="uk-card-body">
-                <span class="card-icon">🏡</span>
-                <h3>Platz zum Wohlfühlen</h3>
-                <p>Käfige sind Tierquälerei! Kaninchen brauchen min. 6m² Gehege, Katzen Klettermöglichkeiten, Vögel große Volieren. Kein Platz = kein Tier.</p>
-            </div>
+        <div class="card peach">
+            <span class="card-icon">🏡</span>
+            <h3>Platz zum Wohlfühlen</h3>
+            <p>Käfige sind Tierquälerei! Kaninchen brauchen min. 6m² Gehege, Katzen Klettermöglichkeiten, Vögel große Volieren. Kein Platz = kein Tier.</p>
         </div>
 
-        <div class="uk-card uk-card-default uk-card-hover uk-card-lavender">
-            <div class="uk-card-body">
-                <span class="card-icon">❤️</span>
-                <h3>Adoption statt Kauf!</h3>
-                <p>Kaufe NIEMALS im Zoohandel oder bei Züchtern! Im Tierschutz warten Tausende liebevolle Tiere auf ein Zuhause. Rette Leben statt Ausbeutung zu unterstützen!</p>
-            </div>
+        <div class="card lavender">
+            <span class="card-icon">❤️</span>
+            <h3>Adoption statt Kauf!</h3>
+            <p>Kaufe NIEMALS im Zoohandel oder bei Züchtern! Im Tierschutz warten Tausende liebevolle Tiere auf ein Zuhause. Rette Leben statt Ausbeutung zu unterstützen!</p>
         </div>
     </div>
 </section>
 
-<!-- Fakten Section -->
+<!-- Facts Section -->
 <section class="section">
     <div class="section-header">
-        <h2 class="section-title">
-            <span class="emoji">📚</span> Die harten Fakten
-        </h2>
+        <h2 class="section-title"><span class="emoji">📚</span> Die harten Fakten</h2>
         <p class="section-subtitle">Ehrliche Zahlen, die du kennen musst</p>
     </div>
 
@@ -177,28 +164,24 @@ get_header();
     </div>
 </section>
 
-<!-- Stats Section -->
+<!-- Stats -->
 <section class="section" style="background: var(--pastel-cream); border-radius: 50px; padding: 80px 30px;">
     <div class="section-header">
-        <h2 class="section-title">
-            <span class="emoji">📊</span> Zahlen, die nachdenklich machen
-        </h2>
+        <h2 class="section-title"><span class="emoji">📊</span> Zahlen, die nachdenklich machen</h2>
     </div>
 
     <div class="stats-grid">
-        <div class="uk-card uk-card-default stat-card">
+        <div class="stat-card">
             <div class="stat-icon">😢</div>
             <div class="stat-number">300.000+</div>
             <div class="stat-label">Tiere landen jedes Jahr in deutschen Tierheimen</div>
         </div>
-
-        <div class="uk-card uk-card-default stat-card">
+        <div class="stat-card">
             <div class="stat-icon">💔</div>
             <div class="stat-number">~30%</div>
             <div class="stat-label">der abgegebenen Tiere werden wieder vermittelt. Der Rest bleibt jahrelang im Heim.</div>
         </div>
-
-        <div class="uk-card uk-card-default stat-card">
+        <div class="stat-card">
             <div class="stat-icon">⚠️</div>
             <div class="stat-number">#1</div>
             <div class="stat-label">Hauptgrund für Abgabe: Unterschätzter Zeitaufwand & Kosten</div>
@@ -214,19 +197,17 @@ get_header();
     </div>
 </section>
 
-<!-- Tiere Section -->
+<!-- Animals Section -->
 <section id="tiere" class="section">
     <div class="section-header">
-        <h2 class="section-title">
-            <span class="emoji">🐕</span> Welches Tier passt wirklich?
-        </h2>
+        <h2 class="section-title"><span class="emoji">🐕</span> Welches Tier passt wirklich?</h2>
         <p class="section-subtitle">Ehrliche Infos ohne Beschönigung</p>
     </div>
 
     <div class="animal-grid">
-        <!-- Hunde -->
+        <!-- Dog -->
         <div class="animal-card">
-            <div class="animal-header mint">
+            <div class="animal-header" style="background: var(--pastel-mint);">
                 <span class="animal-icon">🐕</span>
                 <h3>Hunde</h3>
                 <span class="animal-badge">Zeitaufwand: SEHR HOCH</span>
@@ -253,9 +234,9 @@ get_header();
             </div>
         </div>
 
-        <!-- Katzen -->
+        <!-- Cats -->
         <div class="animal-card">
-            <div class="animal-header pink">
+            <div class="animal-header" style="background: var(--pastel-pink);">
                 <span class="animal-icon">🐱</span>
                 <h3>Katzen</h3>
                 <span class="animal-badge">MINDESTENS 2 Katzen!</span>
@@ -271,7 +252,7 @@ get_header();
                 </ul>
 
                 <h4>❌ MYTHOS: "Katzen sind Einzelgänger"</h4>
-                <p style="background: #FFD6E8; padding: 15px; border-radius: 15px; margin: 15px 0;">
+                <p style="background: var(--pastel-coral); padding: 15px; border-radius: 15px; margin: 15px 0;">
                     <strong>FALSCH!</strong> Katzen sind soziale Tiere und brauchen Artgenossen. Einzelhaltung führt zu Depression, Aggression und Verhaltensstörungen.
                 </p>
 
@@ -279,9 +260,9 @@ get_header();
             </div>
         </div>
 
-        <!-- Kleintiere -->
+        <!-- Small Animals -->
         <div class="animal-card">
-            <div class="animal-header peach">
+            <div class="animal-header" style="background: var(--pastel-peach);">
                 <span class="animal-icon">🐰</span>
                 <h3>Kaninchen & Meerschweinchen</h3>
                 <span class="animal-badge">KEIN Anfängertier!</span>
@@ -297,7 +278,7 @@ get_header();
                 </ul>
 
                 <h4>❌ MYTHOS: "Kindertiere" im Käfig</h4>
-                <p style="background: #FFD6E8; padding: 15px; border-radius: 15px; margin: 15px 0;">
+                <p style="background: var(--pastel-coral); padding: 15px; border-radius: 15px; margin: 15px 0;">
                     <strong>FALSCH!</strong> Kaninchen sind KEIN Spielzeug für Kinder! Sie sind sehr anspruchsvoll, zerbrechlich und brauchen viel Platz. Käfighaltung ist Tierquälerei!
                 </p>
 
@@ -305,9 +286,9 @@ get_header();
             </div>
         </div>
 
-        <!-- Vögel -->
+        <!-- Birds -->
         <div class="animal-card">
-            <div class="animal-header lavender">
+            <div class="animal-header" style="background: var(--pastel-lavender);">
                 <span class="animal-icon">🦜</span>
                 <h3>Vögel (Papageien, Sittiche)</h3>
                 <span class="animal-badge">Für 99% UNGEEIGNET!</span>
@@ -326,12 +307,12 @@ get_header();
             </div>
         </div>
 
-        <!-- Exoten -->
+        <!-- Exotic Warning -->
         <div class="animal-card">
-            <div class="animal-header coral">
+            <div class="animal-header" style="background: var(--cute-coral); color: white;">
                 <span class="animal-icon">🦎</span>
                 <h3>Exoten (Reptilien, Schildkröten)</h3>
-                <span class="animal-badge">KEINE Haustiere!</span>
+                <span class="animal-badge" style="background: white; color: var(--cute-coral);">KEINE Haustiere!</span>
             </div>
             <div class="animal-body">
                 <h4>🚫 Warum NICHT?</h4>
@@ -343,7 +324,7 @@ get_header();
                     <li><strong>Illegaler Handel:</strong> Viele Arten aus Wilderei</li>
                 </ul>
 
-                <p style="background: #FFD6E8; padding: 20px; border-radius: 15px; margin: 20px 0; font-weight: 600; text-align: center;">
+                <p style="background: var(--pastel-coral); padding: 20px; border-radius: 15px; margin: 20px 0; font-weight: 600; text-align: center;">
                     🌍 Grundregel: Wenn ein Tier aus einem anderen Kontinent kommt, gehört es NICHT in dein Wohnzimmer!
                 </p>
             </div>
@@ -351,27 +332,36 @@ get_header();
     </div>
 </section>
 
-<!-- Quiz Section mit Shortcode -->
+<!-- Quiz Section -->
 <section id="test" class="section">
     <div class="section-header">
-        <h2 class="section-title">
-            <span class="emoji">✨</span> Mach den Bereitschafts-Test
-        </h2>
+        <h2 class="section-title"><span class="emoji">✨</span> Mach den Bereitschafts-Test</h2>
         <p class="section-subtitle">Sei ehrlich zu dir - es geht um ein Lebewesen!</p>
     </div>
 
     <?php echo do_shortcode('[tierliebe_quiz]'); ?>
 </section>
 
-<!-- Footer wird durch get_footer() geladen -->
+<!-- Footer -->
+<footer class="footer">
+    <div class="footer-content">
+        <h3>🌍 Denk an die Tiere, Wälder & das Klima</h3>
+        <p>Jeder unnötige Ausdruck dieser Seite kostet Ressourcen, zerstört Lebensräume und belastet das Klima.</p>
+        <p style="margin-top: 30px; padding-top: 30px; border-top: 3px solid var(--cute-mint);">
+            &copy; <?php echo date('Y'); ?> Annemarie Andersen | <a href="https://www.annemarie-andersen.de">annemarie-andersen.de</a>
+        </p>
+        <p style="margin-top: 15px; font-size: 0.95rem; opacity: 0.8;">
+            Mit 💕 für alle Tiere gemacht
+        </p>
+    </div>
+</footer>
 
-<!-- Scroll to Top Button -->
+<!-- Scroll to Top -->
 <button class="scroll-top" id="scrollTop" onclick="scrollToTop()">
     <span>↑</span>
 </button>
 
 <script>
-// Scroll-Funktionen
 function scrollToTest() {
     document.getElementById('test').scrollIntoView({ behavior: 'smooth' });
 }
@@ -391,4 +381,6 @@ window.addEventListener('scroll', function() {
 });
 </script>
 
-<?php get_footer(); ?>
+<?php wp_footer(); ?>
+</body>
+</html>
