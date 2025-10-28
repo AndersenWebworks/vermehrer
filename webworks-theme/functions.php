@@ -68,18 +68,18 @@ function tierliebe_enqueue_scripts()
 }
 add_action('wp_enqueue_scripts', 'tierliebe_enqueue_scripts');
 
-// TEMPLATE META BOX - TEMPORÄR DEAKTIVIERT - DEBUGGING
-/*
+// TEMPLATE META BOX - Template-Auswahl im Classic Editor
 
 // Template-Auswahl im Classic Editor aktivieren (YOOtheme deaktiviert das standardmäßig)
-function enable_page_attributes_meta_box() {
-    // Seiten-Attribute Meta Box für Classic Editor aktivieren
+function enable_page_attributes_meta_box()
+{
     add_post_type_support('page', 'page-attributes');
 }
 add_action('init', 'enable_page_attributes_meta_box');
 
 // Template Dropdown im Classic Editor hinzufügen
-function add_template_meta_box() {
+function add_template_meta_box()
+{
     add_meta_box(
         'page_template_meta_box',
         'Template',
@@ -92,13 +92,12 @@ function add_template_meta_box() {
 add_action('add_meta_boxes', 'add_template_meta_box');
 
 // Template Dropdown rendern
-function render_template_meta_box($post) {
+function render_template_meta_box($post)
+{
     $template = get_post_meta($post->ID, '_wp_page_template', true);
 
-    // Nonce für Sicherheit
     wp_nonce_field('save_page_template', 'page_template_nonce');
 
-    // Template-Dateien aus Theme holen
     $templates = get_page_templates();
 
     echo '<select name="page_template" id="page_template" style="width: 100%;">';
@@ -115,8 +114,8 @@ function render_template_meta_box($post) {
 }
 
 // Template beim Speichern der Seite speichern
-function save_template_meta_box($post_id) {
-    // Sicherheitsprüfungen
+function save_template_meta_box($post_id)
+{
     if (!isset($_POST['page_template_nonce']) || !wp_verify_nonce($_POST['page_template_nonce'], 'save_page_template')) {
         return;
     }
@@ -129,27 +128,11 @@ function save_template_meta_box($post_id) {
         return;
     }
 
-    // Template speichern
     if (isset($_POST['page_template'])) {
         update_post_meta($post_id, '_wp_page_template', sanitize_text_field($_POST['page_template']));
     }
 }
 add_action('save_post_page', 'save_template_meta_box');
-
-// Enqueue Quiz JavaScript (nur auf Tierliebe-Seite)
-function tierliebe_enqueue_scripts() {
-    if (is_page_template('page-tierliebe.php')) {
-        wp_enqueue_script(
-            'tierliebe-quiz',
-            get_stylesheet_directory_uri() . '/js/tierliebe-quiz.js',
-            array(),
-            '1.0.0',
-            true
-        );
-    }
-}
-add_action('wp_enqueue_scripts', 'tierliebe_enqueue_scripts');
-*/
 
 
 /* REMOVE BLOCK LIBRARY
