@@ -1,0 +1,393 @@
+<?php
+/**
+ * Template Name: Tierliebe Quiz
+ * Template Post Type: page
+ * Description: Landing Page - Bin ich bereit für ein Tier?
+ */
+
+get_header();
+?>
+
+<!-- Floating Decorations -->
+<div class="float-decoration" style="font-size: 8rem;">🐾</div>
+<div class="float-decoration" style="font-size: 6rem;">❤️</div>
+<div class="float-decoration" style="font-size: 7rem;">🐾</div>
+<div class="float-decoration" style="font-size: 5rem;">💕</div>
+
+<!-- Custom Header für Tierliebe-Seite -->
+<header class="tierliebe-header">
+    <div class="uk-container">
+        <div class="uk-flex uk-flex-between uk-flex-middle">
+            <a href="#start" class="logo">
+                <span class="logo-icon">🐾</span> Tierliebe-Check
+            </a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#start">Start</a></li>
+                    <li><a href="#warum">Warum</a></li>
+                    <li><a href="#tiere">Tiere</a></li>
+                    <li><a href="#test">Test</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</header>
+
+<!-- Hero Section -->
+<section id="start" class="tierliebe-hero section-blob">
+    <div class="hero-content">
+        <div class="uk-grid uk-grid-large uk-flex-middle" uk-grid>
+            <div class="uk-width-1-2@m">
+                <div class="hero-text">
+                    <h1>
+                        Bin ich bereit für<br>
+                        ein <span class="highlight">Tier</span>?
+                    </h1>
+                    <p class="uk-text-lead">
+                        Tiere sind wunderbare Lebewesen mit echten Bedürfnissen.
+                        Finde ehrlich heraus, ob du wirklich bereit bist! 💕
+                    </p>
+                    <button class="btn btn-primary" onclick="scrollToTest()">
+                        ✨ Test starten
+                    </button>
+                </div>
+            </div>
+            <div class="uk-width-1-2@m">
+                <div class="hero-visual">
+                    <div class="hero-main-icon">🐶</div>
+                    <div class="hero-floating-icons">🐱</div>
+                    <div class="hero-floating-icons">🐰</div>
+                    <div class="hero-floating-icons">🐦</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Warum Section -->
+<section id="warum" class="section">
+    <div class="section-header">
+        <h2 class="section-title">
+            <span class="emoji">💭</span> Warum dieser Test?
+        </h2>
+        <p class="section-subtitle">
+            Weil jedes Jahr Tausende Tiere leiden, weil Menschen ihre Verantwortung unterschätzt haben.
+        </p>
+    </div>
+
+    <div class="cards-grid">
+        <div class="uk-card uk-card-default uk-card-hover uk-card-mint">
+            <div class="uk-card-body">
+                <span class="card-icon">⏰</span>
+                <h3>Zeit ist Liebe</h3>
+                <p>Hunde brauchen täglich 3-5 Stunden Aufmerksamkeit, Training und Gassi. Katzen mindestens 2-3h Spiel und Pflege. Ein Tier ist kein Nebenbei-Projekt!</p>
+            </div>
+        </div>
+
+        <div class="uk-card uk-card-default uk-card-hover uk-card-pink">
+            <div class="uk-card-body">
+                <span class="card-icon">💰</span>
+                <h3>Geld & Verantwortung</h3>
+                <p>1.200-2.500€ pro Jahr für einen Hund. Dazu Notfall-Rücklagen. Tiere kosten Geld - wer das nicht hat, darf kein Tier halten. Punkt.</p>
+            </div>
+        </div>
+
+        <div class="uk-card uk-card-default uk-card-hover uk-card-peach">
+            <div class="uk-card-body">
+                <span class="card-icon">🏡</span>
+                <h3>Platz zum Wohlfühlen</h3>
+                <p>Käfige sind Tierquälerei! Kaninchen brauchen min. 6m² Gehege, Katzen Klettermöglichkeiten, Vögel große Volieren. Kein Platz = kein Tier.</p>
+            </div>
+        </div>
+
+        <div class="uk-card uk-card-default uk-card-hover uk-card-lavender">
+            <div class="uk-card-body">
+                <span class="card-icon">❤️</span>
+                <h3>Adoption statt Kauf!</h3>
+                <p>Kaufe NIEMALS im Zoohandel oder bei Züchtern! Im Tierschutz warten Tausende liebevolle Tiere auf ein Zuhause. Rette Leben statt Ausbeutung zu unterstützen!</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Fakten Section -->
+<section class="section">
+    <div class="section-header">
+        <h2 class="section-title">
+            <span class="emoji">📚</span> Die harten Fakten
+        </h2>
+        <p class="section-subtitle">Ehrliche Zahlen, die du kennen musst</p>
+    </div>
+
+    <div class="info-box warning" data-emoji="💳">
+        <h4>Was kostet ein Tier wirklich?</h4>
+        <p><strong>Ein Hund kostet durchschnittlich 1.200–2.500€ pro Jahr!</strong></p>
+        <ul>
+            <li><strong>Futter:</strong> 300–800€ jährlich (je nach Größe)</li>
+            <li><strong>Tierarzt & Vorsorge:</strong> 200–500€ jährlich</li>
+            <li><strong>Versicherung:</strong> 200–600€ jährlich</li>
+            <li><strong>Notfälle:</strong> bis zu mehreren Tausend Euro (OP, Behandlungen)</li>
+            <li><strong>Ausstattung:</strong> 200-500€ einmalig (Körbchen, Spielzeug, Geschirr)</li>
+        </ul>
+        <div class="highlight-text">
+            <strong>💡 Wichtig:</strong> Ohne 2.000€ Notfall-Rücklage bist du nicht bereit! Was, wenn dein Tier eine teure OP braucht? Lässt du es dann leiden?
+        </div>
+    </div>
+
+    <div class="info-box info" data-emoji="⏱️">
+        <h4>Zeitaufwand - Mehr als du denkst!</h4>
+        <p><strong>Hunde:</strong> 3-5 Stunden täglich</p>
+        <ul>
+            <li>Gassi gehen (mind. 3x täglich, min. 1,5h gesamt)</li>
+            <li>Training & Erziehung (30-60 Min)</li>
+            <li>Spielen & Beschäftigung (1-2h)</li>
+            <li>Pflege, Füttern, Aufräumen (30-60 Min)</li>
+        </ul>
+        <p><strong>Katzen:</strong> 2-3 Stunden täglich (mindestens 2 Katzen!)</p>
+        <ul>
+            <li>Spielen & Beschäftigung (1-1,5h)</li>
+            <li>Pflege & Reinigung (30-60 Min)</li>
+            <li>Streicheln & Kuscheln (wichtig!)</li>
+        </ul>
+        <p><strong>Kleintiere (Kaninchen, Meerschweinchen):</strong> 1-2 Stunden täglich</p>
+        <ul>
+            <li>Freilauf beaufsichtigen (min. 4h täglich!)</li>
+            <li>Gehege reinigen & frisches Futter (täglich)</li>
+            <li>Beschäftigung & Beobachtung</li>
+        </ul>
+        <div class="highlight-text">
+            <strong>🚫 Niemals:</strong> Hunde über 4h allein lassen! Katzen brauchen IMMER einen Artgenossen. Einzelhaltung = Tierquälerei!
+        </div>
+    </div>
+
+    <div class="info-box love" data-emoji="❤️">
+        <h4>Langfristige Verpflichtung</h4>
+        <p>Ein Tier zu adoptieren bedeutet eine Verpflichtung für dessen GANZES Leben:</p>
+        <ul>
+            <li><strong>Hunde:</strong> 10–15 Jahre (große Rassen kürzer, kleine länger)</li>
+            <li><strong>Katzen:</strong> 15–20 Jahre (Wohnungskatzen sogar bis 25 Jahre!)</li>
+            <li><strong>Kaninchen:</strong> 8–12 Jahre</li>
+            <li><strong>Meerschweinchen:</strong> 6–8 Jahre</li>
+            <li><strong>Vögel (Papageien):</strong> 20–80 Jahre!</li>
+        </ul>
+        <div class="highlight-text">
+            <strong>💕 Die ehrlichste Tierliebe:</strong> Manchmal bedeutet Tiere lieben auch, NEIN zu sagen. Wenn die Bedingungen nicht stimmen, warte lieber oder unterstütze Tiere anders (Patenschaften, Ehrenamt).
+        </div>
+    </div>
+</section>
+
+<!-- Stats Section -->
+<section class="section" style="background: var(--pastel-cream); border-radius: 50px; padding: 80px 30px;">
+    <div class="section-header">
+        <h2 class="section-title">
+            <span class="emoji">📊</span> Zahlen, die nachdenklich machen
+        </h2>
+    </div>
+
+    <div class="stats-grid">
+        <div class="uk-card uk-card-default stat-card">
+            <div class="stat-icon">😢</div>
+            <div class="stat-number">300.000+</div>
+            <div class="stat-label">Tiere landen jedes Jahr in deutschen Tierheimen</div>
+        </div>
+
+        <div class="uk-card uk-card-default stat-card">
+            <div class="stat-icon">💔</div>
+            <div class="stat-number">~30%</div>
+            <div class="stat-label">der abgegebenen Tiere werden wieder vermittelt. Der Rest bleibt jahrelang im Heim.</div>
+        </div>
+
+        <div class="uk-card uk-card-default stat-card">
+            <div class="stat-icon">⚠️</div>
+            <div class="stat-number">#1</div>
+            <div class="stat-label">Hauptgrund für Abgabe: Unterschätzter Zeitaufwand & Kosten</div>
+        </div>
+    </div>
+
+    <div class="info-box warning" data-emoji="💭" style="margin-top: 60px;">
+        <h4>Hinter jeder Zahl steht ein fühlendes Wesen</h4>
+        <p style="text-align: center; font-size: 1.2rem; line-height: 1.8;">
+            Jedes dieser Tiere wurde einmal geliebt, dann abgegeben. Viele verstehen nicht, was sie falsch gemacht haben.
+            Manche werden nie wieder ein Zuhause finden. <strong>Sei nicht Teil dieser Statistik.</strong>
+        </p>
+    </div>
+</section>
+
+<!-- Tiere Section -->
+<section id="tiere" class="section">
+    <div class="section-header">
+        <h2 class="section-title">
+            <span class="emoji">🐕</span> Welches Tier passt wirklich?
+        </h2>
+        <p class="section-subtitle">Ehrliche Infos ohne Beschönigung</p>
+    </div>
+
+    <div class="animal-grid">
+        <!-- Hunde -->
+        <div class="animal-card">
+            <div class="animal-header mint">
+                <span class="animal-icon">🐕</span>
+                <h3>Hunde</h3>
+                <span class="animal-badge">Zeitaufwand: SEHR HOCH</span>
+            </div>
+            <div class="animal-body">
+                <h4>✅ Passt zu dir, wenn:</h4>
+                <ul>
+                    <li>Du täglich 3-5h Zeit hast</li>
+                    <li>Du körperlich aktiv bist (Gassi bei jedem Wetter!)</li>
+                    <li>Du bereit bist, in Hundeschule zu gehen</li>
+                    <li>Du min. 150€/Monat + 2.000€ Notfall-Budget hast</li>
+                    <li>Du max. 4h außer Haus bist ODER Betreuung hast</li>
+                </ul>
+
+                <h4>❌ NICHT für dich, wenn:</h4>
+                <ul>
+                    <li>Du Vollzeit arbeitest ohne Betreuung</li>
+                    <li>Du oft verreist</li>
+                    <li>Du wenig Geduld hast</li>
+                    <li>Du knapp bei Kasse bist</li>
+                </ul>
+
+                <div class="warning-badge">⚠️ Hunde sind RUDELTIERE - Einsamkeit macht sie krank!</div>
+            </div>
+        </div>
+
+        <!-- Katzen -->
+        <div class="animal-card">
+            <div class="animal-header pink">
+                <span class="animal-icon">🐱</span>
+                <h3>Katzen</h3>
+                <span class="animal-badge">MINDESTENS 2 Katzen!</span>
+            </div>
+            <div class="animal-body">
+                <h4>✅ Passt zu dir, wenn:</h4>
+                <ul>
+                    <li>Du MINDESTENS 2 Katzen adoptierst (Einzelhaltung = Qual!)</li>
+                    <li>Du täglich 2-3h Zeit für Spiel & Pflege hast</li>
+                    <li>Du eine große Wohnung oder Freigang bietest</li>
+                    <li>Du 100-150€/Monat pro Katze einplanen kannst</li>
+                    <li>Du Kratzspuren an Möbeln akzeptierst</li>
+                </ul>
+
+                <h4>❌ MYTHOS: "Katzen sind Einzelgänger"</h4>
+                <p style="background: #FFD6E8; padding: 15px; border-radius: 15px; margin: 15px 0;">
+                    <strong>FALSCH!</strong> Katzen sind soziale Tiere und brauchen Artgenossen. Einzelhaltung führt zu Depression, Aggression und Verhaltensstörungen.
+                </p>
+
+                <div class="warning-badge">⚠️ 2 Katzen = Pflicht, nicht Kür!</div>
+            </div>
+        </div>
+
+        <!-- Kleintiere -->
+        <div class="animal-card">
+            <div class="animal-header peach">
+                <span class="animal-icon">🐰</span>
+                <h3>Kaninchen & Meerschweinchen</h3>
+                <span class="animal-badge">KEIN Anfängertier!</span>
+            </div>
+            <div class="animal-body">
+                <h4>✅ Passt zu dir, wenn:</h4>
+                <ul>
+                    <li>Du MINDESTENS 2 Tiere hältst</li>
+                    <li>Du ein Gehege von mind. 6m² bietest (KEIN Käfig!)</li>
+                    <li>Du täglich 4h+ Freilauf ermöglichst</li>
+                    <li>Du täglich Gehege reinigst & frisches Futter gibst</li>
+                    <li>Du einen kaninchenerfahrenen Tierarzt hast</li>
+                </ul>
+
+                <h4>❌ MYTHOS: "Kindertiere" im Käfig</h4>
+                <p style="background: #FFD6E8; padding: 15px; border-radius: 15px; margin: 15px 0;">
+                    <strong>FALSCH!</strong> Kaninchen sind KEIN Spielzeug für Kinder! Sie sind sehr anspruchsvoll, zerbrechlich und brauchen viel Platz. Käfighaltung ist Tierquälerei!
+                </p>
+
+                <div class="warning-badge">⚠️ Mehr Arbeit als du denkst!</div>
+            </div>
+        </div>
+
+        <!-- Vögel -->
+        <div class="animal-card">
+            <div class="animal-header lavender">
+                <span class="animal-icon">🦜</span>
+                <h3>Vögel (Papageien, Sittiche)</h3>
+                <span class="animal-badge">Für 99% UNGEEIGNET!</span>
+            </div>
+            <div class="animal-body">
+                <h4>❌ NICHT für Privathand:</h4>
+                <ul>
+                    <li><strong>Lebensdauer:</strong> 30-80 Jahre! (Lebenslanges Commitment)</li>
+                    <li><strong>Lautstärke:</strong> Extrem laut (Nachbarschaftsprobleme garantiert)</li>
+                    <li><strong>Platz:</strong> Riesige Volieren + täglicher Freiflug nötig</li>
+                    <li><strong>Sozial:</strong> Brauchen Partnertiere</li>
+                    <li><strong>Intelligenz:</strong> Hochintelligent - Langeweile führt zu Selbstverstümmelung</li>
+                </ul>
+
+                <div class="warning-badge">🚫 Finger weg! Diese Tiere gehören nicht in Wohnungen!</div>
+            </div>
+        </div>
+
+        <!-- Exoten -->
+        <div class="animal-card">
+            <div class="animal-header coral">
+                <span class="animal-icon">🦎</span>
+                <h3>Exoten (Reptilien, Schildkröten)</h3>
+                <span class="animal-badge">KEINE Haustiere!</span>
+            </div>
+            <div class="animal-body">
+                <h4>🚫 Warum NICHT?</h4>
+                <ul>
+                    <li><strong>Wildtiere:</strong> Keine Kuscheltiere, oft gestresst in Haltung</li>
+                    <li><strong>Spezialbedarf:</strong> Teure Terrarien, exakte Temperatur/Feuchtigkeit</li>
+                    <li><strong>Futter:</strong> Lebende/tote Wirbeltiere (ethisch fragwürdig)</li>
+                    <li><strong>Lebensdauer:</strong> Schildkröten 50-100 Jahre!</li>
+                    <li><strong>Illegaler Handel:</strong> Viele Arten aus Wilderei</li>
+                </ul>
+
+                <p style="background: #FFD6E8; padding: 20px; border-radius: 15px; margin: 20px 0; font-weight: 600; text-align: center;">
+                    🌍 Grundregel: Wenn ein Tier aus einem anderen Kontinent kommt, gehört es NICHT in dein Wohnzimmer!
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Quiz Section mit Shortcode -->
+<section id="test" class="section">
+    <div class="section-header">
+        <h2 class="section-title">
+            <span class="emoji">✨</span> Mach den Bereitschafts-Test
+        </h2>
+        <p class="section-subtitle">Sei ehrlich zu dir - es geht um ein Lebewesen!</p>
+    </div>
+
+    <?php echo do_shortcode('[tierliebe_quiz]'); ?>
+</section>
+
+<!-- Footer wird durch get_footer() geladen -->
+
+<!-- Scroll to Top Button -->
+<button class="scroll-top" id="scrollTop" onclick="scrollToTop()">
+    <span>↑</span>
+</button>
+
+<script>
+// Scroll-Funktionen
+function scrollToTest() {
+    document.getElementById('test').scrollIntoView({ behavior: 'smooth' });
+}
+
+function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Scroll to Top Button Visibility
+window.addEventListener('scroll', function() {
+    const scrollTop = document.getElementById('scrollTop');
+    if (window.pageYOffset > 400) {
+        scrollTop.classList.add('visible');
+    } else {
+        scrollTop.classList.remove('visible');
+    }
+});
+</script>
+
+<?php get_footer(); ?>
