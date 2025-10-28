@@ -3,10 +3,11 @@
 /* TIERLIEBE QUIZ - INTEGRATION
 _______________________________*/
 
-// TEMPORÄR DEAKTIVIERT - DEBUGGING
-/*
 // Load Tierliebe Shortcodes
 require_once get_stylesheet_directory() . '/includes/tierliebe-shortcodes.php';
+
+// TEMPLATE META BOX - TEMPORÄR DEAKTIVIERT - DEBUGGING
+/*
 
 // Template-Auswahl im Classic Editor aktivieren (YOOtheme deaktiviert das standardmäßig)
 function enable_page_attributes_meta_box() {
@@ -87,6 +88,21 @@ function tierliebe_enqueue_scripts() {
 }
 add_action('wp_enqueue_scripts', 'tierliebe_enqueue_scripts');
 */
+
+// Enqueue Quiz JavaScript (nur auf Tierliebe-Seite)
+function tierliebe_enqueue_scripts()
+{
+    if (is_page_template('page-tierliebe.php')) {
+        wp_enqueue_script(
+            'tierliebe-quiz',
+            get_stylesheet_directory_uri() . '/js/tierliebe-quiz.js',
+            array(),
+            '1.0.0',
+            true
+        );
+    }
+}
+add_action('wp_enqueue_scripts', 'tierliebe_enqueue_scripts');
 
 
 /* REMOVE BLOCK LIBRARY
