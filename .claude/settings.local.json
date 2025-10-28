@@ -23,7 +23,8 @@
       "Bash(findstr:*)",
       "Bash(python:*)",
       "Bash(node -e:*)",
-      "Bash(php -l:*)"
+      "Bash(php -l:*)",
+      "Bash(wp --info:*)"
     ],
     "deny": [],
     "ask": []
