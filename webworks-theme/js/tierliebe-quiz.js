@@ -1,6 +1,7 @@
 /**
  * Tierliebe Quiz - JavaScript Logic
  * Handles quiz questions, scoring, and result evaluation
+ * Version: 1.0
  */
 
 // Quiz Questions

@@ -3,6 +3,7 @@
  * Template Name: Tierliebe Quiz
  * Template Post Type: page
  * Description: Landing Page - Bin ich bereit für ein Tier?
+ * Version: 1.0
  */
 
 get_header();
