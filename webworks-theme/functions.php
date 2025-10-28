@@ -1,7 +1,7 @@
 <?php
 
 /* TIERLIEBE QUIZ - INTEGRATION
-_______________________________*/
+______________________________ _*/
 
 // Load Tierliebe Shortcodes
 require_once get_stylesheet_directory() . '/includes/tierliebe-shortcodes.php';
