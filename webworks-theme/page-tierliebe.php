@@ -118,26 +118,51 @@
             align-items: center;
             justify-content: center;
             padding: 120px 30px 100px;
-            background: linear-gradient(135deg, var(--text-dark) 0%, #6B5B52 100%);
+            background: linear-gradient(135deg, #3D4E4A 0%, #4A5D58 50%, #3D4E4A 100%);
             color: var(--bg-white);
             text-align: center;
             overflow: hidden;
         }
 
-        .primary-hero::before {
-            content: '';
+        .primary-hero::before,
+        .primary-hero::after {
+            content: '🐾';
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(184, 230, 213, 0.1) 0%, transparent 70%);
-            animation: gentle-rotate 40s linear infinite;
+            font-size: 8rem;
+            opacity: 0.03;
+            pointer-events: none;
+            animation: paw-float-1 25s ease-in-out infinite;
         }
 
-        @keyframes gentle-rotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        .primary-hero::before {
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .primary-hero::after {
+            bottom: 15%;
+            right: 15%;
+            animation-delay: 12s;
+        }
+
+        @keyframes paw-float-1 {
+            0%, 100% {
+                transform: translate(0, 0) rotate(0deg);
+                opacity: 0.03;
+            }
+            25% {
+                transform: translate(30px, -40px) rotate(10deg);
+                opacity: 0.05;
+            }
+            50% {
+                transform: translate(-20px, -80px) rotate(-5deg);
+                opacity: 0.04;
+            }
+            75% {
+                transform: translate(40px, -120px) rotate(15deg);
+                opacity: 0.02;
+            }
         }
 
         .primary-hero-content {
