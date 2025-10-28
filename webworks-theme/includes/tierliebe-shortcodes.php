@@ -5,7 +5,7 @@
  * Usage: [tierliebe_quiz]
  */
 
-function tierliebe_quiz_shortcode() {
+function tierliebe_quiz_shortcode_new() {
     ob_start();
     ?>
 
@@ -54,4 +54,4 @@ function tierliebe_quiz_shortcode() {
     <?php
     return ob_get_clean();
 }
-add_shortcode('tierliebe_quiz', 'tierliebe_quiz_shortcode');
+add_shortcode('tierliebe_quiz', 'tierliebe_quiz_shortcode_new');
