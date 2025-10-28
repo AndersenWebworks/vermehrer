@@ -53,20 +53,84 @@ function tierliebe_quiz_shortcode_new()
 }
 add_shortcode('tierliebe_quiz', 'tierliebe_quiz_shortcode_new');
 
-// Enqueue Quiz JavaScript
-function tierliebe_enqueue_scripts()
+// Enqueue Tierliebe Styles and Scripts
+function tierliebe_enqueue_assets()
 {
-    if (is_page_template('page-tierliebe.php')) {
-        wp_enqueue_script(
-            'tierliebe-quiz',
-            get_stylesheet_directory_uri() . '/js/tierliebe-quiz.js',
+    // Check if we're on any Tierliebe template
+    $is_tierliebe_template = is_page_template('page-tierliebe.php') ||
+                              is_page_template('page-tierliebe-home.php') ||
+                              is_page_template('page-tierliebe-test.php') ||
+                              is_page_template('page-tierliebe-hunde.php') ||
+                              is_page_template('page-tierliebe-katzen.php') ||
+                              is_page_template('page-tierliebe-kleintiere.php') ||
+                              is_page_template('page-tierliebe-exoten.php') ||
+                              is_page_template('page-tierliebe-irrtuemer.php') ||
+                              is_page_template('page-tierliebe-adoption.php') ||
+                              is_page_template('page-tierliebe-qualzucht.php') ||
+                              is_page_template('page-tierliebe-wissen.php') ||
+                              is_page_template('page-tierliebe-kontakt.php');
+
+    if ($is_tierliebe_template) {
+        // Enqueue main CSS
+        wp_enqueue_style(
+            'tierliebe-style',
+            get_stylesheet_directory_uri() . '/css/tierliebe.css',
             array(),
+            '1.0.0'
+        );
+
+        // Enqueue jQuery (WordPress default)
+        wp_enqueue_script('jquery');
+
+        // Enqueue Tab Switcher
+        wp_enqueue_script(
+            'tierliebe-tabs',
+            get_stylesheet_directory_uri() . '/js/tierliebe-tabs.js',
+            array('jquery'),
             '1.0.0',
             true
         );
+
+        // Enqueue Accordion
+        wp_enqueue_script(
+            'tierliebe-accordion',
+            get_stylesheet_directory_uri() . '/js/tierliebe-accordion.js',
+            array('jquery'),
+            '1.0.0',
+            true
+        );
+
+        // Enqueue Filter
+        wp_enqueue_script(
+            'tierliebe-filter',
+            get_stylesheet_directory_uri() . '/js/tierliebe-filter.js',
+            array('jquery'),
+            '1.0.0',
+            true
+        );
+
+        // Enqueue Gallery
+        wp_enqueue_script(
+            'tierliebe-gallery',
+            get_stylesheet_directory_uri() . '/js/tierliebe-gallery.js',
+            array('jquery'),
+            '1.0.0',
+            true
+        );
+
+        // Enqueue Quiz (only on test page)
+        if (is_page_template('page-tierliebe.php') || is_page_template('page-tierliebe-test.php')) {
+            wp_enqueue_script(
+                'tierliebe-quiz',
+                get_stylesheet_directory_uri() . '/js/tierliebe-quiz.js',
+                array('jquery'),
+                '1.0.0',
+                true
+            );
+        }
     }
 }
-add_action('wp_enqueue_scripts', 'tierliebe_enqueue_scripts');
+add_action('wp_enqueue_scripts', 'tierliebe_enqueue_assets');
 
 // TEMPLATE META BOX - Template-Auswahl im Classic Editor
 

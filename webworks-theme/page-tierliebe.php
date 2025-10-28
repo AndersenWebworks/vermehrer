@@ -21,6 +21,12 @@ bloginfo('name'); ?></title>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Fredoka:wght@400;500;600&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
 
+    <?php wp_head(); ?>
+</head>
+<body <?php body_class(); ?>>
+
+<!-- REMOVED INLINE CSS - NOW LOADED VIA functions.php from /css/tierliebe.css -->
+<!--
     <style>
         :root {
             /* Pastel Palette - Flat Colors */
@@ -1322,10 +1328,7 @@ bloginfo('name'); ?></title>
             .info-box { padding: 30px 20px; }
         }
     </style>
-
-    <?php wp_head(); ?>
-</head>
-<body <?php body_class(); ?>>
+-->
 
 <!-- Floating Decorations -->
 <div class="float-decoration" style="font-size: 8rem;">🐾</div>
