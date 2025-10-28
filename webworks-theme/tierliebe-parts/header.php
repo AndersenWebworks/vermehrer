@@ -27,13 +27,14 @@
         <a href="<?php echo home_url('/tierliebe-start'); ?>" class="logo">
             <span class="logo-icon">🐾</span> Tierliebe-Check
         </a>
-        <nav>
-            <ul class="nav-links">
-                <li><a href="<?php echo home_url('/tierliebe-start'); ?>">Start</a></li>
-                <li><a href="<?php echo home_url('/tierliebe-tiere'); ?>">Tiere</a></li>
-                <li><a href="<?php echo home_url('/tierliebe-mythen'); ?>">Mythen</a></li>
-                <li><a href="<?php echo home_url('/tierliebe-test'); ?>">Test</a></li>
-            </ul>
-        </nav>
+        <?php
+        wp_nav_menu(array(
+            'theme_location' => 'tierliebe-main-menu',
+            'container' => 'nav',
+            'menu_class' => 'nav-links',
+            'fallback_cb' => false,
+            'depth' => 2
+        ));
+        ?>
     </div>
 </header>

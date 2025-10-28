@@ -1,5 +1,18 @@
 <?php
 
+/* TIERLIEBE NAVIGATION MENU
+_______________________________*/
+
+// Register Tierliebe Navigation Menu
+function tierliebe_register_menus()
+{
+    register_nav_menus(array(
+        'tierliebe-main-menu' => 'Tierliebe Hauptmenü'
+    ));
+}
+add_action('init', 'tierliebe_register_menus');
+
+
 /* TIERLIEBE QUIZ - INTEGRATION
 _______________________________*/
 
