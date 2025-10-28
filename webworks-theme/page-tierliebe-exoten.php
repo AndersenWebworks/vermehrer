@@ -12,8 +12,92 @@ get_template_part('tierliebe-parts/header');
 <section class="section">
     <div class="section-header">
         <h2 class="section-title">🦜 Vögel & Exoten</h2>
-        <p class="section-subtitle">Content wird eingefügt</p>
+        <p class="section-subtitle">Für 99% ungeeignet</p>
     </div>
+
+    <div class="info-box warning" data-emoji="⚠️">
+        <h4 style="font-size: 1.5rem; text-align: center;">Kernaussage</h4>
+        <p style="font-size: 1.3rem; text-align: center;"><strong>"Exoten sind keine Dekoration. Sie gehören nicht in Wohnzimmer."</strong></p>
+        <p style="text-align: center; margin-top: 15px;">"Reptilien und Fische leben in hochkomplexen Ökosystemen, die wir im Wohnzimmer niemals nachbilden können."</p>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tierliebe-tabs" style="margin-top: 50px;">
+        <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 40px;">
+            <button class="tab-button active" data-tab="welli" style="padding: 15px 30px; border: 3px solid var(--pastel-blue); background: var(--pastel-blue); border-radius: 25px; font-family: 'Fredoka', sans-serif; font-size: 1.1rem; cursor: pointer;">🦜 Wellensittich</button>
+            <button class="tab-button" data-tab="fisch" style="padding: 15px 30px; border: 3px solid var(--pastel-mint); background: white; border-radius: 25px; font-family: 'Fredoka', sans-serif; font-size: 1.1rem; cursor: pointer;">🐠 Goldfisch</button>
+            <button class="tab-button" data-tab="reptil" style="padding: 15px 30px; border: 3px solid var(--pastel-sage); background: white; border-radius: 25px; font-family: 'Fredoka', sans-serif; font-size: 1.1rem; cursor: pointer;">🦎 Reptilien</button>
+            <button class="tab-button" data-tab="schildkroete" style="padding: 15px 30px; border: 3px solid var(--pastel-peach); background: white; border-radius: 25px; font-family: 'Fredoka', sans-serif; font-size: 1.1rem; cursor: pointer;">🐢 Schildkröten</button>
+        </div>
+
+        <!-- Wellensittich -->
+        <div class="tab-panel active" data-tab="welli">
+            <h3 style="text-align: center; margin-bottom: 30px;">🦜 Wellensittich</h3>
+            <div class="cards-grid" style="margin-bottom: 30px;">
+                <div class="card coral"><span class="card-icon">❌</span><h4>Mythos</h4><p><em>Ein Wellensittich allein spricht besser</em></p></div>
+                <div class="card coral"><span class="card-icon">❌</span><h4>Mythos</h4><p><em>Ein Käfig reicht</em></p></div>
+                <div class="card coral"><span class="card-icon">❌</span><h4>Mythos</h4><p><em>Spiegel/Mensch ersetzt Partner</em></p></div>
+            </div>
+            <div class="info-box info" data-emoji="✅"><h4>Fakten</h4><ul><li>Benötigen Artgenossen – Einzelhaltung ist grausam</li><li>Können UV-Licht sehen; normales Fensterlicht ist "dunkel"</li><li>Leben in der Wohnung quasi in ständiger Dämmerung</li><li>Brauchen Tageslicht oder spezielle UV-Lampen</li><li>Käfig im Wohnzimmer = Dauerstress</li><li>Täglicher Freiflug ist notwendig</li></ul></div>
+            <div class="info-box love" data-emoji="💭"><h4>Wichtig</h4><p>Viele Wellensittiche leiden still. Ein apathischer oder ruhiger Vogel wird als "zahm" missverstanden – dabei steckt dahinter Angst, Einsamkeit oder Resignation.</p><p style="margin-top: 15px; font-size: 1.2rem; text-align: center;"><strong>"Vögel gehören an den Himmel. Selbst die größte Voliere bleibt ein Käfig."</strong></p></div>
+        </div>
+
+        <!-- Goldfisch -->
+        <div class="tab-panel" data-tab="fisch" style="display: none;">
+            <h3 style="text-align: center; margin-bottom: 30px;">🐠 Goldfisch</h3>
+            <div class="cards-grid" style="max-width: 800px; margin: 0 auto 30px;">
+                <div class="card coral"><span class="card-icon">❌</span><h4>Mythos</h4><p><em>Goldfische sind robust – die leben überall</em></p></div>
+                <div class="card coral"><span class="card-icon">❌</span><h4>Mythos</h4><p><em>Ein kleines Becken reicht</em></p></div>
+            </div>
+            <div class="info-box info" data-emoji="✅"><h4>Fakten</h4><ul><li>Benötigen mindestens 100 Liter pro Fisch</li><li>Alles darunter ist Tierquälerei</li><li>Brauchen Filter, Sauerstoff und Pflege</li><li>Viele Goldfische werden 10, 15 oder 20 Jahre alt</li></ul></div>
+            <div class="info-box warning" data-emoji="⚠️"><h4>Schleierschwanz-Problematik</h4><ul><li>Überlange Flossen = Schwimmprobleme</li><li>Hervorstehende Augen = Verletzungsgefahr</li><li>Verkürzte Wirbelsäule durch Zucht</li></ul></div>
+            <div class="info-box love" data-emoji="💭"><p>Ein regloser Goldfisch am Boden wird als "faul" fehlinterpretiert – dabei ist es oft ein Hilfeschrei.</p></div>
+        </div>
+
+        <!-- Reptilien -->
+        <div class="tab-panel" data-tab="reptil" style="display: none;">
+            <h3 style="text-align: center; margin-bottom: 30px;">🦎 Reptilien</h3>
+            <div class="cards-grid" style="margin-bottom: 30px;">
+                <div class="card coral"><span class="card-icon">❌</span><h4>Mythos</h4><p><em>Brauchen keinen Winterschlaf, keine Sonne</em></p></div>
+                <div class="card coral"><span class="card-icon">❌</span><h4>Mythos</h4><p><em>Ein kleines Terrarium reicht</em></p></div>
+                <div class="card coral"><span class="card-icon">❌</span><h4>Mythos</h4><p><em>Pflegeleicht und anspruchslos</em></p></div>
+            </div>
+            <div class="info-box info" data-emoji="✅"><h4>Fakten</h4><ul><li>Brauchen teure Technik, Fachwissen, Temperaturkontrolle</li><li>Spezielles Futter erforderlich</li><li>Nicht für Kinderhände geeignet</li><li>Hochkomplexe Ökosysteme können im Wohnzimmer nicht nachgebildet werden</li></ul></div>
+            <div class="info-box warning" data-emoji="⚠️"><h4>Häufige Fehler</h4><p>Falsche UV-Lampe, keine Wärmeinseln, zu wenig Feuchtigkeit. Folgen: Stoffwechselkrankheiten, Häutungsprobleme, Organversagen.</p><h4 style="margin-top: 20px;">Albino-Reptilien</h4><ul><li>Sehschwäche durch Pigmentmangel</li><li>Lichtempfindlichkeit = Stress</li><li>Höhere Krankheitsanfälligkeit</li><li>Überleben in Natur fast nie</li></ul></div>
+            <div class="info-box love" data-emoji="💭"><p>Reptilien zeigen keine typischen Schmerzreaktionen. Ein regloser Leguan wird als "faul" fehlinterpretiert – dabei ist es oft ein Hilfeschrei.</p></div>
+        </div>
+
+        <!-- Schildkröten -->
+        <div class="tab-panel" data-tab="schildkroete" style="display: none;">
+            <h3 style="text-align: center; margin-bottom: 30px;">🐢 Schildkröten</h3>
+            <div class="card coral" style="max-width: 600px; margin: 0 auto 30px;"><span class="card-icon">❌</span><h4>Mythos</h4><p><em>Sind pflegeleicht – Terrarium oder Balkon reicht</em></p></div>
+            <div class="info-box info" data-emoji="✅"><h4>Fakten</h4><ul><li>Brauchen großes Freigehege mit Verstecken, Pflanzen, Erde, UV-Licht, Wärmelampe</li><li>Benötigen Winterschlaf</li><li>Viele Arten werden 50 bis 100 Jahre alt – kein Tier für ein paar Jahre</li><li>Haltung im Terrarium ist meist tierschutzwidrig</li></ul></div>
+            <div class="info-box warning" data-emoji="⚠️"><h4>Häufige Fehler</h4><ul><li>Haltung ohne Winterschlaf (Organschäden)</li><li>Keine UVB-Versorgung (Knochenerweichung)</li><li>Falsches Futter (zu viel Obst, zu wenig Wildkräuter)</li></ul></div>
+            <div class="info-box love" data-emoji="🐢"><p style="font-size: 1.2rem; text-align: center;"><strong>"Schildkröten sind stille Mitbewohner – aber sie haben eine laute Wahrheit: Verantwortung dauert ein Leben lang."</strong></p></div>
+        </div>
+    </div>
+
+    <script>
+    document.querySelectorAll('.tab-button').forEach(button => {
+        button.addEventListener('click', function() {
+            const tab = this.getAttribute('data-tab');
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
+                btn.style.background = 'white';
+            });
+            this.classList.add('active');
+            this.style.background = this.style.borderColor;
+            document.querySelectorAll('.tab-panel').forEach(panel => {
+                panel.style.display = 'none';
+                panel.classList.remove('active');
+            });
+            const activePanel = document.querySelector(`.tab-panel[data-tab="${tab}"]`);
+            activePanel.style.display = 'block';
+            activePanel.classList.add('active');
+        });
+    });
+    </script>
+
 </section>
 
 <?php get_template_part('tierliebe-parts/footer'); ?>
