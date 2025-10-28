@@ -110,6 +110,86 @@
         }
 
         /* Header */
+        /* Primary Hero - VM Style */
+        .primary-hero {
+            position: relative;
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 30px 100px;
+            background: linear-gradient(135deg, var(--text-dark) 0%, #6B5B52 100%);
+            color: var(--bg-white);
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .primary-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(184, 230, 213, 0.1) 0%, transparent 70%);
+            animation: gentle-rotate 40s linear infinite;
+        }
+
+        @keyframes gentle-rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .primary-hero-content {
+            max-width: 900px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .primary-hero-title {
+            font-size: 5.5rem;
+            font-weight: 700;
+            margin-bottom: 40px;
+            line-height: 1.1;
+            color: var(--bg-white);
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .primary-hero-subtitle {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 30px;
+            line-height: 1.6;
+            color: var(--pastel-mint);
+            animation: fadeInUp 1.2s ease-out;
+        }
+
+        .primary-hero-description {
+            font-size: 1.3rem;
+            margin-bottom: 50px;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.9);
+            animation: fadeInUp 1.4s ease-out;
+        }
+
+        .primary-hero .btn {
+            animation: fadeInUp 1.6s ease-out;
+            font-size: 1.3rem;
+            padding: 20px 50px;
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         .header {
             background: var(--bg-white);
             padding: 20px 0;
@@ -1024,6 +1104,10 @@
 
         /* Responsive */
         @media (max-width: 968px) {
+            .primary-hero-title { font-size: 3.5rem; }
+            .primary-hero-subtitle { font-size: 1.4rem; }
+            .primary-hero-description { font-size: 1.1rem; }
+
             .hero-content {
                 grid-template-columns: 1fr;
                 gap: 40px;
@@ -1038,6 +1122,16 @@
         }
 
         @media (max-width: 640px) {
+            .primary-hero {
+                min-height: 70vh;
+                padding: 100px 20px 60px;
+            }
+
+            .primary-hero-title { font-size: 2.5rem; }
+            .primary-hero-subtitle { font-size: 1.2rem; }
+            .primary-hero-description { font-size: 1rem; }
+            .primary-hero .btn { font-size: 1.1rem; padding: 16px 35px; }
+
             .hero-text h1 { font-size: 2.2rem; }
             .section-title { font-size: 2rem; }
             .quiz-container { padding: 30px 20px; }
@@ -1072,6 +1166,16 @@
         </nav>
     </div>
 </header>
+
+<!-- Primary Hero - VM Content -->
+<section id="du-liebst-tiere" class="primary-hero">
+    <div class="primary-hero-content">
+        <h1 class="primary-hero-title">Du liebst Tiere?</h1>
+        <p class="primary-hero-subtitle">Dann lies hier nicht, was du hören willst – sondern was du wissen musst. Ehrlich. Klar. Und im Sinne der Tiere.</p>
+        <p class="primary-hero-description">Bevor du ein Tier aufnimmst – Hund, Katze, Kaninchen, Welli oder Goldfisch – nimm dir ein paar Minuten für die Wahrheit. Denn: Gute Absichten reichen nicht. Verantwortung schon.</p>
+        <a href="#test" class="btn btn-primary">Bin ich bereit für ein Tier?</a>
+    </div>
+</section>
 
 <!-- Hero -->
 <section id="start" class="hero">
