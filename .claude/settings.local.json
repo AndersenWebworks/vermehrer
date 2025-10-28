@@ -22,7 +22,8 @@
       "Bash(dir:*)",
       "Bash(findstr:*)",
       "Bash(python:*)",
-      "Bash(node -e:*)"
+      "Bash(node -e:*)",
+      "Bash(php -l:*)"
     ],
     "deny": [],
     "ask": []
