@@ -16,7 +16,7 @@
             this.allowMultiple = this.container.data('allow-multiple') || false;
             this.init();
         }
-
+ 
         init() {
             // Close all items by default
             this.items.each(function() {
