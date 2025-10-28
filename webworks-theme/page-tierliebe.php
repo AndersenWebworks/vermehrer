@@ -13,7 +13,8 @@
 <head>
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php wp_title('|', true, 'right'); bloginfo('name'); ?></title>
+    <title><?php wp_title('|', true, 'right');
+bloginfo('name'); ?></title>
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -169,6 +170,127 @@
             max-width: 900px;
             position: relative;
             z-index: 1;
+        }
+
+        /* Decision Section - Dual Panel */
+        .decision-section {
+            padding: 100px 30px;
+            background: var(--bg-cream);
+            position: relative;
+        }
+
+        .decision-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .decision-dual-panel {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .decision-card {
+            background: white;
+            padding: 50px 40px;
+            border-radius: 40px;
+            box-shadow: var(--shadow-md);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .decision-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            border-radius: 40px 40px 0 0;
+        }
+
+        .decision-card-left::before {
+            background: linear-gradient(90deg, var(--pastel-mint), var(--cute-mint));
+        }
+
+        .decision-card-right::before {
+            background: linear-gradient(90deg, var(--pastel-pink), var(--cute-coral));
+        }
+
+        .decision-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .decision-title {
+            font-size: 2rem;
+            margin-bottom: 25px;
+            color: var(--text-dark);
+            line-height: 1.3;
+        }
+
+        .decision-text {
+            margin-bottom: 35px;
+            line-height: 1.8;
+            color: var(--text-medium);
+        }
+
+        .decision-text p {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+        }
+
+        .decision-card .btn {
+            width: 100%;
+            text-align: center;
+        }
+
+        /* Honesty Box */
+        .honesty-box {
+            background: linear-gradient(135deg, var(--pastel-lavender), var(--pastel-pink));
+            padding: 40px 50px;
+            border-radius: 35px;
+            text-align: center;
+            box-shadow: var(--shadow-lg);
+            border: 5px solid white;
+            position: relative;
+        }
+
+        .honesty-box::before {
+            content: '💭';
+            position: absolute;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 4rem;
+            background: white;
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 5px solid var(--pastel-lavender);
+            box-shadow: var(--shadow-md);
+        }
+
+        .honesty-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--text-dark);
+            margin-top: 20px;
+        }
+
+        .honesty-text {
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: var(--text-dark);
+        }
+
+        .honesty-text em {
+            color: var(--text-medium);
         }
 
         .primary-hero-title {
@@ -1133,6 +1255,19 @@
             .primary-hero-subtitle { font-size: 1.4rem; }
             .primary-hero-description { font-size: 1.1rem; }
 
+            .decision-dual-panel {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .decision-section {
+                padding: 80px 20px;
+            }
+
+            .honesty-box {
+                padding: 40px 30px;
+            }
+
             .hero-content {
                 grid-template-columns: 1fr;
                 gap: 40px;
@@ -1156,6 +1291,29 @@
             .primary-hero-subtitle { font-size: 1.2rem; }
             .primary-hero-description { font-size: 1rem; }
             .primary-hero .btn { font-size: 1.1rem; padding: 16px 35px; }
+
+            .decision-section {
+                padding: 60px 15px;
+            }
+
+            .decision-card {
+                padding: 35px 25px;
+            }
+
+            .decision-title {
+                font-size: 1.6rem;
+            }
+
+            .honesty-box {
+                padding: 35px 20px;
+            }
+
+            .honesty-box::before {
+                top: -35px;
+                width: 70px;
+                height: 70px;
+                font-size: 3rem;
+            }
 
             .hero-text h1 { font-size: 2.2rem; }
             .section-title { font-size: 2rem; }
@@ -1199,6 +1357,44 @@
         <p class="primary-hero-subtitle">Dann lies hier nicht, was du hören willst – sondern was du wissen musst. Ehrlich. Klar. Und im Sinne der Tiere.</p>
         <p class="primary-hero-description">Bevor du ein Tier aufnimmst – Hund, Katze, Kaninchen, Welli oder Goldfisch – nimm dir ein paar Minuten für die Wahrheit. Denn: Gute Absichten reichen nicht. Verantwortung schon.</p>
         <a href="#test" class="btn btn-primary">Bin ich bereit für ein Tier?</a>
+    </div>
+</section>
+
+<!-- Transition Section - Bin ich bereit? -->
+<section id="entscheidung" class="decision-section">
+    <div class="decision-container">
+        <div class="decision-dual-panel">
+            <!-- Left Panel: Bin ich bereit -->
+            <div class="decision-card decision-card-left">
+                <h2 class="decision-title">Bin ich bereit für ein Tier?</h2>
+                <div class="decision-text">
+                    <p>Du denkst darüber nach, ein Tier aufzunehmen?<br>
+                    Dann nimm dir bitte kurz Zeit für diese Fragen – ganz ehrlich, nur für dich.<br>
+                    Denn ein Tier ist keine Phase. Es ist ein Teil deines Lebens – und komplett abhängig von dir.</p>
+                    <p style="margin-top: 20px; font-weight: 600; font-size: 1.15rem;">Bist du der Typ Tierhalter, den Tiere sich wünschen würden?</p>
+                </div>
+                <a href="#test" class="btn btn-primary">Jetzt Test machen</a>
+            </div>
+
+            <!-- Right Panel: Die Wahrheit -->
+            <div class="decision-card decision-card-right">
+                <h2 class="decision-title">Die Wahrheit über Haustiere</h2>
+                <div class="decision-text">
+                    <p>Katzen sind unabhängig?<br>
+                    Hunde brauchen nur genügend Auslauf?<br>
+                    Meerschweinchen sind perfekt für Kinder?</p>
+                    <p style="margin-top: 20px; font-weight: 600; font-size: 1.15rem;">Lass uns diese Mythen gemeinsam auf den Prüfstand stellen.</p>
+                </div>
+                <a href="#wahrheit" class="btn btn-secondary">Mythen entlarven</a>
+            </div>
+        </div>
+
+        <!-- Honesty Highlight Box -->
+        <div class="honesty-box">
+            <p class="honesty-title"><strong>Ehrlichkeit ist der erste Schritt zu echter Tierliebe.</strong></p>
+            <p class="honesty-text"><em>Wenn du bei einer Frage oder mehreren Fragen zögerst, ist das kein Grund zur Scham.</em><br>
+            <em>Es ist ein Zeichen, dass du Verantwortung ernst nimmst – und das verdient Respekt.</em></p>
+        </div>
     </div>
 </section>
 
