@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"triggerTaskOnSave.tasks": {
+			"Auto Commit and Upload": [
+				"**/*"
+			]
+		}
+	}
+}
