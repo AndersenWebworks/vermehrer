@@ -3,7 +3,7 @@
  * Template Name: Tierliebe - Katzen
  * Template Post Type: page
  * Description: Mythen und Fakten über Katzen
- * Version: 1.0
+ * Version: 1.0.0
  */
 
 get_template_part('tierliebe-parts/header');

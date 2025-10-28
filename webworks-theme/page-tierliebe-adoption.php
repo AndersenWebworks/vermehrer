@@ -3,7 +3,7 @@
  * Template Name: Tierliebe - Adoption
  * Template Post Type: page
  * Description: Zucht vs. Kauf vs. Adoption, Adoptionsprozess, Wirtschaftlichkeit
- * Version: 1.0
+ * Version: 1.0.0
  */
 
 get_template_part('tierliebe-parts/header');

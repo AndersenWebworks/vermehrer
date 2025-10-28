@@ -3,7 +3,7 @@
  * Template Name: Tierliebe - Über & Kontakt
  * Template Post Type: page
  * Description: Persönliche Motivation, Autor-Hintergrund, Hilfe-Angebote, Kontaktformular
- * Version: 1.0
+ * Version: 1.0.0
  */
 
 get_template_part('tierliebe-parts/header');

@@ -3,7 +3,7 @@
  * Template Name: Tierliebe - Hunde
  * Template Post Type: page
  * Description: Mythen und Fakten über Hunde
- * Version: 1.0
+ * Version: 1.0.0
  */
 
 // Include header

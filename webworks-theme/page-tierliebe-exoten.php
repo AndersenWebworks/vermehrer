@@ -3,7 +3,7 @@
  * Template Name: Tierliebe - Vögel & Exoten
  * Template Post Type: page
  * Description: Wellensittiche, Schildkröten, Goldfische, Reptilien
- * Version: 1.0
+ * Version: 1.0.0
  */
 
 get_template_part('tierliebe-parts/header');

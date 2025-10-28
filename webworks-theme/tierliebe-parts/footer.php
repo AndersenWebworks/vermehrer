@@ -1,4 +1,5 @@
 <!-- Footer -->
+<!-- Tierliebe Footer Partial -->
 <footer class="footer">
     <div class="footer-content">
         <h3>🌍 Denk an die Tiere, Wälder & das Klima</h3>

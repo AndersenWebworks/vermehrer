@@ -3,7 +3,7 @@
  * Template Name: Tierliebe - Start
  * Template Post Type: page
  * Description: Startseite für Tierliebe-Portal
- * Version: 1.0
+ * Version: 1.0.0
  */
 ?>
 <!DOCTYPE html>

@@ -3,7 +3,7 @@
  * Template Name: Tierliebe - Test
  * Template Post Type: page
  * Description: Quiz - Bin ich bereit für ein Tier?
- * Version: 1.0
+ * Version: 1.0.0
  */
 
 get_template_part('tierliebe-parts/header');

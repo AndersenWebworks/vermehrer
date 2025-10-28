@@ -3,7 +3,7 @@
  * Template Name: Tierliebe - Qualzucht
  * Template Post Type: page
  * Description: Überzüchtung - 8 Rassen mit Bildern
- * Version: 1.0
+ * Version: 1.0.0
  */
 
 get_template_part('tierliebe-parts/header');

@@ -3,7 +3,7 @@
  * Template Name: Tierliebe - Mythen & Irrtümer
  * Template Post Type: page
  * Description: 12 häufige Irrtümer über Tierhaltung
- * Version: 1.0
+ * Version: 1.0.0
  */
 
 get_template_part('tierliebe-parts/header');
