@@ -1,8 +1,8 @@
 /*
 Name: Vermehrer - Tierliebe Check
-Background: #F5F5F5
-Color: #3A7D44
-Type: Natural
+Background: #FFFBF5
+Color: #5A4A42
+Type: Pastel
 Preview: ../screenshot.jpg
 */
 
@@ -12,33 +12,53 @@ _______________________________*/
 @import "../../yootheme/less/theme.florence.less";
 
 
-/* COLOR PALETTE - Briefing
+/* PASTEL COLOR PALETTE (index2.html Basis)
 _______________________________*/
-// Primary - Vertrauen & Natur (Grün)
-@global-primary-background: #3A7D44;
-@global-link-color: #3A7D44;
-@global-link-hover-color: #2D6335;
+// Pastel Colors (Flat)
+@pastel-mint: #B8E6D5;
+@pastel-pink: #FFD6E8;
+@pastel-peach: #FFE5D0;
+@pastel-lavender: #E0D4F7;
+@pastel-blue: #C7E7F5;
+@pastel-cream: #FFFBF5;
+@pastel-sage: #D4E5D4;
+@pastel-coral: #FFB5B5;
 
-// Secondary - Orange (CTAs)
-@global-secondary-background: #E67E22;
+// Cute Accents
+@cute-coral: #FF9A9E;
+@cute-mint: #A0E7E5;
+@cute-butter: #FFF4A3;
+@cute-lilac: #D5B9F5;
+@cute-sky: #A8DAFF;
+
+
+/* GLOBAL COLORS - Pastel dominiert, Briefing als Akzente
+_______________________________*/
+// Primary - Pastel Mint (statt Briefing-Grün)
+@global-primary-background: @pastel-mint;
+
+// Secondary - Cute Coral für CTAs
+@global-secondary-background: @cute-coral;
 
 // Backgrounds
-@global-background: #F5F5F5;
-@global-muted-background: #E8F5E9; // Leichtes Grün
+@global-background: @pastel-cream;              // Cream statt grau
+@global-muted-background: @pastel-mint;
 
-// Accent - Rosa (Infoboxen)
-@global-warning-background: #FFB6B6;
+// Briefing-Farben nur als Akzente
+@global-link-color: #3A7D44;                    // Briefing-Grün für Links
+@global-link-hover-color: #E67E22;              // Briefing-Orange für Hover
 
-// Danger - Rot (Warnungen)
+// Danger & Warning
 @global-danger-background: #C0392B;
+@global-warning-background: @pastel-peach;
 
-// Success - Grün
-@global-success-background: #3A7D44;
+// Success
+@global-success-background: @pastel-mint;
 
-// Text Colors
-@global-color: #2C3E50;
+// Text Colors (wärmer aus index2)
+@global-color: #5A4A42;                         // Warm braun statt kalt grau
 @global-emphasis-color: #1A252F;
-@global-muted-color: #7F8C8D;
+@global-muted-color: #8B7E74;                   // Warmer als vorher
 @global-inverse-color: #FFFFFF;
 
 
@@ -150,38 +170,467 @@ _______________________________*/
 /* UIKIT COMPONENT OVERRIDES
 _______________________________*/
 
-// List - Custom bullet style mit Paw-Icon
+// === CARDS ===
+.uk-card-default {
+  box-shadow: 0 6px 20px rgba(90, 74, 66, 0.08);
+  border-radius: 25px;
+  transition: all 0.3s ease;
+}
+
+.uk-card-hover:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 32px rgba(90, 74, 66, 0.15);
+}
+
+// Card Color Variants
+.uk-card-mint {
+  background: @pastel-mint;
+  border-top: 10px solid @cute-mint;
+}
+
+.uk-card-pink {
+  background: @pastel-pink;
+  border-top: 10px solid @pastel-pink;
+}
+
+.uk-card-peach {
+  background: @pastel-peach;
+  border-top: 10px solid @pastel-peach;
+}
+
+.uk-card-lavender {
+  background: @pastel-lavender;
+  border-top: 10px solid @pastel-lavender;
+}
+
+.uk-card-coral {
+  background: @cute-coral;
+  color: @global-inverse-color;
+}
+
+// === ALERTS (Info-Boxen) ===
+.uk-alert-primary {
+  background: @pastel-peach;
+  border-left: 6px solid @cute-coral;
+  padding: 35px 40px;
+  border-radius: 25px;
+  box-shadow: 0 4px 16px rgba(255, 182, 182, 0.2);
+
+  h3, h4 {
+    color: @global-link-color;
+    margin-bottom: 20px;
+    font-size: 1.6rem;
+  }
+}
+
+.uk-alert-warning {
+  background: @pastel-mint;
+  border-left: 6px solid @cute-mint;
+  padding: 35px 40px;
+  border-radius: 25px;
+}
+
+.uk-alert-danger {
+  background: #FFEBEE;
+  border-left: 6px solid @global-danger-background;
+  padding: 35px 40px;
+  border-radius: 25px;
+}
+
+// === LISTS ===
 .uk-list-bullet > li::before {
   content: '🐾';
   margin-right: 10px;
 }
 
-// Alert - Rosa für Info
-.uk-alert-primary {
-  background: @global-warning-background;
-  color: @global-color;
-  border-left: 6px solid #FF8E8E;
-}
-
-// Alert - Rot für Warnungen
-.uk-alert-danger {
-  background: #FFEBEE;
-  border-left: 6px solid @global-danger-background;
-}
-
-// Card Hover Effect
-.uk-card-hover:hover {
-  transform: translateY(-5px);
-  box-shadow: @global-large-box-shadow;
-  transition: all 0.3s ease;
-}
-
-// Icon Color
+// === ICONS ===
 .uk-icon {
   color: @global-secondary-background;
 }
 
-// Section Overlay
+// === SECTION OVERLAY ===
 .uk-overlay-primary {
-  background: rgba(58, 125, 68, 0.7);
+  background: rgba(184, 230, 213, 0.7);
+}
+
+// === ACCORDION ===
+.uk-accordion-title {
+  font-family: @base-heading-font-family;
+  font-weight: 600;
+  color: @global-link-color;
+
+  &:hover {
+    color: @global-link-hover-color;
+  }
+}
+
+
+/* CUSTOM COMPONENTS
+_______________________________*/
+
+// === BLOB SHAPES (für Hero/Stats/Quiz) ===
+.section-blob {
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    width: 700px;
+    height: 700px;
+    background: @pastel-pink;
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    opacity: 0.15;
+    filter: blur(40px);
+    top: -20%;
+    right: -10%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: @pastel-mint;
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    opacity: 0.15;
+    filter: blur(40px);
+    bottom: -15%;
+    left: -5%;
+    pointer-events: none;
+    z-index: 0;
+  }
+}
+
+// === STAT CARDS ===
+.stat-card {
+  text-align: center;
+  padding: 40px 30px;
+
+  .stat-icon {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+  }
+
+  .stat-number {
+    font-family: @base-heading-font-family;
+    font-size: 4rem;
+    font-weight: 700;
+    color: @global-secondary-background;
+    margin-bottom: 15px;
+  }
+
+  .stat-label {
+    color: @global-muted-color;
+    line-height: 1.7;
+  }
+}
+
+
+/* QUIZ STYLES (für Shortcode)
+_______________________________*/
+
+// === QUIZ CONTAINER ===
+.quiz-container {
+  background: @global-inverse-color;
+  padding: 60px;
+  border-radius: 45px;
+  border: 6px solid @pastel-lavender;
+  box-shadow: 0 12px 40px rgba(90, 74, 66, 0.15);
+  margin-top: 50px;
+
+  @media @phone {
+    padding: 30px 20px;
+  }
+}
+
+// === QUIZ INTRO ===
+.quiz-intro {
+  background: @pastel-peach;
+  padding: 40px;
+  border-radius: 30px;
+  text-align: center;
+  margin-bottom: 50px;
+  border: 4px solid @cute-coral;
+
+  h3 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    color: @global-color;
+  }
+
+  p {
+    font-size: 1.2rem;
+    line-height: 1.7;
+    margin: 0;
+  }
+}
+
+// === PROGRESS BAR ===
+.progress-container {
+  margin-bottom: 50px;
+}
+
+.progress-label {
+  text-align: center;
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+  font-weight: 600;
+  font-family: @base-heading-font-family;
+}
+
+.progress-bar {
+  height: 25px;
+  background: @pastel-cream;
+  border-radius: 25px;
+  overflow: hidden;
+  border: 4px solid @pastel-mint;
+  position: relative;
+
+  .progress-fill {
+    height: 100%;
+    background: @cute-mint;
+    border-radius: 25px;
+    transition: width 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 15px;
+
+    .progress-paw {
+      font-size: 1.2rem;
+    }
+  }
+}
+
+// === QUESTION CARDS ===
+.question-card {
+  background: @pastel-cream;
+  padding: 40px;
+  border-radius: 25px;
+  margin-bottom: 30px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease;
+
+  @media @phone {
+    padding: 25px 20px;
+  }
+}
+
+.question-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.question-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  background: @global-secondary-background;
+  color: @global-inverse-color;
+  border-radius: 50%;
+  font-weight: 700;
+  font-size: 1.3rem;
+  margin-right: 20px;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(255, 154, 158, 0.3);
+}
+
+.question-text {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: @global-link-color;
+  line-height: 1.5;
+}
+
+// === ANSWER OPTIONS ===
+.answers-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.answer-option {
+  label {
+    display: flex;
+    align-items: center;
+    padding: 18px 25px;
+    border: 3px solid #E8E8E8;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1.05rem;
+    background: @global-inverse-color;
+
+    &:hover {
+      border-color: @global-link-color;
+      background: #F0F9F1;
+      transform: translateX(5px);
+    }
+  }
+
+  input[type="radio"] {
+    margin-right: 18px;
+    transform: scale(1.6);
+    cursor: pointer;
+    accent-color: @global-secondary-background;
+  }
+
+  input[type="radio"]:checked + label {
+    border-color: @global-secondary-background;
+    background: #FFF5ED;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(255, 154, 158, 0.2);
+  }
+}
+
+// === QUIZ NAVIGATION ===
+.quiz-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 40px;
+
+  @media @phone {
+    flex-direction: column;
+  }
+}
+
+// === RESULT CONTAINER ===
+.result-container {
+  padding: 60px;
+  border-radius: 45px;
+  box-shadow: 0 12px 40px rgba(90, 74, 66, 0.15);
+  margin-top: 50px;
+
+  @media @phone {
+    padding: 30px 20px;
+  }
+
+  // Result Types
+  &.knockout {
+    border: 6px solid @cute-coral;
+    background: #FFF5F5;
+  }
+
+  &.very-bad {
+    border: 6px solid @pastel-coral;
+    background: #FFF8F8;
+  }
+
+  &.bad {
+    border: 6px solid @pastel-peach;
+    background: #FFFBF5;
+  }
+
+  &.mediocre {
+    border: 6px solid @pastel-lavender;
+    background: #FAF8FF;
+  }
+
+  &.okay {
+    border: 6px solid @cute-butter;
+    background: #FFFEF5;
+  }
+
+  &.good {
+    border: 6px solid @cute-mint;
+    background: #F0FFF4;
+  }
+
+  &.very-good {
+    border: 6px solid @pastel-mint;
+    background: #F0FFF8;
+  }
+
+  &.perfect {
+    border: 6px solid @pastel-pink;
+    background: #FFF0F7;
+  }
+}
+
+.result-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.result-icon {
+  font-size: 8rem;
+  margin-bottom: 25px;
+  animation: bounceIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  display: block;
+}
+
+@keyframes bounceIn {
+  0% { transform: scale(0); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+.result-title {
+  font-size: 3rem;
+  margin-bottom: 20px;
+
+  @media @phone {
+    font-size: 2rem;
+  }
+}
+
+.result-score {
+  font-family: @base-heading-font-family;
+  font-size: 2.5rem;
+  font-weight: 600;
+  margin-bottom: 30px;
+
+  @media @phone {
+    font-size: 1.8rem;
+  }
+}
+
+.result-section {
+  background: @global-inverse-color;
+  padding: 35px;
+  border-radius: 30px;
+  margin: 25px 0;
+  border-left: 6px solid;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+
+  &.strengths {
+    border-color: @cute-mint;
+  }
+
+  &.issues {
+    border-color: @cute-coral;
+  }
+
+  &.recommendations {
+    border-color: @pastel-lavender;
+  }
+
+  &.animals {
+    border-color: @pastel-pink;
+  }
+
+  h4 {
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  ul, ol {
+    margin: 15px 0 15px 30px;
+  }
+
+  li {
+    margin: 12px 0;
+    font-size: 1.1rem;
+    line-height: 1.7;
+  }
 }

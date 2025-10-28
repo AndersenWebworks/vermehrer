@@ -1,5 +1,25 @@
 <?php
 
+/* TIERLIEBE QUIZ SHORTCODE
+_______________________________*/
+function tierliebe_quiz_shortcode() {
+    // Enqueue Quiz JavaScript
+    wp_enqueue_script(
+        'tierliebe-quiz',
+        get_stylesheet_directory_uri() . '/js/quiz.js',
+        array('jquery'),
+        '1.0.0',
+        true
+    );
+
+    // Load Quiz Template
+    ob_start();
+    include get_stylesheet_directory() . '/templates/quiz-template.php';
+    return ob_get_clean();
+}
+add_shortcode('tierliebe_quiz', 'tierliebe_quiz_shortcode');
+
+
 /* REMOVE BLOCK LIBRARY
 _______________________________*/
 function smartwp_remove_wp_block_library_css(){

@@ -1,0 +1,1110 @@
+{
+  "type": "layout",
+  "children": [
+    {
+      "name": "Hero",
+      "type": "section",
+      "props": {
+        "height_viewport": true,
+        "image_position": "center-center",
+        "image_size": "cover",
+        "padding": "large",
+        "style": "default",
+        "vertical_align": "middle",
+        "width": "expand"
+      },
+      "children": [
+        {
+          "type": "html",
+          "props": {
+            "content": "<div class=\"section-blob\" style=\"position: absolute; top: -20%; right: -10%; width: 700px; height: 700px; background: var(--pastel-pink); border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; opacity: 0.15; filter: blur(40px);\"></div><div class=\"section-blob\" style=\"position: absolute; bottom: -15%; left: -5%; width: 500px; height: 500px; background: var(--pastel-mint); border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; opacity: 0.15; filter: blur(40px);\"></div>"
+          }
+        },
+        {
+          "type": "row",
+          "children": [
+            {
+              "type": "column",
+              "props": {
+                "width": "1-2"
+              },
+              "children": [
+                {
+                  "type": "headline",
+                  "props": {
+                    "content": "Bin ich bereit für<br>ein <span style=\"position: relative; display: inline-block;\">Tier<span style=\"content: ''; position: absolute; bottom: 8px; left: -5px; right: -5px; height: 20px; background: var(--pastel-pink); border-radius: 10px; z-index: -1;\"></span></span>?",
+                    "title_element": "h1",
+                    "title_style": "h1"
+                  }
+                },
+                {
+                  "type": "text",
+                  "props": {
+                    "content": "<p class=\"uk-text-lead\">Tiere sind wunderbare Lebewesen mit echten Bedürfnissen. Finde ehrlich heraus, ob du wirklich bereit bist! 💕</p>",
+                    "margin": "default"
+                  }
+                },
+                {
+                  "type": "button",
+                  "props": {
+                    "margin": "default"
+                  },
+                  "children": [
+                    {
+                      "type": "button_item",
+                      "props": {
+                        "content": "✨ Test starten",
+                        "button_style": "primary",
+                        "link": "#test"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "column",
+              "props": {
+                "width": "1-2"
+              },
+              "children": [
+                {
+                  "type": "html",
+                  "props": {
+                    "content": "<div style=\"text-align: center; position: relative;\"><div style=\"font-size: 18rem; animation: bounce-gentle 3s ease-in-out infinite;\">🐶</div><div style=\"position: absolute; top: 10%; left: 10%; font-size: 3rem; animation: orbit 15s linear infinite;\">🐱</div><div style=\"position: absolute; top: 20%; right: 5%; font-size: 3rem; animation: orbit 15s linear infinite; animation-delay: 5s;\">🐰</div><div style=\"position: absolute; bottom: 15%; left: 5%; font-size: 3rem; animation: orbit 15s linear infinite; animation-delay: 10s;\">🐦</div></div>"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Warum dieser Test?",
+      "type": "section",
+      "props": {
+        "padding": "large",
+        "style": "default",
+        "width": "large"
+      },
+      "children": [
+        {
+          "type": "headline",
+          "props": {
+            "content": "💭 Warum dieser Test?",
+            "title_element": "h2",
+            "title_style": "h2",
+            "text_align": "center",
+            "margin": "default"
+          }
+        },
+        {
+          "type": "text",
+          "props": {
+            "content": "<p class=\"uk-text-lead uk-text-center\">Weil jedes Jahr Tausende Tiere leiden, weil Menschen ihre Verantwortung unterschätzt haben.</p>",
+            "text_align": "center",
+            "margin": "default"
+          }
+        },
+        {
+          "type": "row",
+          "props": {
+            "grid_column_gap": "medium",
+            "grid_row_gap": "medium"
+          },
+          "children": [
+            {
+              "type": "column",
+              "props": {
+                "width": "1-2@m"
+              },
+              "children": [
+                {
+                  "type": "card",
+                  "props": {
+                    "style": "default",
+                    "padding": "default",
+                    "class": "uk-card-mint"
+                  },
+                  "children": [
+                    {
+                      "type": "card_body",
+                      "children": [
+                        {
+                          "type": "html",
+                          "props": {
+                            "content": "<span style=\"font-size: 4rem; display: block; margin-bottom: 25px;\">⏰</span>"
+                          }
+                        },
+                        {
+                          "type": "headline",
+                          "props": {
+                            "content": "Zeit ist Liebe",
+                            "title_element": "h3",
+                            "title_style": "h3"
+                          }
+                        },
+                        {
+                          "type": "text",
+                          "props": {
+                            "content": "<p>Hunde brauchen täglich 3-5 Stunden Aufmerksamkeit, Training und Gassi. Katzen mindestens 2-3h Spiel und Pflege. Ein Tier ist kein Nebenbei-Projekt!</p>"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "column",
+              "props": {
+                "width": "1-2@m"
+              },
+              "children": [
+                {
+                  "type": "card",
+                  "props": {
+                    "style": "default",
+                    "padding": "default",
+                    "class": "uk-card-pink"
+                  },
+                  "children": [
+                    {
+                      "type": "card_body",
+                      "children": [
+                        {
+                          "type": "html",
+                          "props": {
+                            "content": "<span style=\"font-size: 4rem; display: block; margin-bottom: 25px;\">💰</span>"
+                          }
+                        },
+                        {
+                          "type": "headline",
+                          "props": {
+                            "content": "Geld & Verantwortung",
+                            "title_element": "h3",
+                            "title_style": "h3"
+                          }
+                        },
+                        {
+                          "type": "text",
+                          "props": {
+                            "content": "<p>1.200-2.500€ pro Jahr für einen Hund. Dazu Notfall-Rücklagen. Tiere kosten Geld - wer das nicht hat, darf kein Tier halten. Punkt.</p>"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "column",
+              "props": {
+                "width": "1-2@m"
+              },
+              "children": [
+                {
+                  "type": "card",
+                  "props": {
+                    "style": "default",
+                    "padding": "default",
+                    "class": "uk-card-peach"
+                  },
+                  "children": [
+                    {
+                      "type": "card_body",
+                      "children": [
+                        {
+                          "type": "html",
+                          "props": {
+                            "content": "<span style=\"font-size: 4rem; display: block; margin-bottom: 25px;\">🏡</span>"
+                          }
+                        },
+                        {
+                          "type": "headline",
+                          "props": {
+                            "content": "Platz zum Wohlfühlen",
+                            "title_element": "h3",
+                            "title_style": "h3"
+                          }
+                        },
+                        {
+                          "type": "text",
+                          "props": {
+                            "content": "<p>Käfige sind Tierquälerei! Kaninchen brauchen min. 6m² Gehege, Katzen Klettermöglichkeiten, Vögel große Volieren. Kein Platz = kein Tier.</p>"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "column",
+              "props": {
+                "width": "1-2@m"
+              },
+              "children": [
+                {
+                  "type": "card",
+                  "props": {
+                    "style": "default",
+                    "padding": "default",
+                    "class": "uk-card-lavender"
+                  },
+                  "children": [
+                    {
+                      "type": "card_body",
+                      "children": [
+                        {
+                          "type": "html",
+                          "props": {
+                            "content": "<span style=\"font-size: 4rem; display: block; margin-bottom: 25px;\">❤️</span>"
+                          }
+                        },
+                        {
+                          "type": "headline",
+                          "props": {
+                            "content": "Adoption statt Kauf!",
+                            "title_element": "h3",
+                            "title_style": "h3"
+                          }
+                        },
+                        {
+                          "type": "text",
+                          "props": {
+                            "content": "<p>Kaufe NIEMALS im Zoohandel oder bei Züchtern! Im Tierschutz warten Tausende liebevolle Tiere auf ein Zuhause. Rette Leben statt Ausbeutung zu unterstützen!</p>"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Die harten Fakten",
+      "type": "section",
+      "props": {
+        "padding": "large",
+        "style": "default",
+        "width": "large"
+      },
+      "children": [
+        {
+          "type": "headline",
+          "props": {
+            "content": "📚 Die harten Fakten",
+            "title_element": "h2",
+            "title_style": "h2",
+            "text_align": "center",
+            "margin": "default"
+          }
+        },
+        {
+          "type": "text",
+          "props": {
+            "content": "<p class=\"uk-text-lead uk-text-center\">Ehrliche Zahlen, die du kennen musst</p>",
+            "text_align": "center",
+            "margin": "default"
+          }
+        },
+        {
+          "type": "alert",
+          "props": {
+            "style": "primary",
+            "margin": "default"
+          },
+          "children": [
+            {
+              "type": "headline",
+              "props": {
+                "content": "💳 Was kostet ein Tier wirklich?",
+                "title_element": "h4",
+                "title_style": "h4"
+              }
+            },
+            {
+              "type": "text",
+              "props": {
+                "content": "<p><strong>Ein Hund kostet durchschnittlich 1.200–2.500€ pro Jahr!</strong></p><ul class=\"uk-list uk-list-bullet\"><li><strong>Futter:</strong> 300–800€ jährlich (je nach Größe)</li><li><strong>Tierarzt & Vorsorge:</strong> 200–500€ jährlich</li><li><strong>Versicherung:</strong> 200–600€ jährlich</li><li><strong>Notfälle:</strong> bis zu mehreren Tausend Euro (OP, Behandlungen)</li><li><strong>Ausstattung:</strong> 200-500€ einmalig (Körbchen, Spielzeug, Geschirr)</li></ul><p class=\"uk-text-bold\">💡 Wichtig: Ohne 2.000€ Notfall-Rücklage bist du nicht bereit! Was, wenn dein Tier eine teure OP braucht? Lässt du es dann leiden?</p>"
+              }
+            }
+          ]
+        },
+        {
+          "type": "alert",
+          "props": {
+            "style": "primary",
+            "margin": "default"
+          },
+          "children": [
+            {
+              "type": "headline",
+              "props": {
+                "content": "⏱️ Zeitaufwand - Mehr als du denkst!",
+                "title_element": "h4",
+                "title_style": "h4"
+              }
+            },
+            {
+              "type": "text",
+              "props": {
+                "content": "<p><strong>Hunde:</strong> 3-5 Stunden täglich</p><ul class=\"uk-list uk-list-bullet\"><li>Gassi gehen (mind. 3x täglich, min. 1,5h gesamt)</li><li>Training & Erziehung (30-60 Min)</li><li>Spielen & Beschäftigung (1-2h)</li><li>Pflege, Füttern, Aufräumen (30-60 Min)</li></ul><p><strong>Katzen:</strong> 2-3 Stunden täglich (mindestens 2 Katzen!)</p><ul class=\"uk-list uk-list-bullet\"><li>Spielen & Beschäftigung (1-1,5h)</li><li>Pflege & Reinigung (30-60 Min)</li><li>Streicheln & Kuscheln (wichtig!)</li></ul><p><strong>Kleintiere (Kaninchen, Meerschweinchen):</strong> 1-2 Stunden täglich</p><ul class=\"uk-list uk-list-bullet\"><li>Freilauf beaufsichtigen (min. 4h täglich!)</li><li>Gehege reinigen & frisches Futter (täglich)</li><li>Beschäftigung & Beobachtung</li></ul><p class=\"uk-text-bold\">🚫 Niemals: Hunde über 4h allein lassen! Katzen brauchen IMMER einen Artgenossen. Einzelhaltung = Tierquälerei!</p>"
+              }
+            }
+          ]
+        },
+        {
+          "type": "alert",
+          "props": {
+            "style": "warning",
+            "margin": "default"
+          },
+          "children": [
+            {
+              "type": "headline",
+              "props": {
+                "content": "❤️ Langfristige Verpflichtung",
+                "title_element": "h4",
+                "title_style": "h4"
+              }
+            },
+            {
+              "type": "text",
+              "props": {
+                "content": "<p>Ein Tier zu adoptieren bedeutet eine Verpflichtung für dessen GANZES Leben:</p><ul class=\"uk-list uk-list-bullet\"><li><strong>Hunde:</strong> 10–15 Jahre (große Rassen kürzer, kleine länger)</li><li><strong>Katzen:</strong> 15–20 Jahre (Wohnungskatzen sogar bis 25 Jahre!)</li><li><strong>Kaninchen:</strong> 8–12 Jahre</li><li><strong>Meerschweinchen:</strong> 6–8 Jahre</li><li><strong>Vögel (Papageien):</strong> 20–80 Jahre!</li></ul><p class=\"uk-text-bold\">💕 Die ehrlichste Tierliebe: Manchmal bedeutet Tiere lieben auch, NEIN zu sagen. Wenn die Bedingungen nicht stimmen, warte lieber oder unterstütze Tiere anders (Patenschaften, Ehrenamt).</p>"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Zahlen die nachdenklich machen",
+      "type": "section",
+      "props": {
+        "padding": "large",
+        "style": "default",
+        "width": "large"
+      },
+      "children": [
+        {
+          "type": "headline",
+          "props": {
+            "content": "📊 Zahlen, die nachdenklich machen",
+            "title_element": "h2",
+            "title_style": "h2",
+            "text_align": "center",
+            "margin": "default"
+          }
+        },
+        {
+          "type": "row",
+          "props": {
+            "grid_column_gap": "medium",
+            "grid_row_gap": "medium"
+          },
+          "children": [
+            {
+              "type": "column",
+              "props": {
+                "width": "1-3@m"
+              },
+              "children": [
+                {
+                  "type": "card",
+                  "props": {
+                    "style": "default",
+                    "padding": "default",
+                    "class": "stat-card"
+                  },
+                  "children": [
+                    {
+                      "type": "card_body",
+                      "children": [
+                        {
+                          "type": "html",
+                          "props": {
+                            "content": "<div style=\"text-align: center;\"><div class=\"stat-icon\" style=\"font-size: 3.5rem; margin-bottom: 20px;\">😢</div><div class=\"stat-number\" style=\"font-size: 4rem; font-weight: 600; margin-bottom: 15px;\">300.000+</div><div class=\"stat-label\" style=\"font-size: 1.15rem; color: var(--text-medium);\">Tiere landen jedes Jahr in deutschen Tierheimen</div></div>"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "column",
+              "props": {
+                "width": "1-3@m"
+              },
+              "children": [
+                {
+                  "type": "card",
+                  "props": {
+                    "style": "default",
+                    "padding": "default",
+                    "class": "stat-card"
+                  },
+                  "children": [
+                    {
+                      "type": "card_body",
+                      "children": [
+                        {
+                          "type": "html",
+                          "props": {
+                            "content": "<div style=\"text-align: center;\"><div class=\"stat-icon\" style=\"font-size: 3.5rem; margin-bottom: 20px;\">💔</div><div class=\"stat-number\" style=\"font-size: 4rem; font-weight: 600; margin-bottom: 15px;\">~30%</div><div class=\"stat-label\" style=\"font-size: 1.15rem; color: var(--text-medium);\">der abgegebenen Tiere werden wieder vermittelt. Der Rest bleibt jahrelang im Heim.</div></div>"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "column",
+              "props": {
+                "width": "1-3@m"
+              },
+              "children": [
+                {
+                  "type": "card",
+                  "props": {
+                    "style": "default",
+                    "padding": "default",
+                    "class": "stat-card"
+                  },
+                  "children": [
+                    {
+                      "type": "card_body",
+                      "children": [
+                        {
+                          "type": "html",
+                          "props": {
+                            "content": "<div style=\"text-align: center;\"><div class=\"stat-icon\" style=\"font-size: 3.5rem; margin-bottom: 20px;\">⚠️</div><div class=\"stat-number\" style=\"font-size: 4rem; font-weight: 600; margin-bottom: 15px;\">#1</div><div class=\"stat-label\" style=\"font-size: 1.15rem; color: var(--text-medium);\">Hauptgrund für Abgabe: Unterschätzter Zeitaufwand & Kosten</div></div>"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Welches Tier passt?",
+      "type": "section",
+      "props": {
+        "padding": "large",
+        "style": "default",
+        "width": "large"
+      },
+      "children": [
+        {
+          "type": "headline",
+          "props": {
+            "content": "🐕 Welches Tier passt wirklich?",
+            "title_element": "h2",
+            "title_style": "h2",
+            "text_align": "center",
+            "margin": "default"
+          }
+        },
+        {
+          "type": "text",
+          "props": {
+            "content": "<p class=\"uk-text-lead uk-text-center\">Ehrliche Infos ohne Beschönigung</p>",
+            "text_align": "center",
+            "margin": "default"
+          }
+        },
+        {
+          "type": "row",
+          "props": {
+            "grid_column_gap": "large",
+            "grid_row_gap": "large"
+          },
+          "children": [
+            {
+              "type": "column",
+              "props": {
+                "width": "1-2@m"
+              },
+              "children": [
+                {
+                  "type": "card",
+                  "props": {
+                    "style": "default",
+                    "padding": "none"
+                  },
+                  "children": [
+                    {
+                      "type": "card_media",
+                      "props": {
+                        "position": "top",
+                        "background": "var(--pastel-mint)",
+                        "padding": "large",
+                        "text_align": "center"
+                      },
+                      "children": [
+                        {
+                          "type": "html",
+                          "props": {
+                            "content": "<span style=\"font-size: 5rem; display: block; margin-bottom: 15px;\">🐕</span>"
+                          }
+                        },
+                        {
+                          "type": "headline",
+                          "props": {
+                            "content": "Hunde",
+                            "title_element": "h3",
+                            "title_style": "h3",
+                            "text_align": "center"
+                          }
+                        },
+                        {
+                          "type": "html",
+                          "props": {
+                            "content": "<span class=\"uk-badge\" style=\"background: white;\">Zeitaufwand: SEHR HOCH</span>"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "type": "card_body",
+                      "children": [
+                        {
+                          "type": "headline",
+                          "props": {
+                            "content": "✅ Passt zu dir, wenn:",
+                            "title_element": "h4",
+                            "title_style": "h4"
+                          }
+                        },
+                        {
+                          "type": "text",
+                          "props": {
+                            "content": "<ul class=\"uk-list uk-list-bullet\"><li>Du täglich 3-5h Zeit hast</li><li>Du körperlich aktiv bist (Gassi bei jedem Wetter!)</li><li>Du bereit bist, in Hundeschule zu gehen</li><li>Du min. 150€/Monat + 2.000€ Notfall-Budget hast</li><li>Du max. 4h außer Haus bist ODER Betreuung hast</li></ul>"
+                          }
+                        },
+                        {
+                          "type": "headline",
+                          "props": {
+                            "content": "❌ NICHT für dich, wenn:",
+                            "title_element": "h4",
+                            "title_style": "h4"
+                          }
+                        },
+                        {
+                          "type": "text",
+                          "props": {
+                            "content": "<ul class=\"uk-list uk-list-bullet\"><li>Du Vollzeit arbeitest ohne Betreuung</li><li>Du oft verreist</li><li>Du wenig Geduld hast</li><li>Du knapp bei Kasse bist</li></ul><div class=\"uk-alert uk-alert-danger\">⚠️ Hunde sind RUDELTIERE - Einsamkeit macht sie krank!</div>"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "column",
+              "props": {
+                "width": "1-2@m"
+              },
+              "children": [
+                {
+                  "type": "card",
+                  "props": {
+                    "style": "default",
+                    "padding": "none"
+                  },
+                  "children": [
+                    {
+                      "type": "card_media",
+                      "props": {
+                        "position": "top",
+                        "background": "var(--pastel-pink)",
+                        "padding": "large",
+                        "text_align": "center"
+                      },
+                      "children": [
+                        {
+                          "type": "html",
+                          "props": {
+                            "content": "<span style=\"font-size: 5rem; display: block; margin-bottom: 15px;\">🐱</span>"
+                          }
+                        },
+                        {
+                          "type": "headline",
+                          "props": {
+                            "content": "Katzen",
+                            "title_element": "h3",
+                            "title_style": "h3",
+                            "text_align": "center"
+                          }
+                        },
+                        {
+                          "type": "html",
+                          "props": {
+                            "content": "<span class=\"uk-badge\" style=\"background: white;\">MINDESTENS 2 Katzen!</span>"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "type": "card_body",
+                      "children": [
+                        {
+                          "type": "headline",
+                          "props": {
+                            "content": "✅ Passt zu dir, wenn:",
+                            "title_element": "h4",
+                            "title_style": "h4"
+                          }
+                        },
+                        {
+                          "type": "text",
+                          "props": {
+                            "content": "<ul class=\"uk-list uk-list-bullet\"><li>Du MINDESTENS 2 Katzen adoptierst (Einzelhaltung = Qual!)</li><li>Du täglich 2-3h Zeit für Spiel & Pflege hast</li><li>Du eine große Wohnung oder Freigang bietest</li><li>Du 100-150€/Monat pro Katze einplanen kannst</li><li>Du Kratzspuren an Möbeln akzeptierst</li></ul>"
+                          }
+                        },
+                        {
+                          "type": "headline",
+                          "props": {
+                            "content": "❌ MYTHOS: \"Katzen sind Einzelgänger\"",
+                            "title_element": "h4",
+                            "title_style": "h4"
+                          }
+                        },
+                        {
+                          "type": "text",
+                          "props": {
+                            "content": "<div class=\"uk-alert uk-alert-warning\"><strong>FALSCH!</strong> Katzen sind soziale Tiere und brauchen Artgenossen. Einzelhaltung führt zu Depression, Aggression und Verhaltensstörungen.</div><div class=\"uk-alert uk-alert-danger\">⚠️ 2 Katzen = Pflicht, nicht Kür!</div>"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "column",
+              "props": {
+                "width": "1-2@m"
+              },
+              "children": [
+                {
+                  "type": "card",
+                  "props": {
+                    "style": "default",
+                    "padding": "none"
+                  },
+                  "children": [
+                    {
+                      "type": "card_media",
+                      "props": {
+                        "position": "top",
+                        "background": "var(--pastel-peach)",
+                        "padding": "large",
+                        "text_align": "center"
+                      },
+                      "children": [
+                        {
+                          "type": "html",
+                          "props": {
+                            "content": "<span style=\"font-size: 5rem; display: block; margin-bottom: 15px;\">🐰</span>"
+                          }
+                        },
+                        {
+                          "type": "headline",
+                          "props": {
+                            "content": "Kaninchen & Meerschweinchen",
+                            "title_element": "h3",
+                            "title_style": "h3",
+                            "text_align": "center"
+                          }
+                        },
+                        {
+                          "type": "html",
+                          "props": {
+                            "content": "<span class=\"uk-badge\" style=\"background: white;\">KEIN Anfängertier!</span>"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "type": "card_body",
+                      "children": [
+                        {
+                          "type": "headline",
+                          "props": {
+                            "content": "✅ Passt zu dir, wenn:",
+                            "title_element": "h4",
+                            "title_style": "h4"
+                          }
+                        },
+                        {
+                          "type": "text",
+                          "props": {
+                            "content": "<ul class=\"uk-list uk-list-bullet\"><li>Du MINDESTENS 2 Tiere hältst</li><li>Du ein Gehege von mind. 6m² bietest (KEIN Käfig!)</li><li>Du täglich 4h+ Freilauf ermöglichst</li><li>Du täglich Gehege reinigst & frisches Futter gibst</li><li>Du einen kaninchenerfahrenen Tierarzt hast</li></ul>"
+                          }
+                        },
+                        {
+                          "type": "headline",
+                          "props": {
+                            "content": "❌ MYTHOS: \"Kindertiere\" im Käfig",
+                            "title_element": "h4",
+                            "title_style": "h4"
+                          }
+                        },
+                        {
+                          "type": "text",
+                          "props": {
+                            "content": "<div class=\"uk-alert uk-alert-warning\"><strong>FALSCH!</strong> Kaninchen sind KEIN Spielzeug für Kinder! Sie sind sehr anspruchsvoll, zerbrechlich und brauchen viel Platz. Käfighaltung ist Tierquälerei!</div><div class=\"uk-alert uk-alert-danger\">⚠️ Mehr Arbeit als du denkst!</div>"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "column",
+              "props": {
+                "width": "1-2@m"
+              },
+              "children": [
+                {
+                  "type": "card",
+                  "props": {
+                    "style": "default",
+                    "padding": "none"
+                  },
+                  "children": [
+                    {
+                      "type": "card_media",
+                      "props": {
+                        "position": "top",
+                        "background": "var(--pastel-lavender)",
+                        "padding": "large",
+                        "text_align": "center"
+                      },
+                      "children": [
+                        {
+                          "type": "html",
+                          "props": {
+                            "content": "<span style=\"font-size: 5rem; display: block; margin-bottom: 15px;\">🦜</span>"
+                          }
+                        },
+                        {
+                          "type": "headline",
+                          "props": {
+                            "content": "Vögel (Papageien, Sittiche)",
+                            "title_element": "h3",
+                            "title_style": "h3",
+                            "text_align": "center"
+                          }
+                        },
+                        {
+                          "type": "html",
+                          "props": {
+                            "content": "<span class=\"uk-badge\" style=\"background: white;\">Für 99% UNGEEIGNET!</span>"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "type": "card_body",
+                      "children": [
+                        {
+                          "type": "headline",
+                          "props": {
+                            "content": "❌ NICHT für Privathand:",
+                            "title_element": "h4",
+                            "title_style": "h4"
+                          }
+                        },
+                        {
+                          "type": "text",
+                          "props": {
+                            "content": "<ul class=\"uk-list uk-list-bullet\"><li><strong>Lebensdauer:</strong> 30-80 Jahre! (Lebenslanges Commitment)</li><li><strong>Lautstärke:</strong> Extrem laut (Nachbarschaftsprobleme garantiert)</li><li><strong>Platz:</strong> Riesige Volieren + täglicher Freiflug nötig</li><li><strong>Sozial:</strong> Brauchen Partnertiere</li><li><strong>Intelligenz:</strong> Hochintelligent - Langeweile führt zu Selbstverstümmelung</li></ul><div class=\"uk-alert uk-alert-danger\">🚫 Finger weg! Diese Tiere gehören nicht in Wohnungen!</div>"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "column",
+              "props": {
+                "width": "1-2@m"
+              },
+              "children": [
+                {
+                  "type": "card",
+                  "props": {
+                    "style": "default",
+                    "padding": "none"
+                  },
+                  "children": [
+                    {
+                      "type": "card_media",
+                      "props": {
+                        "position": "top",
+                        "background": "var(--pastel-coral)",
+                        "padding": "large",
+                        "text_align": "center"
+                      },
+                      "children": [
+                        {
+                          "type": "html",
+                          "props": {
+                            "content": "<span style=\"font-size: 5rem; display: block; margin-bottom: 15px;\">🦎</span>"
+                          }
+                        },
+                        {
+                          "type": "headline",
+                          "props": {
+                            "content": "Exoten (Reptilien, Schildkröten)",
+                            "title_element": "h3",
+                            "title_style": "h3",
+                            "text_align": "center"
+                          }
+                        },
+                        {
+                          "type": "html",
+                          "props": {
+                            "content": "<span class=\"uk-badge\" style=\"background: white;\">KEINE Haustiere!</span>"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "type": "card_body",
+                      "children": [
+                        {
+                          "type": "headline",
+                          "props": {
+                            "content": "🚫 Warum NICHT?",
+                            "title_element": "h4",
+                            "title_style": "h4"
+                          }
+                        },
+                        {
+                          "type": "text",
+                          "props": {
+                            "content": "<ul class=\"uk-list uk-list-bullet\"><li><strong>Wildtiere:</strong> Keine Kuscheltiere, oft gestresst in Haltung</li><li><strong>Spezialbedarf:</strong> Teure Terrarien, exakte Temperatur/Feuchtigkeit</li><li><strong>Futter:</strong> Lebende/tote Wirbeltiere (ethisch fragwürdig)</li><li><strong>Lebensdauer:</strong> Schildkröten 50-100 Jahre!</li><li><strong>Illegaler Handel:</strong> Viele Arten aus Wilderei</li></ul><div class=\"uk-alert uk-alert-danger\">🌍 Grundregel: Wenn ein Tier aus einem anderen Kontinent kommt, gehört es NICHT in dein Wohnzimmer!</div>"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Mythen über Haustiere",
+      "type": "section",
+      "props": {
+        "padding": "large",
+        "style": "default",
+        "width": "small",
+        "id": "haustiere"
+      },
+      "children": [
+        {
+          "type": "headline",
+          "props": {
+            "content": "Die Wahrheit über Haustiere",
+            "text_align": "center",
+            "title_color": "primary",
+            "title_element": "h2",
+            "title_font_family": "default",
+            "title_style": "h2"
+          }
+        },
+        {
+          "type": "text",
+          "props": {
+            "animation": "slide-bottom",
+            "column_breakpoint": "m",
+            "content": "<p>Katzen sind unabhängig?<br />Hunde brauchen nur genügend Auslauf?<br />Meerschweinchen sind perfekt für Kinder?</p>\n<p>Lass uns diese Mythen gemeinsam auf den Prüfstand stellen.</p>",
+            "margin": "default",
+            "text_align": "center",
+            "text_style": "lead"
+          }
+        },
+        {
+          "type": "accordion",
+          "props": {
+            "collapsible": true,
+            "content_column_breakpoint": "m",
+            "image_align": "top",
+            "image_grid_breakpoint": "m",
+            "image_grid_width": "1-2",
+            "image_svg_color": "emphasis",
+            "link_style": "default",
+            "link_text": "Read more",
+            "show_image": true,
+            "show_link": true
+          },
+          "children": [
+            {
+              "type": "accordion_item",
+              "props": {
+                "content": "<p><strong>Mythen:</strong></p>\n<ul>\n<li><em>Hunde brauchen nur Auslauf, dann sind sie zufrieden.</em></li>\n<li><em>Wenn der Hund nicht in die Wohnung macht, während er allein ist, ist doch alles gut.</em></li>\n</ul>\n<p><strong>Fakten:</strong></p>\n<ul>\n<li>Hunde sind Rudeltiere mit komplexem Sozialverhalten. Tägliche Interaktion, Training und geistige Auslastung sind Pflicht.</li>\n<li>Hunde können nicht gut allein sein. 4 Stunden sind schon viel, 8 Stunden täglich ist Tierquälerei.</li>\n</ul>\n<p><strong>Kann ein Hund 8 Stunden allein bleiben – wenn er einen Hundekumpel und einen Garten hat?</strong></p>\n<p>Ja, das kann <strong>unter bestimmten Bedingungen</strong> etwas besser funktionieren:</p>\n<ul>\n<li>die Hunde sind sozial, gut verträglich und wirklich miteinander verbunden</li>\n<li>beide sind schrittweise ans Alleinsein gewöhnt worden</li>\n<li>der Garten ist sicher, groß, bietet Schatten, Wasser und Rückzugsorte</li>\n<li>vor und nach dem Alleinsein gibt es ausgedehnte Spaziergänge, Spiel und Aufmerksamkeit vom Menschen</li>\n</ul>\n<p><strong>Aber:</strong> Auch mehrere Hunde können ihre Bezugsperson vermissen. Der Garten ersetzt keinen Spaziergang und keine echte Beziehung.</p>\n<p><strong>Faustregel:</strong> Mehrere Hunde im gesicherten Garten sind besser als ein Hund allein in der Wohnung – aber es bleibt ein Kompromiss, keine Empfehlung.</p>\n<p><strong>Wichtig zu wissen:</strong> Nur weil ein Hund es \"aushält\", 8 Stunden nicht in die Wohnung zu machen, heißt das nicht, dass es gut für ihn ist. Hunde haben ein natürliches Bedürfnis, sich zu lösen, sich zu bewegen, zu riechen, zu erkunden – sie halten oft aus <strong>Liebe zum Menschen</strong>, was sie innerlich belastet.</p>\n<p><strong>Hunde sind hochsoziale Tiere. Selbst wenn man alles richtig macht, lebt ein Hund in unserer Welt nicht so frei, wie es seiner Natur entspricht. Spaziergänge ersetzen kein selbstbestimmtes Streifen durch Wälder und Felder. Wer einen Hund hält, entscheidet über jeden Aspekt seines Lebens.</strong></p>",
+                "title": "Hund"
+              }
+            },
+            {
+              "type": "accordion_item",
+              "props": {
+                "content": "<p><strong>Mythen:</strong></p>\n<ul>\n<li><i>Katzen sind unabhängig und brauchen wenig.</i></li>\n</ul>\n<p><strong>Fakten:</strong></p>\n<ul>\n<li>Katzen brauchen Bindung, sichere Rückzugsorte und Ansprache.</li>\n<li>Unkastrierte Katzen leiden: sie markieren, schreien, werden krank.</li>\n<li>Reine Wohnungshaltung ist nur mit viel Abwechslung, Raum und Beschäftigung artgerecht.</li>\n<li>Einzelhaltung ist fast immer Tierquälerei – außer in begründeten Ausnahmefällen (z. B. ältere Tierschutzkatze).</li>\n</ul>\n<p><strong>Kann eine Katze allein zu Hause bleiben, wenn sie zu zweit ist?</strong></p>\n<ul>\n<li>Ja, Katzen in guter Gesellschaft (z. B. Geschwister oder harmonisierende Partner) können auch längere Abwesenheiten des Menschen besser verkraften.</li>\n<li>Aber auch hier gilt: Katzen vermissen – besonders wenn der Mensch kaum interagiert.</li>\n<li>Besonders bei Wohnungskatzen ist tägliches Spielen und Ansprechen wichtig.</li>\n</ul>\n<p><strong>Achtung:</strong> Eine zweite Katze ersetzt nicht den Menschen, aber sie lindert Einsamkeit – sofern beide gut zusammenpassen.</p>\n<p><strong>Wichtig zu wissen:</strong> Viele Katzen sind still leidende Tiere. Sie zeigen Stress und Unwohlsein oft erst spät – und wirken lange Zeit \"pflegeleicht\", obwohl ihnen wesentliche Bedürfnisse fehlen: Bewegung, Abwechslung, Kontakt, Naturbeobachtung, frische Luft, Gerüche, Jagdinstinkt.</p>\n<p>Katzen passen sich an ein Menschenleben an. Wohnungshaltung bleibt immer ein Ersatz für Natur, frische Luft, Jagd und Freiheit. Freigang bringt zwar Natürlichkeit zurück, aber auch Gefahren, die wir ihnen zumuten. Vollkommen artgerecht ist beides nicht.</p>\n<p><strong>Nur weil eine Katze ruhig ist, heißt das nicht, dass es ihr gut geht.</strong></p>",
+                "title": "Katze"
+              }
+            },
+            {
+              "type": "accordion_item",
+              "props": {
+                "content": "<p><strong>Mythen:</strong></p>\n<ul>\n<li><i>Perfekte Haustiere für Kinder.</i></li>\n<li><em>Ein Käfig im Kinderzimmer reicht.</em></li>\n<li><em>Man kann Kaninchen und Meerschweinchen zusammen halten.</em></li>\n</ul>\n<p><strong>Fakten:</strong></p>\n<ul>\n<li>Beide Tierarten sind Fluchttiere, die Lärm und schnelle Bewegungen schlecht verkraften.</li>\n<li>Einzelhaltung ist Tierquälerei. Jedes Tier braucht Artgenossen und viel Platz (Kaninchen mind. 4 m² <strong>pro Tier</strong>, Meerschweinchen ähnlich).</li>\n<li>Kommerzielle Käfige sind fast immer zu klein.</li>\n<li>Kinderzimmer sind ungeeignet: laut, unruhig, falsches Klima.</li>\n<li><strong>Kaninchen und Meerschweinchen dürfen nicht gemeinsam gehalten werden!</strong> Sie haben unterschiedliche Sprachen, Bedürfnisse und Stresslevel. Das Meerschweinchen ist dem Kaninchen unterlegen und lebt in Dauerstress.</li>\n</ul>\n<p><strong>Besser stattdessen:</strong></p>\n<ul>\n<li>Kaninchen bitte nur mit anderen Kaninchen (idealerweise kastriertes Männchen + Weibchen)</li>\n<li>Meerschweinchen nur mit Meerschweinchen und in Gruppen (keine Mischung mit Degus, Ratten oder anderen Kleinsäugern)</li>\n</ul>\n<p><b>Was tun bei Krankheit oder im Alter?</b></p>\n<ul>\n<li>Meerschweinchen und Kaninchen sind Meister im Verstecken von Schmerzen. Wer sie hält, muss täglich beobachten, wie sie fressen, laufen, atmen.</li>\n<li>Tierarztkosten können schnell steigen – besonders im Alter. Zahnprobleme, Verdauungsstörungen, Parasiten sind häufig.</li>\n<li>Viele Tiere werden aus Zeit- oder Kostengründen zu spät oder gar nicht behandelt – das ist vermeidbares Leid.</li>\n</ul>\n<p><strong>Wichtig zu wissen:</strong> Nur weil ein Kaninchen ruhig im Käfig sitzt, heißt das nicht, dass es ihm gut geht. Oft ist das ein Zeichen von Resignation. Tiere, die \"funktionieren\", leiden manchmal am meisten – sie machen keinen Lärm, sie beschweren sich nicht. Sie hoffen einfach, dass es irgendwann besser wird.</p>\n<p><strong>In der Natur leben Kaninchen und Meerschweinchen in weiten Revieren und großen Gruppen. Selbst großzügige Gehege können dieses Leben nicht ersetzen. Die Haltung bleibt eine von Menschen gemachte Einschränkung.</strong></p>",
+                "title": "Kaninchen & Meerschweinchen"
+              }
+            },
+            {
+              "type": "accordion_item",
+              "props": {
+                "content": "<p><strong>Mythen:</strong></p>\n<ul>\n<li><em>Ein Wellensittich allein spricht besser.</em></li>\n<li><em>Ein Käfig reicht.</em></li>\n<li><em>Ein Spiegel oder Mensch ersetzt den Partner.</em></li>\n</ul>\n<p><strong>Fakten:</strong></p>\n<ul>\n<li>Benötigen Artgenossen! Einzelhaltung ist grausam.</li>\n<li>Können UV-Licht sehen, normales Fensterlicht ist für sie \"dunkel\". Sie leben in der Wohnung quasi in ständiger Dämmerung. Sie brauchen Tageslicht oder spezielle UV-Lampen.</li>\n<li>Käfig im Wohnzimmer? Dort ist meist Fernseher, Musik, Besuch, Lichtwechsel = Dauerstress.</li>\n<li>Der Käfig sollte groß sein, aber viel wichtiger ist: <strong>Täglicher Freiflug</strong>.</li>\n</ul>\n<p><strong>Häufige Fehler bei der Vergesellschaftung:</strong></p>\n<ul>\n<li>Nicht jeder Vogel versteht sich mit jedem – Zwangsvergesellschaftungen in kleinen Käfigen führen zu Stress oder Verletzungen.</li>\n<li>Verschiedene Vogelarten (z. B. Nymphensittich + Welli) sind keine idealen Partner: Sie haben unterschiedliche Sprachen, Körpersprachen und Bedürfnisse.</li>\n</ul>\n<p><strong>Besser stattdessen:</strong></p>\n<ul>\n<li>Nur gleiche Arten vergesellschaften – und auch hier gilt: Geduld, Platz und Rückzugsmöglichkeiten sind Pflicht.</li>\n<li>Käfigtür offen heißt nicht automatisch: Der Vogel kann raus. Viele brauchen Wochen zur Eingewöhnung.</li>\n</ul>\n<ul></ul>\n<p><strong>Wichtig zu wissen:</strong> Viele Wellensittiche leiden still – sie geben keine Warnsignale, schreien nicht um Hilfe. Ein apathischer oder ruhiger Vogel wird oft als \"zahm\" oder \"brav\" missverstanden – dabei steckt dahinter häufig Angst, Einsamkeit oder Resignation.</p>\n<p><strong>Vögel gehören an den Himmel. Selbst die größte Voliere bleibt ein Käfig, verglichen mit den unzähligen Kilometern, die sie in Freiheit fliegen würden. Vogelhaltung in Gefangenschaft ist immer eine Einschränkung, niemals echte Freiheit.</strong></p>",
+                "title": "Wellensittich"
+              }
+            },
+            {
+              "type": "accordion_item",
+              "props": {
+                "content": "<p><strong>Mythen:</strong></p>\n<ul>\n<li><i>Goldfische sind robust – die leben überall.</i></li>\n<li><em>Reptilien brauchen keinen Winterschlaf, keine Sonne.</em></li>\n<li><em>Ein kleines  Becken reicht für einen Fisch oder Gecko völlig aus.</em></li>\n</ul>\n<p><strong>Fakten:</strong></p>\n<ul>\n<li>Goldfische benötigen mindestens 100 Liter <strong>pro Fisch</strong>. Alles darunter ist Tierquälerei.</li>\n<li>Reptilien brauchen teure Technik, Fachwissen, Temperaturkontrolle und spezielles Futter – nichts für Kinderhände.</li>\n<li>Spontankäufe bei Messen, Märkten oder im Netz führen oft zu Verwahrlosung.</li>\n</ul>\n<p><strong>Häufige Probleme im Alltag:</strong></p>\n<ul>\n<li>Bei Reptilien: Falsche UV-Lampe, keine Wärmeinseln, zu wenig Feuchtigkeit – die Folge sind Stoffwechselkrankheiten, Häutungsprobleme, Organversagen.</li>\n<li>Bei Goldfischen: Kein Filter, zu kleine Becken, Überfütterung – das führt zu Sauerstoffmangel, Flossenfäule, Stress.</li>\n</ul>\n<p><strong>Was oft vergessen wird:</strong></p>\n<ul>\n<li>Viele Reptilien und Fische werden viel älter als gedacht: 10, 15 oder 20 Jahre. Das ist keine Übergangslösung.</li>\n<li>Einige Arten brauchen Einzelhaltung, andere Gruppenstruktur – viele Halter wissen das nicht.</li>\n<li>Viele Reptilien sind Wildfänge oder stammen aus tierschutzwidriger Herkunft – auch wenn sie im Laden stehen. Sie leiden schon beim Fang und Transport.</li>\n</ul>\n<ul></ul>\n<p><strong>Wichtig zu wissen:</strong> Gerade bei Reptilien und Fischen wird stilles Leiden oft übersehen – sie zeigen keine typischen Schmerzreaktionen wie ein Hund oder eine Katze. Ein regloser Leguan oder ein Goldfisch am Boden wird als \"faul\" oder \"ruhig\" fehlinterpretiert – dabei ist es oft ein Hilfeschrei.</p>\n<p>Reptilien und Fische leben in hochkomplexen Ökosystemen, die wir im Wohnzimmer niemals nachbilden können. Schon der Transport in den Handel verursacht Tierleid. Die Haltung in Privathand ist fast immer ein Kompromiss – und oft schlicht Tierquälerei.</p>\n<p><strong>Exoten sind keine Dekoration. Sie gehören nicht in Wohnzimmer, sondern in die Natur oder in erfahrene Auffangstationen.</strong></p>",
+                "title": "Goldfisch & Reptil"
+              }
+            },
+            {
+              "type": "accordion_item",
+              "props": {
+                "content": "<p><strong>Mythen:</strong></p>\n<ul>\n<li><i>Hamster sind perfekt für Kinder – klein, süß, pflegeleicht.</i></li>\n<li><em>Ein kleiner Gitterkäfig reicht völlig.</em></li>\n</ul>\n<p><strong>Fakten:</strong></p>\n<ul>\n<li>Hamster sind nachtaktiv. Kinder haben nichts von ihnen – und stören sie am Tag.</li>\n<li>Gitterkäfige sind fast immer ungeeignet. Hamster brauchen ein Gehege mit mindestens 0,5–1 m² Grundfläche, Einstreu zum Graben (mind. 30 cm tief!) und Verstecke.</li>\n<li>Hamster sind absolute Einzelgänger – Vergesellschaftung führt zu Verletzungen oder sogar zum Tod.</li>\n<li>Laufräder sind wichtig, aber müssen geschlossen und artgerecht groß sein (min. 28 cm Durchmesser).</li>\n</ul>\n<ul></ul>\n<ul></ul>\n<p><strong>Wichtig zu wissen:</strong> Hamster leiden häufig leise – in zu kleinen Gehegen mit falschem Futter oder Dauerstress durch Kinderhände, Taglicht, Geräusche und ständiges Beobachten. Viele leben nur 1,5–2 Jahre – und fristen diese Zeit in völliger Isolation und Unterforderung.</p>\n<p>Hamster sind nachtaktive Einzelgänger, die in freier Wildbahn riesige Reviere bewohnen. Selbst große Gehege sind klein im Vergleich zu ihrer natürlichen Umgebung. Sie passen nicht in ein Kinderzimmer und eigentlich auch nicht ins Wohnzimmer.</p>\n<p><strong>Wenn man sie artgerecht hält, sieht man sie kaum. Wenn man sie oft sieht, hält man sie meist nicht artgerecht.</strong></p>",
+                "title": "Hamster"
+              }
+            },
+            {
+              "type": "accordion_item",
+              "props": {
+                "content": "<p><strong>Mythen:</strong></p>\n<ul>\n<li><i>Degus und Chinchillas sind einfach nur pelzigere Hamster.</i></li>\n<li><em>Kann man gut einzeln halten, sie brauchen nicht viel.</em></li>\n</ul>\n<p><strong>Fakten:</strong></p>\n<ul>\n<li>Beide Arten sind hochsoziale Tiere und <strong>müssen in Gruppen gehalten werden</strong> – Einzelhaltung ist Tierquälerei.</li>\n<li>Degus und Chinchillas sind nacht- und dämmerungsaktiv, brauchen <strong>sehr große Volieren</strong>, mehrere Etagen, viel Bewegung, Knabbermaterial und Ruhe.</li>\n<li>Beide benötigen ein spezielles Staubbad, artgerechtes Futter und eine konstante Umgebungstemperatur – besonders Chinchillas vertragen keine Hitze (über 25 °C gefährlich).</li>\n</ul>\n<p><strong>Häufige Probleme:</strong></p>\n<ul>\n<li>Viele Gehege aus Zoohandlungen sind viel zu klein oder ungeeignet.</li>\n<li>Zahnerkrankungen, Diabetes, Langeweile, Aggression, stereotype Bewegungen.</li>\n</ul>\n<ul></ul>\n<p><strong>Wichtig zu wissen:</strong> Chinchillas können über 20 Jahre alt werden. Wer sie hält, übernimmt eine Verantwortung auf Lebenszeit. Degus gelten als \"Nager\", aber sind hochintelligent und benötigen geistige Herausforderung.</p>\n<p>Beide Arten legen weite Strecken zurück, kommunizieren in komplexen Gruppen und reagieren sensibel auf Klima. Keine Voliere kann ihre ursprüngliche Welt ersetzen. Die Haltung in Gefangenschaft bleibt eine starke Einschränkung.</p>\n<p><strong>Kleintiere sind keine Einstiegstiere – sie sind oft anspruchsvoller als Hund oder Katze.</strong></p>",
+                "title": "Degus & Chinchillas"
+              }
+            },
+            {
+              "type": "accordion_item",
+              "props": {
+                "content": "<p><strong>Mythen:</strong></p>\n<ul>\n<li><i>Die sind doch eh nur kurzlebig – da kommt es nicht so drauf an.</i></li>\n<li><em>Ein Hamsterkäfig reicht auch für Ratten.</em></li>\n</ul>\n<p><strong>Fakten:</strong></p>\n<ul>\n<li>Farbmäuse und Ratten sind <strong>hochsoziale Rudeltiere</strong> und dürfen <strong>niemals allein gehalten werden</strong>.</li>\n<li>Sie brauchen ein komplex strukturiertes Gehege mit vielen Ebenen, Rückzugsorten, Buddel- und Klettermöglichkeiten.</li>\n<li>Sie sind sehr intelligent und benötigen Beschäftigung, Tunnel, Auslauf und engen Kontakt zur Bezugsperson.</li>\n</ul>\n<p><strong>Häufige Probleme:</strong></p>\n<ul>\n<li>Tiere aus Zoohandlungen sind oft überzüchtet oder krank, stammen aus Massenvermehrung ohne Rücksicht auf Genetik.</li>\n<li>Viele sterben früh an Tumoren, Atemwegserkrankungen oder Organversagen – das ist oft vermeidbar.</li>\n<li>Einzelhaltung führt zu massiven Verhaltensstörungen.</li>\n</ul>\n<p><strong>Wichtig zu wissen:</strong> Ratten bauen intensive Bindungen zu Menschen und Artgenossen. Wer sie hält, übernimmt echte Verantwortung – auch wenn sie \"nur\" 2–3 Jahre leben.</p>\n<p>Farbmäuse und Ratten sind neugierig, sozial und hochaktiv. Selbst große Käfige bleiben Gefängnisse verglichen mit ihren natürlichen Bedürfnissen.</p>\n<p><strong>Kurze Lebensdauer ist kein Grund für geringere Sorgfaltspflicht – im Gegenteil.</strong></p>",
+                "title": "Ratten & Farbmäuse"
+              }
+            },
+            {
+              "type": "accordion_item",
+              "props": {
+                "content": "<p><strong>Mythen:</strong></p>\n<ul>\n<li><i>Ein Aquarium ist pflegeleicht – Wasser wechseln und fertig.</i></li>\n<li><em>Fische haben nur ein kurzes Gedächtnis und merken sich sowieso nichts.</em></li>\n</ul>\n<p><strong>Fakten:</strong></p>\n<ul>\n<li>Fische sind sensible Tiere mit komplexen Bedürfnissen: Wassertemperatur, pH-Wert, Härte, Strömung, Verstecke, Gruppengröße – alles muss stimmen.</li>\n<li>Jede Art hat andere Anforderungen. Oft werden unverträgliche Arten zusammengehalten = Dauerstress.</li>\n<li>Becken unter 54 Litern sind für die meisten Fischarten ungeeignet.</li>\n<li>Wasserwechsel, Filterreinigung, Wassertests, Pflanzen – das kostet Zeit und Wissen.</li>\n</ul>\n<p><strong>Häufige Fehler:</strong></p>\n<ul>\n<li>Überfütterung, falsches Futter, zu viele Fische auf zu wenig Raum.</li>\n<li>Spontankäufe ohne Einfahrphase des Beckens → Vergiftung durch Nitrit/Ammoniak.</li>\n<li>Reinigung mit Chemie oder Seife → tödlich für Fische.</li>\n</ul>\n<p><strong>Wichtig zu wissen:</strong> Fische sind Wirbeltiere mit Schmerzempfinden. Sie kommunizieren, haben Vorlieben, Ängste und können jahrelang leben – wenn man sie artgerecht hält.</p>\n<p>Ein Aquarium ist ein komplexes Ökosystem. Wer es nicht versteht oder pflegt, quält Tiere.</p>\n<p><strong>\"Nur ein Fisch\" gibt es nicht. Jedes Leben zählt.</strong></p>",
+                "title": "Fische"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Quiz",
+      "type": "section",
+      "props": {
+        "padding": "large",
+        "style": "default",
+        "width": "large",
+        "id": "test"
+      },
+      "children": [
+        {
+          "type": "headline",
+          "props": {
+            "content": "✨ Mach den Bereitschafts-Test",
+            "title_element": "h2",
+            "title_style": "h2",
+            "text_align": "center",
+            "margin": "default"
+          }
+        },
+        {
+          "type": "text",
+          "props": {
+            "content": "<p class=\"uk-text-lead uk-text-center\">Sei ehrlich zu dir - es geht um ein Lebewesen!</p>",
+            "text_align": "center",
+            "margin": "default"
+          }
+        },
+        {
+          "type": "text",
+          "props": {
+            "content": "<p class=\"uk-text-center\">[tierliebe_quiz]</p>",
+            "text_align": "center",
+            "margin": "default"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Footer",
+      "type": "section",
+      "props": {
+        "padding": "large",
+        "style": "secondary",
+        "width": "large"
+      },
+      "children": [
+        {
+          "type": "headline",
+          "props": {
+            "content": "🌍 Denk an die Tiere, Wälder & das Klima",
+            "title_element": "h3",
+            "title_style": "h3",
+            "text_align": "center",
+            "margin": "default"
+          }
+        },
+        {
+          "type": "text",
+          "props": {
+            "content": "<p class=\"uk-text-center\">Jeder unnötige Ausdruck dieser Seite kostet Ressourcen, zerstört Lebensräume und belastet das Klima.</p><p class=\"uk-text-center uk-margin-top\">&copy; 2025 Annemarie Andersen | <a href=\"https://www.annemarie-andersen.de\">annemarie-andersen.de</a></p><p class=\"uk-text-center uk-text-small\">Mit 💕 für alle Tiere gemacht</p>",
+            "text_align": "center",
+            "margin": "default"
+          }
+        }
+      ]
+    }
+  ]
+}
