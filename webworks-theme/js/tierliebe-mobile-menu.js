@@ -68,23 +68,37 @@
             this.menuToggle.addClass('active');
             this.body.addClass('menu-open');
             this.menuToggle.attr('aria-label', 'Menü schließen');
+            this.menuToggle.attr('aria-expanded', 'true');
 
-            // Force right position via native DOM API (CSS is being overridden)
+            // Force right position via native DOM API
             this.mainNav[0].style.setProperty('right', '0px', 'important');
 
-            // Debug: Check if classes are applied
-            console.log('Body classes:', this.body[0].className);
-            console.log('Toggle classes:', this.menuToggle[0].className);
+            // Create backdrop element (::before pseudo-element not working)
+            if (!$('#mobile-menu-backdrop').length) {
+                $('<div id="mobile-menu-backdrop"></div>').css({
+                    'position': 'fixed',
+                    'top': '0',
+                    'left': '0',
+                    'right': '0',
+                    'bottom': '0',
+                    'background': 'rgba(0, 0, 0, 0.5)',
+                    'backdrop-filter': 'blur(4px)',
+                    'z-index': '9998',
+                    'opacity': '0',
+                    'transition': 'opacity 0.3s ease'
+                }).appendTo('body');
 
-            // Debug: Check backdrop
-            const bodyBefore = window.getComputedStyle(this.body[0], '::before');
-            console.log('Backdrop content:', bodyBefore.content);
-            console.log('Backdrop display:', bodyBefore.display);
-            console.log('Backdrop z-index:', bodyBefore.zIndex);
-            console.log('Backdrop background:', bodyBefore.background);
+                setTimeout(() => $('#mobile-menu-backdrop').css('opacity', '1'), 10);
+                $('#mobile-menu-backdrop').on('click', () => this.closeMenu());
+            }
 
             // Prevent body scroll when menu is open
             this.body.css('overflow', 'hidden');
+
+            // Focus first menu item for accessibility
+            setTimeout(() => {
+                this.mainNav.find('.nav-links > li:first-child > a').focus();
+            }, 400);
         }
 
         closeMenu() {
@@ -92,28 +106,43 @@
             this.menuToggle.removeClass('active');
             this.body.removeClass('menu-open');
             this.menuToggle.attr('aria-label', 'Menü öffnen');
+            this.menuToggle.attr('aria-expanded', 'false');
 
             // Force right position back via native DOM
             this.mainNav[0].style.removeProperty('right');
+
+            // Remove backdrop
+            const backdrop = $('#mobile-menu-backdrop');
+            if (backdrop.length) {
+                backdrop.css('opacity', '0');
+                setTimeout(() => backdrop.remove(), 300);
+            }
 
             // Re-enable body scroll
             this.body.css('overflow', '');
 
             // Close all submenus
             $('.main-nav-mobile .nav-links .has-children').removeClass('open');
+
+            // Return focus to toggle button
+            this.menuToggle.focus();
         }
 
         toggleSubmenu($parent) {
             const isOpen = $parent.hasClass('open');
+            const $parentLink = $parent.find('> a');
 
             // Close all other submenus
             $('.main-nav-mobile .nav-links .has-children').not($parent).removeClass('open');
+            $('.main-nav-mobile .nav-links .has-children').not($parent).find('> a').attr('aria-expanded', 'false');
 
             // Toggle current submenu
             if (isOpen) {
                 $parent.removeClass('open');
+                $parentLink.attr('aria-expanded', 'false');
             } else {
                 $parent.addClass('open');
+                $parentLink.attr('aria-expanded', 'true');
             }
         }
     }
