@@ -81,6 +81,28 @@
         $('.tierliebe-tabs').each(function() {
             new TierliebeTabSwitcher(this);
         });
+
+        // Main Tabs (Wissen Page)
+        $('.tab-btn').on('click', function() {
+            const tab = $(this).data('tab');
+
+            $('.tab-btn').removeClass('active');
+            $(this).addClass('active');
+
+            $('.tab-content').removeClass('active');
+            $('#tab-' + tab).addClass('active');
+        });
+
+        // Sub-Tabs (Geschlechter)
+        $('.sub-tab-btn').on('click', function() {
+            const subtab = $(this).data('subtab');
+
+            $('.sub-tab-btn').removeClass('active');
+            $(this).addClass('active');
+
+            $('.sub-tab-content').removeClass('active');
+            $('#subtab-' + subtab).addClass('active');
+        });
     });
 
     // Make class globally available

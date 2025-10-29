@@ -108,6 +108,29 @@
         $('.tierliebe-filter').each(function() {
             new TierliebeFilter(this);
         });
+
+        // Mythen Page Filter (simple version)
+        $('.filter-btn').on('click', function() {
+            const filter = $(this).data('filter');
+
+            // Update active state
+            $('.filter-btn').removeClass('active');
+            $(this).addClass('active');
+
+            // Filter cards
+            if (filter === 'all') {
+                $('.mythos-card').fadeIn(300).removeClass('hidden');
+            } else {
+                $('.mythos-card').each(function() {
+                    const category = $(this).data('category');
+                    if (category === filter || category === 'all') {
+                        $(this).fadeIn(300).removeClass('hidden');
+                    } else {
+                        $(this).fadeOut(300).addClass('hidden');
+                    }
+                });
+            }
+        });
     });
 
     // Make class globally available

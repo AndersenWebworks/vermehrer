@@ -28,17 +28,24 @@
             <span class="logo-icon">🐾</span> Tierliebe-Check
         </a>
         <nav>
-            <?php
-            wp_nav_menu(array(
-                'theme_location' => 'tierliebe-main-menu',
-                'container' => false,
-                'menu_class' => 'nav-links',
-                'fallback_cb' => false,
-                'depth' => 2,
-                'items_wrap' => '<ul class="%2$s">%3$s</ul>',
-                'walker' => new Tierliebe_Walker_Nav_Menu()
-            ));
-            ?>
+            <ul class="nav-links">
+                <li><a href="<?php echo home_url('/tierliebe-start'); ?>">🏠 Start</a></li>
+                <li><a href="<?php echo home_url('/tierliebe-test'); ?>">✨ Bin ich bereit?</a></li>
+                <li class="has-children">
+                    <a href="#">🐕 Tier-Wahrheiten</a>
+                    <ul class="sub-menu">
+                        <li><a href="<?php echo home_url('/tierliebe-hunde'); ?>">🐶 Hunde</a></li>
+                        <li><a href="<?php echo home_url('/tierliebe-katzen'); ?>">🐱 Katzen</a></li>
+                        <li><a href="<?php echo home_url('/tierliebe-kleintiere'); ?>">🐰 Kleintiere</a></li>
+                        <li><a href="<?php echo home_url('/tierliebe-exoten'); ?>">🦎 Vögel & Exoten</a></li>
+                    </ul>
+                </li>
+                <li><a href="<?php echo home_url('/tierliebe-mythen'); ?>">💭 Mythen & Irrtümer</a></li>
+                <li><a href="<?php echo home_url('/tierliebe-adoption'); ?>">❤️ Adoption</a></li>
+                <li><a href="<?php echo home_url('/tierliebe-qualzucht'); ?>">⚠️ Qualzucht</a></li>
+                <li><a href="<?php echo home_url('/tierliebe-wissen'); ?>">📚 Wissen</a></li>
+                <li><a href="<?php echo home_url('/tierliebe-kontakt'); ?>">📧 Über & Kontakt</a></li>
+            </ul>
         </nav>
     </div>
 </header>
