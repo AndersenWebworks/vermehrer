@@ -216,7 +216,6 @@ body.menu-open::before {
 }
 
 /* Emoji Wiggle on Hover */
-.card:hover .card-icon,
 .animal-card:hover .animal-icon,
 .mythos-card:hover .mythos-icon,
 .quick-link-card:hover .quick-link-icon,
