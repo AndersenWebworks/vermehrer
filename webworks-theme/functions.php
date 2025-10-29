@@ -166,6 +166,15 @@ function tierliebe_enqueue_assets()
             true
         );
 
+        // Enqueue Desktop Menu Enhancement
+        wp_enqueue_script(
+            'tierliebe-desktop-menu',
+            get_stylesheet_directory_uri() . '/js/tierliebe-desktop-menu.js',
+            array('jquery'),
+            '1.0.0',
+            true
+        );
+
         // Enqueue Tab Switcher
         wp_enqueue_script(
             'tierliebe-tabs',

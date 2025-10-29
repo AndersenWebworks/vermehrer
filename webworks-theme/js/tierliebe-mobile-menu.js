@@ -14,6 +14,10 @@
             this.body = $('body');
             this.hasChildrenLinks = $('.main-nav-mobile .nav-links .has-children > a');
 
+            console.log('TierliebeMobileMenu initialized');
+            console.log('Toggle button found:', this.menuToggle.length);
+            console.log('Mobile nav found:', this.mainNav.length);
+
             this.init();
         }
 
@@ -35,7 +39,7 @@
             // Close menu when clicking outside
             $(document).on('click', (e) => {
                 if (this.mainNav.hasClass('active') &&
-                    !$(e.target).closest('.main-nav, .mobile-menu-toggle').length) {
+                    !$(e.target).closest('.main-nav-mobile, .mobile-menu-toggle').length) {
                     this.closeMenu();
                 }
             });
@@ -64,10 +68,16 @@
         }
 
         openMenu() {
+            console.log('openMenu called');
+            console.log('Before - nav has active:', this.mainNav.hasClass('active'));
+
             this.mainNav.addClass('active');
             this.menuToggle.addClass('active');
             this.body.addClass('menu-open');
             this.menuToggle.attr('aria-label', 'Menü schließen');
+
+            console.log('After - nav has active:', this.mainNav.hasClass('active'));
+            console.log('Nav right position:', this.mainNav.css('right'));
 
             // Prevent body scroll when menu is open
             this.body.css('overflow', 'hidden');

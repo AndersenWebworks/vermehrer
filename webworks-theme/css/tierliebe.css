@@ -281,7 +281,7 @@ a:active {
 
 .nav-links {
     display: flex;
-    gap: 8px;
+    gap: 4px;
     list-style: none;
     margin: 0;
     padding: 0;
@@ -295,10 +295,10 @@ a:active {
 .nav-links a {
     font-family: 'Quicksand', sans-serif;
     font-weight: 600;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     color: var(--text-medium);
     text-decoration: none;
-    padding: 8px 15px;
+    padding: 8px 12px;
     border-radius: 25px;
     transition: all 0.3s ease;
     position: relative;
@@ -344,7 +344,7 @@ a:active {
     color: white;
 }
 
-/* WordPress Submenu (Dropdown) */
+/* WordPress Submenu (Dropdown) - Mit verbesserter Hover-Usability */
 .nav-links .sub-menu,
 .nav-links .uk-nav-sub {
     display: none;
@@ -359,12 +359,21 @@ a:active {
     list-style: none;
     margin: 5px 0 0 0;
     z-index: 1000;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    pointer-events: none;
 }
 
 .nav-links li:hover > .sub-menu,
 .nav-links li:hover > .uk-nav-sub,
-.nav-links .menu-item-has-children:hover > .uk-nav-sub {
+.nav-links .menu-item-has-children:hover > .uk-nav-sub,
+.nav-links li.menu-open > .sub-menu,
+.nav-links li.menu-open > .uk-nav-sub {
     display: block;
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
 }
 
 .nav-links .sub-menu li,
@@ -1926,12 +1935,12 @@ textarea:focus {
 /* Tablet/Small Laptop (max-width: 1200px) */
 @media (max-width: 1200px) {
     .nav-links {
-        gap: 5px;
+        gap: 3px;
     }
 
     .nav-links a {
-        font-size: 0.85rem;
-        padding: 8px 12px;
+        font-size: 0.8rem;
+        padding: 7px 10px;
     }
 }
 
