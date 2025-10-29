@@ -13,6 +13,7 @@
             this.mainNav = $('.main-nav-mobile');
             this.body = $('body');
             this.hasChildrenLinks = $('.main-nav-mobile .nav-links .has-children > a');
+            this.isAnimating = false;
 
             console.log('=== TierliebeMobileMenu Debug ===');
             console.log('Toggle button found:', this.menuToggle.length);
@@ -63,8 +64,13 @@
         }
 
         toggleMenu() {
-            console.log('toggleMenu called, menu active:', this.menuToggle.hasClass('active'));
-            if (this.menuToggle.hasClass('active')) {
+            if (this.isAnimating) {
+                console.log('Animation in progress, ignoring click');
+                return;
+            }
+
+            console.log('toggleMenu called, menu active:', this.mainNav.hasClass('active'));
+            if (this.mainNav.hasClass('active')) {
                 console.log('Closing menu');
                 this.closeMenu();
             } else {
@@ -75,6 +81,8 @@
 
         openMenu() {
             console.log('=== openMenu() called ===');
+            this.isAnimating = true;
+
             this.mainNav.addClass('active');
             this.menuToggle.addClass('active');
             this.body.addClass('menu-open');
@@ -112,11 +120,14 @@
             // Focus first menu item for accessibility
             setTimeout(() => {
                 this.mainNav.find('.nav-links > li:first-child > a').focus();
+                this.isAnimating = false;
             }, 400);
         }
 
         closeMenu() {
             console.log('=== closeMenu() called ===');
+            this.isAnimating = true;
+
             this.mainNav.removeClass('active');
             this.menuToggle.removeClass('active');
             this.body.removeClass('menu-open');
@@ -143,6 +154,10 @@
 
             // Return focus to toggle button
             this.menuToggle.focus();
+
+            setTimeout(() => {
+                this.isAnimating = false;
+            }, 300);
         }
 
         toggleSubmenu($parent) {
