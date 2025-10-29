@@ -3069,12 +3069,14 @@ textarea:focus {
 }
 
 .qualzucht-image img {
-    width           : 100%;
-    height          : 100%;
-    object-fit      : cover;
-    object-position : center;
+    width           : 100% !important;
+    height          : 100% !important;
+    max-width       : none !important;
+    max-height      : none !important;
+    object-fit      : cover !important;
+    object-position : center !important;
     transition      : transform 0.5s ease, filter 0.3s ease;
-    display         : block;
+    display         : block !important;
 }
 
 .qualzucht-card:hover .qualzucht-image img {
