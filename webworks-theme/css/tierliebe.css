@@ -269,7 +269,7 @@ a:active {
 }
 
 .mobile-menu-toggle.active .hamburger:nth-child(1) {
-    transform: rotate(45deg) translateY(11px) !important;
+    transform: rotate(45deg) translateY(9px) !important;
     background: var(--text-dark) !important;
 }
 
@@ -279,7 +279,7 @@ a:active {
 }
 
 .mobile-menu-toggle.active .hamburger:nth-child(3) {
-    transform: rotate(-45deg) translateY(-11px) !important;
+    transform: rotate(-45deg) translateY(-9px) !important;
     background: var(--text-dark) !important;
 }
 
