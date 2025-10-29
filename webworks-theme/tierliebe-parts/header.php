@@ -38,9 +38,15 @@
         <nav class="main-nav main-nav-desktop">
             <ul class="nav-links">
                 <li><a href="<?php echo home_url('/tierliebe-start'); ?>">🏠 Start</a></li>
-                <li><a href="<?php echo home_url('/tierliebe-test'); ?>">✨ Bin ich bereit?</a></li>
                 <li class="has-children">
-                    <a href="#">🐕 Tier-Wahrheiten</a>
+                    <a href="#">💡 Beratung</a>
+                    <ul class="sub-menu">
+                        <li><a href="<?php echo home_url('/tierliebe-test'); ?>">✨ Bin ich bereit?</a></li>
+                        <li><a href="<?php echo home_url('/tierliebe-mythen'); ?>">💭 Mythen & Irrtümer</a></li>
+                    </ul>
+                </li>
+                <li class="has-children">
+                    <a href="#">🐕 Tiere</a>
                     <ul class="sub-menu">
                         <li><a href="<?php echo home_url('/tierliebe-hunde'); ?>">🐶 Hunde</a></li>
                         <li><a href="<?php echo home_url('/tierliebe-katzen'); ?>">🐱 Katzen</a></li>
@@ -48,11 +54,15 @@
                         <li><a href="<?php echo home_url('/tierliebe-exoten'); ?>">🦎 Vögel & Exoten</a></li>
                     </ul>
                 </li>
-                <li><a href="<?php echo home_url('/tierliebe-mythen'); ?>">💭 Mythen & Irrtümer</a></li>
-                <li><a href="<?php echo home_url('/tierliebe-adoption'); ?>">❤️ Adoption</a></li>
-                <li><a href="<?php echo home_url('/tierliebe-qualzucht'); ?>">⚠️ Qualzucht</a></li>
-                <li><a href="<?php echo home_url('/tierliebe-wissen'); ?>">📚 Wissen</a></li>
-                <li><a href="<?php echo home_url('/tierliebe-kontakt'); ?>">📧 Über & Kontakt</a></li>
+                <li class="has-children">
+                    <a href="#">❤️ Verantwortung</a>
+                    <ul class="sub-menu">
+                        <li><a href="<?php echo home_url('/tierliebe-adoption'); ?>">🤝 Adoption</a></li>
+                        <li><a href="<?php echo home_url('/tierliebe-qualzucht'); ?>">⚠️ Qualzucht</a></li>
+                        <li><a href="<?php echo home_url('/tierliebe-wissen'); ?>">📚 Wissen</a></li>
+                    </ul>
+                </li>
+                <li><a href="<?php echo home_url('/tierliebe-kontakt'); ?>">📧 Kontakt</a></li>
             </ul>
         </nav>
     </div>
@@ -62,9 +72,15 @@
 <nav class="main-nav main-nav-mobile">
     <ul class="nav-links">
         <li><a href="<?php echo home_url('/tierliebe-start'); ?>">🏠 Start</a></li>
-        <li><a href="<?php echo home_url('/tierliebe-test'); ?>">✨ Bin ich bereit?</a></li>
         <li class="has-children">
-            <a href="#">🐕 Tier-Wahrheiten</a>
+            <a href="#">💡 Beratung</a>
+            <ul class="sub-menu">
+                <li><a href="<?php echo home_url('/tierliebe-test'); ?>">✨ Bin ich bereit?</a></li>
+                <li><a href="<?php echo home_url('/tierliebe-mythen'); ?>">💭 Mythen & Irrtümer</a></li>
+            </ul>
+        </li>
+        <li class="has-children">
+            <a href="#">🐕 Tiere</a>
             <ul class="sub-menu">
                 <li><a href="<?php echo home_url('/tierliebe-hunde'); ?>">🐶 Hunde</a></li>
                 <li><a href="<?php echo home_url('/tierliebe-katzen'); ?>">🐱 Katzen</a></li>
@@ -72,10 +88,14 @@
                 <li><a href="<?php echo home_url('/tierliebe-exoten'); ?>">🦎 Vögel & Exoten</a></li>
             </ul>
         </li>
-        <li><a href="<?php echo home_url('/tierliebe-mythen'); ?>">💭 Mythen & Irrtümer</a></li>
-        <li><a href="<?php echo home_url('/tierliebe-adoption'); ?>">❤️ Adoption</a></li>
-        <li><a href="<?php echo home_url('/tierliebe-qualzucht'); ?>">⚠️ Qualzucht</a></li>
-        <li><a href="<?php echo home_url('/tierliebe-wissen'); ?>">📚 Wissen</a></li>
-        <li><a href="<?php echo home_url('/tierliebe-kontakt'); ?>">📧 Über & Kontakt</a></li>
+        <li class="has-children">
+            <a href="#">❤️ Verantwortung</a>
+            <ul class="sub-menu">
+                <li><a href="<?php echo home_url('/tierliebe-adoption'); ?>">🤝 Adoption</a></li>
+                <li><a href="<?php echo home_url('/tierliebe-qualzucht'); ?>">⚠️ Qualzucht</a></li>
+                <li><a href="<?php echo home_url('/tierliebe-wissen'); ?>">📚 Wissen</a></li>
+            </ul>
+        </li>
+        <li><a href="<?php echo home_url('/tierliebe-kontakt'); ?>">📧 Kontakt</a></li>
     </ul>
 </nav>

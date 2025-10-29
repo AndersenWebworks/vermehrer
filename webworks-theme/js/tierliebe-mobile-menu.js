@@ -76,6 +76,9 @@
             this.body.addClass('menu-open');
             this.menuToggle.attr('aria-label', 'Menü schließen');
 
+            // Force right position via JavaScript (CSS is being overridden)
+            this.mainNav.css('right', '0');
+
             console.log('After - nav has active:', this.mainNav.hasClass('active'));
             console.log('Nav right position:', this.mainNav.css('right'));
 
@@ -88,6 +91,9 @@
             this.menuToggle.removeClass('active');
             this.body.removeClass('menu-open');
             this.menuToggle.attr('aria-label', 'Menü öffnen');
+
+            // Force right position back (CSS is being overridden)
+            this.mainNav.css('right', '');
 
             // Re-enable body scroll
             this.body.css('overflow', '');
