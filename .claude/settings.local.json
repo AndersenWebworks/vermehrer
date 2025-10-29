@@ -46,7 +46,8 @@
       "Bash(node --version)",
       "Bash(npx playwright:*)",
       "Bash(node screenshot-analysis.js:*)",
-      "Bash(sed:*)"
+      "Bash(sed:*)",
+      "Bash(tree:*)"
     ],
     "deny": [],
     "ask": []

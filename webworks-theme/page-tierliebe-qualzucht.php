@@ -12,8 +12,8 @@ get_template_part('tierliebe-parts/header');
 <!-- Hero Section -->
 <section class="primary-hero" style="min-height: 60vh;">
     <div class="hero-content">
-        <h1 class="hero-title">⚠️ Qualzucht: Wenn Schönheit weh tut</h1>
-        <p class="hero-subtitle">8 Rassen, die unter menschlichem Wunschdenken leiden</p>
+        <h1 class="hero-title">⚠️ Überzüchtung – Wenn Schönheit Leiden bedeutet</h1>
+        <p class="hero-subtitle">Schönheit ist oft teuer bezahlt – und das nicht nur mit Geld. Viele Tiere, die wir ‚süß' oder ‚Edelrassen' nennen, leiden unter genetischen Defekten, weil der Mensch sie für sein Ideal geformt hat.</p>
     </div>
 </section>
 
