@@ -151,15 +151,7 @@ function tierliebe_enqueue_assets()
             'tierliebe-style',
             get_stylesheet_directory_uri() . '/css/tierliebe.css',
             array(),
-            '5.0.2'
-        );
-
-        // Enqueue Menu Polish CSS
-        wp_enqueue_style(
-            'tierliebe-menu-polish',
-            get_stylesheet_directory_uri() . '/css/tierliebe-menu-polish.css',
-            array('tierliebe-style'),
-            '1.0.0'
+            '5.0.3'
         );
 
         // Enqueue jQuery (WordPress default)

@@ -14,12 +14,18 @@
             this.body = $('body');
             this.hasChildrenLinks = $('.main-nav-mobile .nav-links .has-children > a');
 
+            console.log('=== TierliebeMobileMenu Debug ===');
+            console.log('Toggle button found:', this.menuToggle.length);
+            console.log('Toggle button element:', this.menuToggle[0]);
+            console.log('Mobile nav found:', this.mainNav.length);
+
             this.init();
         }
 
         init() {
             // Toggle mobile menu
             this.menuToggle.on('click', (e) => {
+                console.log('=== Toggle Button Clicked ===');
                 e.preventDefault();
                 this.toggleMenu();
             });
@@ -56,19 +62,26 @@
         }
 
         toggleMenu() {
+            console.log('toggleMenu called, menu active:', this.mainNav.hasClass('active'));
             if (this.mainNav.hasClass('active')) {
+                console.log('Closing menu');
                 this.closeMenu();
             } else {
+                console.log('Opening menu');
                 this.openMenu();
             }
         }
 
         openMenu() {
+            console.log('=== openMenu() called ===');
             this.mainNav.addClass('active');
             this.menuToggle.addClass('active');
             this.body.addClass('menu-open');
             this.menuToggle.attr('aria-label', 'Menü schließen');
             this.menuToggle.attr('aria-expanded', 'true');
+
+            console.log('Toggle has active class:', this.menuToggle.hasClass('active'));
+            console.log('Toggle classes:', this.menuToggle.attr('class'));
 
             // Force right position via native DOM API
             this.mainNav[0].style.setProperty('right', '0px', 'important');
@@ -102,11 +115,14 @@
         }
 
         closeMenu() {
+            console.log('=== closeMenu() called ===');
             this.mainNav.removeClass('active');
             this.menuToggle.removeClass('active');
             this.body.removeClass('menu-open');
             this.menuToggle.attr('aria-label', 'Menü öffnen');
             this.menuToggle.attr('aria-expanded', 'false');
+
+            console.log('Toggle has active class after remove:', this.menuToggle.hasClass('active'));
 
             // Force right position back via native DOM
             this.mainNav[0].style.removeProperty('right');

@@ -3343,6 +3343,7 @@ textarea:focus {
 
     .main-nav-mobile.active {
         right: 0 !important;
+        transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
     }
 }
 
@@ -3388,4 +3389,289 @@ textarea:focus {
         padding-left: 45px;
         background: var(--pastel-mint);
     }
+}
+/**
+ * Tierliebe Menu Polish & Micro-Interactions
+ * Premium UX-Enhancements für das Desktop-Menü
+ * Version: 1.0.0
+ */
+
+/* ============================================
+   ENHANCED DROPDOWN ANIMATIONS
+   ============================================ */
+
+/* Smooth Scale + Fade In */
+.nav-links .sub-menu,
+.nav-links .uk-nav-sub {
+    transform: translateY(-10px) scale(0.95);
+    transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 10px 40px rgba(90, 74, 66, 0.15),
+                0 0 0 1px rgba(90, 74, 66, 0.05);
+    backdrop-filter: blur(10px);
+    will-change: opacity, transform;
+}
+
+.nav-links li:hover > .sub-menu,
+.nav-links li:hover > .uk-nav-sub,
+.nav-links li.menu-open > .sub-menu,
+.nav-links li.menu-open > .uk-nav-sub {
+    transform: translateY(0) scale(1);
+}
+
+/* ============================================
+   STAGGERED DROPDOWN ITEMS
+   ============================================ */
+
+.nav-links .sub-menu li,
+.nav-links .uk-nav-sub li {
+    opacity: 0;
+    animation: dropdownItemFadeIn 0.3s ease forwards;
+}
+
+.nav-links li:hover > .sub-menu li:nth-child(1),
+.nav-links li.menu-open > .sub-menu li:nth-child(1),
+.nav-links li:hover > .uk-nav-sub li:nth-child(1),
+.nav-links li.menu-open > .uk-nav-sub li:nth-child(1) {
+    animation-delay: 0.05s;
+}
+
+.nav-links li:hover > .sub-menu li:nth-child(2),
+.nav-links li.menu-open > .sub-menu li:nth-child(2),
+.nav-links li:hover > .uk-nav-sub li:nth-child(2),
+.nav-links li.menu-open > .uk-nav-sub li:nth-child(2) {
+    animation-delay: 0.1s;
+}
+
+.nav-links li:hover > .sub-menu li:nth-child(3),
+.nav-links li.menu-open > .sub-menu li:nth-child(3),
+.nav-links li:hover > .uk-nav-sub li:nth-child(3),
+.nav-links li.menu-open > .uk-nav-sub li:nth-child(3) {
+    animation-delay: 0.15s;
+}
+
+.nav-links li:hover > .sub-menu li:nth-child(4),
+.nav-links li.menu-open > .sub-menu li:nth-child(4),
+.nav-links li:hover > .uk-nav-sub li:nth-child(4),
+.nav-links li.menu-open > .uk-nav-sub li:nth-child(4) {
+    animation-delay: 0.2s;
+}
+
+@keyframes dropdownItemFadeIn {
+    from {
+        opacity: 0;
+        transform: translateX(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* ============================================
+   RIPPLE EFFECT ON CLICK
+   ============================================ */
+
+.nav-links a {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform, background-color;
+    overflow: hidden;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.6);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.nav-links a:active::after {
+    width: 200px;
+    height: 200px;
+}
+
+/* Ensure text is above ripple */
+.nav-links a > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* ============================================
+   ENHANCED SUBMENU HOVER EFFECTS
+   ============================================ */
+
+.nav-links .sub-menu a,
+.nav-links .uk-nav-sub a {
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: visible;
+}
+
+/* Animated Left Border on Hover */
+.nav-links .sub-menu a::before,
+.nav-links .uk-nav-sub a::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%) scaleY(0);
+    width: 4px;
+    height: 60%;
+    background: var(--cute-mint);
+    border-radius: 0 2px 2px 0;
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-links .sub-menu a:hover::before,
+.nav-links .uk-nav-sub a:hover::before {
+    transform: translateY(-50%) scaleY(1);
+}
+
+.nav-links .sub-menu a:hover,
+.nav-links .uk-nav-sub a:hover {
+    padding-left: 32px;
+}
+
+/* Subtle Bounce Animation */
+@keyframes subtleBounce {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(2px); }
+}
+
+.nav-links .sub-menu a:hover,
+.nav-links .uk-nav-sub a:hover {
+    animation: subtleBounce 0.5s ease;
+}
+
+/* ============================================
+   SMOOTH TRANSFORMS & TRANSITIONS
+   ============================================ */
+
+.nav-links a:hover {
+    transform: translateY(-2px);
+}
+
+.nav-links a:active {
+    transform: translateY(0);
+    transition: transform 0.1s;
+}
+
+/* Parent Item Glow Effect beim Dropdown-Öffnen */
+.nav-links .has-children:hover > a,
+.nav-links .has-children.menu-open > a {
+    box-shadow: 0 4px 12px rgba(160, 231, 229, 0.3);
+}
+
+/* ============================================
+   DROPDOWN ARROW ROTATION
+   ============================================ */
+
+.nav-links .has-children > a::after {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+}
+
+.nav-links .has-children:hover > a::after,
+.nav-links .has-children.menu-open > a::after {
+    transform: rotate(180deg);
+    opacity: 1;
+}
+
+/* ============================================
+   RESPONSIVE PREFERS-REDUCED-MOTION
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+    .nav-links a,
+    .nav-links .sub-menu,
+    .nav-links .uk-nav-sub,
+    .nav-links .sub-menu a,
+    .nav-links .uk-nav-sub a {
+        transition: none !important;
+        animation: none !important;
+    }
+
+    .nav-links a:hover {
+        transform: none;
+    }
+}
+
+/* ============================================
+   PERFORMANCE OPTIMIZATIONS
+   ============================================ */
+
+/* Hardware Acceleration für Animationen */
+.nav-links .sub-menu,
+.nav-links .uk-nav-sub,
+.nav-links a {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+/* Contain Layout Shifts */
+.nav-links {
+    contain: layout style;
+}
+
+/* ============================================
+   TOUCH DEVICE OPTIMIZATIONS
+   ============================================ */
+
+@media (hover: none) and (pointer: coarse) {
+    /* Touch-freundlichere Hit Areas */
+    .nav-links a {
+        padding: 14px 20px;
+        min-height: 48px;
+        display: flex;
+        align-items: center;
+    }
+
+    /* Kein Hover-Lift auf Touch */
+    .nav-links a:hover {
+        transform: none;
+    }
+
+    /* Dropdown-Items größer auf Touch */
+    .nav-links .sub-menu a,
+    .nav-links .uk-nav-sub a {
+        padding: 16px 25px;
+        min-height: 52px;
+    }
+}
+
+/* ============================================
+   LOADING STATE (optional)
+   ============================================ */
+
+.nav-links a.loading {
+    pointer-events: none;
+    opacity: 0.6;
+    position: relative;
+}
+
+.nav-links a.loading::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 16px;
+    height: 16px;
+    margin: -8px 0 0 -8px;
+    border: 2px solid var(--cute-coral);
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: menuLoadingSpinner 0.6s linear infinite;
+}
+
+@keyframes menuLoadingSpinner {
+    to { transform: rotate(360deg); }
 }
