@@ -4,7 +4,8 @@
     <!-- Tierliebe Header Partial -->
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php wp_title('|', true, 'right'); bloginfo('name'); ?></title>
+    <title><?php wp_title('|', true, 'right');
+bloginfo('name'); ?></title>
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,7 +26,7 @@
 <header class="header">
     <div class="header-content">
         <a href="<?php echo home_url('/'); ?>" class="logo">
-            <span class="logo-icon">🐾</span> Tierliebe-Check
+            <span class="logo-icon">🐾</span>Wa(h)re Haustier(liebe)
         </a>
 
         <nav class="main-nav main-nav-desktop">
