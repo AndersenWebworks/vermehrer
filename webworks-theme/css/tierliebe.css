@@ -155,6 +155,13 @@ h1, h2, h3, h4, h5, h6 {
     display: flex;
     gap: 15px;
     list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links li {
+    position: relative;
+    list-style: none;
 }
 
 .nav-links a {
@@ -166,6 +173,8 @@ h1, h2, h3, h4, h5, h6 {
     border-radius: 25px;
     transition: all 0.3s ease;
     position: relative;
+    display: block;
+    white-space: nowrap;
 }
 
 .nav-links a::before {
@@ -188,6 +197,46 @@ h1, h2, h3, h4, h5, h6 {
 
 .nav-links a:hover::before {
     width: 50%;
+}
+
+/* WordPress Submenu (Dropdown) */
+.nav-links .sub-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: var(--bg-white);
+    box-shadow: var(--shadow-lg);
+    border-radius: 20px;
+    padding: 10px 0;
+    min-width: 200px;
+    list-style: none;
+    margin: 5px 0 0 0;
+    z-index: 1000;
+}
+
+.nav-links li:hover > .sub-menu {
+    display: block;
+}
+
+.nav-links .sub-menu li {
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links .sub-menu a {
+    padding: 12px 25px;
+    border-radius: 0;
+    font-size: 0.95rem;
+}
+
+.nav-links .sub-menu a::before {
+    display: none;
+}
+
+.nav-links .sub-menu a:hover {
+    background: var(--pastel-mint);
+    border-radius: 0;
 }
 
 /* ============================================
