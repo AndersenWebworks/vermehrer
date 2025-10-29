@@ -151,11 +151,20 @@ function tierliebe_enqueue_assets()
             'tierliebe-style',
             get_stylesheet_directory_uri() . '/css/tierliebe.css',
             array(),
-            '2.2.0'
+            '4.0.1'
         );
 
         // Enqueue jQuery (WordPress default)
         wp_enqueue_script('jquery');
+
+        // Enqueue Mobile Menu
+        wp_enqueue_script(
+            'tierliebe-mobile-menu',
+            get_stylesheet_directory_uri() . '/js/tierliebe-mobile-menu.js',
+            array('jquery'),
+            '1.0.0',
+            true
+        );
 
         // Enqueue Tab Switcher
         wp_enqueue_script(
