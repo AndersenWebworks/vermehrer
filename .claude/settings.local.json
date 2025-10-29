@@ -45,7 +45,8 @@
       "Bash(powershell:*)",
       "Bash(node --version)",
       "Bash(npx playwright:*)",
-      "Bash(node screenshot-analysis.js:*)"
+      "Bash(node screenshot-analysis.js:*)",
+      "Bash(sed:*)"
     ],
     "deny": [],
     "ask": []
