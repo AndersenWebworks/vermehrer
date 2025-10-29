@@ -14,10 +14,6 @@
             this.body = $('body');
             this.hasChildrenLinks = $('.main-nav-mobile .nav-links .has-children > a');
 
-            console.log('TierliebeMobileMenu initialized');
-            console.log('Toggle button found:', this.menuToggle.length);
-            console.log('Mobile nav found:', this.mainNav.length);
-
             this.init();
         }
 
@@ -68,22 +64,13 @@
         }
 
         openMenu() {
-            console.log('openMenu called');
-            console.log('Before - nav has active:', this.mainNav.hasClass('active'));
-
             this.mainNav.addClass('active');
             this.menuToggle.addClass('active');
             this.body.addClass('menu-open');
             this.menuToggle.attr('aria-label', 'Menü schließen');
 
-            console.log('Toggle has active class:', this.menuToggle.hasClass('active'));
-            console.log('Body has menu-open class:', this.body.hasClass('menu-open'));
-
-            // Force right position via native DOM API (bypassing jQuery)
+            // Force right position via native DOM API (CSS is being overridden)
             this.mainNav[0].style.setProperty('right', '0px', 'important');
-
-            console.log('After setProperty - right position:', this.mainNav.css('right'));
-            console.log('Computed style:', window.getComputedStyle(this.mainNav[0]).right);
 
             // Prevent body scroll when menu is open
             this.body.css('overflow', 'hidden');
