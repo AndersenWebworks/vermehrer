@@ -42,7 +42,10 @@
       "Bash(node browser-session.js:*)",
       "Bash(powershell -ExecutionPolicy Bypass -Command \"\n$ftpServer = ''ftp://w018c99c.kasserver.com''\n$user = ''w018c99c''\n$pass = ''aUMmFsmPb8aHF2v4''\n$base = ''/vm.andersen-webworks.de/wp-content/themes/webworks-theme/''\n\n$wc = New-Object System.Net.WebClient\n$wc.Credentials = New-Object System.Net.NetworkCredential($user, $pass)\n\nWrite-Host ''Upload: tierliebe.css''\n$wc.UploadFile($ftpServer + $base + ''css/tierliebe.css'', ''css/tierliebe.css'')\n\nWrite-Host ''Fertig!'' -ForegroundColor Green\n\")",
       "Bash(powershell -ExecutionPolicy Bypass -File \".vscode/upload-css.ps1\")",
-      "Bash(powershell:*)"
+      "Bash(powershell:*)",
+      "Bash(node --version)",
+      "Bash(npx playwright:*)",
+      "Bash(node screenshot-analysis.js:*)"
     ],
     "deny": [],
     "ask": []

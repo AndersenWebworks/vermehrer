@@ -1,9 +1,9 @@
 /**
  * Tierliebe Template Styles
- * Version: 4.0.1
+ * Version: 5.0.1
  * Description: Complete responsive stylesheet for Tierliebe animal welfare templates
  * Features: Accordion, Decision Panel, Tab System, Honesty Box, Responsive Design
- * Update: Fixed mobile menu - Added JavaScript toggle, backdrop overlay with blur
+ * Update: DEFINITIV FINAL - Header 1050, Backdrop 1098, Menu 1099, Toggle 1100
  */
 
 /* ============================================
@@ -195,7 +195,7 @@ a:active {
     border-bottom: 4px solid var(--pastel-mint);
     position: sticky;
     top: 0;
-    z-index: 100;
+    z-index: 1050;
     box-shadow: var(--shadow-sm);
 }
 
@@ -244,12 +244,13 @@ a:active {
     border: none;
     cursor: pointer;
     padding: 12px;
-    z-index: 1001;
+    z-index: 1100;
     min-width: 48px;
     min-height: 48px;
     justify-content: center;
     align-items: center;
     border-radius: 8px;
+    position: relative;
 }
 
 .hamburger {
@@ -275,6 +276,8 @@ a:active {
 /* Main Navigation */
 .main-nav {
     display: flex;
+    z-index: 1099;
+    position: relative;
 }
 
 .nav-links {
@@ -1707,20 +1710,29 @@ input[type="submit"] {
 .mythos-card:nth-child(6) { transition-delay: 0.25s; }
 
 /* Mobile Menu Stagger */
-.main-nav.active .nav-links li {
+.main-nav.active .nav-links li,
+.main-nav-mobile.active .nav-links li {
     animation: navItemSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
     opacity: 0;
     transform: translateX(30px);
 }
 
-.main-nav.active .nav-links li:nth-child(1) { animation-delay: 0.05s; }
-.main-nav.active .nav-links li:nth-child(2) { animation-delay: 0.1s; }
-.main-nav.active .nav-links li:nth-child(3) { animation-delay: 0.15s; }
-.main-nav.active .nav-links li:nth-child(4) { animation-delay: 0.2s; }
-.main-nav.active .nav-links li:nth-child(5) { animation-delay: 0.25s; }
-.main-nav.active .nav-links li:nth-child(6) { animation-delay: 0.3s; }
-.main-nav.active .nav-links li:nth-child(7) { animation-delay: 0.35s; }
-.main-nav.active .nav-links li:nth-child(8) { animation-delay: 0.4s; }
+.main-nav.active .nav-links li:nth-child(1),
+.main-nav-mobile.active .nav-links li:nth-child(1) { animation-delay: 0.05s; }
+.main-nav.active .nav-links li:nth-child(2),
+.main-nav-mobile.active .nav-links li:nth-child(2) { animation-delay: 0.1s; }
+.main-nav.active .nav-links li:nth-child(3),
+.main-nav-mobile.active .nav-links li:nth-child(3) { animation-delay: 0.15s; }
+.main-nav.active .nav-links li:nth-child(4),
+.main-nav-mobile.active .nav-links li:nth-child(4) { animation-delay: 0.2s; }
+.main-nav.active .nav-links li:nth-child(5),
+.main-nav-mobile.active .nav-links li:nth-child(5) { animation-delay: 0.25s; }
+.main-nav.active .nav-links li:nth-child(6),
+.main-nav-mobile.active .nav-links li:nth-child(6) { animation-delay: 0.3s; }
+.main-nav.active .nav-links li:nth-child(7),
+.main-nav-mobile.active .nav-links li:nth-child(7) { animation-delay: 0.35s; }
+.main-nav.active .nav-links li:nth-child(8),
+.main-nav-mobile.active .nav-links li:nth-child(8) { animation-delay: 0.4s; }
 
 @keyframes navItemSlideIn {
     to {
@@ -1739,7 +1751,7 @@ body.menu-open::before {
     bottom: 0;
     background: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(4px);
-    z-index: 999;
+    z-index: 1098;
     animation: backdropFadeIn 0.3s ease;
 }
 
@@ -1949,8 +1961,8 @@ textarea:focus {
         height: 100vh;
         background: var(--bg-white);
         box-shadow: -5px 0 20px rgba(0,0,0,0.1);
-        transition: right 0.3s ease;
-        z-index: 1000;
+        transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 1099;
         overflow-y: auto;
         padding-top: 80px;
     }
@@ -3232,5 +3244,81 @@ textarea:focus {
 
     .decision-panel h3 {
         font-size: 1.5rem;
+    }
+}
+
+/* ============================================
+   MOBILE MENU FIX - SEPARATE DOM ELEMENT
+   ============================================ */
+.main-nav-mobile {
+    display: none;
+}
+
+@media (max-width: 968px) {
+    .main-nav-desktop {
+        display: none !important;
+    }
+    
+    .main-nav-mobile {
+        display: flex;
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 300px;
+        height: 100vh;
+        background: var(--bg-white);
+        box-shadow: -5px 0 20px rgba(0,0,0,0.1);
+        transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 1099;
+        overflow-y: auto;
+        padding-top: 80px;
+    }
+    
+    .main-nav-mobile.active {
+        right: 0;
+    }
+}
+
+/* Mobile Nav Links Styling */
+@media (max-width: 968px) {
+    .main-nav-mobile .nav-links {
+        flex-direction: column;
+        gap: 0;
+        width: 100%;
+    }
+    
+    .main-nav-mobile .nav-links li {
+        width: 100%;
+        border-bottom: 1px solid var(--pastel-mint);
+    }
+    
+    .main-nav-mobile .nav-links a {
+        width: 100%;
+        padding: 18px 25px;
+        border-radius: 0;
+        font-size: 1rem;
+    }
+    
+    .main-nav-mobile .sub-menu {
+        position: static;
+        box-shadow: none;
+        border-radius: 0;
+        background: var(--pastel-mint);
+        padding: 0;
+        margin: 0;
+        display: none;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .main-nav-mobile .has-children.open > .sub-menu {
+        display: block;
+        max-height: 500px;
+    }
+    
+    .main-nav-mobile .sub-menu a {
+        padding-left: 45px;
+        background: var(--pastel-mint);
     }
 }

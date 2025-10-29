@@ -10,9 +10,9 @@
     class TierliebeMobileMenu {
         constructor() {
             this.menuToggle = $('.mobile-menu-toggle');
-            this.mainNav = $('.main-nav');
+            this.mainNav = $('.main-nav-mobile');
             this.body = $('body');
-            this.hasChildrenLinks = $('.nav-links .has-children > a');
+            this.hasChildrenLinks = $('.main-nav-mobile .nav-links .has-children > a');
 
             this.init();
         }
@@ -83,14 +83,14 @@
             this.body.css('overflow', '');
 
             // Close all submenus
-            $('.nav-links .has-children').removeClass('open');
+            $('.main-nav-mobile .nav-links .has-children').removeClass('open');
         }
 
         toggleSubmenu($parent) {
             const isOpen = $parent.hasClass('open');
 
             // Close all other submenus
-            $('.nav-links .has-children').not($parent).removeClass('open');
+            $('.main-nav-mobile .nav-links .has-children').not($parent).removeClass('open');
 
             // Toggle current submenu
             if (isOpen) {
