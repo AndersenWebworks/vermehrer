@@ -14,9 +14,9 @@ get_template_part('tierliebe-parts/header');
     <div class="hero-content">
         <div class="hero-text">
             <h1 class="hero-title">Du liebst Tiere?</h1>
-            <p class="hero-subtitle">Das ist nicht das, was du hören willst. Das ist das, was wahr ist.</p>
+            <p class="hero-subtitle">Dann lies hier nicht, was du hören willst – sondern was du wissen musst. Ehrlich. Klar. Und im Sinne der Tiere.</p>
             <p class="hero-description">
-                Diese Seite ist für Menschen, die wirklich hinschauen wollen – ohne Filter, ohne Romantik.
+                Bevor du ein Tier aufnimmst – Hund, Katze, Kaninchen, Welli oder Goldfisch – nimm dir ein paar Minuten für die Wahrheit. Denn: Gute Absichten reichen nicht. Verantwortung schon.
             </p>
             <div class="hero-buttons">
                 <a href="<?php echo home_url('/tierliebe-test'); ?>" class="btn btn-primary">
@@ -37,17 +37,17 @@ get_template_part('tierliebe-parts/header');
 <section class="section" style="background: var(--bg-white);">
     <div class="container">
         <h2 class="section-title" style="text-align: center; margin-bottom: 30px;">Bin ich bereit für ein Tier?</h2>
-        <p style="text-align: center; max-width: 800px; margin: 0 auto 30px; font-size: 1.25rem; color: var(--text-dark); font-weight: 600;">
-            Ein Tier ist keine Phase. Es ist ein Teil deines Lebens.
+        <p style="text-align: center; max-width: 800px; margin: 0 auto 30px; font-size: 1.15rem; color: var(--text-medium);">
+            Du denkst darüber nach, ein Tier aufzunehmen? Dann nimm dir bitte kurz Zeit für diese Fragen – ganz ehrlich, nur für dich. Denn ein Tier ist keine Phase. Es ist ein Teil deines Lebens – und komplett abhängig von dir.
         </p>
-        <p style="text-align: center; max-width: 800px; margin: 0 auto 50px; font-size: 1.1rem; color: var(--text-medium);">
-            Keine Deko, kein Spielzeug, kein Lückenfüller.
+        <p style="text-align: center; max-width: 800px; margin: 0 auto 50px; font-size: 1.2rem; color: var(--text-dark); font-weight: 600;">
+            Bist du der Typ Tierhalter, den Tiere sich wünschen würden?
         </p>
 
         <div class="info-box responsibility-box">
-            <h3>Gute Absichten reichen nicht. Verantwortung schon.</h3>
+            <h3>Ehrlichkeit ist der erste Schritt zu echter Tierliebe</h3>
             <p>
-                Wenn du bei einer Frage oder mehreren zögerst, ist das kein Grund zur Scham – <strong>es ist ein Zeichen, dass du Verantwortung ernst nimmst.</strong>
+                Wenn du bei einer Frage oder mehreren Fragen zögerst, ist das kein Grund zur Scham. Es ist ein Zeichen, dass du Verantwortung ernst nimmst – und das verdient Respekt.
             </p>
         </div>
 

@@ -62,8 +62,6 @@ get_template_part('tierliebe-parts/header');
                         <li>Atemnot (Brachyzephalie, verengte Nasenlöcher)</li>
                         <li>Augenprobleme (hervorstehend, trockene Hornhaut)</li>
                         <li>Hautentzündungen (Falteninfektionen)</li>
-                        <li>Flache Nase = chronische Atemnot</li>
-                        <li>Hervorstehende Augen = Verletzungsgefahr</li>
                     </ul>
                 </div>
 
@@ -102,10 +100,9 @@ get_template_part('tierliebe-parts/header');
                 <div class="qualzucht-leiden">
                     <h4>Leiden:</h4>
                     <ul>
-                        <li>Überlange Federn = Sichtprobleme</li>
+                        <li>Sichtprobleme (Augen unter Federn verborgen)</li>
                         <li>Schnabeldeformationen = Kauprobleme</li>
                         <li>Schwaches Immunsystem durch Inzucht</li>
-                        <li>Sichtprobleme (Augen unter Federn verborgen)</li>
                     </ul>
                 </div>
 
@@ -125,9 +122,7 @@ get_template_part('tierliebe-parts/header');
                     <ul>
                         <li>Ohrenfehlstellung = Schwerhörigkeit</li>
                         <li>Gehörgangsentzündungen</li>
-                        <li>Verkrümmter Schädel</li>
                         <li>Nervenprobleme durch verformten Schädel</li>
-                        <li>Häufige Entzündungen im Gehörgang</li>
                     </ul>
                 </div>
 
@@ -148,8 +143,6 @@ get_template_part('tierliebe-parts/header');
                         <li>Schwimmprobleme (Schleppflossen)</li>
                         <li>Augenprobleme (hervorstehend, verletzungsanfällig)</li>
                         <li>Skelettdeformationen</li>
-                        <li>Überlange Flossen = Schwimmprobleme</li>
-                        <li>Verkürzte Wirbelsäule durch Zucht</li>
                     </ul>
                 </div>
 
@@ -167,10 +160,9 @@ get_template_part('tierliebe-parts/header');
                 <div class="qualzucht-leiden">
                     <h4>Leiden:</h4>
                     <ul>
-                        <li>Sehschwäche durch fehlende Pigmente</li>
+                        <li>Sehschwäche durch Pigmentmangel</li>
                         <li>Lichtempfindlichkeit = Stress</li>
                         <li>Höhere Anfälligkeit für Krankheiten</li>
-                        <li>Sehschwäche durch Pigmentmangel</li>
                     </ul>
                 </div>
 
@@ -191,8 +183,6 @@ get_template_part('tierliebe-parts/header');
                         <li>Haarpflege aufwendig = Hautprobleme bei Vernachlässigung</li>
                         <li>Kleine Körpergröße = Gelenkprobleme</li>
                         <li>Überzüchtete Tränenkanäle</li>
-                        <li>Gelenkprobleme durch zu kleine Körper</li>
-                        <li>Zahnfehlstellungen</li>
                     </ul>
                 </div>
 
@@ -213,8 +203,6 @@ get_template_part('tierliebe-parts/header');
                         <li>Schmerzhafte Gelenkdeformationen</li>
                         <li>Knorpelprobleme (Osteochondrodysplasie)</li>
                         <li>Ohrenentzündungen</li>
-                        <li>Genmutation = schmerzhafte Gelenkdeformationen</li>
-                        <li>Ohrknorpel weich = häufige Infektionen</li>
                     </ul>
                 </div>
 
