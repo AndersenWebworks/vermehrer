@@ -302,12 +302,6 @@ a:active {
     right          : 30px;
 }
 
-.mobile-menu-toggle.active {
-    background: white !important;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
-    gap       : 0 !important;
-}
-
 .hamburger {
     width        : 30px;
     height       : 3px;
@@ -3874,20 +3868,6 @@ textarea:focus {
 .nav-links .has-children:hover>a,
 .nav-links .has-children.menu-open>a {
     box-shadow: 0 4px 12px rgba(160, 231, 229, 0.3);
-}
-
-/* ============================================
-   DROPDOWN ARROW ROTATION
-   ============================================ */
-
-.nav-links .has-children>a::after {
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
-}
-
-.nav-links .has-children:hover>a::after,
-.nav-links .has-children.menu-open>a::after {
-    transform: rotate(180deg);
-    opacity  : 1;
 }
 
 /* ============================================
