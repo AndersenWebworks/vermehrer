@@ -24,10 +24,10 @@ get_template_part('tierliebe-parts/header');
     <!-- Tabs -->
     <div class="tierliebe-tabs" style="margin-top: 50px;">
         <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 40px;">
-            <button class="tab-button active" data-tab="welli" style="padding: 15px 30px; border: 3px solid var(--pastel-blue); background: var(--pastel-blue); border-radius: 25px; font-family: 'Fredoka', sans-serif; font-size: 1.1rem; cursor: pointer;">🦜 Wellensittich</button>
-            <button class="tab-button" data-tab="fisch" style="padding: 15px 30px; border: 3px solid var(--pastel-mint); background: white; border-radius: 25px; font-family: 'Fredoka', sans-serif; font-size: 1.1rem; cursor: pointer;">🐠 Goldfisch</button>
-            <button class="tab-button" data-tab="reptil" style="padding: 15px 30px; border: 3px solid var(--pastel-sage); background: white; border-radius: 25px; font-family: 'Fredoka', sans-serif; font-size: 1.1rem; cursor: pointer;">🦎 Reptilien</button>
-            <button class="tab-button" data-tab="schildkroete" style="padding: 15px 30px; border: 3px solid var(--pastel-peach); background: white; border-radius: 25px; font-family: 'Fredoka', sans-serif; font-size: 1.1rem; cursor: pointer;">🐢 Schildkröten</button>
+            <button class="tab-button active" data-tab="welli" style="--current-tab-color: var(--pastel-blue); border-color: var(--pastel-blue);">🦜 Wellensittich</button>
+            <button class="tab-button" data-tab="fisch" style="--current-tab-color: var(--pastel-mint); border-color: var(--pastel-mint);">🐠 Goldfisch</button>
+            <button class="tab-button" data-tab="reptil" style="--current-tab-color: var(--pastel-sage); border-color: var(--pastel-sage);">🦎 Reptilien</button>
+            <button class="tab-button" data-tab="schildkroete" style="--current-tab-color: var(--pastel-peach); border-color: var(--pastel-peach);">🐢 Schildkröten</button>
         </div>
 
         <!-- Wellensittich -->
@@ -44,7 +44,7 @@ get_template_part('tierliebe-parts/header');
         </div>
 
         <!-- Goldfisch -->
-        <div class="tab-panel" data-tab="fisch" style="display: none;">
+        <div class="tab-panel" data-tab="fisch">
             <h3 style="text-align: center; margin-bottom: 30px;">🐠 Goldfisch</h3>
             <div class="cards-grid" style="max-width: 1000px; margin: 0 auto 30px;">
                 <div class="card coral"><span class="card-icon">❌</span><h4>Mythos 1</h4><p><em>Goldfische sind robust – die leben überall</em></p></div>
@@ -58,7 +58,7 @@ get_template_part('tierliebe-parts/header');
         </div>
 
         <!-- Reptilien -->
-        <div class="tab-panel" data-tab="reptil" style="display: none;">
+        <div class="tab-panel" data-tab="reptil">
             <h3 style="text-align: center; margin-bottom: 30px;">🦎 Reptilien</h3>
             <div class="cards-grid" style="margin-bottom: 30px;">
                 <div class="card coral"><span class="card-icon">❌</span><h4>Mythos 1</h4><p><em>Brauchen keinen Winterschlaf, keine Sonne</em></p></div>
@@ -72,7 +72,7 @@ get_template_part('tierliebe-parts/header');
         </div>
 
         <!-- Schildkröten -->
-        <div class="tab-panel" data-tab="schildkroete" style="display: none;">
+        <div class="tab-panel" data-tab="schildkroete">
             <h3 style="text-align: center; margin-bottom: 30px;">🐢 Schildkröten</h3>
             <div class="cards-grid" style="max-width: 1000px; margin: 0 auto 30px;">
                 <div class="card coral"><span class="card-icon">❌</span><h4>Mythos 1</h4><p><em>Sind pflegeleicht – Terrarium oder Balkon reicht</em></p></div>

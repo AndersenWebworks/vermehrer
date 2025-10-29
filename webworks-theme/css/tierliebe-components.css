@@ -361,10 +361,7 @@
     background: var(--pastel-coral);
 }
 
-.card:hover {
-    transform : translateY(-8px);
-    box-shadow: var(--shadow-xl);
-}
+/* Hover entfernt - Cards sind statische Informationselemente */
 
 .card-icon {
     font-size    : 4rem;

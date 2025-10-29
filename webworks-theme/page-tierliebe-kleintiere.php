@@ -26,10 +26,10 @@ get_template_part('tierliebe-parts/header');
     <!-- Tab Navigation -->
     <div class="tierliebe-tabs" style="margin-top: 50px;">
         <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 40px;">
-            <button class="tab-button active" data-tab="kaninchen" style="padding: 15px 30px; border: 3px solid var(--pastel-mint); background: var(--pastel-mint); border-radius: 25px; font-family: 'Fredoka', sans-serif; font-size: 1.1rem; cursor: pointer; transition: all 0.3s;">🐰 Kaninchen & Meerschweinchen</button>
-            <button class="tab-button" data-tab="hamster" style="padding: 15px 30px; border: 3px solid var(--pastel-peach); background: white; border-radius: 25px; font-family: 'Fredoka', sans-serif; font-size: 1.1rem; cursor: pointer; transition: all 0.3s;">🐹 Hamster</button>
-            <button class="tab-button" data-tab="ratten" style="padding: 15px 30px; border: 3px solid var(--pastel-lavender); background: white; border-radius: 25px; font-family: 'Fredoka', sans-serif; font-size: 1.1rem; cursor: pointer; transition: all 0.3s;">🐭 Mäuse & Ratten</button>
-            <button class="tab-button" data-tab="degus" style="padding: 15px 30px; border: 3px solid var(--pastel-pink); background: white; border-radius: 25px; font-family: 'Fredoka', sans-serif; font-size: 1.1rem; cursor: pointer; transition: all 0.3s;">🐿️ Degus & Chinchillas</button>
+            <button class="tab-button active" data-tab="kaninchen" style="--current-tab-color: var(--pastel-mint); border-color: var(--pastel-mint);">🐰 Kaninchen & Meerschweinchen</button>
+            <button class="tab-button" data-tab="hamster" style="--current-tab-color: var(--pastel-peach); border-color: var(--pastel-peach);">🐹 Hamster</button>
+            <button class="tab-button" data-tab="ratten" style="--current-tab-color: var(--pastel-lavender); border-color: var(--pastel-lavender);">🐭 Mäuse & Ratten</button>
+            <button class="tab-button" data-tab="degus" style="--current-tab-color: var(--pastel-pink); border-color: var(--pastel-pink);">🐿️ Degus & Chinchillas</button>
         </div>
 
         <!-- Tab Content: Kaninchen -->
@@ -76,7 +76,7 @@ get_template_part('tierliebe-parts/header');
         </div>
 
         <!-- Tab Content: Hamster -->
-        <div class="tab-panel" data-tab="hamster" style="display: none;">
+        <div class="tab-panel" data-tab="hamster">
             <h3 style="text-align: center; margin-bottom: 30px; font-size: 2rem;">🐹 Hamster</h3>
 
             <div class="cards-grid" style="max-width: 1000px; margin: 0 auto 30px;">
@@ -107,7 +107,7 @@ get_template_part('tierliebe-parts/header');
         </div>
 
         <!-- Tab Content: Mäuse & Ratten -->
-        <div class="tab-panel" data-tab="ratten" style="display: none;">
+        <div class="tab-panel" data-tab="ratten">
             <h3 style="text-align: center; margin-bottom: 30px; font-size: 2rem;">🐭 Mäuse & Ratten</h3>
 
             <div class="cards-grid" style="max-width: 1000px; margin: 0 auto 30px;">
@@ -146,7 +146,7 @@ get_template_part('tierliebe-parts/header');
         </div>
 
         <!-- Tab Content: Degus & Chinchillas -->
-        <div class="tab-panel" data-tab="degus" style="display: none;">
+        <div class="tab-panel" data-tab="degus">
             <h3 style="text-align: center; margin-bottom: 30px; font-size: 2rem;">🐿️ Degus & Chinchillas</h3>
 
             <div class="cards-grid" style="max-width: 1000px; margin: 0 auto 30px;">
