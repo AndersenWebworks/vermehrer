@@ -62,8 +62,8 @@
         }
 
         toggleMenu() {
-            console.log('toggleMenu called, menu active:', this.mainNav.hasClass('active'));
-            if (this.mainNav.hasClass('active')) {
+            console.log('toggleMenu called, menu active:', this.menuToggle.hasClass('active'));
+            if (this.menuToggle.hasClass('active')) {
                 console.log('Closing menu');
                 this.closeMenu();
             } else {
