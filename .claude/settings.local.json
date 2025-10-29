@@ -47,7 +47,8 @@
       "Bash(npx playwright:*)",
       "Bash(node screenshot-analysis.js:*)",
       "Bash(sed:*)",
-      "Bash(tree:*)"
+      "Bash(tree:*)",
+      "Bash(php -r:*)"
     ],
     "deny": [],
     "ask": []

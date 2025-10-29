@@ -52,162 +52,199 @@ get_template_part('tierliebe-parts/header');
 
             <!-- Rasse 1: Mops & Französische Bulldogge -->
             <div class="qualzucht-card">
-                <div class="qualzucht-icon">🐶</div>
-                <h3>Mops & Französische Bulldogge</h3>
-                <p class="qualzucht-herkunft">Gezielt gezüchtet für "süße" flache Gesichter und Falten</p>
-
-                <div class="qualzucht-leiden">
-                    <h4>Leiden:</h4>
-                    <ul>
-                        <li>Atemnot (Brachyzephalie, verengte Nasenlöcher)</li>
-                        <li>Augenprobleme (hervorstehend, trockene Hornhaut)</li>
-                        <li>Hautentzündungen (Falteninfektionen)</li>
-                    </ul>
+                <div class="qualzucht-image">
+                    <img src="/wp-content/uploads/photo-1599744615638-804deec726e7-1024x683.jpg" alt="Mops & Französische Bulldogge">
                 </div>
+                <div class="qualzucht-content">
+                    <div class="qualzucht-icon">🐶</div>
+                    <h3>Mops & Französische Bulldogge</h3>
+                    <p class="qualzucht-herkunft">Gezielt gezüchtet für "süße" flache Gesichter und Falten</p>
 
-                <div class="qualzucht-wissen">
-                    <strong>💡 Wissen:</strong> Auch mit OP können viele Probleme nicht vollständig behoben werden.
+                    <div class="qualzucht-leiden">
+                        <h4>Leiden:</h4>
+                        <ul>
+                            <li>Atemnot (Brachyzephalie, verengte Nasenlöcher)</li>
+                            <li>Augenprobleme (hervorstehend, trockene Hornhaut)</li>
+                            <li>Hautentzündungen (Falteninfektionen)</li>
+                        </ul>
+                    </div>
+
+                    <div class="qualzucht-wissen">
+                        <strong>💡 Wissen:</strong> Auch mit OP können viele Probleme nicht vollständig behoben werden.
+                    </div>
                 </div>
             </div>
 
             <!-- Rasse 2: Perserkatze -->
             <div class="qualzucht-card">
-                <div class="qualzucht-icon">🐱</div>
-                <h3>Perserkatze</h3>
-                <p class="qualzucht-herkunft">Flaches Gesicht, große Augen – "edler Look"</p>
-
-                <div class="qualzucht-leiden">
-                    <h4>Leiden:</h4>
-                    <ul>
-                        <li>Verstopfte Tränenkanäle = ständiges Augentränen</li>
-                        <li>Atemprobleme durch flache Nasenpartie</li>
-                        <li>Zahnfehlstellungen</li>
-                        <li>Hautfalten = Pilzinfektionen</li>
-                    </ul>
+                <div class="qualzucht-image">
+                    <img src="/wp-content/uploads/photo-1512356587788-4f5ad49c16e9-1024x683.jpg" alt="Perserkatze">
                 </div>
+                <div class="qualzucht-content">
+                    <div class="qualzucht-icon">🐱</div>
+                    <h3>Perserkatze</h3>
+                    <p class="qualzucht-herkunft">Flaches Gesicht, große Augen – "edler Look"</p>
 
-                <div class="qualzucht-wissen">
-                    <strong>💡 Wissen:</strong> Viele Perser sind lebenslang auf Augenpflege angewiesen.
+                    <div class="qualzucht-leiden">
+                        <h4>Leiden:</h4>
+                        <ul>
+                            <li>Verstopfte Tränenkanäle = ständiges Augentränen</li>
+                            <li>Atemprobleme durch flache Nasenpartie</li>
+                            <li>Zahnfehlstellungen</li>
+                            <li>Hautfalten = Pilzinfektionen</li>
+                        </ul>
+                    </div>
+
+                    <div class="qualzucht-wissen">
+                        <strong>💡 Wissen:</strong> Viele Perser sind lebenslang auf Augenpflege angewiesen.
+                    </div>
                 </div>
             </div>
 
             <!-- Rasse 3: Schauwellensittich -->
             <div class="qualzucht-card">
-                <div class="qualzucht-icon">🦜</div>
-                <h3>Schauwellensittich</h3>
-                <p class="qualzucht-herkunft">Überlange Federn für "flauschiges" Aussehen (als Ausstellungsrasse gezüchtet)</p>
-
-                <div class="qualzucht-leiden">
-                    <h4>Leiden:</h4>
-                    <ul>
-                        <li>Sichtprobleme (Augen unter Federn verborgen)</li>
-                        <li>Schnabeldeformationen = Kauprobleme</li>
-                        <li>Schwaches Immunsystem durch Inzucht</li>
-                    </ul>
+                <div class="qualzucht-image">
+                    <img src="/wp-content/uploads/photo-1720423755825-d5606544e6b7-1024x683.jpg" alt="Schauwellensittich">
                 </div>
+                <div class="qualzucht-content">
+                    <div class="qualzucht-icon">🦜</div>
+                    <h3>Schauwellensittich</h3>
+                    <p class="qualzucht-herkunft">Überlange Federn für "flauschiges" Aussehen (als Ausstellungsrasse gezüchtet)</p>
 
-                <div class="qualzucht-wissen">
-                    <strong>💡 Wissen:</strong> Ein "schöner" Welli kann oft nicht mehr richtig fliegen.
+                    <div class="qualzucht-leiden">
+                        <h4>Leiden:</h4>
+                        <ul>
+                            <li>Sichtprobleme (Augen unter Federn verborgen)</li>
+                            <li>Schnabeldeformationen = Kauprobleme</li>
+                            <li>Schwaches Immunsystem durch Inzucht</li>
+                        </ul>
+                    </div>
+
+                    <div class="qualzucht-wissen">
+                        <strong>💡 Wissen:</strong> Ein "schöner" Welli kann oft nicht mehr richtig fliegen.
+                    </div>
                 </div>
             </div>
 
             <!-- Rasse 4: Widderkaninchen -->
             <div class="qualzucht-card">
-                <div class="qualzucht-icon">🐰</div>
-                <h3>Widderkaninchen</h3>
-                <p class="qualzucht-herkunft">Hängende Ohren für "niedliches" Aussehen</p>
-
-                <div class="qualzucht-leiden">
-                    <h4>Leiden:</h4>
-                    <ul>
-                        <li>Ohrenfehlstellung = Schwerhörigkeit</li>
-                        <li>Gehörgangsentzündungen</li>
-                        <li>Nervenprobleme durch verformten Schädel</li>
-                    </ul>
+                <div class="qualzucht-image">
+                    <img src="/wp-content/uploads/photo-1649007985567-fe6ce04680d3-1024x683.jpg" alt="Widderkaninchen">
                 </div>
+                <div class="qualzucht-content">
+                    <div class="qualzucht-icon">🐰</div>
+                    <h3>Widderkaninchen</h3>
+                    <p class="qualzucht-herkunft">Hängende Ohren für "niedliches" Aussehen</p>
 
-                <div class="qualzucht-wissen">
-                    <strong>💡 Wissen:</strong> Die "süßen" Ohren sind ein Schmerzfaktor.
+                    <div class="qualzucht-leiden">
+                        <h4>Leiden:</h4>
+                        <ul>
+                            <li>Ohrenfehlstellung = Schwerhörigkeit</li>
+                            <li>Gehörgangsentzündungen</li>
+                            <li>Nervenprobleme durch verformten Schädel</li>
+                        </ul>
+                    </div>
+
+                    <div class="qualzucht-wissen">
+                        <strong>💡 Wissen:</strong> Die "süßen" Ohren sind ein Schmerzfaktor.
+                    </div>
                 </div>
             </div>
 
             <!-- Rasse 5: Schleierschwanz-Goldfisch -->
             <div class="qualzucht-card">
-                <div class="qualzucht-icon">🐠</div>
-                <h3>Schleierschwanz-Goldfisch</h3>
-                <p class="qualzucht-herkunft">Überlange Flossen, kugeliger Körper</p>
-
-                <div class="qualzucht-leiden">
-                    <h4>Leiden:</h4>
-                    <ul>
-                        <li>Schwimmprobleme (Schleppflossen)</li>
-                        <li>Augenprobleme (hervorstehend, verletzungsanfällig)</li>
-                        <li>Skelettdeformationen</li>
-                    </ul>
+                <div class="qualzucht-image">
+                    <img src="/wp-content/uploads/photo-1650290145779-e05602773fc7-1024x683.jpg" alt="Schleierschwanz-Goldfisch">
                 </div>
+                <div class="qualzucht-content">
+                    <div class="qualzucht-icon">🐠</div>
+                    <h3>Schleierschwanz-Goldfisch</h3>
+                    <p class="qualzucht-herkunft">Überlange Flossen, kugeliger Körper</p>
 
-                <div class="qualzucht-wissen">
-                    <strong>💡 Wissen:</strong> Das "prachtvolle" Aussehen ist in Wirklichkeit eine Behinderung.
+                    <div class="qualzucht-leiden">
+                        <h4>Leiden:</h4>
+                        <ul>
+                            <li>Schwimmprobleme (Schleppflossen)</li>
+                            <li>Augenprobleme (hervorstehend, verletzungsanfällig)</li>
+                            <li>Skelettdeformationen</li>
+                        </ul>
+                    </div>
+
+                    <div class="qualzucht-wissen">
+                        <strong>💡 Wissen:</strong> Das "prachtvolle" Aussehen ist in Wirklichkeit eine Behinderung.
+                    </div>
                 </div>
             </div>
 
             <!-- Rasse 6: Albino-Reptilien -->
             <div class="qualzucht-card">
-                <div class="qualzucht-icon">🦎</div>
-                <h3>Albino-Reptilien</h3>
-                <p class="qualzucht-herkunft">Genmutation für besondere Farbvarianten</p>
-
-                <div class="qualzucht-leiden">
-                    <h4>Leiden:</h4>
-                    <ul>
-                        <li>Sehschwäche durch Pigmentmangel</li>
-                        <li>Lichtempfindlichkeit = Stress</li>
-                        <li>Höhere Anfälligkeit für Krankheiten</li>
-                    </ul>
+                <div class="qualzucht-image">
+                    <img src="/wp-content/uploads/photo-1639648702729-395a9b8b1133-1024x683.jpg" alt="Albino-Reptilien">
                 </div>
+                <div class="qualzucht-content">
+                    <div class="qualzucht-icon">🦎</div>
+                    <h3>Albino-Reptilien</h3>
+                    <p class="qualzucht-herkunft">Genmutation für besondere Farbvarianten</p>
 
-                <div class="qualzucht-wissen">
-                    <strong>💡 Wissen:</strong> Albinos überleben in der Natur fast nie – als Haustiere auch nur schwer.
+                    <div class="qualzucht-leiden">
+                        <h4>Leiden:</h4>
+                        <ul>
+                            <li>Sehschwäche durch Pigmentmangel</li>
+                            <li>Lichtempfindlichkeit = Stress</li>
+                            <li>Höhere Anfälligkeit für Krankheiten</li>
+                        </ul>
+                    </div>
+
+                    <div class="qualzucht-wissen">
+                        <strong>💡 Wissen:</strong> Albinos überleben in der Natur fast nie – als Haustiere auch nur schwer.
+                    </div>
                 </div>
             </div>
 
             <!-- Rasse 7: Malteser & Zwerghunde -->
             <div class="qualzucht-card">
-                <div class="qualzucht-icon">🐕</div>
-                <h3>Malteser & Zwerghunde</h3>
-                <p class="qualzucht-herkunft">Extreme Kleinzüchtung für dekoratives Aussehen</p>
+                <div class="qualzucht-content">
+                    <div class="qualzucht-icon">🐕</div>
+                    <h3>Malteser & Zwerghunde</h3>
+                    <p class="qualzucht-herkunft">Extreme Kleinzüchtung für dekoratives Aussehen</p>
 
-                <div class="qualzucht-leiden">
-                    <h4>Leiden:</h4>
-                    <ul>
-                        <li>Haarpflege aufwendig = Hautprobleme bei Vernachlässigung</li>
-                        <li>Kleine Körpergröße = Gelenkprobleme</li>
-                        <li>Überzüchtete Tränenkanäle</li>
-                    </ul>
-                </div>
+                    <div class="qualzucht-leiden">
+                        <h4>Leiden:</h4>
+                        <ul>
+                            <li>Haarpflege aufwendig = Hautprobleme bei Vernachlässigung</li>
+                            <li>Kleine Körpergröße = Gelenkprobleme</li>
+                            <li>Überzüchtete Tränenkanäle</li>
+                        </ul>
+                    </div>
 
-                <div class="qualzucht-wissen">
-                    <strong>💡 Wissen:</strong> Je kleiner ein Hund gezüchtet wird, desto mehr Gesundheitsprobleme entstehen.
+                    <div class="qualzucht-wissen">
+                        <strong>💡 Wissen:</strong> Je kleiner ein Hund gezüchtet wird, desto mehr Gesundheitsprobleme entstehen.
+                    </div>
                 </div>
             </div>
 
             <!-- Rasse 8: Scottish-Fold-Katze -->
             <div class="qualzucht-card">
-                <div class="qualzucht-icon">🐱</div>
-                <h3>Scottish-Fold-Katze</h3>
-                <p class="qualzucht-herkunft">Genmutation für gefaltete Ohren</p>
-
-                <div class="qualzucht-leiden">
-                    <h4>Leiden:</h4>
-                    <ul>
-                        <li>Schmerzhafte Gelenkdeformationen</li>
-                        <li>Knorpelprobleme (Osteochondrodysplasie)</li>
-                        <li>Ohrenentzündungen</li>
-                    </ul>
+                <div class="qualzucht-image">
+                    <img src="/wp-content/uploads/photo-1563210220-05f7b87c695c-1024x683.jpg" alt="Scottish-Fold-Katze">
                 </div>
+                <div class="qualzucht-content">
+                    <div class="qualzucht-icon">🐱</div>
+                    <h3>Scottish-Fold-Katze</h3>
+                    <p class="qualzucht-herkunft">Genmutation für gefaltete Ohren</p>
 
-                <div class="qualzucht-wissen">
-                    <strong>💡 Wissen:</strong> Die "süßen" Ohren bedeuten für die Katze chronischen Schmerz.
+                    <div class="qualzucht-leiden">
+                        <h4>Leiden:</h4>
+                        <ul>
+                            <li>Schmerzhafte Gelenkdeformationen</li>
+                            <li>Knorpelprobleme (Osteochondrodysplasie)</li>
+                            <li>Ohrenentzündungen</li>
+                        </ul>
+                    </div>
+
+                    <div class="qualzucht-wissen">
+                        <strong>💡 Wissen:</strong> Die "süßen" Ohren bedeuten für die Katze chronischen Schmerz.
+                    </div>
                 </div>
             </div>
 

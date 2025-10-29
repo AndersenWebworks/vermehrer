@@ -12,8 +12,8 @@ get_template_part('tierliebe-parts/header');
 <!-- Hero Section -->
 <section class="primary-hero" style="min-height: 50vh;">
     <div class="hero-content">
-        <h1 class="hero-title">💭 Mythen & Irrtümer</h1>
-        <p class="hero-subtitle">Die häufigsten Irrtümer über Tierhaltung – und die Wahrheit dahinter</p>
+        <h1 class="hero-title">💭 Die größten Irrtümer über Haustiere</h1>
+        <p class="hero-subtitle">Viele Irrtümer halten sich hartnäckig – und kosten Tiere am Ende ihr Glück oder sogar ihr Leben. Hier findest du die häufigsten Missverständnisse – und wie es wirklich ist.</p>
     </div>
 </section>
 

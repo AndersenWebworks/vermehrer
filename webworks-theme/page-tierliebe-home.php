@@ -111,8 +111,16 @@ get_template_part('tierliebe-parts/header');
             </p>
         </div>
 
+        <!-- Die Wahrheit über Haustiere - Einleitung -->
+        <div style="margin-top: 80px; margin-bottom: 50px;">
+            <h2 class="section-title" style="text-align: center; margin-bottom: 30px;">Die Wahrheit über Haustiere</h2>
+            <p style="text-align: center; max-width: 800px; margin: 0 auto; font-size: 1.2rem; line-height: 1.7; color: var(--text-medium);">
+                Katzen sind unabhängig? Hunde brauchen nur genügend Auslauf? Meerschweinchen sind perfekt für Kinder? Lass uns diese Mythen gemeinsam auf den Prüfstand stellen.
+            </p>
+        </div>
+
         <!-- Quick Links -->
-        <div class="quick-links-grid" style="margin-top: 80px;">
+        <div class="quick-links-grid">
             <a href="<?php echo home_url('/tierliebe-hunde'); ?>" class="quick-link-card">
                 <span class="quick-link-icon">🐶</span>
                 <h4>Hunde</h4>

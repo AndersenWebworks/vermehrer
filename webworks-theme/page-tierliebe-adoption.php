@@ -62,7 +62,16 @@ get_template_part('tierliebe-parts/header');
 <!-- Warum Adoption? 3-Panel-Vergleich -->
 <section class="section">
     <div class="container">
-        <h2 class="section-title" style="text-align: center; margin-bottom: 50px;">Zucht, Kauf oder Adoption?</h2>
+        <h2 class="section-title" style="text-align: center; margin-bottom: 30px;">Zucht, Kauf oder Adoption?</h2>
+        <p style="text-align: center; max-width: 800px; margin: 0 auto 20px; font-size: 1.2rem; color: var(--text-dark); font-weight: 600;">
+            Warum die Herkunft über das ganze Leben eines Tieres entscheidet.
+        </p>
+        <div style="max-width: 900px; margin: 0 auto 50px;">
+            <div class="info-box" style="background: var(--pastel-peach);">
+                <p style="font-size: 1.1rem; margin-bottom: 15px;"><strong>Frage:</strong> "Hauptsache, das Tier hats gut bei mir."</p>
+                <p style="font-size: 1.1rem;"><strong>Antwort:</strong> Aber das allein reicht nicht. Denn jedes Tier, das geboren wird, nimmt einem anderen den Platz weg. Und jedes gekaufte Tier sorgt dafür, dass noch mehr Tiere gezüchtet werden – legal oder illegal.</p>
+            </div>
+        </div>
 
         <div class="comparison-grid">
             <!-- ZUCHT -->
@@ -192,9 +201,9 @@ get_template_part('tierliebe-parts/header');
 <!-- Zucht-Wirtschaftlichkeit -->
 <section class="section">
     <div class="container">
-        <h2 class="section-title" style="text-align: center; margin-bottom: 30px;">💰 Die Wahrheit über Zucht</h2>
-        <p style="text-align: center; max-width: 800px; margin: 0 auto 50px; font-size: 1.1rem; color: var(--text-medium);">
-            Viele glauben, Zucht sei lukrativ. Die Realität sieht anders aus – wenn man es richtig macht.
+        <h2 class="section-title" style="text-align: center; margin-bottom: 30px;">💰 Wirtschaftlichkeit der Zucht – ein ehrlicher Blick</h2>
+        <p style="text-align: center; max-width: 900px; margin: 0 auto 50px; font-size: 1.15rem; color: var(--text-medium); line-height: 1.7;">
+            Zucht ist nicht automatisch verantwortungsvoll. Und ein vermeintlich hoher Preis nicht gleichbedeutend mit guter Herkunft. Ich zeige dir, was seriöse Zucht wirklich bedeutet – und warum sie sich selten lohnt.
         </p>
 
         <div class="accordion">
@@ -293,9 +302,9 @@ get_template_part('tierliebe-parts/header');
 <!-- Abgabealter -->
 <section class="section" style="background: var(--bg-white);">
     <div class="container">
-        <h2 class="section-title" style="text-align: center; margin-bottom: 30px;">⏰ Abgabealter: Die Wahrheit</h2>
-        <p style="text-align: center; max-width: 800px; margin: 0 auto 50px; font-size: 1.1rem; color: var(--text-medium);">
-            Nur weil man Tiere rechtlich früh abgeben darf, heißt das nicht, dass man es sollte.
+        <h2 class="section-title" style="text-align: center; margin-bottom: 30px;">⏰ Zu früh getrennt – zu spät verstanden</h2>
+        <p style="text-align: center; max-width: 800px; margin: 0 auto 50px; font-size: 1.15rem; color: var(--text-medium);">
+            Nur weil man Tiere rechtlich ab der 8. oder 12. Woche abgeben darf, heißt das nicht, dass man es sollte.
         </p>
 
         <div class="info-grid">
