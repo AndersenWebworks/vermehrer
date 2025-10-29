@@ -10,9 +10,10 @@
     class TiebliebeDesktopMenu {
         constructor() {
             this.menuItems = $('.main-nav-desktop .nav-links > li');
-            this.hoverDelay = 200; // ms delay before closing
-            this.openDelay = 150;  // ms delay before opening
+            this.hoverDelay = 250; // ms delay before closing (erhöht für bessere UX)
+            this.openDelay = 100;  // ms delay before opening (reduziert für Responsiveness)
             this.timers = new Map();
+            this.currentOpenItem = null;
 
             this.init();
         }
@@ -59,32 +60,60 @@
         }
 
         openSubmenu($item, $submenu) {
+            // Close other open menus first
+            if (this.currentOpenItem && this.currentOpenItem[0] !== $item[0]) {
+                const $otherSubmenu = this.currentOpenItem.find('.sub-menu, .uk-nav-sub');
+                this.clearTimer(this.currentOpenItem);
+                this.immediateClose(this.currentOpenItem, $otherSubmenu);
+            }
+
             const timerId = setTimeout(() => {
                 $submenu.css({
                     'display': 'block',
                     'opacity': '1',
-                    'transform': 'translateY(0)',
+                    'transform': 'translateY(0) scale(1)',
                     'pointer-events': 'auto'
                 });
                 $item.addClass('menu-open');
+                this.currentOpenItem = $item;
             }, this.openDelay);
 
             this.timers.set($item, timerId);
+        }
+
+        immediateClose($item, $submenu) {
+            $submenu.css({
+                'opacity': '0',
+                'transform': 'translateY(-10px) scale(0.95)',
+                'pointer-events': 'none'
+            });
+
+            setTimeout(() => {
+                $submenu.css('display', 'none');
+            }, 200);
+
+            $item.removeClass('menu-open');
+            if (this.currentOpenItem && this.currentOpenItem[0] === $item[0]) {
+                this.currentOpenItem = null;
+            }
         }
 
         scheduleClose($item, $submenu) {
             const timerId = setTimeout(() => {
                 $submenu.css({
                     'opacity': '0',
-                    'transform': 'translateY(-10px)',
+                    'transform': 'translateY(-10px) scale(0.95)',
                     'pointer-events': 'none'
                 });
 
                 setTimeout(() => {
                     $submenu.css('display', 'none');
-                }, 200);
+                }, 250);
 
                 $item.removeClass('menu-open');
+                if (this.currentOpenItem && this.currentOpenItem[0] === $item[0]) {
+                    this.currentOpenItem = null;
+                }
             }, this.hoverDelay);
 
             this.timers.set($item, timerId);
@@ -106,11 +135,12 @@
                 $submenu.css({
                     'display': 'none',
                     'opacity': '0',
-                    'transform': 'translateY(-10px)',
+                    'transform': 'translateY(-10px) scale(0.95)',
                     'pointer-events': 'none'
                 });
                 $item.removeClass('menu-open');
             });
+            this.currentOpenItem = null;
         }
     }
 

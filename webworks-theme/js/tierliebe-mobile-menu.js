@@ -72,6 +72,17 @@
             // Force right position via native DOM API (CSS is being overridden)
             this.mainNav[0].style.setProperty('right', '0px', 'important');
 
+            // Debug: Check if classes are applied
+            console.log('Body classes:', this.body[0].className);
+            console.log('Toggle classes:', this.menuToggle[0].className);
+
+            // Debug: Check backdrop
+            const bodyBefore = window.getComputedStyle(this.body[0], '::before');
+            console.log('Backdrop content:', bodyBefore.content);
+            console.log('Backdrop display:', bodyBefore.display);
+            console.log('Backdrop z-index:', bodyBefore.zIndex);
+            console.log('Backdrop background:', bodyBefore.background);
+
             // Prevent body scroll when menu is open
             this.body.css('overflow', 'hidden');
         }
