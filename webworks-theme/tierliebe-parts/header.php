@@ -28,13 +28,6 @@
             <span class="logo-icon">🐾</span> Tierliebe-Check
         </a>
 
-        <!-- Mobile Menu Toggle -->
-        <button class="mobile-menu-toggle" aria-label="Menü öffnen">
-            <span class="hamburger"></span>
-            <span class="hamburger"></span>
-            <span class="hamburger"></span>
-        </button>
-
         <nav class="main-nav main-nav-desktop">
             <ul class="nav-links">
                 <li><a href="<?php echo home_url('/tierliebe-start'); ?>">🏠 Start</a></li>
@@ -67,6 +60,13 @@
         </nav>
     </div>
 </header>
+
+<!-- Mobile Menu Toggle (outside header for proper z-index stacking) -->
+<button class="mobile-menu-toggle" aria-label="Menü öffnen">
+    <span class="hamburger"></span>
+    <span class="hamburger"></span>
+    <span class="hamburger"></span>
+</button>
 
 <!-- Mobile Menu (outside header for proper z-index stacking) -->
 <nav class="main-nav main-nav-mobile">

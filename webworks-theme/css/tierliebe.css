@@ -250,7 +250,14 @@ a:active {
     justify-content: center;
     align-items: center;
     border-radius: 8px;
-    position: relative;
+    position: fixed;
+    top: 20px;
+    right: 30px;
+}
+
+.mobile-menu-toggle.active {
+    background: white !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15) !important;
 }
 
 .hamburger {
@@ -263,14 +270,17 @@ a:active {
 
 .mobile-menu-toggle.active .hamburger:nth-child(1) {
     transform: rotate(45deg) translateY(11px) !important;
+    background: var(--text-dark) !important;
 }
 
 .mobile-menu-toggle.active .hamburger:nth-child(2) {
     opacity: 0 !important;
+    display: none !important;
 }
 
 .mobile-menu-toggle.active .hamburger:nth-child(3) {
     transform: rotate(-45deg) translateY(-11px) !important;
+    background: var(--text-dark) !important;
 }
 
 /* Main Navigation */
