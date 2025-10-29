@@ -86,6 +86,11 @@
             console.log('MAINAV has active class:', this.mainNav.hasClass('active'));
             console.log('MAINAV classes:', this.mainNav.attr('class'));
 
+            // Debug: Check if class gets removed
+            setTimeout(() => {
+                console.log('100ms later - MAINAV has active:', this.mainNav.hasClass('active'));
+            }, 100);
+
             // Force right position via native DOM API
             this.mainNav[0].style.setProperty('right', '0px', 'important');
 
