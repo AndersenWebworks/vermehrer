@@ -63,8 +63,8 @@
         }
 
         toggleMenu() {
-            console.log('toggleMenu called, menu active:', this.mainNav.hasClass('active'));
-            if (this.mainNav.hasClass('active')) {
+            console.log('toggleMenu called, menu active:', this.menuToggle.hasClass('active'));
+            if (this.menuToggle.hasClass('active')) {
                 console.log('Closing menu');
                 this.closeMenu();
             } else {
@@ -164,12 +164,9 @@
         }
     }
 
-    // Initialize on document ready (only once)
+    // Initialize on document ready
     $(document).ready(function() {
-        if (!window.tierliebeMobileMenuInitialized) {
-            window.tierliebeMobileMenuInitialized = true;
-            new TierliebeMobileMenu();
-        }
+        new TierliebeMobileMenu();
     });
 
 })(jQuery);
