@@ -27,7 +27,15 @@
         <a href="<?php echo home_url('/tierliebe-start'); ?>" class="logo">
             <span class="logo-icon">🐾</span> Tierliebe-Check
         </a>
-        <nav>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Menü öffnen" aria-expanded="false">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+        </button>
+
+        <nav class="main-nav" id="mainNav">
             <ul class="nav-links">
                 <li><a href="<?php echo home_url('/tierliebe-start'); ?>">🏠 Start</a></li>
                 <li><a href="<?php echo home_url('/tierliebe-test'); ?>">✨ Bin ich bereit?</a></li>
@@ -47,5 +55,8 @@
                 <li><a href="<?php echo home_url('/tierliebe-kontakt'); ?>">📧 Über & Kontakt</a></li>
             </ul>
         </nav>
+
+        <!-- Mobile Menu Overlay -->
+        <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
     </div>
 </header>

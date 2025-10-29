@@ -193,6 +193,15 @@ function tierliebe_enqueue_assets()
             true
         );
 
+        // Enqueue Mobile Navigation (vanilla JS, no jQuery dependency)
+        wp_enqueue_script(
+            'tierliebe-mobile-nav',
+            get_stylesheet_directory_uri() . '/js/tierliebe-mobile-nav.js',
+            array(),
+            '1.0.0',
+            true
+        );
+
         // Enqueue Quiz (only on test page)
         if (is_page_template('page-tierliebe.php') || is_page_template('page-tierliebe-test.php')) {
             wp_enqueue_script(
