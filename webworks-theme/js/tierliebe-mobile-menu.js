@@ -27,6 +27,7 @@
             this.menuToggle.on('click', (e) => {
                 console.log('=== Toggle Button Clicked ===');
                 e.preventDefault();
+                e.stopPropagation();
                 this.toggleMenu();
             });
 
