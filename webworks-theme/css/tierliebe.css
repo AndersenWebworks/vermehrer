@@ -1,6 +1,6 @@
 /**
  * Tierliebe Template Styles
- * Version: 1.1.0
+ * Version: 1.2.0
  * Description: Complete stylesheet for Tierliebe animal welfare templates
  */
 
@@ -200,7 +200,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* WordPress Submenu (Dropdown) */
-.nav-links .sub-menu {
+.nav-links .sub-menu,
+.nav-links .uk-nav-sub {
     display: none;
     position: absolute;
     top: 100%;
@@ -215,28 +216,43 @@ h1, h2, h3, h4, h5, h6 {
     z-index: 1000;
 }
 
-.nav-links li:hover > .sub-menu {
+.nav-links li:hover > .sub-menu,
+.nav-links li:hover > .uk-nav-sub,
+.nav-links .menu-item-has-children:hover > .uk-nav-sub {
     display: block;
 }
 
-.nav-links .sub-menu li {
+.nav-links .sub-menu li,
+.nav-links .uk-nav-sub li {
     margin: 0;
     padding: 0;
 }
 
-.nav-links .sub-menu a {
+.nav-links .sub-menu a,
+.nav-links .uk-nav-sub a {
     padding: 12px 25px;
     border-radius: 0;
     font-size: 0.95rem;
 }
 
-.nav-links .sub-menu a::before {
+.nav-links .sub-menu a::before,
+.nav-links .uk-nav-sub a::before {
     display: none;
 }
 
-.nav-links .sub-menu a:hover {
+.nav-links .sub-menu a:hover,
+.nav-links .uk-nav-sub a:hover {
     background: var(--pastel-mint);
     border-radius: 0;
+}
+
+/* UIKit Nav Override */
+.uk-nav-sub {
+    padding: 0 !important;
+}
+
+[uk-nav-parent-icon] {
+    display: none;
 }
 
 /* ============================================
