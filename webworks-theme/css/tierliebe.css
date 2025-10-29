@@ -3218,7 +3218,7 @@ textarea:focus {
     }
 
     .main-nav-mobile.active {
-        right: 0;
+        right: 0 !important;
     }
 }
 
