@@ -175,6 +175,15 @@ function tierliebe_enqueue_assets()
             true
         );
 
+        // Enqueue Keyboard Navigation
+        wp_enqueue_script(
+            'tierliebe-keyboard-nav',
+            get_stylesheet_directory_uri() . '/js/tierliebe-keyboard-nav.js',
+            array('jquery'),
+            '1.0.0',
+            true
+        );
+
         // Enqueue Tab Switcher
         wp_enqueue_script(
             'tierliebe-tabs',

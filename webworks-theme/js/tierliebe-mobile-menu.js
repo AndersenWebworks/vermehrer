@@ -76,6 +76,9 @@
             this.body.addClass('menu-open');
             this.menuToggle.attr('aria-label', 'Menü schließen');
 
+            console.log('Toggle has active class:', this.menuToggle.hasClass('active'));
+            console.log('Body has menu-open class:', this.body.hasClass('menu-open'));
+
             // Force right position via native DOM API (bypassing jQuery)
             this.mainNav[0].style.setProperty('right', '0px', 'important');
 
