@@ -95,7 +95,7 @@
 
         // Close menu when clicking outside
         $(document).on('click', function(e) {
-            if (!$(e.target).closest('.header, .mobile-menu-toggle').length && $('.main-nav').hasClass('active')) {
+            if (!$(e.target).closest('.header, .mobile-menu-toggle, .main-nav-mobile').length && $('.main-nav').hasClass('active')) {
                 $('.mobile-menu-toggle').removeClass('active');
                 $('.main-nav').removeClass('active');
                 $('body').removeClass('menu-open');
