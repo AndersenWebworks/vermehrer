@@ -26,7 +26,7 @@ bloginfo('name'); ?></title>
 <header class="header">
     <div class="header-content">
         <a href="<?php echo home_url('/'); ?>" class="logo">
-            <span class="logo-icon">🐾</span><div>Wa(h)re</div> <div style="display:block;">Haustier(liebe)</div>
+            <span class="logo-icon">🐾</span><div style="display:block;">Wa(h)re</div> <div style="display:block;">Haustier(liebe)</div>
         </a>
 
         <nav class="main-nav main-nav-desktop">
