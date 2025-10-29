@@ -83,6 +83,8 @@
 
             console.log('Toggle has active class:', this.menuToggle.hasClass('active'));
             console.log('Toggle classes:', this.menuToggle.attr('class'));
+            console.log('MAINAV has active class:', this.mainNav.hasClass('active'));
+            console.log('MAINAV classes:', this.mainNav.attr('class'));
 
             // Force right position via native DOM API
             this.mainNav[0].style.setProperty('right', '0px', 'important');
