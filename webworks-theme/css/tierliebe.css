@@ -1709,28 +1709,19 @@ input[type="submit"] {
 .mythos-card:nth-child(6) { transition-delay: 0.25s; }
 
 /* Mobile Menu Stagger */
-.main-nav.active .nav-links li,
 .main-nav-mobile.active .nav-links li {
     animation: navItemSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
     opacity: 0;
     transform: translateX(30px);
 }
 
-.main-nav.active .nav-links li:nth-child(1),
 .main-nav-mobile.active .nav-links li:nth-child(1) { animation-delay: 0.05s; }
-.main-nav.active .nav-links li:nth-child(2),
 .main-nav-mobile.active .nav-links li:nth-child(2) { animation-delay: 0.1s; }
-.main-nav.active .nav-links li:nth-child(3),
 .main-nav-mobile.active .nav-links li:nth-child(3) { animation-delay: 0.15s; }
-.main-nav.active .nav-links li:nth-child(4),
 .main-nav-mobile.active .nav-links li:nth-child(4) { animation-delay: 0.2s; }
-.main-nav.active .nav-links li:nth-child(5),
 .main-nav-mobile.active .nav-links li:nth-child(5) { animation-delay: 0.25s; }
-.main-nav.active .nav-links li:nth-child(6),
 .main-nav-mobile.active .nav-links li:nth-child(6) { animation-delay: 0.3s; }
-.main-nav.active .nav-links li:nth-child(7),
 .main-nav-mobile.active .nav-links li:nth-child(7) { animation-delay: 0.35s; }
-.main-nav.active .nav-links li:nth-child(8),
 .main-nav-mobile.active .nav-links li:nth-child(8) { animation-delay: 0.4s; }
 
 @keyframes navItemSlideIn {
@@ -1951,65 +1942,9 @@ textarea:focus {
         display: flex;
     }
 
-    /* Hide Desktop Nav */
-    .main-nav {
-        position: fixed;
-        top: 0;
-        right: -100%;
-        width: 300px;
-        height: 100vh;
-        background: var(--bg-white);
-        box-shadow: -5px 0 20px rgba(0,0,0,0.1);
-        transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        z-index: 9999;
-        overflow-y: auto;
-        padding-top: 80px;
-    }
-
-    .main-nav.active {
-        right: 0;
-    }
-
-    .nav-links {
-        flex-direction: column;
-        gap: 0;
-        width: 100%;
-    }
-
-    .nav-links li {
-        width: 100%;
-        border-bottom: 1px solid var(--pastel-mint);
-    }
-
-    .nav-links a {
-        width: 100%;
-        padding: 18px 25px;
-        border-radius: 0;
-        font-size: 1rem;
-    }
-
-    .nav-links a::before {
+    /* Hide Desktop Nav - now handled by separate .main-nav-mobile element */
+    .main-nav-desktop {
         display: none;
-    }
-
-    /* Mobile Submenu */
-    .nav-links .sub-menu {
-        position: static;
-        box-shadow: none;
-        border-radius: 0;
-        background: var(--pastel-mint);
-        padding: 0;
-        margin: 0;
-        display: none;
-    }
-
-    .nav-links .has-children.open > .sub-menu {
-        display: block;
-    }
-
-    .nav-links .sub-menu a {
-        padding-left: 45px;
-        background: var(--pastel-mint);
     }
 
     /* Other Responsive Adjustments */
