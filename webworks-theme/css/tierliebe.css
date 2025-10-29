@@ -270,6 +270,7 @@ a:active {
 }
 
 .mobile-menu-toggle.active .hamburger:nth-child(1) {
+    width: 35px;
     transform: rotate(45deg) !important;
     background: var(--text-dark) !important;
 }
@@ -280,6 +281,7 @@ a:active {
 }
 
 .mobile-menu-toggle.active .hamburger:nth-child(3) {
+    width: 35px;
     transform: rotate(-45deg) !important;
     background: var(--text-dark) !important;
 }
