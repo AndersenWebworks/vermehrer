@@ -1,5 +1,5 @@
 <?php
-// Updated: 2025-10-29 - Modular CSS Architecture (v6.0.0) + Custom Walker
+// Updated: 2025-10-29 - Custom Walker added
 
 /* TIERLIEBE NAVIGATION MENU
 _______________________________*/
@@ -146,62 +146,12 @@ function tierliebe_enqueue_assets()
                               is_page_template('page-tierliebe-kontakt.php');
 
     if ($is_tierliebe_template) {
-        // Enqueue modular CSS files (v6.0.0 - Modular Architecture)
-
-        // 1. Core (Variables, Reset, Base) - must load first
+        // Enqueue main CSS
         wp_enqueue_style(
-            'tierliebe-core',
-            get_stylesheet_directory_uri() . '/css/tierliebe-core.css',
+            'tierliebe-style',
+            get_stylesheet_directory_uri() . '/css/tierliebe.css',
             array(),
-            '6.0.0'
-        );
-
-        // 2. Layout (Hero, Sections, Containers)
-        wp_enqueue_style(
-            'tierliebe-layout',
-            get_stylesheet_directory_uri() . '/css/tierliebe-layout.css',
-            array('tierliebe-core'),
-            '6.0.0'
-        );
-
-        // 3. Navigation (Header, Desktop & Mobile Nav)
-        wp_enqueue_style(
-            'tierliebe-navigation',
-            get_stylesheet_directory_uri() . '/css/tierliebe-navigation.css',
-            array('tierliebe-core'),
-            '6.0.0'
-        );
-
-        // 4. Components (Accordion, Tabs, Buttons, Forms, etc.)
-        wp_enqueue_style(
-            'tierliebe-components',
-            get_stylesheet_directory_uri() . '/css/tierliebe-components.css',
-            array('tierliebe-core'),
-            '6.0.0'
-        );
-
-        // 5. Pages (Page-specific styles)
-        wp_enqueue_style(
-            'tierliebe-pages',
-            get_stylesheet_directory_uri() . '/css/tierliebe-pages.css',
-            array('tierliebe-core', 'tierliebe-components'),
-            '6.0.0'
-        );
-
-        // 6. Animations (Keyframes, Transitions)
-        wp_enqueue_style(
-            'tierliebe-animations',
-            get_stylesheet_directory_uri() . '/css/tierliebe-animations.css',
-            array('tierliebe-core'),
-            '6.0.0'
-        );
-
-        // 7. Responsive (Media Queries) - must load last
-        wp_enqueue_style(
-            'tierliebe-responsive',
-            get_stylesheet_directory_uri() . '/css/tierliebe-responsive.css',
-            array('tierliebe-core', 'tierliebe-layout', 'tierliebe-navigation', 'tierliebe-components', 'tierliebe-pages'),
-            '6.0.0'
+            '5.1.0'
         );
 
         // Enqueue jQuery (WordPress default)

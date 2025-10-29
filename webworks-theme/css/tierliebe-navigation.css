@@ -1,0 +1,365 @@
+/**
+ * Tierliebe Navigation Styles
+ * Module: Header, Desktop & Mobile Navigation
+ */
+
+/* ============================================
+   HEADER & NAVIGATION
+   ============================================ */
+.header {
+    background   : var(--bg-white);
+    padding      : 20px 0;
+    border-bottom: 4px solid var(--pastel-mint);
+    position     : sticky;
+    top          : 0;
+    z-index      : 1050;
+    box-shadow   : var(--shadow-sm);
+}
+
+.header-content {
+    max-width      : 1200px;
+    margin         : 0 auto;
+    padding        : 0 30px;
+    display        : flex;
+    justify-content: space-between;
+    align-items    : center;
+}
+
+.logo {
+    font-family    : 'Fredoka', sans-serif;
+    font-size      : 1.8rem;
+    font-weight    : 600;
+    color          : var(--text-dark);
+    text-decoration: none;
+    display        : flex;
+    align-items    : center;
+    gap            : 12px;
+    transition     : all 0.3s ease;
+}
+
+.logo:hover {
+    transform: scale(1.05);
+}
+
+.logo-icon {
+    font-size: 2rem;
+    animation: wiggle 2s ease-in-out infinite;
+}
+
+@keyframes wiggle {
+
+    0%,
+    100% {
+        transform: rotate(0deg);
+    }
+
+    25% {
+        transform: rotate(-8deg);
+    }
+
+    75% {
+        transform: rotate(8deg);
+    }
+}
+
+/* Mobile Menu Toggle */
+.mobile-menu-toggle {
+    display        : none;
+    flex-direction : column;
+    gap            : 6px;
+    background     : none;
+    border         : none;
+    cursor         : pointer;
+    padding        : 12px;
+    z-index        : 10000;
+    min-width      : 48px;
+    min-height     : 48px;
+    justify-content: center;
+    align-items    : center;
+    border-radius  : 8px;
+    position       : fixed;
+    top            : 20px;
+    right          : 30px;
+}
+
+.hamburger {
+    width        : 30px;
+    height       : 3px;
+    background   : var(--text-dark);
+    border-radius: 3px;
+    transition   : all 0.3s ease;
+}
+
+.mobile-menu-toggle.active .hamburger:nth-child(1) {
+    width     : 35px;
+    position  : absolute;
+    left      : 12px;
+    transform : rotate(45deg) !important;
+    background: var(--text-dark) !important;
+}
+
+.mobile-menu-toggle.active .hamburger:nth-child(2) {
+    opacity: 0 !important;
+    display: none !important;
+}
+
+.mobile-menu-toggle.active .hamburger:nth-child(3) {
+    width     : 35px;
+    transform : rotate(-45deg) !important;
+    background: var(--text-dark) !important;
+}
+
+/* Main Navigation */
+.main-nav {
+    display: flex;
+    z-index: 9999;
+}
+
+.nav-links {
+    display   : flex;
+    gap       : 8px;
+    list-style: none;
+    margin    : 0;
+    padding   : 0;
+}
+
+.nav-links li {
+    position  : relative;
+    list-style: none;
+}
+
+.nav-links a {
+    font-family    : 'Quicksand', sans-serif;
+    font-weight    : 600;
+    font-size      : 0.95rem;
+    color          : var(--text-medium);
+    text-decoration: none;
+    padding        : 10px 18px;
+    border-radius  : 25px;
+    transition     : all 0.3s ease;
+    position       : relative;
+    display        : block;
+    white-space    : nowrap;
+}
+
+/* Subtle Badge für Dropdown-Item-Anzahl (optional) */
+.nav-links .has-children>a {
+    position     : relative;
+    padding-right: 30px;
+}
+
+/* Dropdown Indikator - Absolut positioniert */
+.nav-links .has-children>a::after {
+    content   : '▼';
+    font-size : 0.65rem;
+    position  : absolute;
+    right     : 12px;
+    top       : 50%;
+    transform : translateY(-50%);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    opacity   : 0.7;
+}
+
+.nav-links .has-children:hover>a::after,
+.nav-links .has-children.menu-open>a::after {
+    transform: translateY(-50%) rotate(180deg);
+    opacity  : 1;
+}
+
+.nav-links .has-children>a[data-count]::before {
+    content        : attr(data-count);
+    position       : absolute;
+    top            : -5px;
+    right          : -5px;
+    background     : var(--cute-coral);
+    color          : white;
+    font-size      : 0.7rem;
+    font-weight    : 700;
+    width          : 18px;
+    height         : 18px;
+    border-radius  : 50%;
+    display        : flex;
+    align-items    : center;
+    justify-content: center;
+    opacity        : 0;
+    transition     : opacity 0.3s ease;
+    pointer-events : none;
+}
+
+.nav-links .has-children:hover>a[data-count]::before {
+    opacity: 0.8;
+}
+
+/* Aktive Seite */
+.nav-links a.current-page,
+.nav-links .current-menu-item>a {
+    background : var(--pastel-mint);
+    color      : var(--text-dark);
+    font-weight: 700;
+}
+
+/* Focus States für Keyboard Navigation */
+.nav-links a:focus {
+    outline       : 3px solid var(--cute-coral);
+    outline-offset: 2px;
+    background    : var(--pastel-peach);
+    z-index       : 10;
+}
+
+/* Smooth Scroll to Top when using keyboard */
+html {
+    scroll-behavior: smooth;
+}
+
+.nav-links a::before {
+    content      : '';
+    position     : absolute;
+    bottom       : 5px;
+    left         : 50%;
+    transform    : translateX(-50%);
+    width        : 0;
+    height       : 3px;
+    background   : var(--cute-coral);
+    border-radius: 3px;
+    transition   : width 0.3s ease;
+}
+
+.nav-links a:hover {
+    background: var(--pastel-peach);
+    color     : var(--text-dark);
+    transform : translateY(-2px);
+}
+
+.nav-links a:hover::before {
+    width: 50%;
+}
+
+.nav-links a:active {
+    background: var(--cute-coral);
+    color     : white;
+    transform : translateY(0);
+}
+
+/* Hover-Effekt für Parent Items mit Dropdowns */
+.nav-links .has-children:hover>a,
+.nav-links .has-children.menu-open>a {
+    background: var(--pastel-lavender);
+    color     : var(--text-dark);
+}
+
+/* WordPress Submenu (Dropdown) - Mit verbesserter Hover-Usability */
+.nav-links .sub-menu,
+.nav-links .uk-nav-sub {
+    display       : none;
+    position      : absolute;
+    top           : 100%;
+    left          : 0;
+    background    : var(--bg-white);
+    box-shadow    : var(--shadow-lg);
+    border-radius : 20px;
+    padding       : 8px 0;
+    min-width     : 220px;
+    list-style    : none;
+    margin        : 8px 0 0 0;
+    z-index       : 1000;
+    opacity       : 0;
+    transform     : translateY(-10px);
+    transition    : opacity 0.2s ease, transform 0.2s ease;
+    pointer-events: none;
+    border        : 3px solid var(--pastel-mint);
+    overflow      : hidden;
+}
+
+/* Farbige Borders für verschiedene Kategorien */
+.nav-links li:nth-child(2) .sub-menu,
+.nav-links li:nth-child(2) .uk-nav-sub {
+    border-color: var(--cute-sky);
+}
+
+.nav-links li:nth-child(3) .sub-menu,
+.nav-links li:nth-child(3) .uk-nav-sub {
+    border-color: var(--pastel-peach);
+}
+
+.nav-links li:nth-child(4) .sub-menu,
+.nav-links li:nth-child(4) .uk-nav-sub {
+    border-color: var(--pastel-pink);
+}
+
+.nav-links li:hover>.sub-menu,
+.nav-links li:hover>.uk-nav-sub,
+.nav-links .menu-item-has-children:hover>.uk-nav-sub,
+.nav-links li.menu-open>.sub-menu,
+.nav-links li.menu-open>.uk-nav-sub {
+    display       : block;
+    opacity       : 1;
+    transform     : translateY(0);
+    pointer-events: auto;
+}
+
+.nav-links .sub-menu li,
+.nav-links .uk-nav-sub li {
+    margin : 0;
+    padding: 0;
+}
+
+.nav-links .sub-menu a,
+.nav-links .uk-nav-sub a {
+    padding      : 12px 25px;
+    border-radius: 0;
+    font-size    : 0.9rem;
+    transition   : all 0.2s ease;
+    background   : transparent;
+}
+
+.nav-links .sub-menu a::before,
+.nav-links .uk-nav-sub a::before {
+    display: none;
+}
+
+.nav-links .sub-menu a:hover,
+.nav-links .uk-nav-sub a:hover {
+    background   : var(--pastel-mint);
+    border-radius: 0;
+    padding-left : 30px;
+    color        : var(--text-dark);
+}
+
+/* Erste und letzte Item in Dropdown */
+.nav-links .sub-menu li:first-child a,
+.nav-links .uk-nav-sub li:first-child a {
+    border-radius: 17px 17px 0 0;
+}
+
+.nav-links .sub-menu li:last-child a,
+.nav-links .uk-nav-sub li:last-child a {
+    border-radius: 0 0 17px 17px;
+}
+
+.nav-links .sub-menu li:first-child a:hover,
+.nav-links .uk-nav-sub li:first-child a:hover {
+    border-radius: 17px 17px 0 0;
+}
+
+.nav-links .sub-menu li:last-child a:hover,
+.nav-links .uk-nav-sub li:last-child a:hover {
+    border-radius: 0 0 17px 17px;
+}
+
+/* Aktive Submenu Items */
+.nav-links .sub-menu .current-menu-item>a,
+.nav-links .uk-nav-sub .current-menu-item>a {
+    background : var(--cute-mint);
+    color      : white;
+    font-weight: 700;
+}
+
+/* UIKit Nav Override */
+.uk-nav-sub {
+    padding: 0 !important;
+}
+
+[uk-nav-parent-icon] {
+    display: none;
+}
+

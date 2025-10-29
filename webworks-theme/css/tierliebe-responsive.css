@@ -1,0 +1,411 @@
+/**
+ * Tierliebe Responsive Styles
+ * Module: Media Queries for all breakpoints
+ */
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+/* Tablet/Small Laptop (max-width: 1200px) */
+@media (max-width: 1200px) {
+    .nav-links {
+        gap: 6px;
+    }
+
+    .nav-links a {
+        font-size: 0.9rem;
+        padding  : 9px 15px;
+    }
+}
+
+/* Mobile & Tablet (max-width: 968px) */
+@media (max-width: 968px) {
+
+    /* Show Mobile Menu Toggle */
+    .mobile-menu-toggle {
+        display: flex;
+    }
+
+    /* Hide Desktop Nav - now handled by separate .main-nav-mobile element */
+    .main-nav-desktop {
+        display: none;
+    }
+
+    /* Other Responsive Adjustments */
+    .primary-hero {
+        padding: 120px 25px 70px;
+    }
+
+    .primary-hero-title {
+        font-size: 3.5rem;
+    }
+
+    .primary-hero-subtitle {
+        font-size: 1.4rem;
+    }
+
+    .primary-hero-description {
+        font-size: 1.1rem;
+    }
+
+    .section {
+        padding: 80px 25px;
+    }
+
+    .container {
+        padding: 0 25px;
+    }
+
+    .decision-dual-panel {
+        grid-template-columns: 1fr;
+        gap                  : 30px;
+    }
+
+    .decision-section {
+        padding: 80px 20px;
+    }
+
+    .honesty-box {
+        padding: 40px 30px;
+    }
+
+    .info-box {
+        padding      : 35px 25px;
+        border-radius: 22px;
+    }
+
+    .info-box::before {
+        font-size: 3rem;
+        width    : 65px;
+        height   : 65px;
+        top      : -28px;
+    }
+
+    .info-box h3,
+    .info-box h4 {
+        font-size: 1.25rem;
+    }
+
+    .info-box p {
+        font-size: 1rem;
+    }
+
+    .hero-content {
+        grid-template-columns: 1fr;
+        gap                  : 40px;
+    }
+
+    .hero-text h1 {
+        font-size: 3rem;
+    }
+
+    .hero-main-icon {
+        font-size: 12rem;
+    }
+
+    .section-title {
+        font-size: 2.5rem;
+    }
+
+    .cards-grid {
+        grid-template-columns: 1fr;
+        gap                  : 25px;
+    }
+
+    .animal-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Tab Buttons responsive */
+    .tab-buttons {
+        gap: 10px;
+    }
+
+    .tab-btn {
+        font-size: 1rem;
+        padding  : 12px 25px;
+    }
+
+    .primary-hero .hero-content {
+        grid-template-columns: 1fr;
+        gap                  : 40px;
+    }
+
+    .primary-hero .hero-text {
+        text-align: center;
+    }
+
+    .honesty-box {
+        padding: 50px 30px 35px 30px;
+    }
+
+    .responsibility-box h3 {
+        font-size: 1.3rem;
+    }
+
+    .responsibility-box p {
+        font-size: 1.05rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .section {
+        padding: 60px 25px;
+    }
+
+    .primary-hero {
+        min-height: 70vh;
+        padding   : 80px 25px 50px;
+    }
+
+    .primary-hero-title {
+        font-size: 2.5rem;
+    }
+
+    .primary-hero-subtitle {
+        font-size: 1.2rem;
+    }
+
+    .primary-hero-description {
+        font-size: 1rem;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        gap           : 15px;
+        width         : 100%;
+        max-width     : 100%;
+    }
+
+    .hero-buttons .btn {
+        width     : 100%;
+        text-align: center;
+        padding   : 16px 24px;
+        font-size : 1rem;
+    }
+
+    .decision-section {
+        padding: 60px 15px;
+    }
+
+    .decision-card {
+        padding: 35px 25px;
+    }
+
+    .decision-title {
+        font-size: 1.6rem;
+    }
+
+    .honesty-box {
+        padding: 35px 20px;
+    }
+
+    .honesty-box::before {
+        top      : -35px;
+        width    : 70px;
+        height   : 70px;
+        font-size: 3rem;
+    }
+
+    .hero-text h1 {
+        font-size: 2.2rem;
+    }
+
+    .section {
+        padding: 60px 20px;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .section-header {
+        margin-bottom: 40px;
+    }
+
+    .container {
+        padding: 0 20px;
+    }
+
+    .quiz-container {
+        padding: 30px 20px;
+    }
+
+    .result-container {
+        padding: 30px 20px;
+    }
+
+    .info-box {
+        padding      : 30px 20px;
+        margin       : 30px 0;
+        border-radius: 20px;
+    }
+
+    .info-box::before {
+        font-size: 2.75rem;
+        width    : 60px;
+        height   : 60px;
+        top      : -26px;
+    }
+
+    .info-box h3,
+    .info-box h4 {
+        font-size: 1.15rem;
+    }
+
+    .info-box p {
+        font-size: 0.95rem;
+    }
+
+    .info-box li {
+        font-size: 0.95rem;
+    }
+
+    .card {
+        padding: 30px 25px;
+    }
+
+    .card-icon {
+        font-size: 3rem;
+    }
+
+    .card h3 {
+        font-size: 1.5rem;
+    }
+
+    .btn {
+        font-size: 1.1rem;
+        padding  : 15px 35px;
+    }
+
+    .honesty-box {
+        padding: 45px 20px 30px 20px;
+    }
+
+    .honesty-box::before {
+        width    : 70px;
+        height   : 70px;
+        font-size: 3rem;
+        top      : -35px;
+    }
+
+    .honesty-box h3 {
+        font-size: 1.3rem;
+    }
+
+    .honesty-box p {
+        font-size: 1.05rem;
+    }
+
+    .responsibility-box {
+        padding: 45px 20px;
+    }
+
+    .responsibility-box h3 {
+        font-size: 1.2rem;
+    }
+
+    .responsibility-box p {
+        font-size: 1rem;
+    }
+
+    .decision-dual-panel {
+        gap: 20px;
+    }
+}
+
+/* ============================================
+/* Responsive - Adoption Page */
+@media (max-width: 1024px) {
+    .comparison-grid {
+        grid-template-columns: 1fr;
+        gap                  : 25px;
+    }
+
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .timeline::before {
+        left: 30px;
+    }
+
+    .timeline-marker {
+        width    : 60px;
+        height   : 60px;
+        font-size: 1.5rem;
+    }
+
+    .timeline-item {
+        padding-left: 85px;
+    }
+
+    .timeline-content {
+        padding: 20px;
+    }
+
+    .panel-icon {
+        font-size: 2.5rem;
+    }
+
+    .info-card {
+        padding: 25px;
+    }
+}
+
+/* ============================================
+/* Responsive - Qualzucht Page */
+@media (max-width: 768px) {
+    .qualzucht-grid {
+        grid-template-columns: 1fr;
+        gap                  : 25px;
+    }
+
+    .qualzucht-card {
+        padding: 30px;
+    }
+
+    .qualzucht-icon {
+        font-size: 3rem;
+    }
+}
+
+/* ============================================
+/* Responsive - Wissen Page */
+@media (max-width: 1024px) {
+    .comparison-table {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .tab-buttons {
+        gap: 10px;
+    }
+
+    .tab-btn {
+        font-size: 0.95rem;
+        padding  : 12px 20px;
+    }
+
+    .sub-tab-buttons {
+        gap: 8px;
+    }
+
+    .sub-tab-btn {
+        font-size: 0.9rem;
+        padding  : 10px 18px;
+    }
+
+    .comparison-col {
+        padding: 20px;
+    }
+
+    .glossar-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ============================================

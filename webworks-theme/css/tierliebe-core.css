@@ -1,0 +1,223 @@
+/**
+ * Tierliebe Core Styles
+ * Module: Variables, Reset, Base Styles, Emoji, Decorations
+ * Version: 6.0.0 - Modular Architecture
+ */
+
+/* ============================================
+   CSS VARIABLES
+   ============================================ */
+:root {
+    /* Pastel Palette - Flat Colors */
+    --pastel-mint    : #B8E6D5;
+    --pastel-pink    : #FFD6E8;
+    --pastel-peach   : #FFE5D0;
+    --pastel-lavender: #E0D4F7;
+    --pastel-blue    : #C7E7F5;
+    --pastel-cream   : #FFF8E7;
+    --pastel-sage    : #D4E5D4;
+    --pastel-coral   : #FFB5B5;
+
+    /* Cute Accents */
+    --cute-coral : #FF9A9E;
+    --cute-mint  : #A0E7E5;
+    --cute-butter: #FFF4A3;
+    --cute-lilac : #D5B9F5;
+    --cute-sky   : #A8DAFF;
+
+    /* Text */
+    --text-dark  : #5A4A42;
+    --text-medium: #8B7E74;
+    --text-light : #B8AFA7;
+
+    /* Backgrounds */
+    --bg-cream: #FFFBF5;
+    --bg-white: #FFFFFF;
+
+    /* Shadows - Soft & Layered */
+    --shadow-sm: 0 2px 8px rgba(90, 74, 66, 0.08);
+    --shadow-md: 0 4px 16px rgba(90, 74, 66, 0.1);
+    --shadow-lg: 0 8px 24px rgba(90, 74, 66, 0.12);
+    --shadow-xl: 0 12px 40px rgba(90, 74, 66, 0.15);
+}
+
+/* ============================================
+   GLOBAL RESET & BASE STYLES
+   ============================================ */
+* {
+    margin    : 0;
+    padding   : 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family  : 'Quicksand', sans-serif;
+    background   : var(--bg-cream);
+    color        : var(--text-dark);
+    line-height  : 1.8;
+    overflow-x   : hidden;
+    font-size    : 16px;
+    word-wrap    : break-word;
+    overflow-wrap: break-word;
+    hyphens      : auto;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Fredoka', sans-serif;
+    color      : var(--text-dark);
+    font-weight: 600;
+}
+
+h1 {
+    font-size    : 2.5rem;
+    line-height  : 1.4;
+    margin-bottom: 1.5rem;
+}
+
+h2 {
+    font-size    : 2rem;
+    line-height  : 1.4;
+    margin-bottom: 1.25rem;
+}
+
+h3 {
+    font-size    : 1.5rem;
+    line-height  : 1.5;
+    margin-bottom: 1rem;
+}
+
+h4 {
+    font-size    : 1.25rem;
+    line-height  : 1.5;
+    margin-bottom: 0.75rem;
+}
+
+/* ============================================
+   LINKS & FOCUS STATES
+   ============================================ */
+a {
+    color          : inherit;
+    text-decoration: none;
+    transition     : all 0.3s ease;
+}
+
+a:hover {
+    opacity: 0.8;
+}
+
+a:focus {
+    outline       : 2px solid var(--cute-coral);
+    outline-offset: 2px;
+}
+
+a:focus-visible {
+    outline       : 2px solid var(--cute-coral);
+    outline-offset: 2px;
+}
+
+a:active {
+    opacity: 0.6;
+}
+
+/* ============================================
+   EMOJI & ICON STANDARDIZATION
+   ============================================ */
+.emoji {
+    font-style    : normal;
+    font-weight   : normal;
+    line-height   : 1;
+    display       : inline-block;
+    vertical-align: middle;
+}
+
+.emoji-sm {
+    font-size: 1.2rem;
+}
+
+.emoji-md {
+    font-size: 1.8rem;
+}
+
+.emoji-lg {
+    font-size: 2.5rem;
+}
+
+.emoji-xl {
+    font-size: 3.5rem;
+}
+
+/* ============================================
+   DECORATIVE FLOATING ELEMENTS
+   ============================================ */
+.float-decoration {
+    position      : fixed;
+    pointer-events: none;
+    z-index       : 0;
+    opacity       : 0.05;
+    animation     : gentle-float 20s ease-in-out infinite;
+}
+
+.float-decoration:nth-child(1) {
+    top            : 10%;
+    left           : 5%;
+    animation-delay: 0s;
+}
+
+.float-decoration:nth-child(2) {
+    top            : 30%;
+    right          : 10%;
+    animation-delay: 3s;
+}
+
+.float-decoration:nth-child(3) {
+    bottom         : 20%;
+    left           : 15%;
+    animation-delay: 6s;
+}
+
+.float-decoration:nth-child(4) {
+    bottom         : 40%;
+    right          : 5%;
+    animation-delay: 9s;
+}
+
+@keyframes gentle-float {
+
+    0%,
+    100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+
+    25% {
+        transform: translateY(-20px) rotate(3deg);
+    }
+
+    50% {
+        transform: translateY(-10px) rotate(-3deg);
+    }
+
+    75% {
+        transform: translateY(-15px) rotate(2deg);
+    }
+}
+
+/* ============================================
+   ORGANIC BLOB SHAPES
+   ============================================ */
+.blob {
+    position      : absolute;
+    border-radius : 60% 40% 30% 70% / 60% 30% 70% 40%;
+    opacity       : 0.15;
+    pointer-events: none;
+    filter        : blur(40px);
+}
+
