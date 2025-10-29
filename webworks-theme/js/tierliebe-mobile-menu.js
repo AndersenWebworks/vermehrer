@@ -1,11 +1,16 @@
 /**
  * Tierliebe Mobile Menu
  * Handles mobile navigation toggle and submenu expansion
- * Version: 1.0.0
+ * Version: 2.0.0 - Refactored & Optimized
  */
 
 (function($) {
     'use strict';
+
+    // Prevent multiple initializations
+    if (window.TierliebeMobileMenuInitialized) {
+        return;
+    }
 
     class TierliebeMobileMenu {
         constructor() {
@@ -13,11 +18,14 @@
             this.mainNav = $('.main-nav-mobile');
             this.body = $('body');
             this.hasChildrenLinks = $('.main-nav-mobile .nav-links .has-children > a');
+            this.isAnimating = false;
+            this.backdrop = null;
 
-            console.log('=== TierliebeMobileMenu Debug ===');
-            console.log('Toggle button found:', this.menuToggle.length);
-            console.log('Toggle button element:', this.menuToggle[0]);
-            console.log('Mobile nav found:', this.mainNav.length);
+            // Validate elements exist
+            if (!this.menuToggle.length || !this.mainNav.length) {
+                console.warn('TierliebeMobileMenu: Required elements not found');
+                return;
+            }
 
             this.init();
         }
@@ -25,7 +33,6 @@
         init() {
             // Toggle mobile menu
             this.menuToggle.on('click', (e) => {
-                console.log('=== Toggle Button Clicked ===');
                 e.preventDefault();
                 e.stopPropagation();
                 this.toggleMenu();
@@ -40,7 +47,7 @@
             });
 
             // Close menu when clicking outside
-            $(document).on('click', (e) => {
+            $(document).on('click.tierliebeMobileMenu', (e) => {
                 if (this.mainNav.hasClass('active') &&
                     !$(e.target).closest('.main-nav-mobile, .mobile-menu-toggle').length) {
                     this.closeMenu();
@@ -48,14 +55,14 @@
             });
 
             // Close menu on escape key
-            $(document).on('keydown', (e) => {
+            $(document).on('keydown.tierliebeMobileMenu', (e) => {
                 if (e.key === 'Escape' && this.mainNav.hasClass('active')) {
                     this.closeMenu();
                 }
             });
 
             // Handle window resize
-            $(window).on('resize', () => {
+            $(window).on('resize.tierliebeMobileMenu', () => {
                 if (window.innerWidth > 968 && this.mainNav.hasClass('active')) {
                     this.closeMenu();
                 }
@@ -63,79 +70,56 @@
         }
 
         toggleMenu() {
-            console.log('toggleMenu called, menu active:', this.menuToggle.hasClass('active'));
+            if (this.isAnimating) return;
+
             if (this.menuToggle.hasClass('active')) {
-                console.log('Closing menu');
                 this.closeMenu();
             } else {
-                console.log('Opening menu');
                 this.openMenu();
             }
         }
 
         openMenu() {
-            console.log('=== openMenu() called ===');
+            if (this.isAnimating) return;
+            this.isAnimating = true;
+
+            // Add active classes
             this.mainNav.addClass('active');
             this.menuToggle.addClass('active');
             this.body.addClass('menu-open');
+
+            // Update ARIA attributes
             this.menuToggle.attr('aria-label', 'Menü schließen');
             this.menuToggle.attr('aria-expanded', 'true');
 
-            console.log('Toggle has active class:', this.menuToggle.hasClass('active'));
-            console.log('Toggle classes:', this.menuToggle.attr('class'));
+            // Create backdrop
+            this.createBackdrop();
 
-            // Force right position via native DOM API
-            this.mainNav[0].style.setProperty('right', '0px', 'important');
-
-            // Create backdrop element (::before pseudo-element not working)
-            if (!$('#mobile-menu-backdrop').length) {
-                $('<div id="mobile-menu-backdrop"></div>').css({
-                    'position': 'fixed',
-                    'top': '0',
-                    'left': '0',
-                    'right': '0',
-                    'bottom': '0',
-                    'background': 'rgba(0, 0, 0, 0.5)',
-                    'backdrop-filter': 'blur(4px)',
-                    'z-index': '9998',
-                    'opacity': '0',
-                    'transition': 'opacity 0.3s ease'
-                }).appendTo('body');
-
-                setTimeout(() => $('#mobile-menu-backdrop').css('opacity', '1'), 10);
-                $('#mobile-menu-backdrop').on('click', () => this.closeMenu());
-            }
-
-            // Prevent body scroll when menu is open
+            // Prevent body scroll
             this.body.css('overflow', 'hidden');
 
             // Focus first menu item for accessibility
             setTimeout(() => {
                 this.mainNav.find('.nav-links > li:first-child > a').focus();
+                this.isAnimating = false;
             }, 400);
         }
 
         closeMenu() {
-            console.log('=== closeMenu() called ===');
+            if (this.isAnimating) return;
             this.isAnimating = true;
 
+            // Remove active classes
             this.mainNav.removeClass('active');
             this.menuToggle.removeClass('active');
             this.body.removeClass('menu-open');
+
+            // Update ARIA attributes
             this.menuToggle.attr('aria-label', 'Menü öffnen');
             this.menuToggle.attr('aria-expanded', 'false');
 
-            console.log('Toggle has active class after remove:', this.menuToggle.hasClass('active'));
-
-            // Force right position back via native DOM
-            this.mainNav[0].style.removeProperty('right');
-
             // Remove backdrop
-            const backdrop = $('#mobile-menu-backdrop');
-            if (backdrop.length) {
-                backdrop.css('opacity', '0');
-                setTimeout(() => backdrop.remove(), 300);
-            }
+            this.removeBackdrop();
 
             // Re-enable body scroll
             this.body.css('overflow', '');
@@ -148,14 +132,14 @@
 
             setTimeout(() => {
                 this.isAnimating = false;
-            }, 300);
+            }, 400);
         }
 
         toggleSubmenu($parent) {
             const isOpen = $parent.hasClass('open');
             const $parentLink = $parent.find('> a');
 
-            // Close all other submenus
+            // Close all other submenus (accordion behavior)
             $('.main-nav-mobile .nav-links .has-children').not($parent).removeClass('open');
             $('.main-nav-mobile .nav-links .has-children').not($parent).find('> a').attr('aria-expanded', 'false');
 
@@ -168,11 +152,45 @@
                 $parentLink.attr('aria-expanded', 'true');
             }
         }
+
+        createBackdrop() {
+            if (!$('#mobile-menu-backdrop').length) {
+                this.backdrop = $('<div id="mobile-menu-backdrop"></div>');
+                this.backdrop.appendTo('body');
+
+                // Trigger reflow for transition
+                this.backdrop[0].offsetHeight;
+                this.backdrop.addClass('active');
+
+                // Click handler
+                this.backdrop.on('click', () => this.closeMenu());
+            }
+        }
+
+        removeBackdrop() {
+            const backdrop = $('#mobile-menu-backdrop');
+            if (backdrop.length) {
+                backdrop.removeClass('active');
+                setTimeout(() => backdrop.remove(), 300);
+            }
+        }
+
+        // Public method to destroy instance
+        destroy() {
+            $(document).off('.tierliebeMobileMenu');
+            $(window).off('.tierliebeMobileMenu');
+            this.removeBackdrop();
+            this.closeMenu();
+        }
     }
 
     // Initialize on document ready
     $(document).ready(function() {
-        new TierliebeMobileMenu();
+        window.TierliebeMobileMenuInstance = new TierliebeMobileMenu();
+        window.TierliebeMobileMenuInitialized = true;
     });
+
+    // Make class globally available
+    window.TierliebeMobileMenu = TierliebeMobileMenu;
 
 })(jQuery);

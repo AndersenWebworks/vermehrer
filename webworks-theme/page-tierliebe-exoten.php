@@ -86,27 +86,6 @@ get_template_part('tierliebe-parts/header');
         </div>
     </div>
 
-    <script>
-    document.querySelectorAll('.tab-button').forEach(button => {
-        button.addEventListener('click', function() {
-            const tab = this.getAttribute('data-tab');
-            document.querySelectorAll('.tab-button').forEach(btn => {
-                btn.classList.remove('active');
-                btn.style.background = 'white';
-            });
-            this.classList.add('active');
-            this.style.background = this.style.borderColor;
-            document.querySelectorAll('.tab-panel').forEach(panel => {
-                panel.style.display = 'none';
-                panel.classList.remove('active');
-            });
-            const activePanel = document.querySelector(`.tab-panel[data-tab="${tab}"]`);
-            activePanel.style.display = 'block';
-            activePanel.classList.add('active');
-        });
-    });
-    </script>
-
 </section>
 
 <?php get_template_part('tierliebe-parts/footer'); ?>

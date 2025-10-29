@@ -2087,6 +2087,25 @@ body.menu-open::before {
     }
 }
 
+/* Mobile Menu Backdrop (ID-based for JS control) */
+#mobile-menu-backdrop {
+    position       : fixed;
+    top            : 0;
+    left           : 0;
+    right          : 0;
+    bottom         : 0;
+    background     : rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    z-index        : 9998;
+    opacity        : 0;
+    transition     : opacity 0.3s ease;
+    pointer-events : auto;
+}
+
+#mobile-menu-backdrop.active {
+    opacity: 1;
+}
+
 /* Emoji Wiggle on Hover */
 .card:hover .card-icon,
 .animal-card:hover .animal-icon,

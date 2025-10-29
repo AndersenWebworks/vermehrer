@@ -33,19 +33,7 @@ window.addEventListener('scroll', function() {
     }
 });
 
-// Mobile Menu Dropdowns (Vanilla JS)
-// Toggle button handling is in tierliebe-mobile-menu.js
-document.addEventListener('DOMContentLoaded', function() {
-    // Submenu toggle on mobile - works for both .main-nav and .main-nav-mobile
-    document.querySelectorAll('.nav-links .has-children > a').forEach(function(link) {
-        link.addEventListener('click', function(e) {
-            if (window.innerWidth <= 968) {
-                e.preventDefault();
-                this.parentElement.classList.toggle('open');
-            }
-        });
-    });
-});
+// Mobile menu handling is in tierliebe-mobile-menu.js
 </script>
 
 <?php wp_footer(); ?>

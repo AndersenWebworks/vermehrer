@@ -78,47 +78,6 @@
 
     // Initialize all tab containers on page load
     $(document).ready(function() {
-        // Mobile Menu Toggle
-        $('.mobile-menu-toggle').on('click', function() {
-            $(this).toggleClass('active');
-            $('.main-nav').toggleClass('active');
-            $('body').toggleClass('menu-open');
-        });
-
-        // Mobile Submenu Toggle
-        $('.nav-links .has-children > a').on('click', function(e) {
-            if ($(window).width() <= 968) {
-                e.preventDefault();
-                $(this).parent().toggleClass('open');
-            }
-        });
-
-        // Close menu when clicking outside
-        $(document).on('click', function(e) {
-            console.log('=== TABS.JS Click Outside Handler ===');
-            console.log('Target:', e.target);
-            console.log('Closest check:', $(e.target).closest('.header, .mobile-menu-toggle, .main-nav-mobile').length);
-            console.log('Main-nav has active:', $('.main-nav').hasClass('active'));
-
-            if (!$(e.target).closest('.header, .mobile-menu-toggle, .main-nav-mobile').length && $('.main-nav').hasClass('active')) {
-                console.log('TABS.JS: Removing active class!');
-                $('.mobile-menu-toggle').removeClass('active');
-                $('.main-nav').removeClass('active');
-                $('body').removeClass('menu-open');
-            }
-        });
-
-        // Close menu on window resize
-        $(window).on('resize', function() {
-            if ($(window).width() > 968) {
-                $('.mobile-menu-toggle').removeClass('active');
-                $('.main-nav').removeClass('active');
-                $('body').removeClass('menu-open');
-                $('.nav-links .has-children').removeClass('open');
-            }
-        });
-
-
         $('.tierliebe-tabs').each(function() {
             new TierliebeTabSwitcher(this);
         });
