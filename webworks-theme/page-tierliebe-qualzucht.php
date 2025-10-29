@@ -53,7 +53,7 @@ get_template_part('tierliebe-parts/header');
             <!-- Rasse 1: Mops & Französische Bulldogge -->
             <div class="qualzucht-card">
                 <div class="qualzucht-image">
-                    <img src="/wp-content/uploads/photo-1599744615638-804deec726e7-scaled.jpg" alt="Mops & Französische Bulldogge" loading="lazy">
+                    <img src="<?php echo wp_get_attachment_url(get_post_meta(get_the_ID(), 'qualzucht_bild_1', true)) ?: '/wp-content/uploads/photo-1599744615638-804deec726e7-scaled.jpg'; ?>" alt="Mops & Französische Bulldogge" loading="lazy">
                 </div>
                 <div class="qualzucht-content">
                     <div class="qualzucht-icon">🐶</div>
@@ -78,7 +78,7 @@ get_template_part('tierliebe-parts/header');
             <!-- Rasse 2: Perserkatze -->
             <div class="qualzucht-card">
                 <div class="qualzucht-image">
-                    <img src="/wp-content/uploads/photo-1512356587788-4f5ad49c16e9-scaled.jpg" alt="Perserkatze" loading="lazy">
+                    <img src="<?php echo wp_get_attachment_url(get_post_meta(get_the_ID(), 'qualzucht_bild_2', true)) ?: '/wp-content/uploads/photo-1512356587788-4f5ad49c16e9-scaled.jpg'; ?>" alt="Perserkatze" loading="lazy">
                 </div>
                 <div class="qualzucht-content">
                     <div class="qualzucht-icon">🐱</div>
@@ -104,7 +104,7 @@ get_template_part('tierliebe-parts/header');
             <!-- Rasse 3: Schauwellensittich -->
             <div class="qualzucht-card">
                 <div class="qualzucht-image">
-                    <img src="/wp-content/uploads/photo-1720423755825-d5606544e6b7-scaled.jpg" alt="Schauwellensittich" loading="lazy">
+                    <img src="<?php echo wp_get_attachment_url(get_post_meta(get_the_ID(), 'qualzucht_bild_3', true)) ?: '/wp-content/uploads/photo-1720423755825-d5606544e6b7-scaled.jpg'; ?>" alt="Schauwellensittich" loading="lazy">
                 </div>
                 <div class="qualzucht-content">
                     <div class="qualzucht-icon">🦜</div>
@@ -129,7 +129,7 @@ get_template_part('tierliebe-parts/header');
             <!-- Rasse 4: Widderkaninchen -->
             <div class="qualzucht-card">
                 <div class="qualzucht-image">
-                    <img src="/wp-content/uploads/photo-1649007985567-fe6ce04680d3-scaled.jpg" alt="Widderkaninchen" loading="lazy">
+                    <img src="<?php echo wp_get_attachment_url(get_post_meta(get_the_ID(), 'qualzucht_bild_4', true)) ?: '/wp-content/uploads/photo-1649007985567-fe6ce04680d3-scaled.jpg'; ?>" alt="Widderkaninchen" loading="lazy">
                 </div>
                 <div class="qualzucht-content">
                     <div class="qualzucht-icon">🐰</div>
@@ -154,7 +154,7 @@ get_template_part('tierliebe-parts/header');
             <!-- Rasse 5: Schleierschwanz-Goldfisch -->
             <div class="qualzucht-card">
                 <div class="qualzucht-image">
-                    <img src="/wp-content/uploads/photo-1650290145779-e05602773fc7-scaled.jpg" alt="Schleierschwanz-Goldfisch" loading="lazy">
+                    <img src="<?php echo wp_get_attachment_url(get_post_meta(get_the_ID(), 'qualzucht_bild_5', true)) ?: '/wp-content/uploads/photo-1650290145779-e05602773fc7-scaled.jpg'; ?>" alt="Schleierschwanz-Goldfisch" loading="lazy">
                 </div>
                 <div class="qualzucht-content">
                     <div class="qualzucht-icon">🐠</div>
@@ -179,7 +179,7 @@ get_template_part('tierliebe-parts/header');
             <!-- Rasse 6: Albino-Reptilien -->
             <div class="qualzucht-card">
                 <div class="qualzucht-image">
-                    <img src="/wp-content/uploads/photo-1639648702729-395a9b8b1133-scaled.jpg" alt="Albino-Reptilien" loading="lazy">
+                    <img src="<?php echo wp_get_attachment_url(get_post_meta(get_the_ID(), 'qualzucht_bild_6', true)) ?: '/wp-content/uploads/photo-1639648702729-395a9b8b1133-scaled.jpg'; ?>" alt="Albino-Reptilien" loading="lazy">
                 </div>
                 <div class="qualzucht-content">
                     <div class="qualzucht-icon">🦎</div>
@@ -203,6 +203,9 @@ get_template_part('tierliebe-parts/header');
 
             <!-- Rasse 7: Malteser & Zwerghunde -->
             <div class="qualzucht-card">
+                <div class="qualzucht-image">
+                    <img src="<?php echo wp_get_attachment_url(get_post_meta(get_the_ID(), 'qualzucht_bild_7', true)) ?: '/wp-content/uploads/photo-1587300003388-59208cc962cb-scaled.jpg'; ?>" alt="Malteser & Zwerghunde" loading="lazy">
+                </div>
                 <div class="qualzucht-content">
                     <div class="qualzucht-icon">🐕</div>
                     <h3>Malteser & Zwerghunde</h3>
@@ -226,7 +229,7 @@ get_template_part('tierliebe-parts/header');
             <!-- Rasse 8: Scottish-Fold-Katze -->
             <div class="qualzucht-card">
                 <div class="qualzucht-image">
-                    <img src="/wp-content/uploads/photo-1563210220-05f7b87c695c-scaled.jpg" alt="Scottish-Fold-Katze" loading="lazy">
+                    <img src="<?php echo wp_get_attachment_url(get_post_meta(get_the_ID(), 'qualzucht_bild_8', true)) ?: '/wp-content/uploads/photo-1563210220-05f7b87c695c-scaled.jpg'; ?>" alt="Scottish-Fold-Katze" loading="lazy">
                 </div>
                 <div class="qualzucht-content">
                     <div class="qualzucht-icon">🐱</div>

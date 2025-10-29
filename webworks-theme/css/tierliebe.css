@@ -3035,35 +3035,36 @@ textarea:focus {
 
 .qualzucht-grid {
     display              : grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-    gap                  : 35px;
-    margin-top           : 40px;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    gap                  : 40px;
+    margin-top           : 50px;
 }
 
 .qualzucht-card {
     background     : var(--bg-white);
-    border-radius  : 35px;
+    border-radius  : 30px;
     padding        : 0;
-    box-shadow     : var(--shadow-md);
-    border         : 3px solid var(--pastel-coral);
-    transition     : all 0.3s ease;
+    box-shadow     : var(--shadow-lg);
+    border         : 4px solid var(--pastel-coral);
+    transition     : all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     overflow       : hidden;
     display        : flex;
     flex-direction : column;
+    height         : 100%;
 }
 
 .qualzucht-card:hover {
-    transform   : translateY(-5px);
-    box-shadow  : var(--shadow-xl);
+    transform   : translateY(-8px);
+    box-shadow  : 0 20px 50px rgba(255, 154, 158, 0.3);
     border-color: var(--cute-coral);
 }
 
 .qualzucht-image {
     width           : 100%;
-    height          : 220px;
+    height          : 280px;
     position        : relative;
     overflow        : hidden;
-    background      : linear-gradient(135deg, var(--pastel-peach) 0%, var(--pastel-pink) 100%);
+    background      : linear-gradient(135deg, var(--pastel-peach) 0%, var(--pastel-pink) 50%, var(--pastel-lavender) 100%);
     flex-shrink     : 0;
 }
 
@@ -3072,29 +3073,31 @@ textarea:focus {
     height          : 100%;
     object-fit      : cover;
     object-position : center;
-    transition      : transform 0.4s ease;
+    transition      : transform 0.5s ease, filter 0.3s ease;
     display         : block;
 }
 
 .qualzucht-card:hover .qualzucht-image img {
-    transform: scale(1.08);
+    transform: scale(1.1);
+    filter   : brightness(1.05);
 }
 
 .qualzucht-content {
-    padding       : 30px 35px 35px 35px;
+    padding       : 35px 30px 35px 30px;
     flex-grow     : 1;
     display       : flex;
     flex-direction: column;
 }
 
 .qualzucht-icon {
-    font-size     : 3.2rem;
+    font-size     : 3.5rem;
     text-align    : center;
-    margin-bottom : 12px;
-    margin-top    : -50px;
+    margin-bottom : 15px;
+    margin-top    : -55px;
     position      : relative;
     z-index       : 2;
     line-height   : 1;
+    filter        : drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
 }
 
 .qualzucht-icon::before {
@@ -3103,35 +3106,42 @@ textarea:focus {
     top           : 50%;
     left          : 50%;
     transform     : translate(-50%, -50%);
-    width         : 85px;
-    height        : 85px;
+    width         : 95px;
+    height        : 95px;
     background    : var(--bg-white);
     border-radius : 50%;
-    border        : 4px solid var(--pastel-coral);
+    border        : 5px solid var(--pastel-coral);
     z-index       : -1;
-    box-shadow    : var(--shadow-md);
+    box-shadow    : 0 8px 20px rgba(255, 181, 181, 0.4);
 }
 
 .qualzucht-card h3 {
-    font-size    : 1.5rem;
-    text-align   : center;
-    margin-bottom: 15px;
-    color        : var(--cute-coral);
+    font-size     : 1.6rem;
+    text-align    : center;
+    margin-bottom : 15px;
+    color         : var(--cute-coral);
+    font-weight   : 700;
+    line-height   : 1.3;
+    min-height    : 3.2em;
+    display       : flex;
+    align-items   : center;
+    justify-content: center;
 }
 
 /* Card ohne Bild */
 .qualzucht-card:not(:has(.qualzucht-image)) .qualzucht-content {
-    padding-top: 40px;
+    padding-top: 50px;
 }
 
 .qualzucht-card:not(:has(.qualzucht-image)) .qualzucht-icon {
-    margin-top: 0;
-    font-size: 4rem;
-    margin-bottom: 20px;
+    margin-top   : 0;
+    font-size    : 4.5rem;
+    margin-bottom: 25px;
 }
 
 .qualzucht-card:not(:has(.qualzucht-image)) .qualzucht-icon::before {
-    display: none;
+    width : 110px;
+    height: 110px;
 }
 
 .qualzucht-herkunft {
@@ -3140,17 +3150,24 @@ textarea:focus {
     text-align    : center;
     margin-bottom : 25px;
     padding-bottom: 25px;
-    border-bottom : 2px solid var(--pastel-peach);
+    border-bottom : 3px solid var(--pastel-peach);
+    font-size     : 1.05rem;
+    line-height   : 1.6;
 }
 
 .qualzucht-leiden {
-    margin: 25px 0;
+    margin       : 25px 0;
+    flex-grow    : 1;
+    padding      : 20px;
+    background   : rgba(255, 229, 208, 0.15);
+    border-radius: 15px;
 }
 
 .qualzucht-leiden h4 {
     color        : var(--cute-coral);
     margin-bottom: 15px;
-    font-size    : 1.1rem;
+    font-size    : 1.2rem;
+    font-weight  : 700;
 }
 
 .qualzucht-leiden ul {
@@ -3160,64 +3177,115 @@ textarea:focus {
 }
 
 .qualzucht-leiden li {
-    padding     : 8px 0;
-    padding-left: 25px;
+    padding     : 10px 0 10px 30px;
     position    : relative;
-    line-height : 1.6;
+    line-height : 1.7;
+    font-size   : 0.95rem;
+    color       : var(--text-dark);
 }
 
 .qualzucht-leiden li::before {
     content  : "⚠️";
     position : absolute;
     left     : 0;
-    font-size: 0.9rem;
+    font-size: 1.1rem;
+    top      : 10px;
 }
 
 .qualzucht-wissen {
-    background   : var(--pastel-blue);
-    padding      : 20px;
-    border-radius: 20px;
-    margin-top   : 25px;
-    font-size    : 0.95rem;
-    line-height  : 1.6;
+    background   : linear-gradient(135deg, var(--pastel-blue) 0%, var(--pastel-mint) 100%);
+    padding      : 22px 25px;
+    border-radius: 18px;
+    margin-top   : auto;
+    font-size    : 0.96rem;
+    line-height  : 1.7;
+    border       : 2px solid rgba(160, 231, 229, 0.4);
 }
 
 .qualzucht-wissen strong {
-    color: var(--text-dark);
+    color      : var(--text-dark);
+    font-weight: 700;
+    font-size  : 1.05rem;
 }
 
 /* Responsive - Qualzucht Page */
+@media (max-width: 968px) {
+    .qualzucht-grid {
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap                  : 30px;
+    }
+}
+
 @media (max-width: 768px) {
     .qualzucht-grid {
         grid-template-columns: 1fr;
-        gap                  : 25px;
+        gap                  : 30px;
+        margin-top           : 35px;
+    }
+
+    .qualzucht-card {
+        border-width: 3px;
     }
 
     .qualzucht-image {
-        height: 200px;
+        height: 240px;
     }
 
     .qualzucht-content {
-        padding: 25px 25px 30px 25px;
+        padding: 30px 25px 30px 25px;
     }
 
     .qualzucht-icon {
-        font-size: 2.8rem;
-        margin-top: -45px;
+        font-size : 3rem;
+        margin-top: -48px;
     }
 
     .qualzucht-icon::before {
-        width: 75px;
-        height: 75px;
+        width : 80px;
+        height: 80px;
+        border-width: 4px;
+    }
+
+    .qualzucht-card h3 {
+        font-size : 1.4rem;
+        min-height: auto;
+    }
+
+    .qualzucht-herkunft {
+        font-size: 1rem;
+    }
+
+    .qualzucht-leiden {
+        padding: 15px;
+    }
+
+    .qualzucht-leiden h4 {
+        font-size: 1.1rem;
+    }
+
+    .qualzucht-leiden li {
+        padding-left: 28px;
+        font-size   : 0.92rem;
+    }
+
+    .qualzucht-wissen {
+        padding  : 18px 20px;
+        font-size: 0.93rem;
     }
 
     .qualzucht-card:not(:has(.qualzucht-image)) .qualzucht-content {
-        padding-top: 30px;
+        padding-top: 40px;
     }
 
     .qualzucht-card:not(:has(.qualzucht-image)) .qualzucht-icon {
-        margin-top: 0;
-        font-size: 3.5rem;
+        margin-top   : 0;
+        font-size    : 3.8rem;
+        margin-bottom: 20px;
+    }
+
+    .qualzucht-card:not(:has(.qualzucht-image)) .qualzucht-icon::before {
+        width : 95px;
+        height: 95px;
     }
 }
 
