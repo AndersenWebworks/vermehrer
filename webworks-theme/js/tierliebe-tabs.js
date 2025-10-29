@@ -78,6 +78,41 @@
 
     // Initialize all tab containers on page load
     $(document).ready(function() {
+        // Mobile Menu Toggle
+        $('.mobile-menu-toggle').on('click', function() {
+            $(this).toggleClass('active');
+            $('.main-nav').toggleClass('active');
+            $('body').toggleClass('menu-open');
+        });
+
+        // Mobile Submenu Toggle
+        $('.nav-links .has-children > a').on('click', function(e) {
+            if ($(window).width() <= 968) {
+                e.preventDefault();
+                $(this).parent().toggleClass('open');
+            }
+        });
+
+        // Close menu when clicking outside
+        $(document).on('click', function(e) {
+            if (!$(e.target).closest('.header').length && $('.main-nav').hasClass('active')) {
+                $('.mobile-menu-toggle').removeClass('active');
+                $('.main-nav').removeClass('active');
+                $('body').removeClass('menu-open');
+            }
+        });
+
+        // Close menu on window resize
+        $(window).on('resize', function() {
+            if ($(window).width() > 968) {
+                $('.mobile-menu-toggle').removeClass('active');
+                $('.main-nav').removeClass('active');
+                $('body').removeClass('menu-open');
+                $('.nav-links .has-children').removeClass('open');
+            }
+        });
+
+
         $('.tierliebe-tabs').each(function() {
             new TierliebeTabSwitcher(this);
         });

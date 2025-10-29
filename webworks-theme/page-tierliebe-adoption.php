@@ -3,7 +3,7 @@
  * Template Name: Tierliebe - Adoption
  * Template Post Type: page
  * Description: Zucht vs. Kauf vs. Adoption, Adoptionsprozess, Wirtschaftlichkeit
- * Version: 1.0.0
+ * Version: 1.1.0
  */
 
 get_template_part('tierliebe-parts/header');
@@ -14,6 +14,48 @@ get_template_part('tierliebe-parts/header');
     <div class="hero-content">
         <h1 class="hero-title">❤️ Adoption rettet Leben</h1>
         <p class="hero-subtitle">Warum Adoption der einzige ethische Weg ist – und wie er funktioniert</p>
+    </div>
+</section>
+
+<!-- Tierkauf im Zoofachhandel -->
+<section class="section" style="background: var(--bg-white);">
+    <div class="container">
+        <h2 class="section-title" style="text-align: center; margin-bottom: 30px;">🛒 Tierkauf im Zoofachhandel</h2>
+        <p style="text-align: center; max-width: 800px; margin: 0 auto 50px; font-size: 1.1rem; color: var(--text-medium);">
+            Viele Menschen kaufen Tiere im Zoofachhandel – weil es einfach ist, weil sie "gesund aussehen", weil keine Fragen gestellt werden.
+        </p>
+
+        <div class="info-box warning" data-emoji="⚠️">
+            <h3>Die Realität hinter dem Verkauf</h3>
+            <ul style="font-size: 1.1rem; line-height: 1.8; margin-top: 20px;">
+                <li><strong>Herkunft:</strong> Viele Tiere stammen aus Massenzuchten – überzüchtet, krank, zu jung</li>
+                <li><strong>Zu frühe Abgabe:</strong> Welpen und Jungtiere werden oft mit 4–6 Wochen abgegeben (statt 12+ Wochen)</li>
+                <li><strong>Keine Sozialisierung:</strong> Tiere haben nie echte Bindung gelernt, keine Grenzen, kein Vertrauen</li>
+                <li><strong>Krankheiten:</strong> Atemwegserkrankungen, Parasiten, genetische Defekte – oft unsichtbar beim Kauf</li>
+                <li><strong>Keine echte Beratung:</strong> Verkaufspersonal ist nicht für ehrliche, artgerechte Beratung da – sondern für Verkaufszahlen</li>
+            </ul>
+        </div>
+
+        <div class="info-box" style="margin-top: 30px; background: var(--pastel-coral); color: white;">
+            <h3 style="color: white;">💔 Das System dahinter</h3>
+            <p style="font-size: 1.1rem; line-height: 1.8; margin-top: 15px;">
+                Zoofachhandel ist ein <strong>Geschäft</strong>. Tiere sind <strong>Ware</strong>. Jeder Verkauf bedeutet: Die Kette läuft weiter.<br>
+                Züchter produzieren nach, Großhändler liefern nach, Läden verkaufen weiter.
+            </p>
+            <p style="margin-top: 20px; font-size: 1.2rem; font-weight: 700;">
+                Kauf "aus Mitleid" rettet kein Tier – es hält das System am Leben.
+            </p>
+        </div>
+
+        <div class="info-box" style="margin-top: 30px; background: var(--pastel-mint);">
+            <h3>✅ Was du stattdessen tun kannst</h3>
+            <ul style="font-size: 1.1rem; line-height: 1.8; margin-top: 15px;">
+                <li>Adoptiere aus dem Tierheim oder Tierschutzverein</li>
+                <li>Nimm Kontakt zu erfahrenen Haltern auf (z.B. über Foren, Vereine)</li>
+                <li>Falls Zucht: Nur von seriösen Züchtern mit Tests, Sozialisierung, transparenter Haltung</li>
+                <li>Informiere dich VORHER über die Bedürfnisse der Tierart</li>
+            </ul>
+        </div>
     </div>
 </section>
 

@@ -32,6 +32,54 @@ window.addEventListener('scroll', function() {
         scrollTop.classList.remove('visible');
     }
 });
+
+// Mobile Menu (Vanilla JS - works without jQuery)
+document.addEventListener('DOMContentLoaded', function() {
+    const toggle = document.querySelector('.mobile-menu-toggle');
+    const nav = document.querySelector('.main-nav');
+    const body = document.body;
+
+    if (toggle && nav) {
+        // Toggle menu
+        toggle.addEventListener('click', function(e) {
+            e.stopPropagation();
+            toggle.classList.toggle('active');
+            nav.classList.toggle('active');
+            body.classList.toggle('menu-open');
+        });
+
+        // Submenu toggle on mobile
+        document.querySelectorAll('.nav-links .has-children > a').forEach(function(link) {
+            link.addEventListener('click', function(e) {
+                if (window.innerWidth <= 968) {
+                    e.preventDefault();
+                    this.parentElement.classList.toggle('open');
+                }
+            });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.header') && nav.classList.contains('active')) {
+                toggle.classList.remove('active');
+                nav.classList.remove('active');
+                body.classList.remove('menu-open');
+            }
+        });
+
+        // Close menu on resize
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 968) {
+                toggle.classList.remove('active');
+                nav.classList.remove('active');
+                body.classList.remove('menu-open');
+                document.querySelectorAll('.nav-links .has-children').forEach(function(item) {
+                    item.classList.remove('open');
+                });
+            }
+        });
+    }
+});
 </script>
 
 <?php wp_footer(); ?>

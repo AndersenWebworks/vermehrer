@@ -3,95 +3,148 @@
  * Template Name: Tierliebe - Start
  * Template Post Type: page
  * Description: Startseite für Tierliebe-Portal
- * Version: 1.0.0
+ * Version: 2.2.0
  */
+
+get_template_part('tierliebe-parts/header');
 ?>
-<!DOCTYPE html>
-<html <?php language_attributes(); ?>>
-<head>
-    <meta charset="<?php bloginfo('charset'); ?>">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php wp_title('|', true, 'right'); bloginfo('name'); ?></title>
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Fredoka:wght@400;500;600&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
-
-    <?php wp_head(); ?>
-</head>
-<body <?php body_class(); ?>>
-
-<!-- Floating Decorations -->
-<div class="float-decoration" style="font-size: 8rem;">🐾</div>
-<div class="float-decoration" style="font-size: 6rem;">❤️</div>
-<div class="float-decoration" style="font-size: 7rem;">🐾</div>
-<div class="float-decoration" style="font-size: 5rem;">💕</div>
-
-<!-- Header -->
-<header class="header">
-    <div class="header-content">
-        <a href="<?php echo home_url('/tierliebe-start'); ?>" class="logo">
-            <span class="logo-icon">🐾</span> Tierliebe-Check
-        </a>
-        <nav>
-            <ul class="nav-links">
-                <li><a href="<?php echo home_url('/tierliebe-start'); ?>">Start</a></li>
-                <li><a href="<?php echo home_url('/tierliebe-tiere'); ?>">Tiere</a></li>
-                <li><a href="<?php echo home_url('/tierliebe-mythen'); ?>">Mythen</a></li>
-                <li><a href="<?php echo home_url('/tierliebe-test'); ?>">Test</a></li>
-            </ul>
-        </nav>
-    </div>
-</header>
-
-<!-- CONTENT STARTS HERE -->
-<!-- Wird befüllt mit VM-Content Sektion 1 + 2 -->
-
-<section class="section">
-    <div class="section-header">
-        <h2 class="section-title">🏠 Startseite</h2>
-        <p class="section-subtitle">Content wird in Phase 2 eingefügt</p>
+<!-- Primary Hero -->
+<section class="primary-hero">
+    <div class="hero-content">
+        <div class="hero-text">
+            <h1 class="hero-title">Du liebst Tiere?</h1>
+            <p class="hero-subtitle">Das ist nicht das, was du hören willst. Das ist das, was wahr ist.</p>
+            <p class="hero-description">
+                Diese Seite ist für Menschen, die wirklich hinschauen wollen – ohne Filter, ohne Romantik.
+            </p>
+            <div class="hero-buttons">
+                <a href="<?php echo home_url('/tierliebe-test'); ?>" class="btn btn-primary">
+                    ✨ Bin ich bereit? → Zum Test
+                </a>
+                <a href="<?php echo home_url('/tierliebe-wissen'); ?>" class="btn btn-secondary">
+                    📚 Wissen aufbauen
+                </a>
+            </div>
+        </div>
+        <div class="hero-icon">
+            <span class="hero-main-icon">🐾</span>
+        </div>
     </div>
 </section>
 
-<!-- CONTENT ENDS HERE -->
+<!-- Bin ich bereit Sektion -->
+<section class="section" style="background: var(--bg-white);">
+    <div class="container">
+        <h2 class="section-title" style="text-align: center; margin-bottom: 30px;">Bin ich bereit für ein Tier?</h2>
+        <p style="text-align: center; max-width: 800px; margin: 0 auto 30px; font-size: 1.25rem; color: var(--text-dark); font-weight: 600;">
+            Ein Tier ist keine Phase. Es ist ein Teil deines Lebens.
+        </p>
+        <p style="text-align: center; max-width: 800px; margin: 0 auto 50px; font-size: 1.1rem; color: var(--text-medium);">
+            Keine Deko, kein Spielzeug, kein Lückenfüller.
+        </p>
 
-<!-- Footer -->
-<footer class="footer">
-    <div class="footer-content">
-        <h3>🌍 Denk an die Tiere, Wälder & das Klima</h3>
-        <p>Jeder unnötige Ausdruck dieser Seite kostet Ressourcen, zerstört Lebensräume und belastet das Klima.</p>
-        <p style="margin-top: 30px; padding-top: 30px; border-top: 3px solid var(--cute-mint);">
-            &copy; <?php echo date('Y'); ?> Annemarie Andersen | <a href="https://www.annemarie-andersen.de">annemarie-andersen.de</a>
-        </p>
-        <p style="margin-top: 15px; font-size: 0.95rem; opacity: 0.8;">
-            Mit 💕 für alle Tiere gemacht
-        </p>
+        <div class="info-box responsibility-box">
+            <h3>Gute Absichten reichen nicht. Verantwortung schon.</h3>
+            <p>
+                Wenn du bei einer Frage oder mehreren zögerst, ist das kein Grund zur Scham – <strong>es ist ein Zeichen, dass du Verantwortung ernst nimmst.</strong>
+            </p>
+        </div>
+
+        <div class="info-box info" data-emoji="💭">
+            <h3>Bevor du ein Tier holst, frag dich ehrlich:</h3>
+            <ul style="font-size: 1.1rem; line-height: 1.8;">
+                <li>Habe ich <strong>Zeit</strong>? Nicht nur am Wochenende – jeden Tag.</li>
+                <li>Habe ich <strong>Geld</strong>? Nicht nur für Futter – auch für Tierarzt, Ausstattung, Notfälle.</li>
+                <li>Habe ich <strong>Platz</strong>? Nicht nur einen Käfig – echten Raum zum Leben.</li>
+                <li>Bin ich bereit für <strong>10, 15, 20 Jahre</strong> Verantwortung?</li>
+                <li>Weiß ich, was das Tier <strong>wirklich</strong> braucht – nicht, was ich mir vorstelle?</li>
+            </ul>
+        </div>
+
+        <div class="decision-dual-panel">
+            <!-- Panel 1: Bin ich bereit -->
+            <div class="decision-panel panel-yes">
+                <div class="panel-emoji">🧠</div>
+                <h3>Bin ich bereit?</h3>
+                <p>Ein ehrlicher Test, der dir zeigt, ob du wirklich vorbereitet bist.</p>
+                <ul class="decision-list">
+                    <li>Realistische Fragen zu Zeit, Geld & Wissen</li>
+                    <li>Ehrliche Auswertung ohne Schönfärberei</li>
+                    <li>Hilft dir, die richtige Entscheidung zu treffen</li>
+                </ul>
+                <a href="<?php echo home_url('/tierliebe-test'); ?>" class="btn btn-primary" style="width: 100%; margin-top: 25px;">
+                    Zum Test →
+                </a>
+            </div>
+
+            <!-- Panel 2: Die Wahrheit über Haustiere -->
+            <div class="decision-panel panel-no">
+                <div class="panel-emoji">📖</div>
+                <h3>Die Wahrheit über Haustiere</h3>
+                <p>Was Hunde, Katzen, Kaninchen & Co. wirklich brauchen.</p>
+                <ul class="decision-list">
+                    <li>Mythen vs. Fakten für jede Tierart</li>
+                    <li>Was verschwiegen wird</li>
+                    <li>Warum "pflegeleicht" eine Lüge ist</li>
+                </ul>
+                <a href="<?php echo home_url('/tierliebe-hunde'); ?>" class="btn btn-secondary" style="width: 100%; margin-top: 25px;">
+                    Zu den Tierarten →
+                </a>
+            </div>
+        </div>
+
+        <!-- Honesty Box -->
+        <div class="honesty-box" data-emoji="💔">
+            <h3>Die harte Wahrheit</h3>
+            <p style="font-size: 1.2rem; line-height: 1.8;">
+                In Deutschland sitzen über <strong>300.000 Tiere</strong> in Tierheimen.<br>
+                Nur etwa <strong>30%</strong> werden pro Jahr vermittelt.<br>
+                Der Rest wartet. Oder stirbt.
+            </p>
+            <p style="margin-top: 25px; font-size: 1.2rem;">
+                <strong>Warum?</strong><br>
+                Weil zu viele Menschen Tiere holen, ohne zu verstehen, was das bedeutet.
+            </p>
+            <p style="margin-top: 25px; font-size: 1.3rem; font-weight: 700;">
+                Du liebst Tiere? Dann beweis es – indem du ehrlich bist.
+            </p>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="quick-links-grid" style="margin-top: 80px;">
+            <a href="<?php echo home_url('/tierliebe-hunde'); ?>" class="quick-link-card">
+                <span class="quick-link-icon">🐶</span>
+                <h4>Hunde</h4>
+                <p>Mythen & Wahrheiten</p>
+            </a>
+            <a href="<?php echo home_url('/tierliebe-katzen'); ?>" class="quick-link-card">
+                <span class="quick-link-icon">🐱</span>
+                <h4>Katzen</h4>
+                <p>Was du wissen musst</p>
+            </a>
+            <a href="<?php echo home_url('/tierliebe-kleintiere'); ?>" class="quick-link-card">
+                <span class="quick-link-icon">🐰</span>
+                <h4>Kleintiere</h4>
+                <p>Kaninchen, Hamster & Co.</p>
+            </a>
+            <a href="<?php echo home_url('/tierliebe-exoten'); ?>" class="quick-link-card">
+                <span class="quick-link-icon">🦎</span>
+                <h4>Vögel & Exoten</h4>
+                <p>Besondere Bedürfnisse</p>
+            </a>
+            <a href="<?php echo home_url('/tierliebe-qualzucht'); ?>" class="quick-link-card">
+                <span class="quick-link-icon">⚠️</span>
+                <h4>Qualzucht</h4>
+                <p>Leid erkennen</p>
+            </a>
+            <a href="<?php echo home_url('/tierliebe-adoption'); ?>" class="quick-link-card">
+                <span class="quick-link-icon">❤️</span>
+                <h4>Adoption</h4>
+                <p>Der richtige Weg</p>
+            </a>
+        </div>
     </div>
-</footer>
+</section>
 
-<!-- Scroll to Top -->
-<button class="scroll-top" id="scrollTop" onclick="scrollToTop()">
-    <span>↑</span>
-</button>
-
-<script>
-function scrollToTop() {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-// Scroll to Top Button Visibility
-window.addEventListener('scroll', function() {
-    const scrollTop = document.getElementById('scrollTop');
-    if (window.pageYOffset > 400) {
-        scrollTop.classList.add('visible');
-    } else {
-        scrollTop.classList.remove('visible');
-    }
-});
-</script>
-
-<?php wp_footer(); ?>
-</body>
-</html>
+<?php get_template_part('tierliebe-parts/footer'); ?>

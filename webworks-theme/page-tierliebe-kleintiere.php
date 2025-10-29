@@ -3,7 +3,7 @@
  * Template Name: Tierliebe - Kleintiere
  * Template Post Type: page
  * Description: Kaninchen, Meerschweinchen, Hamster, Mäuse, Ratten, Degus, Chinchillas
- * Version: 1.0.0
+ * Version: 1.2.0
  */
 
 get_template_part('tierliebe-parts/header');
@@ -38,9 +38,10 @@ get_template_part('tierliebe-parts/header');
 
             <!-- Mythen -->
             <div class="cards-grid" style="margin-bottom: 30px;">
-                <div class="card coral"><span class="card-icon">❌</span><h4>Mythos</h4><p><em>Perfekte Haustiere für Kinder</em></p></div>
-                <div class="card coral"><span class="card-icon">❌</span><h4>Mythos</h4><p><em>Ein Käfig im Kinderzimmer reicht</em></p></div>
-                <div class="card coral"><span class="card-icon">❌</span><h4>Mythos</h4><p><em>Man kann Kaninchen und Meerschweinchen zusammen halten</em></p></div>
+                <div class="card coral"><span class="card-icon">❌</span><h4>Mythos 1</h4><p><em>Perfekte Haustiere für Kinder</em></p></div>
+                <div class="card coral"><span class="card-icon">❌</span><h4>Mythos 2</h4><p><em>Ein Käfig im Kinderzimmer reicht</em></p></div>
+                <div class="card coral"><span class="card-icon">❌</span><h4>Mythos 3</h4><p><em>Man kann Kaninchen und Meerschweinchen zusammen halten</em></p></div>
+                <div class="card coral"><span class="card-icon">❌</span><h4>Mythos 4</h4><p><em>Einzelhaltung geht, wenn man sich viel kümmert</em></p></div>
             </div>
 
             <div class="info-box info" data-emoji="✅">
@@ -51,6 +52,7 @@ get_template_part('tierliebe-parts/header');
                     <li>Erforderlicher Platz: mindestens 4 m² pro Tier</li>
                     <li>Kommerzielle Käfige sind fast immer zu klein</li>
                     <li>Kinderzimmer sind ungeeignet (zu laut, unruhig, falsches Klima)</li>
+                    <li><strong>Auch mit viel Zuwendung:</strong> Kein Mensch kann einen Artgenossen ersetzen – die Sprache, das Sozialverhalten, die Körperwärme sind nicht nachbildbar</li>
                 </ul>
             </div>
 
@@ -77,9 +79,11 @@ get_template_part('tierliebe-parts/header');
         <div class="tab-panel" data-tab="hamster" style="display: none;">
             <h3 style="text-align: center; margin-bottom: 30px; font-size: 2rem;">🐹 Hamster</h3>
 
-            <div class="cards-grid" style="max-width: 800px; margin: 0 auto 30px;">
-                <div class="card coral"><span class="card-icon">❌</span><h4>Mythos</h4><p><em>Perfekt für Kinder – klein, süß, pflegeleicht</em></p></div>
-                <div class="card coral"><span class="card-icon">❌</span><h4>Mythos</h4><p><em>Ein kleiner Gitterkäfig reicht völlig</em></p></div>
+            <div class="cards-grid" style="max-width: 1000px; margin: 0 auto 30px;">
+                <div class="card coral"><span class="card-icon">❌</span><h4>Mythos 1</h4><p><em>Perfekt für Kinder – klein, süß, pflegeleicht</em></p></div>
+                <div class="card coral"><span class="card-icon">❌</span><h4>Mythos 2</h4><p><em>Ein kleiner Gitterkäfig reicht völlig</em></p></div>
+                <div class="card coral"><span class="card-icon">❌</span><h4>Mythos 3</h4><p><em>Hamster sind gesellig und brauchen Artgenossen</em></p></div>
+                <div class="card coral"><span class="card-icon">❌</span><h4>Mythos 4</h4><p><em>Wenn man sie oft anfasst, werden sie zahm</em></p></div>
             </div>
 
             <div class="info-box info" data-emoji="✅">
@@ -91,6 +95,7 @@ get_template_part('tierliebe-parts/header');
                     <li>Einstreu zum Graben: mindestens 30 cm Tiefe erforderlich</li>
                     <li><strong>Absolute Einzelgänger</strong> – Vergesellschaftung führt zu Verletzungen oder Tod</li>
                     <li>Laufräder notwendig: geschlossen, mind. 28 cm Durchmesser</li>
+                    <li><strong>WARNUNG:</strong> "Zahm werden" bedeutet nicht Zufriedenheit – viele Hamster ertragen Anfassen, weil sie resigniert haben, nicht weil sie es mögen</li>
                 </ul>
             </div>
 
@@ -105,9 +110,11 @@ get_template_part('tierliebe-parts/header');
         <div class="tab-panel" data-tab="ratten" style="display: none;">
             <h3 style="text-align: center; margin-bottom: 30px; font-size: 2rem;">🐭 Mäuse & Ratten</h3>
 
-            <div class="cards-grid" style="max-width: 800px; margin: 0 auto 30px;">
-                <div class="card coral"><span class="card-icon">❌</span><h4>Mythos</h4><p><em>Die sind doch eh nur kurzlebig – da kommt es nicht so drauf an</em></p></div>
-                <div class="card coral"><span class="card-icon">❌</span><h4>Mythos</h4><p><em>Ein Hamsterkäfig reicht auch für Ratten</em></p></div>
+            <div class="cards-grid" style="max-width: 1000px; margin: 0 auto 30px;">
+                <div class="card coral"><span class="card-icon">❌</span><h4>Mythos 1</h4><p><em>Die sind doch eh nur kurzlebig – da kommt es nicht so drauf an</em></p></div>
+                <div class="card coral"><span class="card-icon">❌</span><h4>Mythos 2</h4><p><em>Ein Hamsterkäfig reicht auch für Ratten</em></p></div>
+                <div class="card coral"><span class="card-icon">❌</span><h4>Mythos 3</h4><p><em>Ratten sind dreckig und übertragen Krankheiten</em></p></div>
+                <div class="card coral"><span class="card-icon">❌</span><h4>Mythos 4</h4><p><em>Mäuse kann man einzeln halten, die sind klein</em></p></div>
             </div>
 
             <div class="info-box info" data-emoji="✅">
@@ -118,6 +125,8 @@ get_template_part('tierliebe-parts/header');
                     <li>Rückzugsorte, Buddel- und Klettermöglichkeiten erforderlich</li>
                     <li>Sehr intelligent – benötigen Beschäftigung, Tunnel, Auslauf</li>
                     <li>Enger Kontakt zur Bezugsperson wichtig</li>
+                    <li><strong>Ratten sind NICHT dreckig:</strong> Sie sind extrem reinlich, putzen sich ständig, haben feste Toilettenecken</li>
+                    <li><strong>Mäuse:</strong> Auch sie brauchen Artgenossen – Einzelhaltung führt zu Verhaltensstörungen und frühem Tod</li>
                 </ul>
             </div>
 
@@ -140,9 +149,11 @@ get_template_part('tierliebe-parts/header');
         <div class="tab-panel" data-tab="degus" style="display: none;">
             <h3 style="text-align: center; margin-bottom: 30px; font-size: 2rem;">🐿️ Degus & Chinchillas</h3>
 
-            <div class="cards-grid" style="max-width: 800px; margin: 0 auto 30px;">
-                <div class="card coral"><span class="card-icon">❌</span><h4>Mythos</h4><p><em>Sind einfach nur pelzigere Hamster</em></p></div>
-                <div class="card coral"><span class="card-icon">❌</span><h4>Mythos</h4><p><em>Kann man gut einzeln halten</em></p></div>
+            <div class="cards-grid" style="max-width: 1000px; margin: 0 auto 30px;">
+                <div class="card coral"><span class="card-icon">❌</span><h4>Mythos 1</h4><p><em>Sind einfach nur pelzigere Hamster</em></p></div>
+                <div class="card coral"><span class="card-icon">❌</span><h4>Mythos 2</h4><p><em>Kann man gut einzeln halten</em></p></div>
+                <div class="card coral"><span class="card-icon">❌</span><h4>Mythos 3</h4><p><em>Chinchillas kann man baden wie Kaninchen</em></p></div>
+                <div class="card coral"><span class="card-icon">❌</span><h4>Mythos 4</h4><p><em>Degus sind wie Hamster – nur größer</em></p></div>
             </div>
 
             <div class="info-box info" data-emoji="✅">
@@ -153,6 +164,8 @@ get_template_part('tierliebe-parts/header');
                     <li>Nacht- und dämmerungsaktiv</li>
                     <li>Sehr große Volieren erforderlich mit mehreren Etagen</li>
                     <li>Viel Bewegung, Knabbermaterial und Ruhe notwendig</li>
+                    <li><strong>Chinchillas:</strong> Brauchen Sandbad (kein Wasser!), vertragen keine Hitze über 25°C</li>
+                    <li><strong>Degus:</strong> Hochintelligent, brauchen mentale Herausforderungen – sonst Stereotypien und Selbstverletzung</li>
                 </ul>
             </div>
 

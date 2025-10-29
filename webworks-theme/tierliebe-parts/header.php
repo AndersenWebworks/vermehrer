@@ -24,10 +24,18 @@
 <!-- Header -->
 <header class="header">
     <div class="header-content">
-        <a href="<?php echo home_url('/tierliebe-start'); ?>" class="logo">
+        <a href="<?php echo home_url('/'); ?>" class="logo">
             <span class="logo-icon">🐾</span> Tierliebe-Check
         </a>
-        <nav>
+
+        <!-- Mobile Menu Toggle -->
+        <button class="mobile-menu-toggle" aria-label="Menü öffnen">
+            <span class="hamburger"></span>
+            <span class="hamburger"></span>
+            <span class="hamburger"></span>
+        </button>
+
+        <nav class="main-nav">
             <ul class="nav-links">
                 <li><a href="<?php echo home_url('/tierliebe-start'); ?>">🏠 Start</a></li>
                 <li><a href="<?php echo home_url('/tierliebe-test'); ?>">✨ Bin ich bereit?</a></li>

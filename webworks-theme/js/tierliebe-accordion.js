@@ -113,7 +113,7 @@
 
     // Initialize all accordion containers on page load
     $(document).ready(function() {
-        $('.tierliebe-accordion').each(function() {
+        $('.accordion').each(function() {
             new TierliebeAccordion(this);
         });
     });

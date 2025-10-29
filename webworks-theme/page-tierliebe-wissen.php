@@ -253,23 +253,46 @@ get_template_part('tierliebe-parts/header');
                 </div>
             </div>
 
-            <!-- Tab Content 4: Glossar (gekürzte Version, nur wichtigste Begriffe) -->
+            <!-- Tab Content 4: Glossar (Vollständige Version A-Z) -->
             <div class="tab-content" id="tab-glossar">
-                <h2 style="margin-bottom: 30px;">📖 Glossar: Die wichtigsten Begriffe</h2>
+                <h2 style="margin-bottom: 30px;">📖 Glossar: Fachbegriffe A-Z</h2>
 
                 <div class="glossar-grid">
-                    <div class="glossar-item"><strong>Adoption:</strong> Übernahme eines Tieres aus dem Tierheim</div>
-                    <div class="glossar-item"><strong>Artgerechte Haltung:</strong> Haltung entsprechend natürlicher Bedürfnisse</div>
-                    <div class="glossar-item"><strong>Brachyzephalie:</strong> Kurzköpfigkeit (z.B. Mops) – führt zu Atemnot</div>
-                    <div class="glossar-item"><strong>Frühkastration:</strong> Kastration vor Geschlechtsreife (ab 12 Wochen)</div>
-                    <div class="glossar-item"><strong>Inzucht:</strong> Paarung verwandter Tiere – führt zu Problemen</div>
-                    <div class="glossar-item"><strong>Kastration:</strong> Entfernung der Fortpflanzungsorgane</div>
-                    <div class="glossar-item"><strong>Qualzucht:</strong> Zucht auf gesundheitsschädliche Merkmale</div>
-                    <div class="glossar-item"><strong>Rolligkeit:</strong> Fortpflanzungsbereitschaft bei Katzen</div>
-                    <div class="glossar-item"><strong>Schutzgebühr:</strong> Betrag bei Adoption – verhindert unüberlegte Käufe</div>
-                    <div class="glossar-item"><strong>Sozialisierung:</strong> Lernen, mit Artgenossen und Menschen umzugehen</div>
+                    <div class="glossar-item"><strong>Adoption:</strong> Übernahme eines Tieres aus Tierheim, Pflegestelle oder privater Abgabe</div>
+                    <div class="glossar-item"><strong>Artgerechte Haltung:</strong> Haltungsform, die natürliche Bedürfnisse erfüllt (Platz, Sozialkontakt, Futter)</div>
+                    <div class="glossar-item"><strong>Atemwegserkrankungen:</strong> Häufiges Problem bei überzüchteten Rassen durch verkürzte Nasenpartien</div>
+                    <div class="glossar-item"><strong>Beißhemmung:</strong> Fähigkeit, Bissstärke zu kontrollieren; wichtig für Sozialverhalten</div>
+                    <div class="glossar-item"><strong>Brachyzephalie:</strong> Kurzköpfigkeit bei Möpsen etc., führt zu Atemnot und Augenproblemen</div>
+                    <div class="glossar-item"><strong>Brutverhalten:</strong> Natürliches Verhalten beim Nestbau, Eierlegen und Schutz</div>
+                    <div class="glossar-item"><strong>Domestikation:</strong> Anpassung von Tieren an das Zusammenleben mit Menschen über Generationen</div>
+                    <div class="glossar-item"><strong>Einzelhaltung:</strong> Haltung ohne Artgenossen; für soziale Tiere nicht artgerecht</div>
+                    <div class="glossar-item"><strong>Freigänger:</strong> Katzen mit ständigem Zugang nach draußen</div>
+                    <div class="glossar-item"><strong>Frühkastration:</strong> Kastration vor Geschlechtsreife (ab ~12 Wochen)</div>
+                    <div class="glossar-item"><strong>Frühtrennung:</strong> Zu frühe Abgabe von Jungtieren; verursacht Verhaltensprobleme</div>
+                    <div class="glossar-item"><strong>Genmutation:</strong> Erbbedingte Veränderung zur Erzeugung bestimmter Merkmale</div>
+                    <div class="glossar-item"><strong>Harnmarkieren:</strong> Reviermarkierung durch Urin bei Katern oder Rüden</div>
+                    <div class="glossar-item"><strong>Hauskatze:</strong> Katze ohne Rassezugehörigkeit; robuster und gesünder</div>
+                    <div class="glossar-item"><strong>Hormone:</strong> Botenstoffe, die Verhalten und Gesundheit beeinflussen</div>
+                    <div class="glossar-item"><strong>Inzucht:</strong> Paarung eng verwandter Tiere; führt zu genetischen Problemen</div>
+                    <div class="glossar-item"><strong>Kastration:</strong> Operative Entfernung der Fortpflanzungsorgane; verhindert Fortpflanzung</div>
+                    <div class="glossar-item"><strong>Legenot:</strong> Lebensgefährlicher Zustand bei Vögeln/Reptilien; erfordert Notfall-Tierarzt</div>
+                    <div class="glossar-item"><strong>Leinenzwang:</strong> Gesetzliche Vorschrift zum Führen an der Leine in bestimmten Gebieten</div>
+                    <div class="glossar-item"><strong>Nistmaterial:</strong> Material zum Nestbau (Stroh, Federn etc.)</div>
+                    <div class="glossar-item"><strong>Prägung:</strong> Frühe Lernphase für grundlegende Verhaltensmuster und Bindungen</div>
+                    <div class="glossar-item"><strong>Qualzucht:</strong> Zucht auf schädliche Merkmale (z.B. flache Nasen)</div>
+                    <div class="glossar-item"><strong>Resozialisierung:</strong> Gewöhnung traumatisierter Tiere an Menschen und Umgebung</div>
+                    <div class="glossar-item"><strong>Rolligkeit:</strong> Fortpflanzungsbereitschaft bei Katzen mit Rufen und Unruhe</div>
+                    <div class="glossar-item"><strong>Schutzgebühr:</strong> Zahlbetrag bei Adoption; unterstützt Tierheim und verhindert Impulsverkäufe</div>
+                    <div class="glossar-item"><strong>Schwanzbeißen:</strong> Stressbedingtes Selbstverletzungsverhalten</div>
+                    <div class="glossar-item"><strong>Sozialisierung:</strong> Lernprozess im Umgang mit Artgenossen, Menschen und Umwelt</div>
                     <div class="glossar-item"><strong>Spätkastration:</strong> Kastration nach Geschlechtsreife</div>
-                    <div class="glossar-item"><strong>Vorkontrolle:</strong> Überprüfung des Zuhauses vor Adoption</div>
+                    <div class="glossar-item"><strong>Sterilisation:</strong> Durchtrennung der Fortpflanzungsorgane ohne Entfernung</div>
+                    <div class="glossar-item"><strong>Tierschutzgesetz:</strong> Gesetzliche Regelung zum Schutz tierischen Wohls</div>
+                    <div class="glossar-item"><strong>Tierschutzorganisation:</strong> Vereine für Tierschutz, Pflege und Vermittlung</div>
+                    <div class="glossar-item"><strong>Trächtigkeit:</strong> Zeitraum der Nachwuchsentwicklung (Hund ~63 Tage, Katze ~65 Tage)</div>
+                    <div class="glossar-item"><strong>Überzüchtung:</strong> Zucht auf extreme schädliche Merkmale</div>
+                    <div class="glossar-item"><strong>Vermittlung:</strong> Prozess der Platzierung eines Tieres in neuem Zuhause</div>
+                    <div class="glossar-item"><strong>Vorkontrolle:</strong> Überprüfung des neuen Zuhauses vor Adoption</div>
                 </div>
             </div>
         </div>
