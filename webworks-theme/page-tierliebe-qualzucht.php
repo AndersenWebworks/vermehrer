@@ -53,7 +53,7 @@ get_template_part('tierliebe-parts/header');
             <!-- Rasse 1: Mops & Französische Bulldogge -->
             <div class="qualzucht-card">
                 <div class="qualzucht-image">
-                    <img src="/wp-content/uploads/photo-1599744615638-804deec726e7-1024x683.jpg" alt="Mops & Französische Bulldogge">
+                    <img src='<?php echo home_url("/wp-json/yootheme/image?src=" . urlencode('{"file":"wp-content/uploads/photo-1599744615638-804deec726e7-scaled.jpg","width":800}') . "&hash=auto"); ?>' alt="Mops & Französische Bulldogge" loading="lazy">
                 </div>
                 <div class="qualzucht-content">
                     <div class="qualzucht-icon">🐶</div>
@@ -78,7 +78,7 @@ get_template_part('tierliebe-parts/header');
             <!-- Rasse 2: Perserkatze -->
             <div class="qualzucht-card">
                 <div class="qualzucht-image">
-                    <img src="/wp-content/uploads/photo-1512356587788-4f5ad49c16e9-1024x683.jpg" alt="Perserkatze">
+                    <img src='<?php echo home_url("/wp-json/yootheme/image?src=" . urlencode('{"file":"wp-content/uploads/photo-1512356587788-4f5ad49c16e9-scaled.jpg","width":800}') . "&hash=auto"); ?>' alt="Perserkatze" loading="lazy">
                 </div>
                 <div class="qualzucht-content">
                     <div class="qualzucht-icon">🐱</div>
@@ -104,7 +104,7 @@ get_template_part('tierliebe-parts/header');
             <!-- Rasse 3: Schauwellensittich -->
             <div class="qualzucht-card">
                 <div class="qualzucht-image">
-                    <img src="/wp-content/uploads/photo-1720423755825-d5606544e6b7-1024x683.jpg" alt="Schauwellensittich">
+                    <img src='<?php echo home_url("/wp-json/yootheme/image?src=" . urlencode('{"file":"wp-content/uploads/photo-1720423755825-d5606544e6b7-scaled.jpg","width":800}') . "&hash=auto"); ?>' alt="Schauwellensittich" loading="lazy">
                 </div>
                 <div class="qualzucht-content">
                     <div class="qualzucht-icon">🦜</div>
@@ -129,7 +129,7 @@ get_template_part('tierliebe-parts/header');
             <!-- Rasse 4: Widderkaninchen -->
             <div class="qualzucht-card">
                 <div class="qualzucht-image">
-                    <img src="/wp-content/uploads/photo-1649007985567-fe6ce04680d3-1024x683.jpg" alt="Widderkaninchen">
+                    <img src='<?php echo home_url("/wp-json/yootheme/image?src=" . urlencode('{"file":"wp-content/uploads/photo-1649007985567-fe6ce04680d3-scaled.jpg","width":800}') . "&hash=auto"); ?>' alt="Widderkaninchen" loading="lazy">
                 </div>
                 <div class="qualzucht-content">
                     <div class="qualzucht-icon">🐰</div>
@@ -154,7 +154,7 @@ get_template_part('tierliebe-parts/header');
             <!-- Rasse 5: Schleierschwanz-Goldfisch -->
             <div class="qualzucht-card">
                 <div class="qualzucht-image">
-                    <img src="/wp-content/uploads/photo-1650290145779-e05602773fc7-1024x683.jpg" alt="Schleierschwanz-Goldfisch">
+                    <img src='<?php echo home_url("/wp-json/yootheme/image?src=" . urlencode('{"file":"wp-content/uploads/photo-1650290145779-e05602773fc7-scaled.jpg","width":800}') . "&hash=auto"); ?>' alt="Schleierschwanz-Goldfisch" loading="lazy">
                 </div>
                 <div class="qualzucht-content">
                     <div class="qualzucht-icon">🐠</div>
@@ -179,7 +179,7 @@ get_template_part('tierliebe-parts/header');
             <!-- Rasse 6: Albino-Reptilien -->
             <div class="qualzucht-card">
                 <div class="qualzucht-image">
-                    <img src="/wp-content/uploads/photo-1639648702729-395a9b8b1133-1024x683.jpg" alt="Albino-Reptilien">
+                    <img src='<?php echo home_url("/wp-json/yootheme/image?src=" . urlencode('{"file":"wp-content/uploads/photo-1639648702729-395a9b8b1133-scaled.jpg","width":800}') . "&hash=auto"); ?>' alt="Albino-Reptilien" loading="lazy">
                 </div>
                 <div class="qualzucht-content">
                     <div class="qualzucht-icon">🦎</div>
@@ -226,7 +226,7 @@ get_template_part('tierliebe-parts/header');
             <!-- Rasse 8: Scottish-Fold-Katze -->
             <div class="qualzucht-card">
                 <div class="qualzucht-image">
-                    <img src="/wp-content/uploads/photo-1563210220-05f7b87c695c-1024x683.jpg" alt="Scottish-Fold-Katze">
+                    <img src='<?php echo home_url("/wp-json/yootheme/image?src=" . urlencode('{"file":"wp-content/uploads/photo-1563210220-05f7b87c695c-scaled.jpg","width":800}') . "&hash=auto"); ?>' alt="Scottish-Fold-Katze" loading="lazy">
                 </div>
                 <div class="qualzucht-content">
                     <div class="qualzucht-icon">🐱</div>

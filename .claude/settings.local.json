@@ -48,7 +48,9 @@
       "Bash(node screenshot-analysis.js:*)",
       "Bash(sed:*)",
       "Bash(tree:*)",
-      "Bash(php -r:*)"
+      "Bash(php -r:*)",
+      "Bash(node wordpress-seo-automation.js:*)",
+      "Bash(node:*)"
     ],
     "deny": [],
     "ask": []
