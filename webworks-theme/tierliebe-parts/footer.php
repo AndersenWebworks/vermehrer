@@ -4,9 +4,6 @@
     <div class="footer-content">
         <h3>🌍 Denk an die Tiere, Wälder & das Klima</h3>
         <p>Jeder unnötige Ausdruck dieser Seite kostet Ressourcen, zerstört Lebensräume und belastet das Klima.</p>
-        <p style="margin-top: 30px; padding-top: 30px; border-top: 3px solid var(--cute-mint);">
-            &copy; <?php echo date('Y'); ?> Annemarie Andersen | <a href="https://www.annemarie-andersen.de">annemarie-andersen.de</a>
-        </p>
         <p style="margin-top: 15px; font-size: 0.95rem; opacity: 0.8;">
             Mit 💕 für alle Tiere gemacht
         </p>

@@ -897,14 +897,14 @@
     font-size: 1.15rem;
     margin   : 8px 0;
     color    : var(--text-dark);
-    word-wrap: break-word;
+    word-wrap: normal;
 }
 
 .quick-link-card p {
     font-size: 0.9rem;
     color    : var(--text-medium);
     margin   : 0;
-    word-wrap: break-word;
+    word-wrap: normal;
 }
 
 @media (max-width: 768px) {
@@ -1147,7 +1147,7 @@
     }
 
     .main-nav-mobile {
-        display    : flex;
+        display    : none;
         position   : fixed;
         top        : 0;
         right      : -100%;
@@ -1162,6 +1162,7 @@
     }
 
     .main-nav-mobile.active {
+        display   : flex !important;
         right     : 0 !important;
         transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
     }
@@ -1182,9 +1183,12 @@
 
     .main-nav-mobile .nav-links a {
         width        : 100%;
-        padding      : 18px 25px;
+        padding      : 16px 25px;
         border-radius: 0;
-        font-size    : 1rem;
+        font-size    : 1.05rem;
+        min-height   : 48px;
+        display      : flex;
+        align-items  : center;
     }
 
     .main-nav-mobile .sub-menu {
@@ -1208,6 +1212,8 @@
     .main-nav-mobile .sub-menu a {
         padding-left: 45px;
         background  : var(--pastel-mint);
+        font-size   : 1rem;
+        min-height  : 44px;
     }
 }
 

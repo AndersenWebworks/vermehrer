@@ -31,6 +31,21 @@
         display: none;
     }
 
+    /* Logo anpassen für Tablets */
+    .logo {
+        font-size: 1.5rem;
+        max-width: 240px;
+    }
+
+    .logo-icon {
+        font-size: 1.75rem;
+    }
+
+    /* Header kompakter */
+    .header {
+        padding: 15px 0;
+    }
+
     /* Other Responsive Adjustments */
     .primary-hero {
         padding: 120px 25px 70px;
@@ -148,7 +163,48 @@
     }
 }
 
+/* Extra klein für sehr kleine Smartphones */
+@media (max-width: 380px) {
+    .logo {
+        font-size: 1rem;
+        max-width: 170px;
+    }
+
+    .logo-icon {
+        font-size: 1.3rem;
+    }
+
+    .header {
+        padding: 10px 0;
+    }
+
+    .mobile-menu-toggle {
+        min-width: 44px;
+        min-height: 44px;
+        padding: 10px;
+    }
+
+    .hamburger {
+        width: 26px;
+    }
+}
+
 @media (max-width: 640px) {
+    /* Logo noch kleiner für Smartphones */
+    .logo {
+        font-size: 1.2rem;
+        max-width: 200px;
+    }
+
+    .logo-icon {
+        font-size: 1.5rem;
+    }
+
+    /* Header noch kompakter */
+    .header {
+        padding: 12px 0;
+    }
+
     .section {
         padding: 60px 25px;
     }

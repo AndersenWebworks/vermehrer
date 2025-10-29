@@ -61,9 +61,10 @@ body {
     line-height  : 1.8;
     overflow-x   : hidden;
     font-size    : 16px;
-    word-wrap    : break-word;
-    overflow-wrap: break-word;
-    hyphens      : auto;
+    word-wrap    : normal;
+    overflow-wrap: normal;
+    hyphens      : none;
+    white-space  : normal;
 }
 
 h1,
