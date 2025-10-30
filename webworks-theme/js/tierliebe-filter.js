@@ -120,9 +120,13 @@
             const $grid = $('.mythos-grid');
             const $cards = $('.mythos-card');
 
-            // Lock grid height to prevent jump
+            // Lock grid height with fixed height (not min-height)
             const currentHeight = $grid.height();
-            $grid.css('min-height', currentHeight + 'px');
+            $grid.css({
+                'height': currentHeight + 'px',
+                'overflow': 'hidden',
+                'transition': 'height 0.5s ease'
+            });
 
             // Fade out all visible cards
             const $visibleCards = $cards.not('.hidden');
@@ -134,25 +138,33 @@
                 $cards.removeClass('filter-out').addClass('hidden');
 
                 // Show filtered cards with fade in
+                if (filter === 'all') {
+                    $cards.removeClass('hidden').addClass('filter-in');
+                } else {
+                    $cards.each(function() {
+                        const category = $(this).data('category');
+                        if (category === filter || category === 'all') {
+                            $(this).removeClass('hidden').addClass('filter-in');
+                        }
+                    });
+                }
+
+                // Measure new height and animate to it
                 setTimeout(function() {
-                    if (filter === 'all') {
-                        $cards.removeClass('hidden').addClass('filter-in');
-                    } else {
-                        $cards.each(function() {
-                            const category = $(this).data('category');
-                            if (category === filter || category === 'all') {
-                                $(this).removeClass('hidden').addClass('filter-in');
-                            }
-                        });
-                    }
+                    const newHeight = $grid[0].scrollHeight;
+                    $grid.css('height', newHeight + 'px');
 
                     // Clean up after animation
                     setTimeout(function() {
                         $cards.removeClass('filter-in');
                         // Release height lock
-                        $grid.css('min-height', '');
+                        $grid.css({
+                            'height': '',
+                            'overflow': '',
+                            'transition': ''
+                        });
                     }, 500);
-                }, 50);
+                }, 100);
             }, 400);
         });
     });
