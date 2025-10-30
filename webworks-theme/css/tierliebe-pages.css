@@ -1227,7 +1227,7 @@
         width        : 100%;
         padding      : 16px 25px;
         border-radius: 0;
-        font-size    : 1.05rem;
+        font-size    : 1rem !important;
         min-height   : 48px;
         display      : flex;
         align-items  : center;
