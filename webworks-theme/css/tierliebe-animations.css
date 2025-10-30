@@ -101,27 +101,35 @@ input[type="submit"] {
 /* Filter Animation */
 .mythos-card,
 .filter-item {
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    transition: opacity 0.35s ease, transform 0.35s ease;
+    opacity: 1;
+    transform: translateY(0) scale(1);
 }
 
-.mythos-card.hidden,
-.filter-item.hidden {
-    opacity  : 0;
-    transform: scale(0.95);
-    height: 0;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
+.mythos-card.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    position: absolute;
+    z-index: -1;
 }
 
 .mythos-card.filter-out {
     opacity: 0;
-    transform: scale(0.95);
+    transform: translateY(-10px) scale(0.96);
 }
 
 .mythos-card.filter-in {
-    opacity: 1;
-    transform: scale(1);
+    opacity: 0;
+    transform: translateY(10px) scale(0.96);
+    animation: filterFadeIn 0.4s ease forwards;
+}
+
+@keyframes filterFadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 }
 
 /* Mobile Menu Stagger */

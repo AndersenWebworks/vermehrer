@@ -117,19 +117,38 @@
             $('.filter-btn').removeClass('active');
             $(this).addClass('active');
 
-            // Filter immediately without stagger
-            if (filter === 'all') {
-                $('.mythos-card').removeClass('hidden');
-            } else {
-                $('.mythos-card').each(function() {
-                    const category = $(this).data('category');
-                    if (category === filter || category === 'all') {
-                        $(this).removeClass('hidden');
+            // Fade out all visible cards
+            const $visibleCards = $('.mythos-card:not(.hidden)');
+            $visibleCards.addClass('filter-out');
+
+            // Wait for fade out animation to complete
+            setTimeout(function() {
+                // Hide all cards and remove animation classes
+                $('.mythos-card').removeClass('filter-out').addClass('hidden');
+
+                // Show filtered cards with fade in
+                setTimeout(function() {
+                    if (filter === 'all') {
+                        $('.mythos-card')
+                            .removeClass('hidden')
+                            .addClass('filter-in');
                     } else {
-                        $(this).addClass('hidden');
+                        $('.mythos-card').each(function() {
+                            const category = $(this).data('category');
+                            if (category === filter || category === 'all') {
+                                $(this)
+                                    .removeClass('hidden')
+                                    .addClass('filter-in');
+                            }
+                        });
                     }
-                });
-            }
+
+                    // Clean up animation classes
+                    setTimeout(function() {
+                        $('.mythos-card').removeClass('filter-in');
+                    }, 400);
+                }, 50);
+            }, 350);
         });
     });
 
