@@ -128,9 +128,13 @@
                 'transition': 'height 0.5s ease'
             });
 
-            // Fade out all visible cards
-            const $visibleCards = $cards.not('.hidden');
-            $visibleCards.addClass('filter-out');
+            // Remove hidden class from all to allow fade-out animation
+            $cards.removeClass('hidden');
+
+            // Trigger fade out on ALL cards
+            setTimeout(function() {
+                $cards.addClass('filter-out');
+            }, 10);
 
             // Wait for fade out animation
             setTimeout(function() {
