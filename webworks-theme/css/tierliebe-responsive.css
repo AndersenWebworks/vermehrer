@@ -46,9 +46,11 @@
         padding: 15px 0;
     }
 
-    /* Headlines dürfen umbrechen auf mobil */
+    /* Headlines dürfen ZWISCHEN Wörtern umbrechen auf mobil */
     h1, h2, h3, h4, h5, h6 {
         white-space: normal;
+        word-break: keep-all;
+        overflow-wrap: break-word;
     }
 
     /* Other Responsive Adjustments */
@@ -56,16 +58,30 @@
         padding: 120px 25px 70px;
     }
 
+    /* Home Hero größer */
+    .hero-title {
+        font-size: 3rem !important;
+    }
+
+    /* Andere Seiten kleiner */
     .primary-hero-title {
-        font-size: 2.5rem;
+        font-size: 2rem;
     }
 
     .primary-hero-subtitle {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
     }
 
     .primary-hero-description {
         font-size: 1rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1.3rem;
+    }
+
+    .hero-description {
+        font-size: 1.1rem;
     }
 
     .section {
@@ -193,28 +209,34 @@
         width: 26px;
     }
 
+    /* Home Hero */
+    .hero-title {
+        font-size: 2rem !important;
+    }
+
+    /* Andere Seiten Hero */
     .primary-hero-title {
-        font-size: 1.5rem;
+        font-size: 1.2rem;
     }
 
     .hero-text h1 {
-        font-size: 1.4rem;
+        font-size: 2rem;
     }
 
     .section-title {
-        font-size: 1.4rem;
-    }
-
-    h2 {
         font-size: 1.3rem;
     }
 
+    h2 {
+        font-size: 1.2rem;
+    }
+
     h3 {
-        font-size: 1.1rem;
+        font-size: 1.05rem;
     }
 
     h4 {
-        font-size: 1rem;
+        font-size: 0.95rem;
     }
 }
 
@@ -243,16 +265,30 @@
         padding   : 80px 25px 50px;
     }
 
+    /* Home Hero größer */
+    .hero-title {
+        font-size: 2.5rem !important;
+    }
+
+    /* Andere Seiten Hero kleiner */
     .primary-hero-title {
-        font-size: 1.8rem;
+        font-size: 1.3rem;
     }
 
     .primary-hero-subtitle {
-        font-size: 1rem;
+        font-size: 0.9rem;
     }
 
     .primary-hero-description {
-        font-size: 0.9rem;
+        font-size: 0.85rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1.05rem;
+    }
+
+    .hero-description {
+        font-size: 0.95rem;
     }
 
     .hero-buttons {
