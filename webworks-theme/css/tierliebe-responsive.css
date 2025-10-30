@@ -46,21 +46,26 @@
         padding: 15px 0;
     }
 
+    /* Headlines dürfen umbrechen auf mobil */
+    h1, h2, h3, h4, h5, h6 {
+        white-space: normal;
+    }
+
     /* Other Responsive Adjustments */
     .primary-hero {
         padding: 120px 25px 70px;
     }
 
     .primary-hero-title {
-        font-size: 3.5rem;
+        font-size: 2.5rem;
     }
 
     .primary-hero-subtitle {
-        font-size: 1.4rem;
+        font-size: 1.2rem;
     }
 
     .primary-hero-description {
-        font-size: 1.1rem;
+        font-size: 1rem;
     }
 
     .section {
@@ -111,15 +116,15 @@
     }
 
     .hero-text h1 {
-        font-size: 3rem;
+        font-size: 2.2rem;
     }
 
     .hero-main-icon {
-        font-size: 12rem;
+        font-size: 10rem;
     }
 
     .section-title {
-        font-size: 2.5rem;
+        font-size: 2rem;
     }
 
     .cards-grid {
@@ -187,6 +192,30 @@
     .hamburger {
         width: 26px;
     }
+
+    .primary-hero-title {
+        font-size: 1.5rem;
+    }
+
+    .hero-text h1 {
+        font-size: 1.4rem;
+    }
+
+    .section-title {
+        font-size: 1.4rem;
+    }
+
+    h2 {
+        font-size: 1.3rem;
+    }
+
+    h3 {
+        font-size: 1.1rem;
+    }
+
+    h4 {
+        font-size: 1rem;
+    }
 }
 
 @media (max-width: 640px) {
@@ -215,15 +244,15 @@
     }
 
     .primary-hero-title {
-        font-size: 2.5rem;
+        font-size: 1.8rem;
     }
 
     .primary-hero-subtitle {
-        font-size: 1.2rem;
+        font-size: 1rem;
     }
 
     .primary-hero-description {
-        font-size: 1rem;
+        font-size: 0.9rem;
     }
 
     .hero-buttons {
@@ -264,7 +293,7 @@
     }
 
     .hero-text h1 {
-        font-size: 2.2rem;
+        font-size: 1.6rem;
     }
 
     .section {
@@ -272,7 +301,7 @@
     }
 
     .section-title {
-        font-size: 2rem;
+        font-size: 1.6rem;
     }
 
     .section-header {

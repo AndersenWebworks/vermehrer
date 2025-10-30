@@ -76,6 +76,7 @@ h6 {
     font-family: 'Fredoka', sans-serif;
     color      : var(--text-dark);
     font-weight: 600;
+    white-space: nowrap;
 }
 
 h1 {

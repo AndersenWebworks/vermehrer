@@ -109,7 +109,7 @@
             new TierliebeFilter(this);
         });
 
-        // Mythen Page Filter (simple version)
+        // Mythen Page Filter (enhanced with animation)
         $('.filter-btn').on('click', function() {
             const filter = $(this).data('filter');
 
@@ -117,19 +117,35 @@
             $('.filter-btn').removeClass('active');
             $(this).addClass('active');
 
-            // Filter cards
-            if (filter === 'all') {
-                $('.mythos-card').fadeIn(300).removeClass('hidden');
-            } else {
-                $('.mythos-card').each(function() {
-                    const category = $(this).data('category');
-                    if (category === filter || category === 'all') {
-                        $(this).fadeIn(300).removeClass('hidden');
-                    } else {
-                        $(this).fadeOut(300).addClass('hidden');
-                    }
-                });
-            }
+            // Add animation-out class first
+            $('.mythos-card').addClass('filter-out');
+
+            // Wait for animation, then filter
+            setTimeout(function() {
+                if (filter === 'all') {
+                    $('.mythos-card')
+                        .removeClass('hidden filter-out')
+                        .addClass('filter-in');
+                } else {
+                    $('.mythos-card').each(function() {
+                        const category = $(this).data('category');
+                        if (category === filter || category === 'all') {
+                            $(this)
+                                .removeClass('hidden filter-out')
+                                .addClass('filter-in');
+                        } else {
+                            $(this)
+                                .removeClass('filter-in')
+                                .addClass('hidden');
+                        }
+                    });
+                }
+
+                // Remove filter-in class after animation
+                setTimeout(function() {
+                    $('.mythos-card').removeClass('filter-in');
+                }, 400);
+            }, 200);
         });
     });
 
