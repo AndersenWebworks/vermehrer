@@ -117,35 +117,19 @@
             $('.filter-btn').removeClass('active');
             $(this).addClass('active');
 
-            // Add animation-out class first
-            $('.mythos-card').addClass('filter-out');
-
-            // Wait for animation, then filter
-            setTimeout(function() {
-                if (filter === 'all') {
-                    $('.mythos-card')
-                        .removeClass('hidden filter-out')
-                        .addClass('filter-in');
-                } else {
-                    $('.mythos-card').each(function() {
-                        const category = $(this).data('category');
-                        if (category === filter || category === 'all') {
-                            $(this)
-                                .removeClass('hidden filter-out')
-                                .addClass('filter-in');
-                        } else {
-                            $(this)
-                                .removeClass('filter-in')
-                                .addClass('hidden');
-                        }
-                    });
-                }
-
-                // Remove filter-in class after animation
-                setTimeout(function() {
-                    $('.mythos-card').removeClass('filter-in');
-                }, 400);
-            }, 200);
+            // Filter immediately without stagger
+            if (filter === 'all') {
+                $('.mythos-card').removeClass('hidden');
+            } else {
+                $('.mythos-card').each(function() {
+                    const category = $(this).data('category');
+                    if (category === filter || category === 'all') {
+                        $(this).removeClass('hidden');
+                    } else {
+                        $(this).addClass('hidden');
+                    }
+                });
+            }
         });
     });
 
