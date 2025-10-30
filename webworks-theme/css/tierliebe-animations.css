@@ -99,33 +99,44 @@ input[type="submit"] {
 }
 
 /* Filter Animation */
+.mythos-grid {
+    position: relative;
+    min-height: 400px;
+    transition: min-height 0.4s ease;
+}
+
 .mythos-card,
 .filter-item {
-    transition: opacity 0.35s ease, transform 0.35s ease;
+    transition: opacity 0.4s ease, transform 0.4s ease;
     opacity: 1;
     transform: translateY(0) scale(1);
 }
 
 .mythos-card.hidden {
     opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    position: absolute;
-    z-index: -1;
+    transform: scale(0.9);
+    height: 0;
+    min-height: 0;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    border: none;
 }
 
 .mythos-card.filter-out {
     opacity: 0;
-    transform: translateY(-10px) scale(0.96);
+    transform: translateY(-15px) scale(0.95);
 }
 
 .mythos-card.filter-in {
-    opacity: 0;
-    transform: translateY(10px) scale(0.96);
-    animation: filterFadeIn 0.4s ease forwards;
+    animation: filterFadeIn 0.5s ease forwards;
 }
 
 @keyframes filterFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+    }
     to {
         opacity: 1;
         transform: translateY(0) scale(1);

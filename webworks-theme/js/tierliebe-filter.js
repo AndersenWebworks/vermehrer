@@ -117,38 +117,43 @@
             $('.filter-btn').removeClass('active');
             $(this).addClass('active');
 
+            const $grid = $('.mythos-grid');
+            const $cards = $('.mythos-card');
+
+            // Lock grid height to prevent jump
+            const currentHeight = $grid.height();
+            $grid.css('min-height', currentHeight + 'px');
+
             // Fade out all visible cards
-            const $visibleCards = $('.mythos-card:not(.hidden)');
+            const $visibleCards = $cards.not('.hidden');
             $visibleCards.addClass('filter-out');
 
-            // Wait for fade out animation to complete
+            // Wait for fade out animation
             setTimeout(function() {
-                // Hide all cards and remove animation classes
-                $('.mythos-card').removeClass('filter-out').addClass('hidden');
+                // Hide all cards
+                $cards.removeClass('filter-out').addClass('hidden');
 
                 // Show filtered cards with fade in
                 setTimeout(function() {
                     if (filter === 'all') {
-                        $('.mythos-card')
-                            .removeClass('hidden')
-                            .addClass('filter-in');
+                        $cards.removeClass('hidden').addClass('filter-in');
                     } else {
-                        $('.mythos-card').each(function() {
+                        $cards.each(function() {
                             const category = $(this).data('category');
                             if (category === filter || category === 'all') {
-                                $(this)
-                                    .removeClass('hidden')
-                                    .addClass('filter-in');
+                                $(this).removeClass('hidden').addClass('filter-in');
                             }
                         });
                     }
 
-                    // Clean up animation classes
+                    // Clean up after animation
                     setTimeout(function() {
-                        $('.mythos-card').removeClass('filter-in');
-                    }, 400);
+                        $cards.removeClass('filter-in');
+                        // Release height lock
+                        $grid.css('min-height', '');
+                    }, 500);
                 }, 50);
-            }, 350);
+            }, 400);
         });
     });
 
