@@ -27,8 +27,7 @@
     {
       "label": "Auto Commit and Upload",
       "dependsOn": [
-        "FTP Upload",
-        "Git Commit and Push"
+        "FTP Upload"
       ],
       "dependsOrder": "sequence",
       "problemMatcher": [],

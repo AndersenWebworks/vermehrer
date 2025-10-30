@@ -21,14 +21,14 @@ get_template_part('tierliebe-parts/header');
         <!-- Mythos 1 -->
         <div class="accordion-item">
             <button class="accordion-header">
-                <span>❌ Mythos 1: "Katzen sind Einzelgänger – die brauchen keinen Partner"</span>
+                <span>💔 Mythos 1: "Katzen sind Einzelgänger – die brauchen keinen Partner"</span>
                 <span class="accordion-icon">+</span>
             </button>
             <div class="accordion-content">
                 <h4>Die Wahrheit:</h4>
                 <p>Katzen sind <strong>keine</strong> Einzelgänger – sie sind Einzeljäger. Das ist ein Unterschied.</p>
                 <p style="margin-top: 15px;"><strong>Fakt:</strong> Katzen brauchen Bindung, sichere Rückzugsorte und Ansprache. Einzelhaltung ist fast immer Tierquälerei – außer in begründeten Ausnahmefällen (z. B. ältere Tierschutzkatze, die nie mit Artgenossen gelebt hat).</p>
-                <div class="info-box" style="margin-top: 20px; background: var(--pastel-mint);">
+                <div class="info-box" data-emoji="⚠️" style="margin-top: 20px; background: var(--pastel-mint);">
                     <p><strong>Was passiert bei Einzelhaltung?</strong></p>
                     <ul>
                         <li>Langeweile, Frustration, Einsamkeit</li>
@@ -42,13 +42,13 @@ get_template_part('tierliebe-parts/header');
         <!-- Mythos 2 -->
         <div class="accordion-item">
             <button class="accordion-header">
-                <span>❌ Mythos 2: "Kastration ist optional – meine Katze kommt ja nicht raus"</span>
+                <span>✂️ Mythos 2: "Kastration ist optional – meine Katze kommt ja nicht raus"</span>
                 <span class="accordion-icon">+</span>
             </button>
             <div class="accordion-content">
                 <h4>Die Wahrheit:</h4>
                 <p><strong>Kastration ist KEINE Option – sie ist PFLICHT.</strong></p>
-                <div class="info-box" style="margin-top: 20px; background: var(--pastel-coral);">
+                <div class="info-box" data-emoji="⚠️" style="margin-top: 20px; background: var(--pastel-coral);">
                     <p><strong>Was passiert bei unkastrierten Katzen?</strong></p>
                     <ul>
                         <li><strong>Kater:</strong> Markieren, schreien, werden aggressiv, leiden unter Dauerstress</li>
@@ -64,13 +64,13 @@ get_template_part('tierliebe-parts/header');
         <!-- Mythos 3 -->
         <div class="accordion-item">
             <button class="accordion-header">
-                <span>❌ Mythos 3: "Wohnungshaltung geht problemlos – Katzen passen sich an"</span>
+                <span>🏠 Mythos 3: "Wohnungshaltung geht problemlos – Katzen passen sich an"</span>
                 <span class="accordion-icon">+</span>
             </button>
             <div class="accordion-content">
                 <h4>Die Wahrheit:</h4>
                 <p>Wohnungshaltung ist möglich – <strong>aber nur mit viel Abwechslung, Raum und Beschäftigung.</strong></p>
-                <div class="info-box" style="margin-top: 20px; background: var(--pastel-lavender);">
+                <div class="info-box" data-emoji="✅" style="margin-top: 20px; background: var(--pastel-lavender);">
                     <p><strong>Was brauchen Wohnungskatzen?</strong></p>
                     <ul>
                         <li>Mindestens <strong>2 Katzen</strong> (außer begründete Ausnahme)</li>

@@ -23,7 +23,7 @@ get_template_part('tierliebe-parts/header');
         <!-- Mythos 1 -->
         <div class="accordion-item">
             <button class="accordion-header">
-                <span>❌ Mythos 1: "Hunde können 8 Stunden allein sein – Hauptsache, sie haben genug Auslauf"</span>
+                <span>🐕 Mythos 1: "Hunde können 8 Stunden allein sein – Hauptsache, sie haben genug Auslauf"</span>
                 <span class="accordion-icon">+</span>
             </button>
             <div class="accordion-content">
@@ -44,7 +44,7 @@ get_template_part('tierliebe-parts/header');
         <!-- Mythos 2 -->
         <div class="accordion-item">
             <button class="accordion-header">
-                <span>❌ Mythos 2: "Ein Hund im Garten mit einem Hundekumpel ist doch glücklich – auch wenn ich arbeiten bin"</span>
+                <span>🏡 Mythos 2: "Ein Hund im Garten mit einem Hundekumpel ist doch glücklich – auch wenn ich arbeiten bin"</span>
                 <span class="accordion-icon">+</span>
             </button>
             <div class="accordion-content">
@@ -66,7 +66,7 @@ get_template_part('tierliebe-parts/header');
         <!-- Mythos 3 -->
         <div class="accordion-item">
             <button class="accordion-header">
-                <span>❌ Mythos 3: "Hunde auf einem Bauernhof oder mit viel Freigang leben natürlicher und glücklicher"</span>
+                <span>🌾 Mythos 3: "Hunde auf einem Bauernhof oder mit viel Freigang leben natürlicher und glücklicher"</span>
                 <span class="accordion-icon">+</span>
             </button>
             <div class="accordion-content">

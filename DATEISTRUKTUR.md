@@ -56,8 +56,7 @@ webworks-theme/
 ├── page-tierliebe-adoption.php   ← Adoption: Zucht/Kauf/Adoption, Prozess, Wirtschaftlichkeit
 ├── page-tierliebe-qualzucht.php  ← Qualzucht: 8 Rassen mit Bildern
 ├── page-tierliebe-wissen.php     ← Wissen: 4 Tabs (Kastration, M/W, Wenn's nicht klappt, Glossar)
-├── page-tierliebe-kontakt.php    ← Über & Kontakt: Motivation, Angebote, Formular
-└── page-tierliebe.php            ← Fallback/Legacy
+└── page-tierliebe-kontakt.php    ← Über & Kontakt: Motivation, Angebote, Formular
 ```
 
 **Naming Convention:** `page-tierliebe-{sektion}.php`
