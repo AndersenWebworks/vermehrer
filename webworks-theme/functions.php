@@ -407,3 +407,215 @@ function disable_emojis_remove_dns_prefetch($urls, $relation_type)
 _______________________________*/
 
 add_filter('show_admin_bar', '__return_false');
+
+
+/* TIERLIEBE EDITABLE TEXTS SYSTEM
+_______________________________*/
+
+// Register Custom Post Type for Tierliebe Texts
+function tierliebe_register_text_cpt() {
+    $args = array(
+        'label'                 => 'Tierliebe Texte',
+        'public'                => false,
+        'publicly_queryable'    => false,
+        'show_ui'               => true,
+        'show_in_menu'          => true,
+        'query_var'             => false,
+        'rewrite'               => false,
+        'capability_type'       => 'post',
+        'has_archive'           => false,
+        'hierarchical'          => false,
+        'menu_position'         => 20,
+        'menu_icon'             => 'dashicons-edit-page',
+        'supports'              => array('title', 'editor', 'revisions'),
+        'labels'                => array(
+            'name'               => 'Tierliebe Texte',
+            'singular_name'      => 'Tierliebe Text',
+            'add_new'            => 'Text hinzufügen',
+            'add_new_item'       => 'Neuen Text hinzufügen',
+            'edit_item'          => 'Text bearbeiten',
+            'new_item'           => 'Neuer Text',
+            'view_item'          => 'Text ansehen',
+            'search_items'       => 'Texte durchsuchen',
+            'not_found'          => 'Keine Texte gefunden',
+            'not_found_in_trash' => 'Keine Texte im Papierkorb',
+        ),
+    );
+
+    register_post_type('tierliebe_text', $args);
+}
+add_action('init', 'tierliebe_register_text_cpt');
+
+// Get Tierliebe Text Content by Page Slug
+function get_tierliebe_text($page_slug = 'home') {
+    // Check if we have a cached version
+    $transient_key = 'tierliebe_text_' . $page_slug;
+    $cached = get_transient($transient_key);
+
+    if ($cached !== false) {
+        return $cached;
+    }
+
+    // Query for the text post
+    $query = new WP_Query(array(
+        'post_type'      => 'tierliebe_text',
+        'name'           => 'tierliebe-' . $page_slug,
+        'posts_per_page' => 1,
+        'post_status'    => 'publish'
+    ));
+
+    if ($query->have_posts()) {
+        $query->the_post();
+        $content = get_the_content();
+        wp_reset_postdata();
+
+        // Parse markdown content into structured array
+        $parsed = tierliebe_parse_markdown($content);
+
+        // Cache for 1 hour
+        set_transient($transient_key, $parsed, HOUR_IN_SECONDS);
+
+        return $parsed;
+    }
+
+    return array();
+}
+
+// Parse Markdown content into structured array
+function tierliebe_parse_markdown($markdown) {
+    $data = array();
+
+    // Parse sections
+    $sections = preg_split('/^## /m', $markdown, -1, PREG_SPLIT_NO_EMPTY);
+
+    foreach ($sections as $section) {
+        $lines = explode("\n", trim($section));
+        $section_title = array_shift($lines);
+        $section_content = implode("\n", $lines);
+
+        // Clean markdown formatting
+        $section_content = tierliebe_clean_markdown($section_content);
+
+        // Store by section title (cleaned)
+        $key = sanitize_title($section_title);
+        $data[$key] = trim($section_content);
+    }
+
+    return $data;
+}
+
+// Clean Markdown formatting (simple - just remove ** and quotes)
+function tierliebe_clean_markdown($text) {
+    // Remove surrounding quotes
+    $text = trim($text, '"');
+
+    // Remove bold markers **text** - just keep the text
+    $text = preg_replace('/\*\*(.+?)\*\*/s', '$1', $text);
+
+    // Remove italic markers *text*
+    $text = preg_replace('/\*(.+?)\*/s', '$1', $text);
+
+    return trim($text);
+}
+
+// Clear cache when text is updated
+function tierliebe_clear_text_cache($post_id) {
+    $post = get_post($post_id);
+
+    if ($post && $post->post_type === 'tierliebe_text') {
+        // Extract page slug from post slug (remove 'tierliebe-' prefix)
+        $page_slug = str_replace('tierliebe-', '', $post->post_name);
+        delete_transient('tierliebe_text_' . $page_slug);
+    }
+}
+add_action('save_post', 'tierliebe_clear_text_cache');
+
+// AJAX Handler: Save edited text from frontend
+function tierliebe_save_text_ajax() {
+    // Security check
+    check_ajax_referer('tierliebe_edit_nonce', 'nonce');
+
+    // Admin only
+    if (!current_user_can('edit_posts')) {
+        wp_send_json_error('Keine Berechtigung');
+    }
+
+    $page_slug = sanitize_text_field($_POST['page_slug']);
+    $content = wp_kses_post($_POST['content']);
+
+    // Find existing post
+    $query = new WP_Query(array(
+        'post_type'      => 'tierliebe_text',
+        'name'           => 'tierliebe-' . $page_slug,
+        'posts_per_page' => 1,
+        'post_status'    => 'any'
+    ));
+
+    if ($query->have_posts()) {
+        $query->the_post();
+        $post_id = get_the_ID();
+        wp_reset_postdata();
+
+        // Update post
+        $updated = wp_update_post(array(
+            'ID'           => $post_id,
+            'post_content' => $content
+        ));
+
+        if ($updated) {
+            // Clear cache
+            delete_transient('tierliebe_text_' . $page_slug);
+            wp_send_json_success('Text gespeichert');
+        } else {
+            wp_send_json_error('Fehler beim Speichern');
+        }
+    } else {
+        wp_send_json_error('Text nicht gefunden');
+    }
+}
+add_action('wp_ajax_tierliebe_save_text', 'tierliebe_save_text_ajax');
+
+// Enqueue Edit Assets for Admins
+function tierliebe_enqueue_edit_assets() {
+    // Only for logged-in admins on Tierliebe pages
+    if (!current_user_can('edit_posts')) {
+        return;
+    }
+
+    $is_tierliebe_template = is_page_template('page-tierliebe.php') ||
+                              is_page_template('page-tierliebe-home.php') ||
+                              is_page_template('page-tierliebe-test.php') ||
+                              is_page_template('page-tierliebe-hunde.php') ||
+                              is_page_template('page-tierliebe-katzen.php') ||
+                              is_page_template('page-tierliebe-kleintiere.php') ||
+                              is_page_template('page-tierliebe-exoten.php') ||
+                              is_page_template('page-tierliebe-irrtuemer.php') ||
+                              is_page_template('page-tierliebe-adoption.php') ||
+                              is_page_template('page-tierliebe-qualzucht.php') ||
+                              is_page_template('page-tierliebe-wissen.php') ||
+                              is_page_template('page-tierliebe-kontakt.php');
+
+    if ($is_tierliebe_template) {
+        wp_enqueue_style(
+            'tierliebe-edit',
+            get_stylesheet_directory_uri() . '/css/tierliebe-edit.css',
+            array(),
+            '2.0.0'
+        );
+
+        wp_enqueue_script(
+            'tierliebe-edit',
+            get_stylesheet_directory_uri() . '/js/tierliebe-edit.js',
+            array('jquery'),
+            '1.0.0',
+            true
+        );
+
+        // Pass AJAX URL and nonce to JavaScript
+        wp_localize_script('tierliebe-edit', 'tierliebe_edit', array(
+            'ajax_url' => admin_url('admin-ajax.php'),
+            'nonce'    => wp_create_nonce('tierliebe_edit_nonce')
+        ));
+    }
+}
+add_action('wp_enqueue_scripts', 'tierliebe_enqueue_edit_assets');

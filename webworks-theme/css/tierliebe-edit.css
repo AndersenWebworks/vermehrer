@@ -1,0 +1,358 @@
+/* TIERLIEBE EDIT MODE - Admin Only
+_______________________________*/
+
+/* Fixed Edit Button (nur für Admins) */
+.tierliebe-edit-btn {
+    position: fixed;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 9999;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+}
+
+.tierliebe-edit-btn:hover {
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+}
+
+.tierliebe-edit-btn.active {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+/* Editable Elements in Edit Mode */
+body.edit-mode .editable {
+    outline: 2px dashed #667eea;
+    outline-offset: 4px;
+    position: relative;
+    cursor: text;
+    transition: all 0.2s ease;
+    min-height: 20px;
+}
+
+body.edit-mode .editable:hover {
+    outline-color: #f5576c;
+    background: rgba(102, 126, 234, 0.05);
+}
+
+body.edit-mode .editable:focus {
+    outline: 2px solid #667eea;
+    background: rgba(102, 126, 234, 0.1);
+}
+
+/* Visual feedback: Links look disabled in edit mode */
+body.edit-mode a {
+    opacity: 0.6;
+    cursor: default;
+}
+
+/* Editable areas inside links stay fully visible */
+body.edit-mode a .editable {
+    opacity: 1;
+    cursor: text;
+}
+
+/* Edit Mode Indicator */
+.edit-mode-indicator {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9998;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 12px 30px;
+    border-radius: 50px;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    animation: slideDown 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.edit-mode-indicator::before {
+    content: "✏️";
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateX(-50%) translateY(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(-50%) translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Save Button */
+.tierliebe-save-btn {
+    position: fixed;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 9999;
+    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(17, 153, 142, 0.4);
+    transition: all 0.3s ease;
+    font-weight: 600;
+    font-size: 16px;
+    display: none;
+}
+
+body.edit-mode .tierliebe-save-btn {
+    display: block;
+}
+
+.tierliebe-save-btn:hover {
+    transform: translateY(-50%) scale(1.05);
+    box-shadow: 0 6px 20px rgba(17, 153, 142, 0.6);
+}
+
+.tierliebe-save-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Success/Error Messages */
+.tierliebe-message {
+    position: fixed;
+    top: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+    padding: 15px 30px;
+    border-radius: 10px;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    animation: slideDown 0.3s ease;
+}
+
+.tierliebe-message.success {
+    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+    color: white;
+}
+
+.tierliebe-message.error {
+    background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%);
+    color: white;
+}
+
+/* Formatting Toolbar */
+.tierliebe-format-toolbar {
+    position: fixed;
+    z-index: 10000;
+    background: white;
+    border-radius: 8px;
+    padding: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    display: none;
+    gap: 5px;
+    animation: toolbarFadeIn 0.2s ease;
+}
+
+@keyframes toolbarFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.format-btn {
+    background: var(--pastel-lavender);
+    border: 2px solid transparent;
+    border-radius: 6px;
+    width: 38px;
+    height: 38px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: var(--text-dark);
+}
+
+.format-btn:hover {
+    background: var(--pastel-mint);
+    border-color: #667eea;
+    transform: scale(1.05);
+}
+
+.format-btn:active {
+    transform: scale(0.95);
+}
+
+.format-btn strong,
+.format-btn em,
+.format-btn u {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+/* URL Edit Modal */
+.url-edit-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 10001;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.2s ease;
+}
+
+.url-edit-modal.active {
+    display: flex;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.url-edit-box {
+    background: white;
+    border-radius: 12px;
+    padding: 30px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.url-edit-box h3 {
+    margin: 0 0 20px 0;
+    color: var(--text-dark);
+    font-size: 1.5rem;
+}
+
+.url-edit-box label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--text-medium);
+    font-weight: 600;
+}
+
+.url-edit-box input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid var(--pastel-lavender);
+    border-radius: 8px;
+    font-size: 16px;
+    font-family: inherit;
+    transition: border-color 0.2s ease;
+    box-sizing: border-box;
+}
+
+.url-edit-box input:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.url-edit-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 25px;
+}
+
+.url-edit-buttons button {
+    flex: 1;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.url-edit-buttons .btn-save {
+    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+    color: white;
+}
+
+.url-edit-buttons .btn-save:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 15px rgba(17, 153, 142, 0.4);
+}
+
+.url-edit-buttons .btn-cancel {
+    background: var(--pastel-lavender);
+    color: var(--text-dark);
+}
+
+.url-edit-buttons .btn-cancel:hover {
+    background: #ddd;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .tierliebe-edit-btn,
+    .tierliebe-save-btn {
+        width: 45px;
+        height: 45px;
+        font-size: 18px;
+    }
+
+    .tierliebe-save-btn {
+        padding: 12px 20px;
+        font-size: 14px;
+    }
+
+    .edit-mode-indicator {
+        font-size: 12px;
+        padding: 8px 15px;
+        max-width: 90%;
+        text-align: center;
+    }
+
+    .tierliebe-format-toolbar {
+        position: fixed;
+        bottom: 80px;
+        left: 50%;
+        transform: translateX(-50%);
+        top: auto !important;
+    }
+
+    .format-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 14px;
+    }
+}

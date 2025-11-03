@@ -50,7 +50,8 @@
       "Bash(tree:*)",
       "Bash(php -r:*)",
       "Bash(node wordpress-seo-automation.js:*)",
-      "Bash(node:*)"
+      "Bash(node:*)",
+      "Bash(where:*)"
     ],
     "deny": [],
     "ask": []

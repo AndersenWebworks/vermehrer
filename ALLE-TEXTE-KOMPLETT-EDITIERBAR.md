@@ -8,18 +8,125 @@
 
 ---
 
-## Header/Titel
+## STARTSEITE (Primary Hero & Sektionen)
+
+### Header/Titel
 **Du liebst Tiere?**
 
-## Untertitel
+### Untertitel
 "Dann lies hier nicht, was du hören willst – sondern was du wissen musst. Ehrlich. Klar. Und im Sinne der Tiere."
 
-## Einleitungstext
+### Einleitungstext
 "Bevor du ein Tier aufnimmst – Hund, Katze, Kaninchen, Welli oder Goldfisch – nimm dir ein paar Minuten für die Wahrheit. Denn: Gute Absichten reichen nicht. Verantwortung schon."
+
+### Hero-Buttons
+- **Button 1:** "✨ Bin ich bereit? → Zum Test"
+- **Button 2:** "📚 Wissen aufbauen"
 
 ---
 
 ## Sektion: Bin ich bereit für ein Tier?
+
+**Sektions-Titel:** "Bin ich bereit für ein Tier?"
+
+**Einleitungstext:**
+"Du denkst darüber nach, ein Tier aufzunehmen? Dann nimm dir bitte kurz Zeit für diese Fragen – ganz ehrlich, nur für dich. Denn ein Tier ist keine Phase. Es ist ein Teil deines Lebens – und komplett abhängig von dir."
+
+**Zentrale Frage:**
+"Bist du der Typ Tierhalter, den Tiere sich wünschen würden?"
+
+---
+
+### Info-Box: Ehrlichkeit ist der erste Schritt
+
+**Überschrift:** "Ehrlichkeit ist der erste Schritt zu echter Tierliebe"
+
+**Text:**
+"Wenn du bei einer Frage oder mehreren Fragen zögerst, ist das kein Grund zur Scham. Es ist ein Zeichen, dass du Verantwortung ernst nimmst – und das verdient Respekt."
+
+---
+
+### Info-Box: Bevor du ein Tier holst, frag dich ehrlich
+
+**Überschrift:** "💭 Bevor du ein Tier holst, frag dich ehrlich:"
+
+**Checkliste:**
+- Habe ich **Zeit**? Nicht nur am Wochenende – jeden Tag.
+- Habe ich **Geld**? Nicht nur für Futter – auch für Tierarzt, Ausstattung, Notfälle.
+- Habe ich **Platz**? Nicht nur einen Käfig – echten Raum zum Leben.
+- Bin ich bereit für **10, 15, 20 Jahre** Verantwortung?
+- Weiß ich, was das Tier **wirklich** braucht – nicht, was ich mir vorstelle?
+
+---
+
+### Decision Panels (Dual-Panel)
+
+#### Panel 1: Bin ich bereit?
+**Icon:** 🧠
+**Überschrift:** "Bin ich bereit?"
+**Beschreibung:** "Ein ehrlicher Test, der dir zeigt, ob du wirklich vorbereitet bist."
+
+**Vorteile:**
+- Realistische Fragen zu Zeit, Geld & Wissen
+- Ehrliche Auswertung ohne Schönfärberei
+- Hilft dir, die richtige Entscheidung zu treffen
+
+**Button:** "Zum Test →"
+
+#### Panel 2: Die Wahrheit über Haustiere
+**Icon:** 📖
+**Überschrift:** "Die Wahrheit über Haustiere"
+**Beschreibung:** "Was Hunde, Katzen, Kaninchen & Co. wirklich brauchen."
+
+**Vorteile:**
+- Mythen vs. Fakten für jede Tierart
+- Was verschwiegen wird
+- Warum "pflegeleicht" eine Lüge ist
+
+**Button:** "Zu den Tierarten →"
+
+---
+
+### Honesty Box: Die harte Wahrheit
+
+**Icon:** 💔
+**Überschrift:** "Die harte Wahrheit"
+
+**Statistiken:**
+"In Deutschland sitzen über **300.000 Tiere** in Tierheimen.
+Nur etwa **30%** werden pro Jahr vermittelt.
+Der Rest wartet. Oder stirbt."
+
+**Warum?**
+"Weil zu viele Menschen Tiere holen, ohne zu verstehen, was das bedeutet."
+
+**Kernaussage:**
+"Du liebst Tiere? Dann beweis es – indem du ehrlich bist."
+
+---
+
+### Einleitung: Die Wahrheit über Haustiere
+
+**Sektions-Titel:** "Die Wahrheit über Haustiere"
+
+**Einleitungstext:**
+"Katzen sind unabhängig? Hunde brauchen nur genügend Auslauf? Meerschweinchen sind perfekt für Kinder? Lass uns diese Mythen gemeinsam auf den Prüfstand stellen."
+
+---
+
+### Quick Links (Tierarten-Navigation)
+
+**Quick Link Karten:**
+1. 🐶 **Hunde** - "Mythen & Wahrheiten"
+2. 🐱 **Katzen** - "Was du wissen musst"
+3. 🐰 **Kleintiere** - "Kaninchen, Hamster & Co."
+4. 🦎 **Vögel & Exoten** - "Besondere Bedürfnisse"
+5. ⚠️ **Qualzucht** - "Leid erkennen"
+6. ❤️ **Adoption** - "Der richtige Weg"
+
+---
+
+## Sektion: Bin ich bereit für ein Tier? (Detailseite)
 
 "Du denkst darüber nach, ein Tier aufzunehmen? Dann nimm dir bitte kurz Zeit für diese Fragen – ganz ehrlich, nur für dich. Denn ein Tier ist keine Phase. Es ist ein Teil deines Lebens – und komplett abhängig von dir."
 
@@ -28,6 +135,124 @@
 **Call-to-Action:** "jetzt Test machen"
 
 **Hinweis:** "Ehrlichkeit ist der erste Schritt zu echter Tierliebe. Wenn du bei einer Frage oder mehreren Fragen zögerst, ist das kein Grund zur Scham. Es ist ein Zeichen, dass du Verantwortung ernst nimmst – und das verdient Respekt."
+
+---
+
+## SEITE: TEST - Bin ich bereit für ein Tier?
+
+**Sektions-Titel:** "✨ Bin ich bereit für ein Tier?"
+
+**Einleitungstext:**
+"Du denkst darüber nach, ein Tier aufzunehmen? Dann nimm dir bitte kurz Zeit für diese Fragen – ganz ehrlich, nur für dich. Denn ein Tier ist keine Phase. Es ist ein Teil deines Lebens – und komplett abhängig von dir."
+
+**Zentrale Frage:**
+"Bist du der Typ Tierhalter, den Tiere sich wünschen würden?"
+
+**Info-Box (Responsibility Box):**
+"Ehrlichkeit ist der erste Schritt zu echter Tierliebe. Wenn du bei einer Frage oder mehreren Fragen zögerst, ist das kein Grund zur Scham. Es ist ein Zeichen, dass du Verantwortung ernst nimmst – und das verdient Respekt."
+
+---
+
+## SEITE: IRRTÜMER & MYTHEN
+
+### Hero Section
+**Titel:** "💭 Die größten Irrtümer über Haustiere"
+
+**Untertitel:**
+"Viele Irrtümer halten sich hartnäckig – und kosten Tiere am Ende ihr Glück oder sogar ihr Leben. Hier findest du die häufigsten Missverständnisse – und wie es wirklich ist."
+
+### Filter-Buttons
+- Alle
+- 🐶 Hunde
+- 🐱 Katzen
+- 🐰 Kleintiere
+- 🦜 Vögel
+- 🦎 Exoten
+
+### CTA am Ende
+**Überschrift:** "Jetzt ehrlich prüfen: Bin ich bereit?"
+**Button:** "Zum Test →"
+
+---
+
+## SEITE: KONTAKT & ÜBER
+
+**Sektions-Titel:** "📧 Über & Kontakt"
+**Untertitel:** "Wer steckt dahinter?"
+
+### Persönliche Motivation
+
+**Icon:** ❤️
+**Überschrift:** "Warum ich all das mache"
+
+**Text:**
+"Ich bin **keine Tierärztin**, keine Organisation, kein Profi mit Spendensiegel.
+
+Ich bin einfach ein Mensch mit Herz für Tiere – und mit dem Wunsch, dass wir besser mit ihnen umgehen."
+
+---
+
+### Meine Erfahrung
+
+**Icon:** 💭
+**Überschrift:** "Meine Erfahrung"
+
+**Text:**
+"**Ich habe selbst erlebt, wie schwer es ist, gute Informationen zu finden.**
+
+Wie schnell man Fehler macht, obwohl man es gut meint. Und wie wenig es manchmal braucht, um Leid zu verhindern – durch **Wissen, Mitgefühl, Verantwortung.**"
+
+---
+
+### Das Ziel dieser Seite
+
+**Icon:** 🎯
+**Überschrift:** "Das Ziel dieser Seite"
+
+**Text:**
+"**Wenn diese Seite nur einen Menschen zum Umdenken bringt, nur ein Tier davor bewahrt, falsch gehalten oder abgeschoben zu werden, dann hat sie ihren Zweck erfüllt.**"
+
+---
+
+### Abschlussbotschaft
+
+**Icon:** 🐾
+**Überschrift:** "Tierliebe beginnt nicht mit einem Kauf."
+
+**Text:**
+"**Sie beginnt mit Wissen, Ehrlichkeit und Verantwortung.**"
+
+---
+
+### Du brauchst Hilfe?
+
+**Sektions-Titel:** "Du brauchst Hilfe?"
+
+**Einleitungstext:**
+"Ich bin kein Verein, keine Organisation – aber manchmal braucht es einfach jemanden, der zuhört."
+
+**Angebots-Karten:**
+
+#### Karte 1: Aufnahme & Urlaubsbetreuung
+**Icon:** 🏡
+**Überschrift:** "Aufnahme & Urlaubsbetreuung"
+**Text:** "Wellensittiche und Kleintiere (Kaninchen, Meerschweinchen, Schildkröten – sofern Platz)"
+
+#### Karte 2: Beratung bei Haltungsfragen
+**Icon:** 💬
+**Überschrift:** "Beratung bei Haltungsfragen"
+**Text:** "Hilfe bei Entscheidung für/gegen Tier, ehrliches Gespräch ohne Vorurteile"
+
+#### Karte 3: Persönliche Ansprache
+**Icon:** 🤝
+**Überschrift:** "Persönliche Ansprache"
+**Text:** "Jemand, der zuhört – ohne zu verurteilen"
+
+**Abschluss-Zitat:**
+"**Du musst nichts perfekt machen. Aber du kannst den Unterschied machen – für ein Lebewesen, das dich braucht.**"
+
+**Kontakt-Info:**
+"Bei Fragen, Anregungen oder Unterstützungsbedarf kannst du dich gerne melden über die Website [annemarie-andersen.de](https://www.annemarie-andersen.de)"
 
 ---
 
@@ -976,6 +1201,336 @@
 35. **Vorkontrolle** – "Überprüfung des neuen Zuhauses durch ein Tierheim vor der Adoption, um sicherzustellen, dass das Tier artgerecht gehalten wird."
 
 **Hinweis:** "Weitere Fragen zu diesen oder anderen Begriffen? Schreib mir – ich helfe dir gern weiter."
+
+---
+
+---
+
+## SEITE: HUNDE - Detaillierte Accordion-Mythen
+
+**Sektions-Titel:** "🐶 Hunde"
+**Untertitel:** "Mythen vs. Fakten"
+
+### Accordion-Mythen
+
+#### Mythos 1: "Hunde können 8 Stunden allein sein – Hauptsache, sie haben genug Auslauf"
+
+**Die Wahrheit:**
+Hunde sind **Rudeltiere** mit komplexem Sozialverhalten. Sie brauchen täglich Interaktion, Training und geistige Auslastung – nicht nur körperliche Bewegung.
+
+**Fakt:** Hunde können nicht gut allein sein. 4 Stunden sind schon viel. 8 Stunden täglich ist Tierquälerei.
+
+**Was passiert?**
+- Stress, Angst, Einsamkeit
+- Trennungsangst entwickelt sich schleichend
+- Viele Hunde resignieren – sie wirken "brav", leiden aber still
+
+---
+
+#### Mythos 2: "Ein Hund im Garten mit einem Hundekumpel ist doch glücklich – auch wenn ich arbeiten bin"
+
+**Die Wahrheit:**
+**Ja, das ist besser als ein Hund allein in der Wohnung** – aber es bleibt ein Kompromiss, keine Empfehlung.
+
+**Voraussetzungen, damit es überhaupt funktioniert:**
+- Die Hunde sind sozial, gut verträglich und wirklich miteinander verbunden
+- Beide sind schrittweise ans Alleinsein gewöhnt worden
+- Der Garten ist sicher, groß, bietet Schatten, Wasser und Rückzugsorte
+- Vor und nach dem Alleinsein gibt es ausgedehnte Spaziergänge, Spiel und Aufmerksamkeit vom Menschen
+
+**Aber:** Auch mehrere Hunde können ihre Bezugsperson vermissen. Der Garten ersetzt keinen Spaziergang und keine echte Beziehung.
+
+---
+
+#### Mythos 3: "Hunde auf einem Bauernhof oder mit viel Freigang leben natürlicher und glücklicher"
+
+**Die Wahrheit:**
+Das stimmt teilweise – **aber nur, wenn der Mensch trotzdem präsent ist.**
+
+**Problem:**
+- Viele "Hofhunde" sind isoliert, haben keinen echten Kontakt zu Menschen
+- Sie werden nicht erzogen, nicht gepflegt, nicht beachtet
+- Oft sind sie angekettet oder in Zwingern – "frei" ist das Gegenteil
+
+**Faustregel:** Raum allein macht keinen Hund glücklich. Bindung tut es.
+
+---
+
+**Die Fakten:**
+- Hunde sind Rudeltiere mit komplexem Sozialverhalten. Tägliche Interaktion, Training und geistige Auslastung sind Pflicht.
+- Hunde können nicht gut allein sein. 4 Stunden sind schon viel, 8 Stunden täglich ist Tierquälerei.
+
+---
+
+## SEITE: KATZEN - Detaillierte Accordion-Mythen
+
+**Sektions-Titel:** "🐱 Katzen"
+**Untertitel:** "Mythen vs. Fakten"
+
+### Accordion-Mythen
+
+#### Mythos 1: "Katzen sind Einzelgänger – die brauchen keinen Partner"
+
+**Die Wahrheit:**
+Katzen sind **keine** Einzelgänger – sie sind Einzeljäger. Das ist ein Unterschied.
+
+**Fakt:** Katzen brauchen Bindung, sichere Rückzugsorte und Ansprache. Einzelhaltung ist fast immer Tierquälerei – außer in begründeten Ausnahmefällen (z. B. ältere Tierschutzkatze, die nie mit Artgenossen gelebt hat).
+
+**Was passiert bei Einzelhaltung?**
+- Langeweile, Frustration, Einsamkeit
+- Verhaltensstörungen (Aggression, Unsauberkeit, Zerstörungswut)
+- Stilles Leiden – Katzen zeigen Schmerz oft nicht sichtbar
+
+---
+
+#### Mythos 2: "Kastration ist optional – meine Katze kommt ja nicht raus"
+
+**Die Wahrheit:**
+**Kastration ist KEINE Option – sie ist PFLICHT.**
+
+**Was passiert bei unkastrierten Katzen?**
+- **Kater:** Markieren, schreien, werden aggressiv, leiden unter Dauerstress
+- **Katzen:** Rolligkeit = Dauerstress, jaulendes Verhalten, Unsauberkeit
+- Scheinträchtigkeit, Gebärmutterentzündungen, Eierstockzysten
+- Gefahr ungewollter Trächtigkeit – selbst bei Wohnungskatzen (Fenster, Balkon, Tür)
+
+**Fakt:** Unkastrierte Katzen leiden. Kastration verhindert Krankheiten, Stress und ungewollte Vermehrung.
+
+---
+
+#### Mythos 3: "Wohnungshaltung geht problemlos – Katzen passen sich an"
+
+**Die Wahrheit:**
+Wohnungshaltung ist möglich – **aber nur mit viel Abwechslung, Raum und Beschäftigung.**
+
+**Was brauchen Wohnungskatzen?**
+- Mindestens **2 Katzen** (außer begründete Ausnahme)
+- Genug Platz zum Klettern, Verstecken, Spielen
+- Tägliches Spielen und Ansprechen durch den Menschen
+- Kratzmöglichkeiten, Aussichtsplätze, Rückzugsorte
+- Katzengras, Spielzeug, Abwechslung
+
+**Wichtig:** Wohnungshaltung bleibt immer ein Kompromiss – kein Ersatz für Natur, frische Luft, Jagd und Freiheit.
+
+---
+
+**Die Fakten:**
+- Katzen brauchen Bindung, sichere Rückzugsorte und Ansprache.
+- Unkastrierte Katzen leiden: sie markieren, schreien, werden krank.
+- Reine Wohnungshaltung ist nur mit viel Abwechslung, Raum und Beschäftigung artgerecht.
+- Einzelhaltung ist fast immer Tierquälerei – außer in begründeten Ausnahmefällen (z. B. ältere Tierschutzkatze).
+
+---
+
+## SEITE: KLEINTIERE - Detaillierte Accordion-Mythen
+
+**Sektions-Titel:** "🐰 Kleintiere"
+**Untertitel:** "Die Wahrheit über 'einfache' Haustiere"
+
+**Wichtige Warnung:**
+"**Kleintiere sind keine Einstiegstiere – sie sind oft anspruchsvoller als Hund oder Katze.**"
+
+### Tab-Navigation:
+- 🐰 Kaninchen & Meerschweinchen
+- 🐹 Hamster
+- 🐭 Mäuse & Ratten
+- 🐿️ Degus & Chinchillas
+
+---
+
+### Tab: Kaninchen & Meerschweinchen
+
+#### Mythos 1: "Perfekte Haustiere für Kinder"
+
+**Die Wahrheit:**
+Kaninchen und Meerschweinchen sind **Fluchttiere** – sie haben Angst vor schnellen Bewegungen, lauten Geräuschen und festen Griffen.
+
+**Warum das für Kinder problematisch ist:**
+- Kinder wollen kuscheln – die Tiere wollen flüchten
+- Kinder sind laut und hektisch – Stress für Fluchttiere
+- Verantwortung bleibt bei Erwachsenen
+
+**Fakt:** Diese Tiere sind NICHT für Kinder geeignet. Sie brauchen ruhige, geduldige Betreuung.
+
+---
+
+#### Mythos 2: "Ein Käfig im Kinderzimmer reicht"
+
+**Die Wahrheit:**
+**Käfige sind viel zu klein** und Kinderzimmer der falsche Ort.
+
+**Was sie wirklich brauchen:**
+- Mindestens 4 m² Grundfläche pro Tier
+- Ruhiger Raum (nicht Kinderzimmer!)
+- Tageslicht, frische Luft, konstante Temperatur
+- Strukturierte Einrichtung: Verstecke, Aussichtsplätze
+
+**Fakt:** Kommerzielle Käfige sind fast immer Tierquälerei.
+
+---
+
+#### Mythos 3: "Man kann Kaninchen und Meerschweinchen zusammen halten"
+
+**Die Wahrheit:**
+**NEIN! Niemals!** Sie haben unterschiedliche Sprachen, Bedürfnisse und Stresslevel.
+
+**Warum das nicht funktioniert:**
+- Sie sprechen unterschiedliche "Sprachen"
+- Meerschweinchen sind dem Kaninchen unterlegen
+- Beide leiden unter der falschen Gesellschaft
+
+**Richtig:** Kaninchen nur mit Kaninchen (ideal: kastriertes Männchen + Weibchen), Meerschweinchen nur mit Meerschweinchen in Gruppen.
+
+---
+
+#### Mythos 4: "Einzelhaltung geht, wenn man sich viel kümmert"
+
+**Die Wahrheit:**
+**Einzelhaltung ist Tierquälerei** – egal wie viel Zuwendung du gibst.
+
+**Warum der Mensch nicht reicht:**
+- Du sprichst nicht ihre Sprache
+- Du kannst ihr Sozialverhalten nicht nachahmen
+- Körperwärme, Putzen, Kuscheln fehlt
+- Sie brauchen artgerechte Gesellschaft 24/7
+
+**Fakt:** Jedes Tier braucht mindestens einen Artgenossen. Immer.
+
+---
+
+**Die Fakten im Überblick:**
+- Beide sind Fluchttiere, die Lärm und schnelle Bewegungen schlecht verkraften
+- **Einzelhaltung ist Tierquälerei** – jedes Tier braucht Artgenossen
+- Erforderlicher Platz: mindestens 4 m² pro Tier
+- Kommerzielle Käfige sind fast immer zu klein
+- Kinderzimmer sind ungeeignet (zu laut, unruhig, falsches Klima)
+
+**Kritische Warnung:**
+"**Kaninchen und Meerschweinchen dürfen nicht gemeinsam gehalten werden!**"
+
+---
+
+## SEITE: VÖGEL & EXOTEN - Detaillierte Tab-Inhalte
+
+**Sektions-Titel:** "🦜 Vögel & Exoten"
+**Untertitel:** "Für 99% ungeeignet"
+
+**Kernaussage:**
+"**Exoten sind keine Dekoration. Sie gehören nicht in Wohnzimmer.**"
+
+"Reptilien und Fische leben in hochkomplexen Ökosystemen, die wir im Wohnzimmer niemals nachbilden können."
+
+### Tab-Navigation:
+- 🦜 Wellensittich
+- 🐠 Goldfisch
+- 🦎 Reptilien
+- 🐢 Schildkröten
+
+---
+
+### Tab: Wellensittich
+
+**Mythen-Karten:**
+- ❌ Mythos 1: "Ein Wellensittich allein spricht besser"
+- ❌ Mythos 2: "Ein Käfig reicht"
+- ❌ Mythos 3: "Spiegel/Mensch ersetzt Partner"
+- ❌ Mythos 4: "Wellensittiche brauchen keine UV-Lampe"
+
+**Fakten:**
+- Benötigen Artgenossen – Einzelhaltung ist grausam
+- Können UV-Licht sehen; normales Fensterlicht ist "dunkel"
+- Leben in der Wohnung quasi in ständiger Dämmerung
+- Brauchen Tageslicht oder spezielle UV-Lampen
+- Käfig im Wohnzimmer = Dauerstress
+- Täglicher Freiflug ist notwendig
+- **UV-Lampen sind PFLICHT:** Ohne UV-Licht können sie Farben nicht richtig sehen und entwickeln Verhaltensstörungen
+
+**Wichtig:**
+"Viele Wellensittiche leiden still. Ein apathischer oder ruhiger Vogel wird als 'zahm' missverstanden – dabei steckt dahinter Angst, Einsamkeit oder Resignation."
+
+**Kernaussage:**
+"**Vögel gehören an den Himmel. Selbst die größte Voliere bleibt ein Käfig.**"
+
+---
+
+### Tab: Goldfisch
+
+**Mythen-Karten:**
+- ❌ Mythos 1: "Goldfische sind robust – die leben überall"
+- ❌ Mythos 2: "Ein kleines Becken reicht"
+- ❌ Mythos 3: "Goldfische werden nur 2-3 Jahre alt"
+- ❌ Mythos 4: "Man braucht keinen Filter"
+
+**Fakten:**
+- Benötigen mindestens 100 Liter pro Fisch
+- Alles darunter ist Tierquälerei
+- Brauchen Filter, Sauerstoff und Pflege
+- Viele Goldfische werden 10, 15 oder 20 Jahre alt
+- **Lebenserwartung:** Bei artgerechter Haltung 15-20 Jahre – aber viele sterben in kleinen Gläsern nach Wochen
+- **Filter SIND notwendig:** Ohne Filter ersticken sie an ihren eigenen Ausscheidungen
+
+**Schleierschwanz-Problematik:**
+- Überlange Flossen = Schwimmprobleme
+- Hervorstehende Augen = Verletzungsgefahr
+- Verkürzte Wirbelsäule durch Zucht
+
+**Wichtig:**
+"Ein regloser Goldfisch am Boden wird als 'faul' fehlinterpretiert – dabei ist es oft ein Hilfeschrei."
+
+---
+
+### Tab: Reptilien
+
+**Mythen-Karten:**
+- ❌ Mythos 1: "Brauchen keinen Winterschlaf, keine Sonne"
+- ❌ Mythos 2: "Ein kleines Terrarium reicht"
+- ❌ Mythos 3: "Pflegeleicht und anspruchslos"
+- ❌ Mythos 4: "Zeigen Schmerz nicht – also leiden sie nicht"
+
+**Fakten:**
+- Brauchen teure Technik, Fachwissen, Temperaturkontrolle
+- Spezielles Futter erforderlich
+- Nicht für Kinderhände geeignet
+- Hochkomplexe Ökosysteme können im Wohnzimmer nicht nachgebildet werden
+- **Stilles Leiden:** Reptilien zeigen Schmerz nicht durch Laute – ein regloser Leguan ist kein "faules" Tier, sondern oft ein sterbendes
+
+**Häufige Fehler:**
+Falsche UV-Lampe, keine Wärmeinseln, zu wenig Feuchtigkeit. Folgen: Stoffwechselkrankheiten, Häutungsprobleme, Organversagen.
+
+**Albino-Reptilien:**
+- Sehschwäche durch Pigmentmangel
+- Lichtempfindlichkeit = Stress
+- Höhere Krankheitsanfälligkeit
+- Überleben in Natur fast nie
+
+**Wichtig:**
+"Reptilien zeigen keine typischen Schmerzreaktionen. Ein regloser Leguan wird als 'faul' fehlinterpretiert – dabei ist es oft ein Hilfeschrei."
+
+---
+
+### Tab: Schildkröten
+
+**Mythen-Karten:**
+- ❌ Mythos 1: "Sind pflegeleicht – Terrarium oder Balkon reicht"
+- ❌ Mythos 2: "Brauchen keinen Winterschlaf"
+- ❌ Mythos 3: "Werden nicht so alt"
+- ❌ Mythos 4: "Kann man gut in der Wohnung halten"
+
+**Fakten:**
+- Brauchen großes Freigehege mit Verstecken, Pflanzen, Erde, UV-Licht, Wärmelampe
+- Benötigen Winterschlaf
+- Viele Arten werden 50 bis 100 Jahre alt – kein Tier für ein paar Jahre
+- Haltung im Terrarium ist meist tierschutzwidrig
+- **Lebenszeit-Verantwortung:** Eine Schildkröte kann dich überleben – wer übernimmt sie dann?
+- **Wohnungshaltung unmöglich:** Selbst große Terrarien können Freigehege nicht ersetzen
+
+**Häufige Fehler:**
+- Haltung ohne Winterschlaf (Organschäden)
+- Keine UVB-Versorgung (Knochenerweichung)
+- Falsches Futter (zu viel Obst, zu wenig Wildkräuter)
+
+**Kernaussage:**
+"**Schildkröten sind stille Mitbewohner – aber sie haben eine laute Wahrheit: Verantwortung dauert ein Leben lang.**"
 
 ---
 
