@@ -448,22 +448,7 @@ function tierliebe_register_text_cpt() {
 }
 add_action('init', 'tierliebe_register_text_cpt');
 
-// Register Meta Field for REST API
-function tierliebe_register_meta_fields() {
-    register_post_meta('tierliebe_text', 'tierliebe_content', array(
-        'type'         => 'array',
-        'single'       => true,
-        'show_in_rest' => array(
-            'schema' => array(
-                'type'  => 'object',
-                'additionalProperties' => array(
-                    'type' => 'string',
-                ),
-            ),
-        ),
-    ));
-}
-add_action('init', 'tierliebe_register_meta_fields');
+// Meta Field Registration removed - now using JSON in post_content directly
 
 // Get Tierliebe Text Content by Page Slug
 function get_tierliebe_text($page_slug = 'home') {
@@ -476,9 +461,12 @@ function get_tierliebe_text($page_slug = 'home') {
     }
 
     // Query for the text post
+    // Note: Home page has slug 'tierliebe-home', others have just their name (e.g. 'adoption')
+    $post_slug = ($page_slug === 'home') ? 'tierliebe-home' : $page_slug;
+
     $query = new WP_Query(array(
         'post_type'      => 'tierliebe_text',
-        'name'           => 'tierliebe-' . $page_slug,
+        'name'           => $post_slug,
         'posts_per_page' => 1,
         'post_status'    => 'publish'
     ));
@@ -488,8 +476,13 @@ function get_tierliebe_text($page_slug = 'home') {
         $content = get_the_content();
         wp_reset_postdata();
 
-        // Parse markdown content into structured array
-        $parsed = tierliebe_parse_markdown($content);
+        // Parse JSON content into structured array
+        $parsed = json_decode($content, true);
+
+        // Fallback to empty array if JSON is invalid
+        if (!is_array($parsed)) {
+            $parsed = array();
+        }
 
         // Cache for 1 hour
         set_transient($transient_key, $parsed, HOUR_IN_SECONDS);
@@ -498,43 +491,6 @@ function get_tierliebe_text($page_slug = 'home') {
     }
 
     return array();
-}
-
-// Parse Markdown content into structured array
-function tierliebe_parse_markdown($markdown) {
-    $data = array();
-
-    // Parse sections
-    $sections = preg_split('/^## /m', $markdown, -1, PREG_SPLIT_NO_EMPTY);
-
-    foreach ($sections as $section) {
-        $lines = explode("\n", trim($section));
-        $section_title = array_shift($lines);
-        $section_content = implode("\n", $lines);
-
-        // Clean markdown formatting
-        $section_content = tierliebe_clean_markdown($section_content);
-
-        // Store by section title (cleaned)
-        $key = sanitize_title($section_title);
-        $data[$key] = trim($section_content);
-    }
-
-    return $data;
-}
-
-// Clean Markdown formatting (simple - just remove ** and quotes)
-function tierliebe_clean_markdown($text) {
-    // Remove surrounding quotes
-    $text = trim($text, '"');
-
-    // Remove bold markers **text** - just keep the text
-    $text = preg_replace('/\*\*(.+?)\*\*/s', '$1', $text);
-
-    // Remove italic markers *text*
-    $text = preg_replace('/\*(.+?)\*/s', '$1', $text);
-
-    return trim($text);
 }
 
 // Clear cache when text is updated
@@ -560,12 +516,38 @@ function tierliebe_save_text_ajax() {
     }
 
     $page_slug = sanitize_text_field($_POST['page_slug']);
-    $content = wp_kses_post($_POST['content']);
+
+    // V2 sends HTML comment wrapped JSON: <!--TIERLIEBE_HTML_START-->{"key":"value"}<!--TIERLIEBE_HTML_END-->
+    // Extract the JSON string (use stripslashes to handle WordPress escaping)
+    $raw_content = stripslashes($_POST['content']);
+
+    if (preg_match('/<!--TIERLIEBE_HTML_START-->(.*)<!--TIERLIEBE_HTML_END-->/s', $raw_content, $matches)) {
+        // Decode JSON to validate it
+        $json_data = json_decode($matches[1], true);
+
+        if (is_array($json_data)) {
+            // Re-encode to ensure clean JSON format in post_content
+            $content = json_encode($json_data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+        } else {
+            $error_msg = 'Ungültiges JSON-Format';
+            if (json_last_error() !== JSON_ERROR_NONE) {
+                $error_msg .= ': ' . json_last_error_msg();
+            }
+            wp_send_json_error($error_msg);
+            return;
+        }
+    } else {
+        wp_send_json_error('Ungültiges Content-Format');
+        return;
+    }
 
     // Find existing post
+    // Note: Home page has slug 'tierliebe-home', others have just their name (e.g. 'adoption')
+    $post_slug = ($page_slug === 'home') ? 'tierliebe-home' : $page_slug;
+
     $query = new WP_Query(array(
         'post_type'      => 'tierliebe_text',
-        'name'           => 'tierliebe-' . $page_slug,
+        'name'           => $post_slug,
         'posts_per_page' => 1,
         'post_status'    => 'any'
     ));
@@ -575,15 +557,28 @@ function tierliebe_save_text_ajax() {
         $post_id = get_the_ID();
         wp_reset_postdata();
 
-        // Update post
-        $updated = wp_update_post(array(
-            'ID'           => $post_id,
-            'post_content' => $content
-        ));
+        // Update post content directly in database to avoid WordPress filters
+        // (wpautop, etc. would break our JSON)
+        global $wpdb;
+        $updated = $wpdb->update(
+            $wpdb->posts,
+            array('post_content' => $content),
+            array('ID' => $post_id),
+            array('%s'),
+            array('%d')
+        );
 
-        if ($updated) {
-            // Clear cache
+        if ($updated !== false) {
+            // Clear cache (both transient and object cache)
             delete_transient('tierliebe_text_' . $page_slug);
+            wp_cache_delete($post_id, 'posts');
+            wp_cache_delete($post_id, 'post_meta');
+
+            // Clear all page caches if caching plugin exists
+            if (function_exists('wp_cache_flush')) {
+                wp_cache_flush();
+            }
+
             wp_send_json_success('Text gespeichert');
         } else {
             wp_send_json_error('Fehler beim Speichern');
@@ -624,9 +619,9 @@ function tierliebe_enqueue_edit_assets() {
 
         wp_enqueue_script(
             'tierliebe-edit',
-            get_stylesheet_directory_uri() . '/js/tierliebe-edit.js',
+            get_stylesheet_directory_uri() . '/js/tierliebe-edit-v2.js',
             array('jquery'),
-            '1.0.0',
+            '2.0.0',
             true
         );
 

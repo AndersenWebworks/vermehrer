@@ -1,8 +1,11 @@
 {
   "permissions": {
     "allow": [
-      "Bash(for file in page-tierliebe-home.php page-tierliebe-adoption.php page-tierliebe-qualzucht.php page-tierliebe-wissen.php page-tierliebe-hunde.php page-tierliebe-katzen.php page-tierliebe-kleintiere.php page-tierliebe-exoten.php)",
-      "Bash(do echo \"=== $file ===\")"
+      "Bash(python restore-from-templates.py:*)",
+      "Bash(git mv:*)",
+      "Bash(find:*)",
+      "Bash(awk:*)",
+      "Bash(git add:*)"
     ],
     "deny": [],
     "ask": []

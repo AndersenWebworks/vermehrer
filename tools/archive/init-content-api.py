@@ -92,18 +92,25 @@ def update_post_meta(post_id, content_data):
     response = requests.post(
         f"{WP_URL}/wp-json/wp/v2/tierliebe_text/{post_id}",
         json={
-            'meta': {
-                'tierliebe_content': content_data
-            }
+            'tierliebe_content': content_data  # Direkt, nicht in 'meta'!
         },
         auth=HTTPBasicAuth(WP_USER, WP_APP_PASSWORD)
     )
 
     if response.status_code == 200:
-        return True
+        # Pruefe ob Daten wirklich gespeichert wurden
+        result = response.json()
+        saved_count = len(result.get('tierliebe_content', {}))
+        expected_count = len(content_data)
+
+        if saved_count == expected_count:
+            return True
+        else:
+            print(f"  ! Warnung: Nur {saved_count} von {expected_count} Feldern gespeichert")
+            return False
     else:
         print(f"  X Fehler beim Aktualisieren der Meta-Daten: {response.status_code}")
-        print(f"  Response: {response.text}")
+        print(f"  Response: {response.text[:200]}")
         return False
 
 def main():

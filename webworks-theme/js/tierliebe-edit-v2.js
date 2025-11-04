@@ -155,8 +155,6 @@
                     }
                 }, 200);
             });
-
-            console.log('✏️ Edit Mode aktiviert');
         } else {
             // Exit Edit Mode
             exitEditMode();
@@ -189,8 +187,6 @@
         $('.editable').attr('contenteditable', 'false').off('focus blur');
         $currentEditable = null;
         isEditMode = false;
-
-        console.log('🔒 Edit Mode deaktiviert');
     }
 
     // Save Changes via AJAX
@@ -223,8 +219,6 @@
             return;
         }
 
-        console.log('💾 Speichere ' + allContent.length + ' Änderungen...');
-
         // Disable button
         $('.tierliebe-save-btn').prop('disabled', true).text('💾 Wird gespeichert...');
 
@@ -248,11 +242,8 @@
                     // Update original contents
                     storeOriginalContents();
 
-                    // Exit edit mode
-                    setTimeout(function() {
-                        exitEditMode();
-                        location.reload();
-                    }, 1500);
+                    // Exit edit mode (no reload needed - changes are already visible)
+                    exitEditMode();
                 } else {
                     showMessage('Fehler: ' + response.data, 'error');
                 }
