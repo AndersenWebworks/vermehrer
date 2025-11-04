@@ -7,13 +7,15 @@
  */
 
 get_template_part('tierliebe-parts/header');
+
+$content = get_tierliebe_text('wissen');
 ?>
 
 <!-- Hero Section -->
 <section class="primary-hero" style="min-height: 50vh;">
     <div class="hero-content">
-        <h1 class="hero-title">📚 Wissen, das rettet</h1>
-        <p class="hero-subtitle">Kastration, Geschlechter-Unterschiede, Notfallplan & Glossar</p>
+        <h1 class="hero-title editable" data-key="hero-titel"><?php echo isset($content['hero-titel']) ? wp_kses_post($content['hero-titel']) : '📚 Wissen, das rettet'; ?></h1>
+        <p class="hero-subtitle editable" data-key="hero-subtitle"><?php echo isset($content['hero-subtitle']) ? wp_kses_post($content['hero-subtitle']) : 'Kastration, Geschlechter-Unterschiede, Notfallplan & Glossar'; ?></p>
     </div>
 </section>
 
@@ -23,32 +25,31 @@ get_template_part('tierliebe-parts/header');
         <!-- Main Tabs -->
         <div class="tab-container">
             <div class="tab-buttons">
-                <button class="tab-btn active" data-tab="kastration">Kastration</button>
-                <button class="tab-btn" data-tab="geschlechter">Männchen vs. Weibchen</button>
-                <button class="tab-btn" data-tab="notfall">Wenn's nicht klappt</button>
-                <button class="tab-btn" data-tab="glossar">Glossar</button>
+                <button class="tab-btn active" data-tab="kastration"><span class="editable" data-key="tab-1-button"><?php echo isset($content['tab-1-button']) ? esc_html(strip_tags($content['tab-1-button'])) : 'Kastration'; ?></span></button>
+                <button class="tab-btn" data-tab="geschlechter"><span class="editable" data-key="tab-2-button"><?php echo isset($content['tab-2-button']) ? esc_html(strip_tags($content['tab-2-button'])) : 'Männchen vs. Weibchen'; ?></span></button>
+                <button class="tab-btn" data-tab="notfall"><span class="editable" data-key="tab-3-button"><?php echo isset($content['tab-3-button']) ? esc_html(strip_tags($content['tab-3-button'])) : 'Wenn\'s nicht klappt'; ?></span></button>
+                <button class="tab-btn" data-tab="glossar"><span class="editable" data-key="tab-4-button"><?php echo isset($content['tab-4-button']) ? esc_html(strip_tags($content['tab-4-button'])) : 'Glossar'; ?></span></button>
             </div>
 
             <!-- Tab Content 1: Kastration -->
             <div class="tab-content active" id="tab-kastration">
-                <h2 style="margin-bottom: 30px;">💉 Kastration: Warum sie Pflicht ist</h2>
+                <h2 class="editable" data-key="kastration-titel" style="margin-bottom: 30px;"><?php echo isset($content['kastration-titel']) ? wp_kses_post($content['kastration-titel']) : '💉 Kastration: Warum sie Pflicht ist'; ?></h2>
 
                 <div class="info-box" style="background: var(--pastel-mint); margin-bottom: 40px;">
-                    <p style="font-size: 1.2rem; line-height: 1.8;">
-                        <strong>Unkastrierte Tiere sind nicht "natürlicher" – sie sind oft gestresst, krank oder ständig in Not.</strong><br>
-                        Wer nicht kastriert, nimmt Tierleid in Kauf.
+                    <p class="editable" data-key="kastration-intro" style="font-size: 1.2rem; line-height: 1.8;">
+                        <?php echo isset($content['kastration-intro']) ? wp_kses_post($content['kastration-intro']) : '<strong>Unkastrierte Tiere sind nicht "natürlicher" – sie sind oft gestresst, krank oder ständig in Not.</strong><br>Wer nicht kastriert, nimmt Tierleid in Kauf.'; ?>
                     </p>
                 </div>
 
                 <div class="accordion">
                     <div class="accordion-item">
                         <button class="accordion-header">
-                            <span>Folgen bei Nichtkastration</span>
+                            <span class="editable" data-key="kastration-acc-1-header"><?php echo isset($content['kastration-acc-1-header']) ? esc_html(strip_tags($content['kastration-acc-1-header'])) : 'Folgen bei Nichtkastration'; ?></span>
                             <span class="accordion-icon">+</span>
                         </button>
                         <div class="accordion-content">
                             <h4>Rüden & Kater:</h4>
-                            <ul>
+                            <ul class="editable" data-key="wissen-liste-1">
                                 <li>Dauerhafte Unruhe, Markieren, Streunen, Revierkämpfe</li>
                                 <li>Verletzungen durch Kämpfe oder Unfälle</li>
                                 <li>Frust durch nicht auslebbaren Sexualtrieb</li>
@@ -56,7 +57,7 @@ get_template_part('tierliebe-parts/header');
                             </ul>
 
                             <h4 style="margin-top: 25px;">Hündinnen & Katzen:</h4>
-                            <ul>
+                            <ul class="editable" data-key="wissen-liste-2">
                                 <li>Rolligkeit = Dauerstress, jaulendes Verhalten, Unsauberkeit</li>
                                 <li>Scheinträchtigkeit, Gebärmutterentzündungen, Eierstockzysten</li>
                                 <li>Gefahr ungewollter Trächtigkeit – selbst bei Wohnungskatzen</li>
@@ -67,7 +68,7 @@ get_template_part('tierliebe-parts/header');
 
                     <div class="accordion-item">
                         <button class="accordion-header">
-                            <span>Früh- vs. Spätkastration</span>
+                            <span class="editable" data-key="kastration-acc-2-header"><?php echo isset($content['kastration-acc-2-header']) ? esc_html(strip_tags($content['kastration-acc-2-header'])) : 'Früh- vs. Spätkastration'; ?></span>
                             <span class="accordion-icon">+</span>
                         </button>
                         <div class="accordion-content">
@@ -81,7 +82,7 @@ get_template_part('tierliebe-parts/header');
 
                             <div class="info-box" style="margin-top: 25px; background: var(--pastel-lavender);">
                                 <strong>Empfehlung:</strong>
-                                <ul style="margin-top: 10px;">
+                                <ul class="editable" data-key="wissen-liste-3" style="margin-top: 10px;">
                                     <li>Bei Katzen: Frühkastration ab 12 Wochen</li>
                                     <li>Bei Hunden: Abhängig von Rasse, Größe und individueller Entwicklung</li>
                                     <li>Immer mit Tierarzt besprechen!</li>
@@ -92,14 +93,14 @@ get_template_part('tierliebe-parts/header');
 
                     <div class="accordion-item">
                         <button class="accordion-header">
-                            <span>Wirtschaftlicher Aspekt</span>
+                            <span class="editable" data-key="kastration-acc-3-header"><?php echo isset($content['kastration-acc-3-header']) ? esc_html(strip_tags($content['kastration-acc-3-header'])) : 'Wirtschaftlicher Aspekt'; ?></span>
                             <span class="accordion-icon">+</span>
                         </button>
                         <div class="accordion-content">
                             <p><strong>Viele glauben, Kastration sei "teuer".</strong><br>
                             Aber: Ein einziger Wurf mit Komplikationen kostet oft mehr!</p>
 
-                            <ul style="margin-top: 20px;">
+                            <ul class="editable" data-key="wissen-liste-4" style="margin-top: 20px;">
                                 <li>Kastration einer Katze: <strong>ca. 80–150 €</strong></li>
                                 <li>Kaiserschnitt bei Geburt: <strong>300–800 €</strong></li>
                                 <li>Versorgung von Welpen: <strong>500 €+</strong></li>
@@ -114,17 +115,17 @@ get_template_part('tierliebe-parts/header');
 
             <!-- Tab Content 2: Geschlechter (wird wegen Länge gekürzt, Kernaussagen) -->
             <div class="tab-content" id="tab-geschlechter">
-                <h2 style="margin-bottom: 30px;">⚖️ Männchen vs. Weibchen</h2>
+                <h2 class="editable" data-key="geschlechter-titel" style="margin-bottom: 30px;"><?php echo isset($content['geschlechter-titel']) ? wp_kses_post($content['geschlechter-titel']) : '⚖️ Männchen vs. Weibchen'; ?></h2>
 
-                <p style="font-size: 1.1rem; margin-bottom: 40px;">
-                    Männchen und Weibchen sind nicht nur äußerlich unterschiedlich – auch Verhalten, Bedürfnisse und Entwicklung variieren stark.
+                <p class="editable" data-key="geschlechter-intro" style="font-size: 1.1rem; margin-bottom: 40px;">
+                    <?php echo isset($content['geschlechter-intro']) ? wp_kses_post($content['geschlechter-intro']) : 'Männchen und Weibchen sind nicht nur äußerlich unterschiedlich – auch Verhalten, Bedürfnisse und Entwicklung variieren stark.'; ?>
                 </p>
 
                 <!-- Sub-Tabs für Tierarten -->
                 <div class="sub-tab-buttons">
-                    <button class="sub-tab-btn active" data-subtab="katzen">Katzen</button>
-                    <button class="sub-tab-btn" data-subtab="hunde">Hunde</button>
-                    <button class="sub-tab-btn" data-subtab="kleintiere">Kleintiere</button>
+                    <button class="sub-tab-btn active" data-subtab="katzen"><span class="editable" data-key="subtab-1-button"><?php echo isset($content['subtab-1-button']) ? esc_html(strip_tags($content['subtab-1-button'])) : 'Katzen'; ?></span></button>
+                    <button class="sub-tab-btn" data-subtab="hunde"><span class="editable" data-key="subtab-2-button"><?php echo isset($content['subtab-2-button']) ? esc_html(strip_tags($content['subtab-2-button'])) : 'Hunde'; ?></span></button>
+                    <button class="sub-tab-btn" data-subtab="kleintiere"><span class="editable" data-key="subtab-3-button"><?php echo isset($content['subtab-3-button']) ? esc_html(strip_tags($content['subtab-3-button'])) : 'Kleintiere'; ?></span></button>
                 </div>
 
                 <!-- Katzen Sub-Tab -->
@@ -133,7 +134,7 @@ get_template_part('tierliebe-parts/header');
                     <div class="comparison-table">
                         <div class="comparison-col">
                             <h4>Kater</h4>
-                            <ul>
+                            <ul class="editable" data-key="wissen-liste-5">
                                 <li><strong>Charakter:</strong> Oft verschmuster, wenn sie Vertrauen fassen</li>
                                 <li><strong>Verhalten:</strong> Neigen zu Revierverhalten und Markieren (unkastriert)</li>
                                 <li><strong>Kastration:</strong> Verhindert Markieren und Kämpfe zu ca. 90%</li>
@@ -142,7 +143,7 @@ get_template_part('tierliebe-parts/header');
                         </div>
                         <div class="comparison-col">
                             <h4>Katze</h4>
-                            <ul>
+                            <ul class="editable" data-key="wissen-liste-6">
                                 <li><strong>Charakter:</strong> Oft eigenständiger</li>
                                 <li><strong>Verhalten:</strong> Rolligkeit (laut, unruhig) wenn unkastriert</li>
                                 <li><strong>Kastration:</strong> Verhindert Rolligkeit und Trächtigkeiten zu 100%</li>
@@ -158,7 +159,7 @@ get_template_part('tierliebe-parts/header');
                     <div class="comparison-table">
                         <div class="comparison-col">
                             <h4>Rüde</h4>
-                            <ul>
+                            <ul class="editable" data-key="wissen-liste-7">
                                 <li><strong>Charakter:</strong> Oft dominanter, markiert stark</li>
                                 <li><strong>Kastration:</strong> Reduziert Revierverhalten um 70–80%</li>
                                 <li><strong>Gesundheit:</strong> 60% entwickeln Prostataprobleme (unkastriert)</li>
@@ -166,7 +167,7 @@ get_template_part('tierliebe-parts/header');
                         </div>
                         <div class="comparison-col">
                             <h4>Hündin</h4>
-                            <ul>
+                            <ul class="editable" data-key="wissen-liste-8">
                                 <li><strong>Charakter:</strong> Meist anhänglicher, aber eigenwilliger</li>
                                 <li><strong>Kastration:</strong> Verhindert Scheinträchtigkeit zu 100%, senkt Gebärmutterrisiko um 90%</li>
                                 <li><strong>Gesundheit:</strong> 25% Risiko für Gebärmutterentzündungen (unkastriert)</li>
@@ -199,28 +200,28 @@ get_template_part('tierliebe-parts/header');
                 </div>
 
                 <div class="info-box" style="margin-top: 40px; background: var(--pastel-peach);">
-                    <h4>💡 Was bedeuten Risikoprozente?</h4>
-                    <p>Ein Risiko von <strong>20%</strong> bedeutet: Von 100 Tieren <strong>könnten</strong> 20 betroffen sein – aber 80 bleiben gesund.</p>
-                    <p style="margin-top: 15px;"><strong>Wichtig:</strong> Auch wenn das Risiko gering ist, kann der Schaden für das Tier groß sein. Kastration kann viele Probleme vermeiden!</p>
+                    <h4 class="editable" data-key="geschlechter-box-titel"><?php echo isset($content['geschlechter-box-titel']) ? esc_html(strip_tags($content['geschlechter-box-titel'])) : '💡 Was bedeuten Risikoprozente?'; ?></h4>
+                    <p class="editable" data-key="geschlechter-box-text1"><?php echo isset($content['geschlechter-box-text1']) ? wp_kses_post($content['geschlechter-box-text1']) : 'Ein Risiko von <strong>20%</strong> bedeutet: Von 100 Tieren <strong>könnten</strong> 20 betroffen sein – aber 80 bleiben gesund.'; ?></p>
+                    <p class="editable" data-key="geschlechter-box-text2" style="margin-top: 15px;"><?php echo isset($content['geschlechter-box-text2']) ? wp_kses_post($content['geschlechter-box-text2']) : '<strong>Wichtig:</strong> Auch wenn das Risiko gering ist, kann der Schaden für das Tier groß sein. Kastration kann viele Probleme vermeiden!'; ?></p>
                 </div>
             </div>
 
             <!-- Tab Content 3: Wenn's nicht klappt -->
             <div class="tab-content" id="tab-notfall">
-                <h2 style="margin-bottom: 30px;">🆘 Wenn es nicht klappt</h2>
+                <h2 class="editable" data-key="notfall-titel" style="margin-bottom: 30px;"><?php echo isset($content['notfall-titel']) ? wp_kses_post($content['notfall-titel']) : '🆘 Wenn es nicht klappt'; ?></h2>
 
-                <p style="font-size: 1.1rem; margin-bottom: 40px;">
-                    Manchmal ändern sich Lebensumstände. Manchmal wird alles zu viel. Es ist keine Schande, ein Tier abzugeben – <strong>aber es ist eine Verantwortung.</strong>
+                <p class="editable" data-key="notfall-intro" style="font-size: 1.1rem; margin-bottom: 40px;">
+                    <?php echo isset($content['notfall-intro']) ? wp_kses_post($content['notfall-intro']) : 'Manchmal ändern sich Lebensumstände. Manchmal wird alles zu viel. Es ist keine Schande, ein Tier abzugeben – <strong>aber es ist eine Verantwortung.</strong>'; ?>
                 </p>
 
                 <div class="comparison-grid" style="grid-template-columns: 1fr 1fr;">
                     <div class="comparison-panel panel-danger">
                         <div class="panel-header">
                             <span class="panel-icon">❌</span>
-                            <h3>Was NICHT tun</h3>
+                            <h3 class="editable" data-key="notfall-panel-1-titel"><?php echo isset($content['notfall-panel-1-titel']) ? esc_html(strip_tags($content['notfall-panel-1-titel'])) : 'Was NICHT tun'; ?></h3>
                         </div>
                         <div class="panel-content">
-                            <ul class="panel-list">
+                            <ul class="editable panel-list" data-key="wissen-liste-9">
                                 <li>Nicht einfach verschenken – ohne Vorkontrolle oder Vertrag</li>
                                 <li>Nicht bei eBay, Facebook & Co. anbieten – zieht unseriöse Käufer an</li>
                                 <li>Nicht einfach aussetzen – das ist strafbar und Tierquälerei</li>
@@ -231,10 +232,10 @@ get_template_part('tierliebe-parts/header');
                     <div class="comparison-panel panel-success">
                         <div class="panel-header">
                             <span class="panel-icon">✅</span>
-                            <h3>Was stattdessen tun</h3>
+                            <h3 class="editable" data-key="notfall-panel-2-titel"><?php echo isset($content['notfall-panel-2-titel']) ? esc_html(strip_tags($content['notfall-panel-2-titel'])) : 'Was stattdessen tun'; ?></h3>
                         </div>
                         <div class="panel-content">
-                            <ul class="panel-list">
+                            <ul class="editable panel-list" data-key="wissen-liste-10">
                                 <li>Tierheim oder Tierschutzverein kontaktieren – ehrlich, freundlich, verantwortungsvoll</li>
                                 <li>Freunde oder Bekannte mit Erfahrung fragen</li>
                                 <li>Beratungsstellen aufsuchen, wenn Verhalten das Problem ist</li>
@@ -245,17 +246,16 @@ get_template_part('tierliebe-parts/header');
                 </div>
 
                 <div class="info-box" style="margin-top: 50px; background: var(--pastel-lavender);">
-                    <h4>💜 Du musst kein schlechter Mensch sein, um an deine Grenzen zu kommen.</h4>
-                    <p style="font-size: 1.1rem; margin-top: 15px;">
-                        Aber du solltest einer sein, der dann <strong>verantwortlich handelt.</strong><br>
-                        Viele Probleme lassen sich lösen, wenn man frühzeitig ehrlich hinschaut.
+                    <h4 class="editable" data-key="notfall-box-titel"><?php echo isset($content['notfall-box-titel']) ? wp_kses_post($content['notfall-box-titel']) : '💜 Du musst kein schlechter Mensch sein, um an deine Grenzen zu kommen.'; ?></h4>
+                    <p class="editable" data-key="notfall-box-text" style="font-size: 1.1rem; margin-top: 15px;">
+                        <?php echo isset($content['notfall-box-text']) ? wp_kses_post($content['notfall-box-text']) : 'Aber du solltest einer sein, der dann <strong>verantwortlich handelt.</strong><br>Viele Probleme lassen sich lösen, wenn man frühzeitig ehrlich hinschaut.'; ?>
                     </p>
                 </div>
             </div>
 
             <!-- Tab Content 4: Glossar (Vollständige Version A-Z) -->
             <div class="tab-content" id="tab-glossar">
-                <h2 style="margin-bottom: 30px;">📖 Glossar: Fachbegriffe A-Z</h2>
+                <h2 class="editable" data-key="glossar-titel" style="margin-bottom: 30px;"><?php echo isset($content['glossar-titel']) ? wp_kses_post($content['glossar-titel']) : '📖 Glossar: Fachbegriffe A-Z'; ?></h2>
 
                 <div class="glossar-grid">
                     <div class="glossar-item"><strong>Adoption:</strong> Übernahme eines Tieres aus Tierheim, Pflegestelle oder privater Abgabe</div>
@@ -299,12 +299,18 @@ get_template_part('tierliebe-parts/header');
 
         <!-- CTA -->
         <div class="cta-section" style="margin-top: 80px; text-align: center;">
-            <h3 style="font-size: 2rem; margin-bottom: 25px;">Jetzt bist du bereit – aber bist du es wirklich?</h3>
+            <h3 class="editable" data-key="cta-titel" style="font-size: 2rem; margin-bottom: 25px;"><?php echo isset($content['cta-titel']) ? wp_kses_post($content['cta-titel']) : 'Jetzt bist du bereit – aber bist du es wirklich?'; ?></h3>
             <a href="<?php echo home_url('/tierliebe-test'); ?>" class="btn btn-primary" style="font-size: 1.2rem; padding: 18px 45px;">
-                ✨ Zum Bereitschafts-Test
+                <span class="editable" data-key="cta-button"><?php echo isset($content['cta-button']) ? esc_html(strip_tags($content['cta-button'])) : '✨ Zum Bereitschafts-Test'; ?></span>
             </a>
         </div>
     </div>
 </section>
 
-<?php get_template_part('tierliebe-parts/footer'); ?>
+<?php
+if (current_user_can('edit_posts')) {
+    echo '<input type="hidden" id="tierliebe-page-slug" value="wissen">';
+}
+
+get_template_part('tierliebe-parts/footer');
+?>

@@ -420,6 +420,8 @@ function tierliebe_register_text_cpt() {
         'publicly_queryable'    => false,
         'show_ui'               => true,
         'show_in_menu'          => true,
+        'show_in_rest'          => true,
+        'rest_base'             => 'tierliebe_text',
         'query_var'             => false,
         'rewrite'               => false,
         'capability_type'       => 'post',
@@ -427,7 +429,7 @@ function tierliebe_register_text_cpt() {
         'hierarchical'          => false,
         'menu_position'         => 20,
         'menu_icon'             => 'dashicons-edit-page',
-        'supports'              => array('title', 'editor', 'revisions'),
+        'supports'              => array('title', 'editor', 'revisions', 'custom-fields'),
         'labels'                => array(
             'name'               => 'Tierliebe Texte',
             'singular_name'      => 'Tierliebe Text',
@@ -445,6 +447,23 @@ function tierliebe_register_text_cpt() {
     register_post_type('tierliebe_text', $args);
 }
 add_action('init', 'tierliebe_register_text_cpt');
+
+// Register Meta Field for REST API
+function tierliebe_register_meta_fields() {
+    register_post_meta('tierliebe_text', 'tierliebe_content', array(
+        'type'         => 'array',
+        'single'       => true,
+        'show_in_rest' => array(
+            'schema' => array(
+                'type'  => 'object',
+                'additionalProperties' => array(
+                    'type' => 'string',
+                ),
+            ),
+        ),
+    ));
+}
+add_action('init', 'tierliebe_register_meta_fields');
 
 // Get Tierliebe Text Content by Page Slug
 function get_tierliebe_text($page_slug = 'home') {
