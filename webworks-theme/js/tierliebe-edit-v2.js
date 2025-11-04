@@ -311,7 +311,14 @@
 
         $('.editable').each(function() {
             const key = $(this).data('key');
-            const content = $(this).html();
+            let content = $(this).html();
+
+            // Trim leading/trailing whitespace and normalize
+            content = content.trim();
+
+            // Remove excessive whitespace (multiple spaces/newlines)
+            content = content.replace(/\s+/g, ' ');
+
             contentMap[key] = content;
         });
 
