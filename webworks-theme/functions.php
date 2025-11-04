@@ -557,18 +557,23 @@ function tierliebe_save_text_ajax() {
         $post_id = get_the_ID();
         wp_reset_postdata();
 
-        // Update post content directly in database to avoid WordPress filters
-        // (wpautop, etc. would break our JSON)
-        global $wpdb;
-        $updated = $wpdb->update(
-            $wpdb->posts,
-            array('post_content' => $content),
-            array('ID' => $post_id),
-            array('%s'),
-            array('%d')
-        );
+        // Temporarily disable content filters to prevent wpautop from breaking JSON
+        remove_filter('content_save_pre', 'wp_filter_post_kses');
+        remove_filter('content_save_pre', 'wp_targeted_link_rel');
+        remove_filter('content_save_pre', 'convert_invalid_entities');
 
-        if ($updated !== false) {
+        // Update post (now with revisions support)
+        $updated = wp_update_post(array(
+            'ID'           => $post_id,
+            'post_content' => $content
+        ), true);
+
+        // Re-enable filters
+        add_filter('content_save_pre', 'wp_filter_post_kses');
+        add_filter('content_save_pre', 'wp_targeted_link_rel');
+        add_filter('content_save_pre', 'convert_invalid_entities');
+
+        if ($updated && !is_wp_error($updated)) {
             // Clear cache (both transient and object cache)
             delete_transient('tierliebe_text_' . $page_slug);
             wp_cache_delete($post_id, 'posts');
