@@ -141,6 +141,13 @@
             // Make elements editable
             $('.editable').attr('contenteditable', 'true');
 
+            // Prevent ALL link navigation in edit mode
+            $('a').on('click.editmode', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                return false;
+            });
+
             // Show toolbar on focus
             $('.editable').on('focus', function() {
                 $currentEditable = $(this);
@@ -185,6 +192,10 @@
         $('.edit-mode-indicator').remove();
         $('.tierliebe-format-toolbar').hide();
         $('.editable').attr('contenteditable', 'false').off('focus blur');
+
+        // Re-enable link navigation
+        $('a').off('click.editmode');
+
         $currentEditable = null;
         isEditMode = false;
     }
