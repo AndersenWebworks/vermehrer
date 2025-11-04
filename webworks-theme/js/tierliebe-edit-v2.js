@@ -9,12 +9,40 @@
     let isEditMode = false;
     let originalContents = {};
     let $currentEditable = null;
+    let currentEditLink = null;
 
     // Initialize
     $(document).ready(function() {
         // Add Edit Button
         $('body').append('<button class="tierliebe-edit-btn" title="Texte bearbeiten">✏️</button>');
         $('body').append('<button class="tierliebe-save-btn">💾 Speichern</button>');
+
+        // Add URL Edit Modal
+        $('body').append(`
+            <div class="url-edit-modal">
+                <div class="url-edit-box">
+                    <h3>🔗 Link bearbeiten</h3>
+                    <label for="url-edit-input">URL:</label>
+                    <input type="text" id="url-edit-input" placeholder="https://example.com oder /page">
+                    <div class="url-edit-buttons">
+                        <button class="btn-cancel">Abbrechen</button>
+                        <button class="btn-save">Speichern</button>
+                    </div>
+                </div>
+            </div>
+        `);
+
+        // Modal event handlers
+        $('.url-edit-modal .btn-cancel').on('click', closeUrlModal);
+        $('.url-edit-modal .btn-save').on('click', saveUrlFromModal);
+        $('.url-edit-modal').on('click', function(e) {
+            if (e.target === this) closeUrlModal();
+        });
+
+        // Enter key in modal
+        $('#url-edit-input').on('keypress', function(e) {
+            if (e.which === 13) saveUrlFromModal();
+        });
 
         // Add Formatting Toolbar
         createFormattingToolbar();
@@ -148,6 +176,13 @@
                 return false;
             });
 
+            // Right-click on links with data-editable-url to edit URL
+            $('a[data-editable-url]').on('contextmenu.editmode', function(e) {
+                e.preventDefault();
+                openUrlModal($(this));
+                return false;
+            });
+
             // Show toolbar on focus
             $('.editable').on('focus', function() {
                 $currentEditable = $(this);
@@ -195,6 +230,7 @@
 
         // Re-enable link navigation
         $('a').off('click.editmode');
+        $('a[data-editable-url]').off('contextmenu.editmode');
 
         $currentEditable = null;
         isEditMode = false;
@@ -294,6 +330,42 @@
                 $(this).remove();
             });
         }, 3000);
+    }
+
+    // Open URL Edit Modal
+    function openUrlModal($link) {
+        currentEditLink = $link;
+        const currentUrl = $link.attr('href');
+
+        $('#url-edit-input').val(currentUrl);
+        $('.url-edit-modal').addClass('active');
+
+        // Focus input and select all
+        setTimeout(function() {
+            $('#url-edit-input').focus().select();
+        }, 100);
+    }
+
+    // Close URL Edit Modal
+    function closeUrlModal() {
+        $('.url-edit-modal').removeClass('active');
+        currentEditLink = null;
+        $('#url-edit-input').val('');
+    }
+
+    // Save URL from Modal
+    function saveUrlFromModal() {
+        if (!currentEditLink) return;
+
+        const newUrl = $('#url-edit-input').val().trim();
+        const oldUrl = currentEditLink.attr('href');
+
+        if (newUrl && newUrl !== oldUrl) {
+            currentEditLink.attr('href', newUrl);
+            showMessage('✓ URL geändert (nicht vergessen zu speichern!)', 'success');
+        }
+
+        closeUrlModal();
     }
 
 })(jQuery);
