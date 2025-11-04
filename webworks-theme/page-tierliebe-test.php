@@ -31,6 +31,10 @@ $content = get_tierliebe_text('test');
     <?php echo do_shortcode('[tierliebe_quiz]'); ?>
 </section>
 
-<input type="hidden" name="tierliebe_page" value="test">
+<?php
+if (current_user_can('edit_posts')) {
+    echo '<input type="hidden" id="tierliebe-page-slug" value="test">';
+}
+?>
 
 <?php get_template_part('tierliebe-parts/footer'); ?>

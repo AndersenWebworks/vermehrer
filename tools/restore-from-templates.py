@@ -40,7 +40,7 @@ def extract_fallback_texts(template_path):
     return content_data
 
 def update_post_content(slug, json_data):
-    """Updated post_content mit JSON"""
+    """Updated post_content mit JSON oder erstellt neuen Post"""
     print(f"\n{'='*60}")
     print(f"Update: {slug}")
     print(f"{'='*60}")
@@ -52,33 +52,53 @@ def update_post_content(slug, json_data):
         auth=HTTPBasicAuth(WP_USER, WP_APP_PASSWORD)
     )
 
-    if response.status_code != 200 or not response.json():
-        print(f"  X Post nicht gefunden")
-        return False
+    if response.status_code == 200 and response.json():
+        # Post existiert - Update
+        post = response.json()[0]
+        post_id = post['id']
+        print(f"  OK Post ID: {post_id}")
+        print(f"  OK {len(json_data)} Felder gefunden")
 
-    post = response.json()[0]
-    post_id = post['id']
+        json_string = json.dumps(json_data, ensure_ascii=False, separators=(',', ':'))
 
-    print(f"  OK Post ID: {post_id}")
-    print(f"  OK {len(json_data)} Felder gefunden")
+        update_response = requests.post(
+            f"{WP_URL}/wp-json/wp/v2/tierliebe_text/{post_id}",
+            json={'content': json_string},
+            auth=HTTPBasicAuth(WP_USER, WP_APP_PASSWORD)
+        )
 
-    # Konvertiere zu JSON
-    json_string = json.dumps(json_data, ensure_ascii=False, separators=(',', ':'))
-
-    # Update via REST API
-    update_response = requests.post(
-        f"{WP_URL}/wp-json/wp/v2/tierliebe_text/{post_id}",
-        json={'content': json_string},
-        auth=HTTPBasicAuth(WP_USER, WP_APP_PASSWORD)
-    )
-
-    if update_response.status_code == 200:
-        print(f"  OK Erfolgreich gespeichert!")
-        return True
+        if update_response.status_code == 200:
+            print(f"  OK Erfolgreich gespeichert!")
+            return True
+        else:
+            print(f"  X Fehler: {update_response.status_code}")
+            return False
     else:
-        print(f"  X Fehler: {update_response.status_code}")
-        print(f"  Response: {update_response.text[:200]}")
-        return False
+        # Post existiert nicht - Erstelle neu
+        print(f"  ! Post nicht gefunden - erstelle neu")
+        print(f"  OK {len(json_data)} Felder gefunden")
+
+        json_string = json.dumps(json_data, ensure_ascii=False, separators=(',', ':'))
+
+        create_response = requests.post(
+            f"{WP_URL}/wp-json/wp/v2/tierliebe_text",
+            json={
+                'title': slug.capitalize(),
+                'slug': slug,
+                'status': 'publish',
+                'content': json_string
+            },
+            auth=HTTPBasicAuth(WP_USER, WP_APP_PASSWORD)
+        )
+
+        if create_response.status_code == 201:
+            new_post_id = create_response.json()['id']
+            print(f"  OK Post erstellt (ID: {new_post_id})!")
+            return True
+        else:
+            print(f"  X Fehler beim Erstellen: {create_response.status_code}")
+            print(f"  Response: {create_response.text[:200]}")
+            return False
 
 def main():
     """Hauptfunktion"""
@@ -94,6 +114,9 @@ def main():
         'katzen': 'webworks-theme/page-tierliebe-katzen.php',
         'kleintiere': 'webworks-theme/page-tierliebe-kleintiere.php',
         'exoten': 'webworks-theme/page-tierliebe-exoten.php',
+        'test': 'webworks-theme/page-tierliebe-test.php',
+        'irrtuemer': 'webworks-theme/page-tierliebe-irrtuemer.php',
+        'kontakt': 'webworks-theme/page-tierliebe-kontakt.php',
     }
 
     success_count = 0

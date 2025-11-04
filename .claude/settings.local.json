@@ -1,13 +1,7 @@
 {
   "permissions": {
     "allow": [
-      "Bash(python restore-from-templates.py:*)",
-      "Bash(git mv:*)",
-      "Bash(find:*)",
-      "Bash(awk:*)",
-      "Bash(git add:*)",
-      "Bash(git commit:*)",
-      "Bash(git push)"
+      "Bash(python tools/restore-from-templates.py:*)"
     ],
     "deny": [],
     "ask": []
