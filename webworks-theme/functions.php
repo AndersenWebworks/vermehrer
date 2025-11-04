@@ -619,14 +619,17 @@ function tierliebe_enqueue_edit_assets() {
             'tierliebe-edit',
             get_stylesheet_directory_uri() . '/css/tierliebe-edit.css',
             array(),
-            '2.0.0'
+            '3.0.0'
         );
+
+        // Feature 20b: Enqueue WordPress Media Library
+        wp_enqueue_media();
 
         wp_enqueue_script(
             'tierliebe-edit',
             get_stylesheet_directory_uri() . '/js/tierliebe-edit-v2.js',
             array('jquery'),
-            '2.0.0',
+            '3.0.0',
             true
         );
 

@@ -1,18 +1,26 @@
 # Tierliebe Editor - Enhancement Roadmap
 
-## Status: Phase 1 geplant für nächste Session
+## Status: Phase 1 ✅ ABGESCHLOSSEN (v3.0.0)
 
-### ✅ Aktuell implementiert (v2.0)
-- Inline-Editing aller Felder
-- Formatting Toolbar (Bold, Italic, Underline, Links, Listen)
-- URL-Editing für Buttons/Links (Rechtsklick)
-- WordPress Revisionen Support
-- Whitespace-Normalisierung beim Speichern
-- Link-Navigation Prevention im Edit-Mode
+### ✅ Aktuell implementiert (v3.0.0)
+- **v2.0 Features:**
+  - Inline-Editing aller Felder
+  - Formatting Toolbar (Bold, Italic, Underline, Links, Listen)
+  - URL-Editing für Buttons/Links (Rechtsklick)
+  - WordPress Revisionen Support
+  - Whitespace-Normalisierung beim Speichern
+  - Link-Navigation Prevention im Edit-Mode
+
+- **v3.0 Phase 1 Features (IMPLEMENTIERT):**
+  - ✅ Feature 1: Undo/Redo System (Ctrl+Z/Y, max 50 Actions)
+  - ✅ Feature 4: Extended Keyboard Shortcuts (Ctrl+E, Tab, Shift+Tab, Esc)
+  - ✅ Feature 7: Smart Highlighting (Orange pulsing outline für geänderte Felder)
+  - ✅ Feature 18: Auto-Save Draft (alle 30s zu localStorage)
+  - ✅ Feature 20b: Media Library Integration (Klick auf Bild → WP Media Library)
 
 ---
 
-## 🚀 Phase 1: Critical UX Improvements (nächste Session)
+## 🚀 Phase 1: Critical UX Improvements ✅ ABGESCHLOSSEN
 
 ### 1. Undo/Redo System
 **Feature:** Ctrl+Z/Y Support
@@ -84,56 +92,15 @@ body.edit-mode .editable.field-changed {
 }
 ```
 
-### 18. Auto-Save Draft
+### 18. Auto-Save Draft ✅ IMPLEMENTIERT
 **Feature:** Auto-save every 30 seconds to localStorage
-**Implementation:**
-```javascript
-let autoSaveInterval = null;
-let lastSaveTime = null;
-
-function startAutoSave() {
-    autoSaveInterval = setInterval(function() {
-        saveDraft();
-    }, 30000); // 30 seconds
-}
-
-function saveDraft() {
-    const pageSlug = $('#tierliebe-page-slug').val();
-    const contentMap = {};
-
-    $('.editable').each(function() {
-        const key = $(this).data('key');
-        contentMap[key] = $(this).html().trim();
-    });
-
-    localStorage.setItem('tierliebe_draft_' + pageSlug, JSON.stringify({
-        content: contentMap,
-        timestamp: Date.now()
-    }));
-
-    lastSaveTime = Date.now();
-    showMessage('💾 Draft gespeichert', 'info');
-}
-
-function loadDraft() {
-    const pageSlug = $('#tierliebe-page-slug').val();
-    const draft = localStorage.getItem('tierliebe_draft_' + pageSlug);
-
-    if (draft) {
-        const data = JSON.parse(draft);
-        const age = Date.now() - data.timestamp;
-
-        // Offer to restore if less than 24 hours old
-        if (age < 86400000) {
-            if (confirm('Draft gefunden (' + formatAge(age) + '). Wiederherstellen?')) {
-                Object.keys(data.content).forEach(key => {
-                    $('.editable[data-key="' + key + '"]').html(data.content[key]);
-                });
-            }
-        }
-    }
-}
-```
+**Status:** Vollständig implementiert in v3.0.0
+**Details:**
+- Auto-Save startet beim Enter Edit Mode
+- Speichert alle 30 Sekunden zu localStorage
+- Zeigt Indicator rechts unten ("💾 Auto-Save: vor 2min")
+- Bietet Draft-Restore beim Page Load (wenn < 24h alt)
+- Draft wird automatisch gelöscht nach erfolgreichem Save
 
 ---
 
@@ -158,6 +125,21 @@ function loadDraft() {
 - Store last_editor and last_modified in post meta
 - Show in small badge on each field
 - Format: "Zuletzt: User vor 2 Stunden"
+
+### 20b. Media Library Integration ✅ IMPLEMENTIERT
+**Feature:** WordPress Media Library Integration für Bilder
+**Status:** Vollständig implementiert in v3.0.0
+**Details:**
+- Klick auf jedes `<img>` im Edit Mode öffnet WordPress Media Library
+- User kann neues Bild auswählen
+- Bild-URL und Alt-Text werden automatisch aktualisiert
+- Parent-Editable wird als "changed" markiert
+- Nutzt native WP Media Library (wp.media) - kein Custom Upload nötig
+
+**Warum Feature 20 (Drag & Drop Upload) übersprungen wurde:**
+- WordPress Media Library ist bereits vollständig und mächtig
+- Redundanter Code wäre unnötig gewesen
+- Feature 20b ist benutzerfreundlicher
 
 ---
 
@@ -241,33 +223,66 @@ tierliebe_undo_{pageSlug} = [
 
 ## 🎨 User Experience Goals
 
-1. **Feel safe editing** - Undo/Redo gibt Sicherheit
-2. **Know what changed** - Smart Highlighting zeigt Status
-3. **Never lose work** - Auto-Save verhindert Datenverlust
-4. **Work efficiently** - Keyboard shortcuts für Power-User
-5. **Collaborate smoothly** - Sehen wer was wann geändert hat
+1. ✅ **Feel safe editing** - Undo/Redo gibt Sicherheit (ERREICHT in v3.0)
+2. ✅ **Know what changed** - Smart Highlighting zeigt Status (ERREICHT in v3.0)
+3. ✅ **Never lose work** - Auto-Save verhindert Datenverlust (ERREICHT in v3.0)
+4. ✅ **Work efficiently** - Keyboard shortcuts für Power-User (ERREICHT in v3.0)
+5. ⏳ **Collaborate smoothly** - Sehen wer was wann geändert hat (Phase 2)
 
 ---
 
-## 📊 Success Metrics
+## 📊 Success Metrics v3.0
 
-- **Undo/Redo**: 80% der Sessions nutzen es mindestens einmal
-- **Auto-Save**: 0 Beschwerden über Datenverlust
-- **Keyboard Shortcuts**: 30% der Sessions nutzen Ctrl+E oder Tab
+Phase 1 ist vollständig implementiert. Tracking-Ziele:
+- **Undo/Redo**: Ziel 80% Nutzung in Sessions
+- **Auto-Save**: Ziel 0 Beschwerden über Datenverlust
+- **Keyboard Shortcuts**: Ziel 30% nutzen Ctrl+E oder Tab
 - **Smart Highlighting**: User sehen sofort was geändert wurde
+- **Media Library**: Einfacher Bildwechsel ohne FTP
 
 ---
 
 ## 🚀 Next Steps
 
-1. Implementiere Phase 1 in v2.1.0
-2. Test mit echten Content-Editoren
-3. Sammle Feedback
-4. Iteriere zu Phase 2
+1. ✅ Phase 1 implementiert in v3.0.0 (ca. 5h Implementierung)
+2. ⏳ Test mit echten Content-Editoren
+3. ⏳ Sammle Feedback
+4. ⏳ Implementiere Phase 2 (Features 5, 8, 13)
 
-**Estimated Implementation Time:**
-- Phase 1: 4-6 Stunden
+**Implementation Timeline:**
+- Phase 1: ✅ 5 Stunden (ABGESCHLOSSEN)
 - Phase 2: 6-8 Stunden
 - Phase 3: 12-16 Stunden
 
-**Total:** ~22-30 Stunden für vollständige Implementation aller Features
+**Verbleibend:** ~18-24 Stunden für Phase 2 + 3
+
+---
+
+## 📝 v3.0.0 Release Notes
+
+**Released:** 2025-11-04
+
+**Neue Keyboard Shortcuts:**
+- `Ctrl+E` - Toggle Edit Mode (funktioniert immer)
+- `Ctrl+Z` - Undo (bis zu 50 Actions)
+- `Ctrl+Y` oder `Ctrl+Shift+Z` - Redo
+- `Tab` - Nächstes editierbares Feld
+- `Shift+Tab` - Vorheriges editierbares Feld
+- `Esc` - Aktuelle Änderung verwerfen
+
+**Neue Features:**
+- Smart Highlighting: Geänderte Felder bekommen orange pulsing outline
+- Auto-Save: Alle 30 Sekunden zu localStorage, Auto-Restore beim Laden
+- Media Library: Klick auf Bild öffnet WP Media Library für schnellen Bildwechsel
+- Change Counter: Save-Button zeigt Anzahl geänderter Felder
+- Undo/Redo Indicator: Zeigt Anzahl verfügbarer Undo/Redo Actions
+
+**Bug Fixes:**
+- Duplicate messages werden nicht mehr angezeigt
+- Auto-Save Indicator positioniert sich korrekt auch auf Mobile
+
+**Technical:**
+- Version Bump: 2.0.0 → 3.0.0
+- WordPress Media Library wird automatisch geladen
+- localStorage für Draft-Management
+- Undo/Redo Stack mit max 50 Actions
