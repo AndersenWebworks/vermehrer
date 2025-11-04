@@ -1,6 +1,6 @@
 /**
  * Tierliebe Edit Mode - Frontend WYSIWYG Editor for Admins
- * Version: 3.0.0 - Phase 1 Features (Undo/Redo, Shortcuts, Smart Highlighting, Auto-Save, Media Library)
+ * Version: 3.1.0 - Phase 2 Features (Field History, Inline Validation, Collaboration Hints)
  */
 
 (function($) {
@@ -20,6 +20,14 @@
     let autoSaveInterval = null;
     let lastAutoSaveTime = null;
     const AUTO_SAVE_DELAY = 30000; // 30 seconds
+
+    // Feature 5: Field History
+    const MAX_HISTORY_PER_FIELD = 5;
+    const HISTORY_TTL = 7 * 24 * 60 * 60 * 1000; // 7 days
+
+    // Feature 8: Inline Validation
+    const HEADLINE_WARNING_LENGTH = 60;
+    const COMMON_EMOJIS = ['✨', '💔', '🐶', '🐱', '🐰', '🐹', '🐾', '❤️', '💡', '⚠️', '✓', '✗'];
 
     // Initialize
     $(document).ready(function() {
@@ -511,6 +519,307 @@
         frame.open();
     }
 
+    // ============================================================
+    // Feature 5: Field History
+    // ============================================================
+
+    function getFieldHistoryKey(pageSlug, fieldKey) {
+        return `tierliebe_history_${pageSlug}_${fieldKey}`;
+    }
+
+    function saveToHistory(fieldKey, content) {
+        const pageSlug = $('#tierliebe-page-slug').val();
+        if (!pageSlug || !fieldKey) return;
+
+        const historyKey = getFieldHistoryKey(pageSlug, fieldKey);
+        let history = [];
+
+        try {
+            const stored = localStorage.getItem(historyKey);
+            if (stored) {
+                history = JSON.parse(stored);
+            }
+        } catch (e) {
+            console.error('Failed to load history:', e);
+            history = [];
+        }
+
+        // Add new entry
+        history.unshift({
+            content: content,
+            timestamp: Date.now(),
+            user: tierliebe_edit.current_user || 'Unknown'
+        });
+
+        // Limit to MAX_HISTORY_PER_FIELD entries
+        if (history.length > MAX_HISTORY_PER_FIELD) {
+            history = history.slice(0, MAX_HISTORY_PER_FIELD);
+        }
+
+        // Clean old entries (older than HISTORY_TTL)
+        const now = Date.now();
+        history = history.filter(entry => (now - entry.timestamp) < HISTORY_TTL);
+
+        localStorage.setItem(historyKey, JSON.stringify(history));
+    }
+
+    function loadHistory(fieldKey) {
+        const pageSlug = $('#tierliebe-page-slug').val();
+        if (!pageSlug || !fieldKey) return [];
+
+        const historyKey = getFieldHistoryKey(pageSlug, fieldKey);
+
+        try {
+            const stored = localStorage.getItem(historyKey);
+            if (stored) {
+                const history = JSON.parse(stored);
+                // Clean old entries
+                const now = Date.now();
+                return history.filter(entry => (now - entry.timestamp) < HISTORY_TTL);
+            }
+        } catch (e) {
+            console.error('Failed to load history:', e);
+        }
+
+        return [];
+    }
+
+    function showHistoryModal($element) {
+        const key = $element.data('key');
+        const history = loadHistory(key);
+
+        if (history.length === 0) {
+            showMessage('Keine History für dieses Feld', 'info');
+            return;
+        }
+
+        // Create modal
+        const $modal = $(`
+            <div class="field-history-modal">
+                <div class="field-history-box">
+                    <h3>📜 Feld-Historie: ${key}</h3>
+                    <div class="field-history-list"></div>
+                    <div class="field-history-buttons">
+                        <button class="btn-close">Schließen</button>
+                    </div>
+                </div>
+            </div>
+        `);
+
+        // Populate history list
+        const $list = $modal.find('.field-history-list');
+        history.forEach((entry, index) => {
+            const age = formatAge(Date.now() - entry.timestamp);
+            const preview = stripHTML(entry.content).substring(0, 80) + '...';
+
+            const $item = $(`
+                <div class="history-item" data-index="${index}">
+                    <div class="history-meta">
+                        <span class="history-age">${age} alt</span>
+                        <span class="history-user">von ${entry.user}</span>
+                    </div>
+                    <div class="history-preview">${preview}</div>
+                    <button class="btn-restore" data-index="${index}">Wiederherstellen</button>
+                </div>
+            `);
+
+            $item.find('.btn-restore').on('click', function() {
+                $element.html(entry.content);
+                markAsChanged($element);
+                $modal.remove();
+                showMessage('✓ Version wiederhergestellt', 'success');
+            });
+
+            $list.append($item);
+        });
+
+        $modal.find('.btn-close').on('click', function() {
+            $modal.remove();
+        });
+
+        $modal.on('click', function(e) {
+            if (e.target === this) $modal.remove();
+        });
+
+        $('body').append($modal);
+    }
+
+    function stripHTML(html) {
+        const tmp = document.createElement('div');
+        tmp.innerHTML = html;
+        return tmp.textContent || tmp.innerText || '';
+    }
+
+    // ============================================================
+    // Feature 8: Inline Validation
+    // ============================================================
+
+    function setupInlineValidation() {
+        // Add character counter and emoji picker to editables
+        $('.editable').each(function() {
+            const $this = $(this);
+            const key = $this.data('key');
+
+            // Add validation indicators
+            if (!$this.find('.field-tools').length) {
+                const $tools = $(`
+                    <div class="field-tools">
+                        <span class="char-counter"></span>
+                        <button class="emoji-picker-btn" title="Emoji einfügen">😊</button>
+                    </div>
+                `);
+
+                $this.append($tools);
+
+                // Emoji picker
+                $tools.find('.emoji-picker-btn').on('click', function(e) {
+                    e.stopPropagation();
+                    showEmojiPicker($(this), $this);
+                });
+            }
+        });
+
+        // Update counters on focus
+        $('.editable').on('focus', function() {
+            updateCharCounter($(this));
+        });
+
+        $('.editable').on('input', function() {
+            updateCharCounter($(this));
+        });
+    }
+
+    function updateCharCounter($element) {
+        const text = stripHTML($element.html());
+        const length = text.length;
+        const $counter = $element.find('.char-counter');
+
+        if ($counter.length) {
+            $counter.text(`${length} Zeichen`);
+
+            // Warn if headline and too long
+            const key = $element.data('key');
+            if (key && (key.includes('headline') || key.includes('titel')) && length > HEADLINE_WARNING_LENGTH) {
+                $counter.addClass('warning');
+            } else {
+                $counter.removeClass('warning');
+            }
+        }
+    }
+
+    function showEmojiPicker($button, $editable) {
+        // Remove existing picker
+        $('.emoji-picker-popup').remove();
+
+        const $picker = $(`
+            <div class="emoji-picker-popup">
+                ${COMMON_EMOJIS.map(emoji => `<button class="emoji-btn">${emoji}</button>`).join('')}
+            </div>
+        `);
+
+        // Position near button
+        const offset = $button.offset();
+        $picker.css({
+            position: 'absolute',
+            top: offset.top + $button.outerHeight() + 5,
+            left: offset.left
+        });
+
+        // Insert emoji on click
+        $picker.find('.emoji-btn').on('click', function(e) {
+            e.stopPropagation();
+            const emoji = $(this).text();
+
+            // Insert at cursor or at end
+            const selection = window.getSelection();
+            if (selection.rangeCount > 0) {
+                const range = selection.getRangeAt(0);
+                range.deleteContents();
+                range.insertNode(document.createTextNode(emoji));
+            } else {
+                $editable.append(emoji);
+            }
+
+            markAsChanged($editable);
+            $picker.remove();
+            $editable.focus();
+        });
+
+        // Close on click outside
+        setTimeout(function() {
+            $(document).one('click', function() {
+                $picker.remove();
+            });
+        }, 100);
+
+        $('body').append($picker);
+    }
+
+    function removeInlineValidation() {
+        $('.field-tools').remove();
+        $('.emoji-picker-popup').remove();
+    }
+
+    // ============================================================
+    // Feature 13: Collaboration Hints
+    // ============================================================
+
+    function setupCollaborationHints() {
+        // Add collaboration badge to each editable
+        $('.editable').each(function() {
+            const $this = $(this);
+            const key = $this.data('key');
+
+            if (!$this.find('.collab-badge').length) {
+                const $badge = $('<div class="collab-badge"></div>');
+                $this.prepend($badge);
+                updateCollaborationBadge($this);
+            }
+        });
+    }
+
+    function updateCollaborationBadge($element) {
+        const key = $element.data('key');
+        const pageSlug = $('#tierliebe-page-slug').val();
+        const $badge = $element.find('.collab-badge');
+
+        if (!$badge.length || !key || !pageSlug) return;
+
+        // Load last edit info from localStorage
+        const metaKey = `tierliebe_meta_${pageSlug}_${key}`;
+        const stored = localStorage.getItem(metaKey);
+
+        if (stored) {
+            try {
+                const meta = JSON.parse(stored);
+                const age = formatAge(Date.now() - meta.timestamp);
+                $badge.text(`Zuletzt: ${meta.user} vor ${age}`);
+                $badge.show();
+            } catch (e) {
+                $badge.hide();
+            }
+        } else {
+            $badge.hide();
+        }
+    }
+
+    function saveCollaborationMeta(fieldKey) {
+        const pageSlug = $('#tierliebe-page-slug').val();
+        if (!pageSlug || !fieldKey) return;
+
+        const metaKey = `tierliebe_meta_${pageSlug}_${fieldKey}`;
+        const meta = {
+            user: tierliebe_edit.current_user || 'Admin',
+            timestamp: Date.now()
+        };
+
+        localStorage.setItem(metaKey, JSON.stringify(meta));
+    }
+
+    function removeCollaborationHints() {
+        $('.collab-badge').remove();
+    }
+
     // Toggle Edit Mode
     function toggleEditMode() {
         isEditMode = !isEditMode;
@@ -573,6 +882,39 @@
             // Feature 20b: Setup media library integration
             setupMediaLibraryIntegration();
 
+            // Feature 8: Setup inline validation
+            setupInlineValidation();
+
+            // Feature 13: Setup collaboration hints
+            setupCollaborationHints();
+
+            // Feature 5: Add history icon to editables
+            $('.editable').each(function() {
+                const $this = $(this);
+                if (!$this.find('.history-icon').length) {
+                    const $icon = $('<button class="history-icon" title="Feld-Historie anzeigen">📜</button>');
+                    $icon.on('click', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        showHistoryModal($this);
+                    });
+                    $this.prepend($icon);
+                }
+            });
+
+            // Track changes for history on blur
+            $('.editable').on('blur.history', function() {
+                const $this = $(this);
+                const key = $this.data('key');
+                const content = $this.html();
+                const original = originalContents[key] || '';
+
+                if (content !== original) {
+                    saveToHistory(key, content);
+                    saveCollaborationMeta(key);
+                }
+            });
+
             // Clear undo/redo stacks on entering edit mode
             undoStack = [];
             redoStack = [];
@@ -620,6 +962,16 @@
         // Feature 7: Clear change highlighting
         $('.editable').removeClass('field-changed');
         updateChangeCounter();
+
+        // Feature 5: Remove history icons
+        $('.history-icon').remove();
+        $('.editable').off('blur.history');
+
+        // Feature 8: Remove inline validation
+        removeInlineValidation();
+
+        // Feature 13: Remove collaboration hints
+        removeCollaborationHints();
 
         $currentEditable = null;
         isEditMode = false;

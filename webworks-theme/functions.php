@@ -619,7 +619,7 @@ function tierliebe_enqueue_edit_assets() {
             'tierliebe-edit',
             get_stylesheet_directory_uri() . '/css/tierliebe-edit.css',
             array(),
-            '3.0.0'
+            '3.1.0'
         );
 
         // Feature 20b: Enqueue WordPress Media Library
@@ -629,14 +629,16 @@ function tierliebe_enqueue_edit_assets() {
             'tierliebe-edit',
             get_stylesheet_directory_uri() . '/js/tierliebe-edit-v2.js',
             array('jquery'),
-            '3.0.0',
+            '3.1.0',
             true
         );
 
-        // Pass AJAX URL and nonce to JavaScript
+        // Pass AJAX URL, nonce and current user to JavaScript
+        $current_user = wp_get_current_user();
         wp_localize_script('tierliebe-edit', 'tierliebe_edit', array(
-            'ajax_url' => admin_url('admin-ajax.php'),
-            'nonce'    => wp_create_nonce('tierliebe_edit_nonce')
+            'ajax_url'     => admin_url('admin-ajax.php'),
+            'nonce'        => wp_create_nonce('tierliebe_edit_nonce'),
+            'current_user' => $current_user->display_name ? $current_user->display_name : 'Admin'
         ));
     }
 }
