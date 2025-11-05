@@ -1,5 +1,6 @@
 jQuery(document).ready(function ($) {
 
+
     /* KOEKJE */
     koekje({
         google: {

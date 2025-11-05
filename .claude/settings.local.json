@@ -1,7 +1,16 @@
 {
   "permissions": {
     "allow": [
-      "Bash(python tools/restore-from-templates.py:*)"
+      "Bash(python -m json.tool:*)",
+      "Bash(git log:*)",
+      "Bash(python:*)",
+      "Bash(powershell.exe -ExecutionPolicy Bypass -File .vscodeftp-upload.ps1)",
+      "Bash(powershell.exe -ExecutionPolicy Bypass -File \".vscode\\ftp-upload.ps1\")",
+      "Bash(curl:*)",
+      "Bash(qa-check.py)",
+      "Bash(nul)",
+      "Bash(qa-report-simple.py)",
+      "Bash(git add:*)"
     ],
     "deny": [],
     "ask": []

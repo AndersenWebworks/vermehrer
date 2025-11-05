@@ -7,18 +7,48 @@
  */
 
 get_template_part('tierliebe-parts/header');
+
+// DEBUG: Check what post we're looking for
+if (current_user_can('edit_posts')) {
+    $test_query = new WP_Query(array(
+        'post_type'      => 'tierliebe_text',
+        'name'           => 'qualzucht',
+        'posts_per_page' => 1,
+        'post_status'    => 'publish'
+    ));
+    echo "<!-- DEBUG: Query found posts: " . $test_query->found_posts . " -->";
+    if ($test_query->have_posts()) {
+        $test_query->the_post();
+        $test_post = get_post();
+        echo "<!-- DEBUG: Post ID: " . $test_post->ID . ", Slug: " . $test_post->post_name . " -->";
+        echo "<!-- DEBUG: Content length: " . strlen($test_post->post_content) . " -->";
+        echo "<!-- DEBUG: First 200 chars (escaped): " . esc_html(substr($test_post->post_content, 0, 200)) . " -->";
+        echo "<!-- DEBUG: First 200 chars (raw): " . substr($test_post->post_content, 0, 200) . " -->";
+        wp_reset_postdata();
+    } else {
+        echo "<!-- DEBUG: NO POST FOUND WITH SLUG 'qualzucht' -->";
+    }
+}
+
 $content = get_tierliebe_text('qualzucht');
+
+// DEBUG OUTPUT
+if (current_user_can('edit_posts')) {
+    echo "<!-- DEBUG: Content keys: " . implode(', ', array_keys($content)) . " -->";
+    if (isset($content['hero-titel'])) {
+        echo "<!-- DEBUG: hero-titel = " . esc_html($content['hero-titel']) . " -->";
+    }
+}
 ?>
+
+<!-- Hidden Page Slug for Editor -->
+
 
 <!-- Hero Section -->
 <section class="primary-hero" style="min-height: 60vh;">
     <div class="hero-content">
-        <h1 class="hero-title editable" data-key="hero-titel">
-            <?php echo isset($content['hero-titel']) ? wp_kses_post($content['hero-titel']) : '⚠️ Überzüchtung – Wenn Schönheit Leiden bedeutet'; ?>
-        </h1>
-        <p class="hero-subtitle editable" data-key="hero-untertitel">
-            <?php echo isset($content['hero-untertitel']) ? wp_kses_post($content['hero-untertitel']) : 'Schönheit ist oft teuer bezahlt – und das nicht nur mit Geld. Viele Tiere, die wir ‚süß' oder ‚Edelrassen' nennen, leiden unter genetischen Defekten, weil der Mensch sie für sein Ideal geformt hat.'; ?>
-        </p>
+        <h1 class="hero-title editable" data-key="hero-titel"><?php echo wp_kses_post($content['hero-titel'] ?? ''); ?></h1>
+        <p class="hero-subtitle editable" data-key="hero-subtitle"><?php echo wp_kses_post($content['hero-subtitle'] ?? ''); ?></p>
     </div>
 </section>
 
@@ -26,39 +56,27 @@ $content = get_tierliebe_text('qualzucht');
 <section class="section">
     <div class="container">
         <div class="info-box" style="background: var(--pastel-coral); color: white; padding: 40px; margin-bottom: 50px;">
-            <h2 style="color: white; margin-bottom: 20px;" class="editable" data-key="definition-titel">
-                <?php echo isset($content['definition-titel']) ? wp_kses_post($content['definition-titel']) : 'Was ist Überzüchtung?'; ?>
-            </h2>
-            <p style="font-size: 1.2rem; line-height: 1.8;" class="editable" data-key="definition-text">
-                <?php echo isset($content['definition-text']) ? wp_kses_post($content['definition-text']) : 'Überzüchtung bedeutet, dass bestimmte Merkmale durch Zucht so stark hervorgehoben werden, dass das Tier darunter leidet.'; ?>
+            <h2 class="editable" data-key="definition-titel" style="color: white; margin-bottom: 20px;"><?php echo wp_kses_post($content['definition-titel'] ?? ''); ?></h2>
+            <p class="editable" data-key="definition-text" style="font-size: 1.2rem; line-height: 1.8;">
+                <?php echo wp_kses_post($content['definition-text'] ?? ''); ?>
             </p>
 
-            <h3 style="color: white; margin-top: 30px; margin-bottom: 15px;" class="editable" data-key="warum-titel">
-                <?php echo isset($content['warum-titel']) ? wp_kses_post($content['warum-titel']) : 'Warum passiert das?'; ?>
-            </h3>
-            <ul style="font-size: 1.1rem; line-height: 1.8;" class="editable" data-key="warum-liste">
-                <li>Menschen wollen optische "Besonderheiten" (flache Nasen, große Augen, ungewöhnliche Farben)</li>
-                <li>Züchter erfüllen diese Wünsche, weil sie sich gut verkaufen</li>
-                <li>Tiere mit extremen Merkmalen werden weiterverpaart, auch wenn sie krank sind</li>
+            <h3 class="editable" data-key="warum-titel" style="color: white; margin-top: 30px; margin-bottom: 15px;"><?php echo wp_kses_post($content['warum-titel'] ?? ''); ?></h3>
+            <ul class="editable" data-key="warum-liste" style="font-size: 1.1rem; line-height: 1.8;">
+                <?php echo wp_kses_post($content['warum-liste'] ?? ''); ?>
             </ul>
 
-            <h3 style="color: white; margin-top: 30px; margin-bottom: 15px;" class="editable" data-key="problem-titel">
-                <?php echo isset($content['problem-titel']) ? wp_kses_post($content['problem-titel']) : 'Warum das ein Problem ist:'; ?>
-            </h3>
-            <ul style="font-size: 1.1rem; line-height: 1.8;" class="editable" data-key="problem-liste">
-                <li>Tiere leiden still, weil ihre Schmerzen nicht sofort sichtbar sind</li>
-                <li>Besitzer glauben oft, sie hätten ein "besonders schönes Tier", verstehen aber nicht, dass das Tier leidet</li>
-                <li>Überzüchtung ist nicht "natürlich" – sie ist ein Ergebnis von menschlichem Wunschdenken</li>
+            <h3 class="editable" data-key="problem-titel" style="color: white; margin-top: 30px; margin-bottom: 15px;"><?php echo wp_kses_post($content['problem-titel'] ?? ''); ?></h3>
+            <ul class="editable" data-key="problem-liste" style="font-size: 1.1rem; line-height: 1.8;">
+                <?php echo wp_kses_post($content['problem-liste'] ?? ''); ?>
             </ul>
 
-            <p style="font-size: 1.4rem; margin-top: 40px; font-weight: 700; text-align: center;" class="editable" data-key="definition-highlight">
-                <?php echo isset($content['definition-highlight']) ? wp_kses_post($content['definition-highlight']) : '💔 Schönheit darf nicht weh tun – auch nicht bei Tieren.'; ?>
+            <p class="editable" data-key="definition-quote" style="font-size: 1.4rem; margin-top: 40px; font-weight: 700; text-align: center;">
+                <?php echo wp_kses_post($content['definition-quote'] ?? ''); ?>
             </p>
         </div>
 
-        <h2 class="section-title editable" data-key="rassen-titel" style="text-align: center; margin-bottom: 50px;">
-            <?php echo isset($content['rassen-titel']) ? wp_kses_post($content['rassen-titel']) : 'Die 8 häufigsten Qualzuchten'; ?>
-        </h2>
+        <h2 class="section-title editable" data-key="rassen-titel" style="text-align: center; margin-bottom: 50px;"><?php echo wp_kses_post($content['rassen-titel'] ?? ''); ?></h2>
 
         <!-- Rassen Grid -->
         <div class="qualzucht-grid">
@@ -76,27 +94,19 @@ if ($img_id) {
 ?>
                 </div>
                 <div class="qualzucht-content">
-                    <div class="qualzucht-icon">🐶</div>
-                    <h3 class="editable" data-key="rasse1-titel">
-                        <?php echo isset($content['rasse1-titel']) ? wp_kses_post($content['rasse1-titel']) : 'Mops & Französische Bulldogge'; ?>
-                    </h3>
-                    <p class="qualzucht-herkunft editable" data-key="rasse1-herkunft">
-                        <?php echo isset($content['rasse1-herkunft']) ? wp_kses_post($content['rasse1-herkunft']) : 'Gezielt gezüchtet für "süße" flache Gesichter und Falten'; ?>
-                    </p>
+                    <div class="qualzucht-icon editable" data-key="rasse1-icon"><?php echo wp_kses_post($content['rasse1-icon'] ?? ''); ?></div>
+                    <h3 class="editable" data-key="rasse1-titel"><?php echo wp_kses_post($content['rasse1-titel'] ?? ''); ?></h3>
+                    <p class="qualzucht-herkunft editable" data-key="rasse1-herkunft"><?php echo wp_kses_post($content['rasse1-herkunft'] ?? ''); ?></p>
 
                     <div class="qualzucht-leiden">
-                        <h4 class="editable" data-key="rasse1-leiden-titel">
-                            <?php echo isset($content['rasse1-leiden-titel']) ? wp_kses_post($content['rasse1-leiden-titel']) : 'Leiden:'; ?>
-                        </h4>
+                        <h4 class="editable" data-key="rasse1-leiden-titel"><?php echo wp_kses_post($content['rasse1-leiden-titel'] ?? ''); ?></h4>
                         <ul class="editable" data-key="rasse1-leiden-liste">
-                            <li>Atemnot (Brachyzephalie, verengte Nasenlöcher)</li>
-                            <li>Augenprobleme (hervorstehend, trockene Hornhaut)</li>
-                            <li>Hautentzündungen (Falteninfektionen)</li>
+                            <?php echo wp_kses_post($content['rasse1-leiden-liste'] ?? ''); ?>
                         </ul>
                     </div>
 
                     <div class="qualzucht-wissen editable" data-key="rasse1-wissen">
-                        <?php echo isset($content['rasse1-wissen']) ? wp_kses_post($content['rasse1-wissen']) : '<strong>💡 Wissen:</strong> Auch mit OP können viele Probleme nicht vollständig behoben werden.'; ?>
+                        <?php echo wp_kses_post($content['rasse1-wissen'] ?? ''); ?>
                     </div>
                 </div>
             </div>
@@ -114,28 +124,19 @@ if ($img_id) {
 ?>
                 </div>
                 <div class="qualzucht-content">
-                    <div class="qualzucht-icon">🐱</div>
-                    <h3 class="editable" data-key="rasse2-titel">
-                        <?php echo isset($content['rasse2-titel']) ? wp_kses_post($content['rasse2-titel']) : 'Perserkatze'; ?>
-                    </h3>
-                    <p class="qualzucht-herkunft editable" data-key="rasse2-herkunft">
-                        <?php echo isset($content['rasse2-herkunft']) ? wp_kses_post($content['rasse2-herkunft']) : 'Flaches Gesicht, große Augen – "edler Look"'; ?>
-                    </p>
+                    <div class="qualzucht-icon editable" data-key="rasse2-icon"><?php echo wp_kses_post($content['rasse2-icon'] ?? ''); ?></div>
+                    <h3 class="editable" data-key="rasse2-titel"><?php echo wp_kses_post($content['rasse2-titel'] ?? ''); ?></h3>
+                    <p class="qualzucht-herkunft editable" data-key="rasse2-herkunft"><?php echo wp_kses_post($content['rasse2-herkunft'] ?? ''); ?></p>
 
                     <div class="qualzucht-leiden">
-                        <h4 class="editable" data-key="rasse2-leiden-titel">
-                            <?php echo isset($content['rasse2-leiden-titel']) ? wp_kses_post($content['rasse2-leiden-titel']) : 'Leiden:'; ?>
-                        </h4>
+                        <h4 class="editable" data-key="rasse2-leiden-titel"><?php echo wp_kses_post($content['rasse2-leiden-titel'] ?? ''); ?></h4>
                         <ul class="editable" data-key="rasse2-leiden-liste">
-                            <li>Verstopfte Tränenkanäle = ständiges Augentränen</li>
-                            <li>Atemprobleme durch flache Nasenpartie</li>
-                            <li>Zahnfehlstellungen</li>
-                            <li>Hautfalten = Pilzinfektionen</li>
+                            <?php echo wp_kses_post($content['rasse2-leiden-liste'] ?? ''); ?>
                         </ul>
                     </div>
 
                     <div class="qualzucht-wissen editable" data-key="rasse2-wissen">
-                        <?php echo isset($content['rasse2-wissen']) ? wp_kses_post($content['rasse2-wissen']) : '<strong>💡 Wissen:</strong> Viele Perser sind lebenslang auf Augenpflege angewiesen.'; ?>
+                        <?php echo wp_kses_post($content['rasse2-wissen'] ?? ''); ?>
                     </div>
                 </div>
             </div>
@@ -153,27 +154,19 @@ if ($img_id) {
 ?>
                 </div>
                 <div class="qualzucht-content">
-                    <div class="qualzucht-icon">🦜</div>
-                    <h3 class="editable" data-key="rasse3-titel">
-                        <?php echo isset($content['rasse3-titel']) ? wp_kses_post($content['rasse3-titel']) : 'Schauwellensittich'; ?>
-                    </h3>
-                    <p class="qualzucht-herkunft editable" data-key="rasse3-herkunft">
-                        <?php echo isset($content['rasse3-herkunft']) ? wp_kses_post($content['rasse3-herkunft']) : 'Überlange Federn für "flauschiges" Aussehen (als Ausstellungsrasse gezüchtet)'; ?>
-                    </p>
+                    <div class="qualzucht-icon editable" data-key="rasse3-icon"><?php echo wp_kses_post($content['rasse3-icon'] ?? ''); ?></div>
+                    <h3 class="editable" data-key="rasse3-titel"><?php echo wp_kses_post($content['rasse3-titel'] ?? ''); ?></h3>
+                    <p class="qualzucht-herkunft editable" data-key="rasse3-herkunft"><?php echo wp_kses_post($content['rasse3-herkunft'] ?? ''); ?></p>
 
                     <div class="qualzucht-leiden">
-                        <h4 class="editable" data-key="rasse3-leiden-titel">
-                            <?php echo isset($content['rasse3-leiden-titel']) ? wp_kses_post($content['rasse3-leiden-titel']) : 'Leiden:'; ?>
-                        </h4>
+                        <h4 class="editable" data-key="rasse3-leiden-titel"><?php echo wp_kses_post($content['rasse3-leiden-titel'] ?? ''); ?></h4>
                         <ul class="editable" data-key="rasse3-leiden-liste">
-                            <li>Sichtprobleme (Augen unter Federn verborgen)</li>
-                            <li>Schnabeldeformationen = Kauprobleme</li>
-                            <li>Schwaches Immunsystem durch Inzucht</li>
+                            <?php echo wp_kses_post($content['rasse3-leiden-liste'] ?? ''); ?>
                         </ul>
                     </div>
 
                     <div class="qualzucht-wissen editable" data-key="rasse3-wissen">
-                        <?php echo isset($content['rasse3-wissen']) ? wp_kses_post($content['rasse3-wissen']) : '<strong>💡 Wissen:</strong> Ein "schöner" Welli kann oft nicht mehr richtig fliegen.'; ?>
+                        <?php echo wp_kses_post($content['rasse3-wissen'] ?? ''); ?>
                     </div>
                 </div>
             </div>
@@ -191,27 +184,19 @@ if ($img_id) {
 ?>
                 </div>
                 <div class="qualzucht-content">
-                    <div class="qualzucht-icon">🐰</div>
-                    <h3 class="editable" data-key="rasse4-titel">
-                        <?php echo isset($content['rasse4-titel']) ? wp_kses_post($content['rasse4-titel']) : 'Widderkaninchen'; ?>
-                    </h3>
-                    <p class="qualzucht-herkunft editable" data-key="rasse4-herkunft">
-                        <?php echo isset($content['rasse4-herkunft']) ? wp_kses_post($content['rasse4-herkunft']) : 'Hängende Ohren für "niedliches" Aussehen'; ?>
-                    </p>
+                    <div class="qualzucht-icon editable" data-key="rasse4-icon"><?php echo wp_kses_post($content['rasse4-icon'] ?? ''); ?></div>
+                    <h3 class="editable" data-key="rasse4-titel"><?php echo wp_kses_post($content['rasse4-titel'] ?? ''); ?></h3>
+                    <p class="qualzucht-herkunft editable" data-key="rasse4-herkunft"><?php echo wp_kses_post($content['rasse4-herkunft'] ?? ''); ?></p>
 
                     <div class="qualzucht-leiden">
-                        <h4 class="editable" data-key="rasse4-leiden-titel">
-                            <?php echo isset($content['rasse4-leiden-titel']) ? wp_kses_post($content['rasse4-leiden-titel']) : 'Leiden:'; ?>
-                        </h4>
+                        <h4 class="editable" data-key="rasse4-leiden-titel"><?php echo wp_kses_post($content['rasse4-leiden-titel'] ?? ''); ?></h4>
                         <ul class="editable" data-key="rasse4-leiden-liste">
-                            <li>Ohrenfehlstellung = Schwerhörigkeit</li>
-                            <li>Gehörgangsentzündungen</li>
-                            <li>Nervenprobleme durch verformten Schädel</li>
+                            <?php echo wp_kses_post($content['rasse4-leiden-liste'] ?? ''); ?>
                         </ul>
                     </div>
 
                     <div class="qualzucht-wissen editable" data-key="rasse4-wissen">
-                        <?php echo isset($content['rasse4-wissen']) ? wp_kses_post($content['rasse4-wissen']) : '<strong>💡 Wissen:</strong> Die "süßen" Ohren sind ein Schmerzfaktor.'; ?>
+                        <?php echo wp_kses_post($content['rasse4-wissen'] ?? ''); ?>
                     </div>
                 </div>
             </div>
@@ -229,27 +214,19 @@ if ($img_id) {
 ?>
                 </div>
                 <div class="qualzucht-content">
-                    <div class="qualzucht-icon">🐠</div>
-                    <h3 class="editable" data-key="rasse5-titel">
-                        <?php echo isset($content['rasse5-titel']) ? wp_kses_post($content['rasse5-titel']) : 'Schleierschwanz-Goldfisch'; ?>
-                    </h3>
-                    <p class="qualzucht-herkunft editable" data-key="rasse5-herkunft">
-                        <?php echo isset($content['rasse5-herkunft']) ? wp_kses_post($content['rasse5-herkunft']) : 'Überlange Flossen, kugeliger Körper'; ?>
-                    </p>
+                    <div class="qualzucht-icon editable" data-key="rasse5-icon"><?php echo wp_kses_post($content['rasse5-icon'] ?? ''); ?></div>
+                    <h3 class="editable" data-key="rasse5-titel"><?php echo wp_kses_post($content['rasse5-titel'] ?? ''); ?></h3>
+                    <p class="qualzucht-herkunft editable" data-key="rasse5-herkunft"><?php echo wp_kses_post($content['rasse5-herkunft'] ?? ''); ?></p>
 
                     <div class="qualzucht-leiden">
-                        <h4 class="editable" data-key="rasse5-leiden-titel">
-                            <?php echo isset($content['rasse5-leiden-titel']) ? wp_kses_post($content['rasse5-leiden-titel']) : 'Leiden:'; ?>
-                        </h4>
+                        <h4 class="editable" data-key="rasse5-leiden-titel"><?php echo wp_kses_post($content['rasse5-leiden-titel'] ?? ''); ?></h4>
                         <ul class="editable" data-key="rasse5-leiden-liste">
-                            <li>Schwimmprobleme (Schleppflossen)</li>
-                            <li>Augenprobleme (hervorstehend, verletzungsanfällig)</li>
-                            <li>Skelettdeformationen</li>
+                            <?php echo wp_kses_post($content['rasse5-leiden-liste'] ?? ''); ?>
                         </ul>
                     </div>
 
                     <div class="qualzucht-wissen editable" data-key="rasse5-wissen">
-                        <?php echo isset($content['rasse5-wissen']) ? wp_kses_post($content['rasse5-wissen']) : '<strong>💡 Wissen:</strong> Das "prachtvolle" Aussehen ist in Wirklichkeit eine Behinderung.'; ?>
+                        <?php echo wp_kses_post($content['rasse5-wissen'] ?? ''); ?>
                     </div>
                 </div>
             </div>
@@ -267,27 +244,19 @@ if ($img_id) {
 ?>
                 </div>
                 <div class="qualzucht-content">
-                    <div class="qualzucht-icon">🦎</div>
-                    <h3 class="editable" data-key="rasse6-titel">
-                        <?php echo isset($content['rasse6-titel']) ? wp_kses_post($content['rasse6-titel']) : 'Albino-Reptilien'; ?>
-                    </h3>
-                    <p class="qualzucht-herkunft editable" data-key="rasse6-herkunft">
-                        <?php echo isset($content['rasse6-herkunft']) ? wp_kses_post($content['rasse6-herkunft']) : 'Genmutation für besondere Farbvarianten'; ?>
-                    </p>
+                    <div class="qualzucht-icon editable" data-key="rasse6-icon"><?php echo wp_kses_post($content['rasse6-icon'] ?? ''); ?></div>
+                    <h3 class="editable" data-key="rasse6-titel"><?php echo wp_kses_post($content['rasse6-titel'] ?? ''); ?></h3>
+                    <p class="qualzucht-herkunft editable" data-key="rasse6-herkunft"><?php echo wp_kses_post($content['rasse6-herkunft'] ?? ''); ?></p>
 
                     <div class="qualzucht-leiden">
-                        <h4 class="editable" data-key="rasse6-leiden-titel">
-                            <?php echo isset($content['rasse6-leiden-titel']) ? wp_kses_post($content['rasse6-leiden-titel']) : 'Leiden:'; ?>
-                        </h4>
+                        <h4 class="editable" data-key="rasse6-leiden-titel"><?php echo wp_kses_post($content['rasse6-leiden-titel'] ?? ''); ?></h4>
                         <ul class="editable" data-key="rasse6-leiden-liste">
-                            <li>Sehschwäche durch Pigmentmangel</li>
-                            <li>Lichtempfindlichkeit = Stress</li>
-                            <li>Höhere Anfälligkeit für Krankheiten</li>
+                            <?php echo wp_kses_post($content['rasse6-leiden-liste'] ?? ''); ?>
                         </ul>
                     </div>
 
                     <div class="qualzucht-wissen editable" data-key="rasse6-wissen">
-                        <?php echo isset($content['rasse6-wissen']) ? wp_kses_post($content['rasse6-wissen']) : '<strong>💡 Wissen:</strong> Albinos überleben in der Natur fast nie – als Haustiere auch nur schwer.'; ?>
+                        <?php echo wp_kses_post($content['rasse6-wissen'] ?? ''); ?>
                     </div>
                 </div>
             </div>
@@ -305,27 +274,19 @@ if ($img_id) {
 ?>
                 </div>
                 <div class="qualzucht-content">
-                    <div class="qualzucht-icon">🐕</div>
-                    <h3 class="editable" data-key="rasse7-titel">
-                        <?php echo isset($content['rasse7-titel']) ? wp_kses_post($content['rasse7-titel']) : 'Malteser & Zwerghunde'; ?>
-                    </h3>
-                    <p class="qualzucht-herkunft editable" data-key="rasse7-herkunft">
-                        <?php echo isset($content['rasse7-herkunft']) ? wp_kses_post($content['rasse7-herkunft']) : 'Extreme Kleinzüchtung für dekoratives Aussehen'; ?>
-                    </p>
+                    <div class="qualzucht-icon editable" data-key="rasse7-icon"><?php echo wp_kses_post($content['rasse7-icon'] ?? ''); ?></div>
+                    <h3 class="editable" data-key="rasse7-titel"><?php echo wp_kses_post($content['rasse7-titel'] ?? ''); ?></h3>
+                    <p class="qualzucht-herkunft editable" data-key="rasse7-herkunft"><?php echo wp_kses_post($content['rasse7-herkunft'] ?? ''); ?></p>
 
                     <div class="qualzucht-leiden">
-                        <h4 class="editable" data-key="rasse7-leiden-titel">
-                            <?php echo isset($content['rasse7-leiden-titel']) ? wp_kses_post($content['rasse7-leiden-titel']) : 'Leiden:'; ?>
-                        </h4>
+                        <h4 class="editable" data-key="rasse7-leiden-titel"><?php echo wp_kses_post($content['rasse7-leiden-titel'] ?? ''); ?></h4>
                         <ul class="editable" data-key="rasse7-leiden-liste">
-                            <li>Haarpflege aufwendig = Hautprobleme bei Vernachlässigung</li>
-                            <li>Kleine Körpergröße = Gelenkprobleme</li>
-                            <li>Überzüchtete Tränenkanäle</li>
+                            <?php echo wp_kses_post($content['rasse7-leiden-liste'] ?? ''); ?>
                         </ul>
                     </div>
 
                     <div class="qualzucht-wissen editable" data-key="rasse7-wissen">
-                        <?php echo isset($content['rasse7-wissen']) ? wp_kses_post($content['rasse7-wissen']) : '<strong>💡 Wissen:</strong> Je kleiner ein Hund gezüchtet wird, desto mehr Gesundheitsprobleme entstehen.'; ?>
+                        <?php echo wp_kses_post($content['rasse7-wissen'] ?? ''); ?>
                     </div>
                 </div>
             </div>
@@ -343,27 +304,19 @@ if ($img_id) {
 ?>
                 </div>
                 <div class="qualzucht-content">
-                    <div class="qualzucht-icon">🐱</div>
-                    <h3 class="editable" data-key="rasse8-titel">
-                        <?php echo isset($content['rasse8-titel']) ? wp_kses_post($content['rasse8-titel']) : 'Scottish-Fold-Katze'; ?>
-                    </h3>
-                    <p class="qualzucht-herkunft editable" data-key="rasse8-herkunft">
-                        <?php echo isset($content['rasse8-herkunft']) ? wp_kses_post($content['rasse8-herkunft']) : 'Genmutation für gefaltete Ohren'; ?>
-                    </p>
+                    <div class="qualzucht-icon editable" data-key="rasse8-icon"><?php echo wp_kses_post($content['rasse8-icon'] ?? ''); ?></div>
+                    <h3 class="editable" data-key="rasse8-titel"><?php echo wp_kses_post($content['rasse8-titel'] ?? ''); ?></h3>
+                    <p class="qualzucht-herkunft editable" data-key="rasse8-herkunft"><?php echo wp_kses_post($content['rasse8-herkunft'] ?? ''); ?></p>
 
                     <div class="qualzucht-leiden">
-                        <h4 class="editable" data-key="rasse8-leiden-titel">
-                            <?php echo isset($content['rasse8-leiden-titel']) ? wp_kses_post($content['rasse8-leiden-titel']) : 'Leiden:'; ?>
-                        </h4>
+                        <h4 class="editable" data-key="rasse8-leiden-titel"><?php echo wp_kses_post($content['rasse8-leiden-titel'] ?? ''); ?></h4>
                         <ul class="editable" data-key="rasse8-leiden-liste">
-                            <li>Schmerzhafte Gelenkdeformationen</li>
-                            <li>Knorpelprobleme (Osteochondrodysplasie)</li>
-                            <li>Ohrenentzündungen</li>
+                            <?php echo wp_kses_post($content['rasse8-leiden-liste'] ?? ''); ?>
                         </ul>
                     </div>
 
                     <div class="qualzucht-wissen editable" data-key="rasse8-wissen">
-                        <?php echo isset($content['rasse8-wissen']) ? wp_kses_post($content['rasse8-wissen']) : '<strong>💡 Wissen:</strong> Die "süßen" Ohren bedeuten für die Katze chronischen Schmerz.'; ?>
+                        <?php echo wp_kses_post($content['rasse8-wissen'] ?? ''); ?>
                     </div>
                 </div>
             </div>
@@ -372,24 +325,13 @@ if ($img_id) {
 
         <!-- CTA -->
         <div class="cta-section" style="margin-top: 80px; text-align: center;">
-            <h3 style="font-size: 2rem; margin-bottom: 25px;" class="editable" data-key="cta-titel">
-                <?php echo isset($content['cta-titel']) ? wp_kses_post($content['cta-titel']) : 'Möchtest du wirklich Tierliebe zeigen?'; ?>
-            </h3>
-            <p style="font-size: 1.2rem; margin-bottom: 35px; color: var(--text-medium);" class="editable" data-key="cta-text">
-                <?php echo isset($content['cta-text']) ? wp_kses_post($content['cta-text']) : 'Dann adoptiere aus dem Tierschutz – keine Qualzucht, keine Massenzucht, nur echte zweite Chancen.'; ?>
-            </p>
-            <a href="<?php echo home_url('/tierliebe-adoption'); ?>" class="btn btn-primary" style="font-size: 1.2rem; padding: 18px 45px;">
-                ❤️ Mehr über Adoption erfahren
+            <h3 class="editable" data-key="cta-titel" style="font-size: 2rem; margin-bottom: 25px;"><?php echo wp_kses_post($content['cta-titel'] ?? ''); ?></h3>
+            <p class="editable" data-key="cta-text" style="font-size: 1.2rem; margin-bottom: 35px; color: var(--text-medium);"><?php echo wp_kses_post($content['cta-text'] ?? ''); ?></p>
+            <a href="<?php echo home_url('/tierliebe-adoption'); ?>" class="btn btn-primary editable" data-key="cta-button" style="font-size: 1.2rem; padding: 18px 45px;">
+                <?php echo wp_kses_post($content['cta-button'] ?? ''); ?>
             </a>
         </div>
-
     </div>
 </section>
 
-<?php
-if (current_user_can('edit_posts')) {
-    echo '<input type="hidden" id="tierliebe-page-slug" value="qualzucht">';
-}
-
-get_template_part('tierliebe-parts/footer');
-?>
+<?php get_template_part('tierliebe-parts/footer'); ?>

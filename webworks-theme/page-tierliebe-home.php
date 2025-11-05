@@ -17,7 +17,7 @@ $content = get_tierliebe_text('home');
     <div class="hero-content">
         <div class="hero-text">
             <h1 class="hero-title editable" data-key="header-titel">
-                <?php echo isset($content['header-titel']) ? esc_html(strip_tags($content['header-titel'])) : 'Du liebst Tiere?'; ?>
+                <?php echo esc_html(strip_tags($content['header-titel'] ?? '')); ?>
             </h1>
             <p class="hero-subtitle editable" data-key="untertitel">
                 <?php echo isset($content['untertitel']) ? wp_kses_post(trim($content['untertitel'], '"')) : 'Dann lies hier nicht, was du hören willst – sondern was du wissen musst. Ehrlich. Klar. Und im Sinne der Tiere.'; ?>
@@ -28,12 +28,12 @@ $content = get_tierliebe_text('home');
             <div class="hero-buttons">
                 <a href="<?php echo isset($content['button-test-url']) ? esc_url($content['button-test-url']) : home_url('/tierliebe-test'); ?>" class="btn btn-primary" data-editable-url="button-test-url">
                     <span class="editable" data-key="button-test">
-                        <?php echo isset($content['button-test']) ? wp_kses_post($content['button-test']) : '✨ Bin ich bereit? → Zum Test'; ?>
+                        <?php echo wp_kses_post($content['button-test'] ?? ''); ?>
                     </span>
                 </a>
                 <a href="<?php echo isset($content['button-wissen-url']) ? esc_url($content['button-wissen-url']) : home_url('/tierliebe-wissen'); ?>" class="btn btn-secondary" data-editable-url="button-wissen-url">
                     <span class="editable" data-key="button-wissen">
-                        <?php echo isset($content['button-wissen']) ? wp_kses_post($content['button-wissen']) : '📚 Wissen aufbauen'; ?>
+                        <?php echo wp_kses_post($content['button-wissen'] ?? ''); ?>
                     </span>
                 </a>
             </div>
@@ -75,12 +75,8 @@ $content = get_tierliebe_text('home');
                 Bevor du ein Tier holst, frag dich ehrlich:
             </h3>
             <ul style="font-size: 1.1rem; line-height: 1.8;" class="editable" data-key="info-box-checkliste">
-                <li>Habe ich <strong>Zeit</strong>? Nicht nur am Wochenende – jeden Tag.</li>
-                <li>Habe ich <strong>Geld</strong>? Nicht nur für Futter – auch für Tierarzt, Ausstattung, Notfälle.</li>
-                <li>Habe ich <strong>Platz</strong>? Nicht nur einen Käfig – echten Raum zum Leben.</li>
-                <li>Bin ich bereit für <strong>10, 15, 20 Jahre</strong> Verantwortung?</li>
-                <li>Weiß ich, was das Tier <strong>wirklich</strong> braucht – nicht, was ich mir vorstelle?</li>
-            </ul>
+            <?php echo wp_kses_post($content['info-box-checkliste'] ?? ''); ?>
+        </ul>
         </div>
 
         <div class="info-box responsibility-box">
@@ -110,7 +106,7 @@ $content = get_tierliebe_text('home');
             <div style="text-align: center; margin-top: 30px;">
                 <a href="<?php echo isset($content['button-honesty-test-url']) ? esc_url($content['button-honesty-test-url']) : home_url('/tierliebe-test'); ?>" class="btn btn-primary" data-editable-url="button-honesty-test-url">
                     <span class="editable" data-key="button-honesty-test">
-                        <?php echo isset($content['button-honesty-test']) ? wp_kses_post($content['button-honesty-test']) : 'Zum Test →'; ?>
+                        <?php echo wp_kses_post($content['button-honesty-test'] ?? ''); ?>
                     </span>
                 </a>
             </div>
@@ -131,55 +127,55 @@ $content = get_tierliebe_text('home');
             <a href="<?php echo isset($content['quicklink-hunde-url']) ? esc_url($content['quicklink-hunde-url']) : home_url('/tierliebe-hunde'); ?>" class="quick-link-card" data-editable-url="quicklink-hunde-url">
                 <span class="quick-link-icon">🐶</span>
                 <h4 class="editable" data-key="quicklink-hunde-titel">
-                    <?php echo isset($content['quicklink-hunde-titel']) ? wp_kses_post($content['quicklink-hunde-titel']) : 'Hunde'; ?>
+                    <?php echo wp_kses_post($content['quicklink-hunde-titel'] ?? ''); ?>
                 </h4>
                 <p class="editable" data-key="quicklink-hunde-text">
-                    <?php echo isset($content['quicklink-hunde-text']) ? wp_kses_post($content['quicklink-hunde-text']) : 'Mythen & Wahrheiten'; ?>
+                    <?php echo wp_kses_post($content['quicklink-hunde-text'] ?? ''); ?>
                 </p>
             </a>
             <a href="<?php echo isset($content['quicklink-katzen-url']) ? esc_url($content['quicklink-katzen-url']) : home_url('/tierliebe-katzen'); ?>" class="quick-link-card" data-editable-url="quicklink-katzen-url">
                 <span class="quick-link-icon">🐱</span>
                 <h4 class="editable" data-key="quicklink-katzen-titel">
-                    <?php echo isset($content['quicklink-katzen-titel']) ? wp_kses_post($content['quicklink-katzen-titel']) : 'Katzen'; ?>
+                    <?php echo wp_kses_post($content['quicklink-katzen-titel'] ?? ''); ?>
                 </h4>
                 <p class="editable" data-key="quicklink-katzen-text">
-                    <?php echo isset($content['quicklink-katzen-text']) ? wp_kses_post($content['quicklink-katzen-text']) : 'Was du wissen musst'; ?>
+                    <?php echo wp_kses_post($content['quicklink-katzen-text'] ?? ''); ?>
                 </p>
             </a>
             <a href="<?php echo isset($content['quicklink-kleintiere-url']) ? esc_url($content['quicklink-kleintiere-url']) : home_url('/tierliebe-kleintiere'); ?>" class="quick-link-card" data-editable-url="quicklink-kleintiere-url">
                 <span class="quick-link-icon">🐰</span>
                 <h4 class="editable" data-key="quicklink-kleintiere-titel">
-                    <?php echo isset($content['quicklink-kleintiere-titel']) ? wp_kses_post($content['quicklink-kleintiere-titel']) : 'Kleintiere'; ?>
+                    <?php echo wp_kses_post($content['quicklink-kleintiere-titel'] ?? ''); ?>
                 </h4>
                 <p class="editable" data-key="quicklink-kleintiere-text">
-                    <?php echo isset($content['quicklink-kleintiere-text']) ? wp_kses_post($content['quicklink-kleintiere-text']) : 'Kaninchen, Hamster & Co.'; ?>
+                    <?php echo wp_kses_post($content['quicklink-kleintiere-text'] ?? ''); ?>
                 </p>
             </a>
             <a href="<?php echo isset($content['quicklink-exoten-url']) ? esc_url($content['quicklink-exoten-url']) : home_url('/tierliebe-exoten'); ?>" class="quick-link-card" data-editable-url="quicklink-exoten-url">
                 <span class="quick-link-icon">🦎</span>
                 <h4 class="editable" data-key="quicklink-exoten-titel">
-                    <?php echo isset($content['quicklink-exoten-titel']) ? wp_kses_post($content['quicklink-exoten-titel']) : 'Vögel & Exoten'; ?>
+                    <?php echo wp_kses_post($content['quicklink-exoten-titel'] ?? ''); ?>
                 </h4>
                 <p class="editable" data-key="quicklink-exoten-text">
-                    <?php echo isset($content['quicklink-exoten-text']) ? wp_kses_post($content['quicklink-exoten-text']) : 'Besondere Bedürfnisse'; ?>
+                    <?php echo wp_kses_post($content['quicklink-exoten-text'] ?? ''); ?>
                 </p>
             </a>
             <a href="<?php echo isset($content['quicklink-qualzucht-url']) ? esc_url($content['quicklink-qualzucht-url']) : home_url('/tierliebe-qualzucht'); ?>" class="quick-link-card" data-editable-url="quicklink-qualzucht-url">
                 <span class="quick-link-icon">⚠️</span>
                 <h4 class="editable" data-key="quicklink-qualzucht-titel">
-                    <?php echo isset($content['quicklink-qualzucht-titel']) ? wp_kses_post($content['quicklink-qualzucht-titel']) : 'Qualzucht'; ?>
+                    <?php echo wp_kses_post($content['quicklink-qualzucht-titel'] ?? ''); ?>
                 </h4>
                 <p class="editable" data-key="quicklink-qualzucht-text">
-                    <?php echo isset($content['quicklink-qualzucht-text']) ? wp_kses_post($content['quicklink-qualzucht-text']) : 'Leid erkennen'; ?>
+                    <?php echo wp_kses_post($content['quicklink-qualzucht-text'] ?? ''); ?>
                 </p>
             </a>
             <a href="<?php echo isset($content['quicklink-adoption-url']) ? esc_url($content['quicklink-adoption-url']) : home_url('/tierliebe-adoption'); ?>" class="quick-link-card" data-editable-url="quicklink-adoption-url">
                 <span class="quick-link-icon">❤️</span>
                 <h4 class="editable" data-key="quicklink-adoption-titel">
-                    <?php echo isset($content['quicklink-adoption-titel']) ? wp_kses_post($content['quicklink-adoption-titel']) : 'Adoption'; ?>
+                    <?php echo wp_kses_post($content['quicklink-adoption-titel'] ?? ''); ?>
                 </h4>
                 <p class="editable" data-key="quicklink-adoption-text">
-                    <?php echo isset($content['quicklink-adoption-text']) ? wp_kses_post($content['quicklink-adoption-text']) : 'Der richtige Weg'; ?>
+                    <?php echo wp_kses_post($content['quicklink-adoption-text'] ?? ''); ?>
                 </p>
             </a>
         </div>
@@ -189,7 +185,7 @@ $content = get_tierliebe_text('home');
 <?php
 // Add page slug for edit mode
 if (current_user_can('edit_posts')) {
-    echo '<input type="hidden" id="tierliebe-page-slug" value="home">';
+    echo '';
 }
 
 get_template_part('tierliebe-parts/footer');

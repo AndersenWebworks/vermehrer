@@ -16,10 +16,10 @@ $content = get_tierliebe_text('irrtuemer');
 <section class="primary-hero" style="min-height: 50vh;">
     <div class="hero-content">
         <h1 class="hero-title editable" data-key="hero-titel">
-            <?php echo isset($content['hero-titel']) ? wp_kses_post($content['hero-titel']) : '💭 Die größten Irrtümer über Haustiere'; ?>
+            <?php echo wp_kses_post($content['hero-titel'] ?? ''); ?>
         </h1>
         <p class="hero-subtitle editable" data-key="hero-subtitle">
-            <?php echo isset($content['hero-subtitle']) ? wp_kses_post($content['hero-subtitle']) : 'Viele Irrtümer halten sich hartnäckig – und kosten Tiere am Ende ihr Glück oder sogar ihr Leben. Hier findest du die häufigsten Missverständnisse – und wie es wirklich ist.'; ?>
+            <?php echo wp_kses_post($content['hero-subtitle'] ?? ''); ?>
         </p>
     </div>
 </section>
@@ -44,12 +44,12 @@ $content = get_tierliebe_text('irrtuemer');
                 <div class="mythos-header">
                     <span class="mythos-icon">🛒</span>
                     <h3 class="mythos-irrtum editable" data-key="irrtum-1-titel">
-                        <?php echo isset($content['irrtum-1-titel']) ? wp_kses_post($content['irrtum-1-titel']) : 'Ein Tier aus dem Laden ist gesünder'; ?>
+                        <?php echo wp_kses_post($content['irrtum-1-titel'] ?? ''); ?>
                     </h3>
                 </div>
                 <div class="mythos-content">
                     <p class="mythos-wahrheit editable" data-key="irrtum-1-text">
-                        <?php echo isset($content['irrtum-1-text']) ? wp_kses_post($content['irrtum-1-text']) : '<strong>Wahrheit:</strong> Viele Tiere aus Zoohandlungen stammen aus Massenzuchten, sind überzüchtet, krank oder zu jung – sie sehen nur gesund aus.'; ?>
+                        <?php echo wp_kses_post($content['irrtum-1-text'] ?? ''); ?>
                     </p>
                 </div>
             </div>
@@ -59,12 +59,12 @@ $content = get_tierliebe_text('irrtuemer');
                 <div class="mythos-header">
                     <span class="mythos-icon">🏠</span>
                     <h3 class="mythos-irrtum editable" data-key="irrtum-2-titel">
-                        <?php echo isset($content['irrtum-2-titel']) ? wp_kses_post($content['irrtum-2-titel']) : 'Ein Tier aus dem Tierschutz hat Macken'; ?>
+                        <?php echo wp_kses_post($content['irrtum-2-titel'] ?? ''); ?>
                     </h3>
                 </div>
                 <div class="mythos-content">
                     <p class="mythos-wahrheit editable" data-key="irrtum-2-text">
-                        <?php echo isset($content['irrtum-2-text']) ? wp_kses_post($content['irrtum-2-text']) : '<strong>Wahrheit:</strong> Viele Tiere aus dem Tierschutz sind geimpft, kastriert, sozialisiert und kennen bereits den Alltag – und bringen viel Dankbarkeit mit.'; ?>
+                        <?php echo wp_kses_post($content['irrtum-2-text'] ?? ''); ?>
                     </p>
                 </div>
             </div>
@@ -74,12 +74,12 @@ $content = get_tierliebe_text('irrtuemer');
                 <div class="mythos-header">
                     <span class="mythos-icon">🦜</span>
                     <h3 class="mythos-irrtum editable" data-key="irrtum-3-titel">
-                        <?php echo isset($content['irrtum-3-titel']) ? wp_kses_post($content['irrtum-3-titel']) : 'Ein Wellensittich allein wird zahmer'; ?>
+                        <?php echo wp_kses_post($content['irrtum-3-titel'] ?? ''); ?>
                     </h3>
                 </div>
                 <div class="mythos-content">
                     <p class="mythos-wahrheit editable" data-key="irrtum-3-text">
-                        <?php echo isset($content['irrtum-3-text']) ? wp_kses_post($content['irrtum-3-text']) : '<strong>Wahrheit:</strong> Ein einsamer Wellensittich leidet – Spiegel und Mensch sind kein Ersatz für echte soziale Bindung.'; ?>
+                        <?php echo wp_kses_post($content['irrtum-3-text'] ?? ''); ?>
                     </p>
                 </div>
             </div>
@@ -89,12 +89,12 @@ $content = get_tierliebe_text('irrtuemer');
                 <div class="mythos-header">
                     <span class="mythos-icon">🐹</span>
                     <h3 class="mythos-irrtum editable" data-key="irrtum-4-titel">
-                        <?php echo isset($content['irrtum-4-titel']) ? wp_kses_post($content['irrtum-4-titel']) : 'Hamster sind Kinderhaustiere'; ?>
+                        <?php echo wp_kses_post($content['irrtum-4-titel'] ?? ''); ?>
                     </h3>
                 </div>
                 <div class="mythos-content">
                     <p class="mythos-wahrheit editable" data-key="irrtum-4-text">
-                        <?php echo isset($content['irrtum-4-text']) ? wp_kses_post($content['irrtum-4-text']) : '<strong>Wahrheit:</strong> Hamster sind nachtaktiv, mögen keinen Lärm, brauchen Ruhe, Platz und viel Einstreu. Kinder sehen sie kaum und stressen sie unbewusst.'; ?>
+                        <?php echo wp_kses_post($content['irrtum-4-text'] ?? ''); ?>
                     </p>
                 </div>
             </div>
@@ -104,12 +104,12 @@ $content = get_tierliebe_text('irrtuemer');
                 <div class="mythos-header">
                     <span class="mythos-icon">🐰</span>
                     <h3 class="mythos-irrtum editable" data-key="irrtum-5-titel">
-                        <?php echo isset($content['irrtum-5-titel']) ? wp_kses_post($content['irrtum-5-titel']) : 'Kaninchen und Meerschweinchen verstehen sich'; ?>
+                        <?php echo wp_kses_post($content['irrtum-5-titel'] ?? ''); ?>
                     </h3>
                 </div>
                 <div class="mythos-content">
                     <p class="mythos-wahrheit editable" data-key="irrtum-5-text">
-                        <?php echo isset($content['irrtum-5-text']) ? wp_kses_post($content['irrtum-5-text']) : '<strong>Wahrheit:</strong> Sie sprechen nicht dieselbe Sprache. Das Meerschweinchen lebt oft in Angst und versteht das Kaninchen nicht.'; ?>
+                        <?php echo wp_kses_post($content['irrtum-5-text'] ?? ''); ?>
                     </p>
                 </div>
             </div>
@@ -119,12 +119,12 @@ $content = get_tierliebe_text('irrtuemer');
                 <div class="mythos-header">
                     <span class="mythos-icon">🚪</span>
                     <h3 class="mythos-irrtum editable" data-key="irrtum-6-titel">
-                        <?php echo isset($content['irrtum-6-titel']) ? wp_kses_post($content['irrtum-6-titel']) : 'Ein Käfig im Kinderzimmer reicht'; ?>
+                        <?php echo wp_kses_post($content['irrtum-6-titel'] ?? ''); ?>
                     </h3>
                 </div>
                 <div class="mythos-content">
                     <p class="mythos-wahrheit editable" data-key="irrtum-6-text">
-                        <?php echo isset($content['irrtum-6-text']) ? wp_kses_post($content['irrtum-6-text']) : '<strong>Wahrheit:</strong> Kinderzimmer sind zu laut, unruhig, heiß oder kalt – keine artgerechte Umgebung für Tiere.'; ?>
+                        <?php echo wp_kses_post($content['irrtum-6-text'] ?? ''); ?>
                     </p>
                 </div>
             </div>
@@ -134,12 +134,12 @@ $content = get_tierliebe_text('irrtuemer');
                 <div class="mythos-header">
                     <span class="mythos-icon">🐀</span>
                     <h3 class="mythos-irrtum editable" data-key="irrtum-7-titel">
-                        <?php echo isset($content['irrtum-7-titel']) ? wp_kses_post($content['irrtum-7-titel']) : 'Ratten sind dreckig'; ?>
+                        <?php echo wp_kses_post($content['irrtum-7-titel'] ?? ''); ?>
                     </h3>
                 </div>
                 <div class="mythos-content">
                     <p class="mythos-wahrheit editable" data-key="irrtum-7-text">
-                        <?php echo isset($content['irrtum-7-text']) ? wp_kses_post($content['irrtum-7-text']) : '<strong>Wahrheit:</strong> Ratten sind extrem reinlich, klug und sozial – sie lieben Struktur, Sauberkeit und Rituale.'; ?>
+                        <?php echo wp_kses_post($content['irrtum-7-text'] ?? ''); ?>
                     </p>
                 </div>
             </div>
@@ -149,12 +149,12 @@ $content = get_tierliebe_text('irrtuemer');
                 <div class="mythos-header">
                     <span class="mythos-icon">🦎</span>
                     <h3 class="mythos-irrtum editable" data-key="irrtum-8-titel">
-                        <?php echo isset($content['irrtum-8-titel']) ? wp_kses_post($content['irrtum-8-titel']) : 'Reptilien sind anspruchslos'; ?>
+                        <?php echo wp_kses_post($content['irrtum-8-titel'] ?? ''); ?>
                     </h3>
                 </div>
                 <div class="mythos-content">
                     <p class="mythos-wahrheit editable" data-key="irrtum-8-text">
-                        <?php echo isset($content['irrtum-8-text']) ? wp_kses_post($content['irrtum-8-text']) : '<strong>Wahrheit:</strong> Reptilien brauchen UV, Temperaturzonen, Feuchte – Haltung ohne Wissen ist lebensgefährlich für sie.'; ?>
+                        <?php echo wp_kses_post($content['irrtum-8-text'] ?? ''); ?>
                     </p>
                 </div>
             </div>
@@ -164,12 +164,12 @@ $content = get_tierliebe_text('irrtuemer');
                 <div class="mythos-header">
                     <span class="mythos-icon">🐢</span>
                     <h3 class="mythos-irrtum editable" data-key="irrtum-9-titel">
-                        <?php echo isset($content['irrtum-9-titel']) ? wp_kses_post($content['irrtum-9-titel']) : 'Schildkröten brauchen keinen Winterschlaf'; ?>
+                        <?php echo wp_kses_post($content['irrtum-9-titel'] ?? ''); ?>
                     </h3>
                 </div>
                 <div class="mythos-content">
                     <p class="mythos-wahrheit editable" data-key="irrtum-9-text">
-                        <?php echo isset($content['irrtum-9-text']) ? wp_kses_post($content['irrtum-9-text']) : '<strong>Wahrheit:</strong> Ohne Winterschlaf leidet der Stoffwechsel. Viele sterben früh an Leber- oder Organschäden.'; ?>
+                        <?php echo wp_kses_post($content['irrtum-9-text'] ?? ''); ?>
                     </p>
                 </div>
             </div>
@@ -179,12 +179,12 @@ $content = get_tierliebe_text('irrtuemer');
                 <div class="mythos-header">
                     <span class="mythos-icon">🐠</span>
                     <h3 class="mythos-irrtum editable" data-key="irrtum-10-titel">
-                        <?php echo isset($content['irrtum-10-titel']) ? wp_kses_post($content['irrtum-10-titel']) : 'Goldfische passen in ein kleines Glas'; ?>
+                        <?php echo wp_kses_post($content['irrtum-10-titel'] ?? ''); ?>
                     </h3>
                 </div>
                 <div class="mythos-content">
                     <p class="mythos-wahrheit editable" data-key="irrtum-10-text">
-                        <?php echo isset($content['irrtum-10-text']) ? wp_kses_post($content['irrtum-10-text']) : '<strong>Wahrheit:</strong> Goldfische brauchen 100 Liter pro Tier, Filter, Sauerstoff und Pflege. Alles andere ist Tierquälerei.'; ?>
+                        <?php echo wp_kses_post($content['irrtum-10-text'] ?? ''); ?>
                     </p>
                 </div>
             </div>
@@ -194,12 +194,12 @@ $content = get_tierliebe_text('irrtuemer');
                 <div class="mythos-header">
                     <span class="mythos-icon">🐕</span>
                     <h3 class="mythos-irrtum editable" data-key="irrtum-11-titel">
-                        <?php echo isset($content['irrtum-11-titel']) ? wp_kses_post($content['irrtum-11-titel']) : 'Ein zweiter Hund ist Luxus'; ?>
+                        <?php echo wp_kses_post($content['irrtum-11-titel'] ?? ''); ?>
                     </h3>
                 </div>
                 <div class="mythos-content">
                     <p class="mythos-wahrheit editable" data-key="irrtum-11-text">
-                        <?php echo isset($content['irrtum-11-text']) ? wp_kses_post($content['irrtum-11-text']) : '<strong>Wahrheit:</strong> Für manche Hunde ist ein Artgenosse die einzige Entlastung – besonders bei längerer Abwesenheit.'; ?>
+                        <?php echo wp_kses_post($content['irrtum-11-text'] ?? ''); ?>
                     </p>
                 </div>
             </div>
@@ -209,12 +209,12 @@ $content = get_tierliebe_text('irrtuemer');
                 <div class="mythos-header">
                     <span class="mythos-icon">🐱</span>
                     <h3 class="mythos-irrtum editable" data-key="irrtum-12-titel">
-                        <?php echo isset($content['irrtum-12-titel']) ? wp_kses_post($content['irrtum-12-titel']) : 'Meine Katze ist ruhig, also geht\'s ihr gut'; ?>
+                        <?php echo wp_kses_post($content['irrtum-12-titel'] ?? ''); ?>
                     </h3>
                 </div>
                 <div class="mythos-content">
                     <p class="mythos-wahrheit editable" data-key="irrtum-12-text">
-                        <?php echo isset($content['irrtum-12-text']) ? wp_kses_post($content['irrtum-12-text']) : '<strong>Wahrheit:</strong> Katzen leiden still. Wer sich nicht bewegt, frisst oder nur schläft, ist womöglich depressiv.'; ?>
+                        <?php echo wp_kses_post($content['irrtum-12-text'] ?? ''); ?>
                     </p>
                 </div>
             </div>
@@ -224,12 +224,12 @@ $content = get_tierliebe_text('irrtuemer');
                 <div class="mythos-header">
                     <span class="mythos-icon">🔄</span>
                     <h3 class="mythos-irrtum editable" data-key="irrtum-13-titel">
-                        <?php echo isset($content['irrtum-13-titel']) ? wp_kses_post($content['irrtum-13-titel']) : 'Tiere können sich gut anpassen'; ?>
+                        <?php echo wp_kses_post($content['irrtum-13-titel'] ?? ''); ?>
                     </h3>
                 </div>
                 <div class="mythos-content">
                     <p class="mythos-wahrheit editable" data-key="irrtum-13-text">
-                        <?php echo isset($content['irrtum-13-text']) ? wp_kses_post($content['irrtum-13-text']) : '<strong>Wahrheit:</strong> Tiere ertragen ihr Umfeld oft, weil sie keine Wahl haben. Sie leiden leise, nicht sichtbar.'; ?>
+                        <?php echo wp_kses_post($content['irrtum-13-text'] ?? ''); ?>
                     </p>
                 </div>
             </div>
@@ -239,11 +239,11 @@ $content = get_tierliebe_text('irrtuemer');
         <!-- CTA -->
         <div class="cta-section" style="margin-top: 80px; text-align: center;">
             <h3 class="editable" data-key="cta-titel" style="font-size: 2rem; margin-bottom: 20px;">
-                <?php echo isset($content['cta-titel']) ? wp_kses_post($content['cta-titel']) : 'Jetzt ehrlich prüfen: Bin ich bereit?'; ?>
+                <?php echo wp_kses_post($content['cta-titel'] ?? ''); ?>
             </h3>
             <a href="<?php echo isset($content['cta-button-url']) ? esc_url($content['cta-button-url']) : home_url('/tierliebe-test'); ?>" class="btn btn-primary" style="font-size: 1.2rem; padding: 15px 40px;" data-editable-url="cta-button-url">
                 <span class="editable" data-key="cta-button">
-                    <?php echo isset($content['cta-button']) ? wp_kses_post($content['cta-button']) : 'Zum Test →'; ?>
+                    <?php echo wp_kses_post($content['cta-button'] ?? ''); ?>
                 </span>
             </a>
         </div>
@@ -253,7 +253,7 @@ $content = get_tierliebe_text('irrtuemer');
 <?php
 // Add page slug for edit mode
 if (current_user_can('edit_posts')) {
-    echo '<input type="hidden" id="tierliebe-page-slug" value="irrtuemer">';
+    echo '';
 }
 
 get_template_part('tierliebe-parts/footer');
