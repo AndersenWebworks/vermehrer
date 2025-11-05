@@ -4,6 +4,35 @@
  * Version: 1.0
  */
 
+// Show Pastel Notification
+function showQuizNotification(message) {
+    const notification = document.createElement('div');
+    notification.className = 'quiz-notification';
+    notification.innerHTML = message;
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--pastel-coral);
+        color: white;
+        padding: 20px 40px;
+        border-radius: 30px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        box-shadow: 0 4px 20px rgba(255, 154, 158, 0.4);
+        z-index: 10000;
+        animation: slideDown 0.3s ease-out;
+    `;
+
+    document.body.appendChild(notification);
+
+    setTimeout(() => {
+        notification.style.animation = 'slideUp 0.3s ease-out';
+        setTimeout(() => notification.remove(), 300);
+    }, 3000);
+}
+
 // Quiz Questions
 const questions = [
     {
@@ -143,7 +172,7 @@ function changeQuestion(direction) {
     const currentAnswer = getAnswer(questions[currentQuestionIndex].number);
 
     if (direction === 1 && !currentAnswer) {
-        alert('Bitte wähle eine Antwort aus! 💕');
+        showQuizNotification('Bitte wähle eine Antwort aus! 💕');
         return;
     }
 
@@ -657,7 +686,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             if (!allAnswered) {
-                alert('Bitte beantworte alle Fragen! 💕');
+                showQuizNotification('Bitte beantworte alle Fragen! 💕');
                 return;
             }
 

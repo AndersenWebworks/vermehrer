@@ -8,37 +8,7 @@
 
 get_template_part('tierliebe-parts/header');
 
-// DEBUG: Check what post we're looking for
-if (current_user_can('edit_posts')) {
-    $test_query = new WP_Query(array(
-        'post_type'      => 'tierliebe_text',
-        'name'           => 'qualzucht',
-        'posts_per_page' => 1,
-        'post_status'    => 'publish'
-    ));
-    echo "<!-- DEBUG: Query found posts: " . $test_query->found_posts . " -->";
-    if ($test_query->have_posts()) {
-        $test_query->the_post();
-        $test_post = get_post();
-        echo "<!-- DEBUG: Post ID: " . $test_post->ID . ", Slug: " . $test_post->post_name . " -->";
-        echo "<!-- DEBUG: Content length: " . strlen($test_post->post_content) . " -->";
-        echo "<!-- DEBUG: First 200 chars (escaped): " . esc_html(substr($test_post->post_content, 0, 200)) . " -->";
-        echo "<!-- DEBUG: First 200 chars (raw): " . substr($test_post->post_content, 0, 200) . " -->";
-        wp_reset_postdata();
-    } else {
-        echo "<!-- DEBUG: NO POST FOUND WITH SLUG 'qualzucht' -->";
-    }
-}
-
 $content = get_tierliebe_text('qualzucht');
-
-// DEBUG OUTPUT
-if (current_user_can('edit_posts')) {
-    echo "<!-- DEBUG: Content keys: " . implode(', ', array_keys($content)) . " -->";
-    if (isset($content['hero-titel'])) {
-        echo "<!-- DEBUG: hero-titel = " . esc_html($content['hero-titel']) . " -->";
-    }
-}
 ?>
 
 <!-- Hidden Page Slug for Editor -->

@@ -13,14 +13,9 @@
 
     // Initialize
     $(document).ready(function() {
-        console.log('=== Tierliebe Editor v2.0 initializing ===');
-
         // Add Edit Button
         $('body').append('<button class="tierliebe-edit-btn" title="Texte bearbeiten">✏️</button>');
         $('body').append('<button class="tierliebe-save-btn">💾 Speichern</button>');
-
-        console.log('Edit button added:', $('.tierliebe-edit-btn').length);
-        console.log('Save button added:', $('.tierliebe-save-btn').length);
 
         // Add URL Edit Modal
         $('body').append(`
@@ -54,13 +49,11 @@
 
         // Toggle Edit Mode
         $('.tierliebe-edit-btn').on('click', function() {
-            console.log('Edit button clicked!');
             toggleEditMode();
         });
 
         // Save Changes
         $('.tierliebe-save-btn').on('click', function() {
-            console.log('Save button clicked!');
             saveChanges();
         });
 
@@ -249,16 +242,11 @@
 
     // Save Changes via AJAX
     function saveChanges() {
-        console.log('=== saveChanges() called ===');
-
         // Extract page slug from URL (e.g., /tierliebe-katzen/ -> tierliebe-katzen)
         const pathname = window.location.pathname;
         const pageSlug = pathname.split('/').filter(part => part.length > 0 && part.startsWith('tierliebe-'))[0] || 'tierliebe-start';
 
-        console.log('Page Slug (from URL):', pageSlug);
-
         if (!pageSlug) {
-            console.error('Page Slug nicht gefunden!');
             showMessage('Fehler: Page Slug nicht gefunden', 'error');
             return;
         }
@@ -279,11 +267,7 @@
             }
         });
 
-        console.log('Changed content items:', allContent.length);
-        console.log('Changed content:', allContent);
-
         if (allContent.length === 0) {
-            console.warn('Keine Änderungen gefunden');
             showMessage('Keine Änderungen zum Speichern', 'error');
             return;
         }
@@ -293,15 +277,6 @@
 
         // Build HTML content from current state
         const htmlContent = buildHTMLFromEditables();
-        console.log('HTML Content length:', htmlContent.length);
-
-        console.log('Sending AJAX request to:', tierliebe_edit.ajax_url);
-        console.log('AJAX data:', {
-            action: 'tierliebe_save_text',
-            nonce: tierliebe_edit.nonce,
-            page_slug: pageSlug,
-            content_length: htmlContent.length
-        });
 
         // Send AJAX request
         $.ajax({
@@ -314,7 +289,6 @@
                 content: htmlContent
             },
             success: function(response) {
-                console.log('AJAX Success:', response);
                 if (response.success) {
                     showMessage('✓ Änderungen gespeichert!', 'success');
 
@@ -328,9 +302,6 @@
                 }
             },
             error: function(xhr, status, error) {
-                console.error('AJAX Error Status:', status);
-                console.error('AJAX Error:', error);
-                console.error('AJAX Response:', xhr.responseText);
                 showMessage('AJAX-Fehler: ' + error, 'error');
             },
             complete: function() {

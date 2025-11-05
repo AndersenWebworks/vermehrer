@@ -31,10 +31,4 @@ $content = get_tierliebe_text('test');
     <?php echo do_shortcode('[tierliebe_quiz]'); ?>
 </section>
 
-<?php
-if (current_user_can('edit_posts')) {
-    echo '';
-}
-?>
-
 <?php get_template_part('tierliebe-parts/footer'); ?>
