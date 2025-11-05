@@ -394,7 +394,8 @@
 
         $('.editable').each(function() {
             const key = $(this).data('key');
-            contentMap[key] = $(this).html().trim();
+            // Sanitize content before saving to draft
+            contentMap[key] = sanitizeContentForJSON($(this).html());
         });
 
         const draftData = {
@@ -402,11 +403,18 @@
             timestamp: Date.now()
         };
 
-        localStorage.setItem('tierliebe_draft_' + pageSlug, JSON.stringify(draftData));
-        lastAutoSaveTime = Date.now();
-
-        updateAutoSaveIndicator();
-        console.log('Draft auto-saved for', pageSlug);
+        try {
+            const jsonString = JSON.stringify(draftData);
+            // Validate JSON before saving
+            JSON.parse(jsonString);
+            localStorage.setItem('tierliebe_draft_' + pageSlug, jsonString);
+            lastAutoSaveTime = Date.now();
+            updateAutoSaveIndicator();
+            console.log('Draft auto-saved for', pageSlug);
+        } catch (e) {
+            console.error('Failed to save draft - JSON corruption:', e);
+            // Don't show error message for auto-save failures (silent fail)
+        }
     }
 
     function tryRestoreDraft() {
@@ -1011,7 +1019,15 @@
         $('.tierliebe-save-btn').prop('disabled', true).text('💾 Wird gespeichert...');
 
         // Build HTML content from current state
-        const htmlContent = buildHTMLFromEditables();
+        let htmlContent;
+        try {
+            htmlContent = buildHTMLFromEditables();
+        } catch (e) {
+            // Re-enable button on error
+            $('.tierliebe-save-btn').prop('disabled', false).text('💾 Speichern');
+            console.error('Failed to build content:', e);
+            return;
+        }
 
         // Send AJAX request
         $.ajax({
@@ -1049,6 +1065,31 @@
         });
     }
 
+    // Sanitize HTML content for safe JSON serialization
+    function sanitizeContentForJSON(htmlContent) {
+        // Create a temporary element to parse and normalize HTML
+        const $temp = $('<div>').html(htmlContent);
+
+        // Get the normalized HTML back
+        let sanitized = $temp.html();
+
+        // Remove zero-width spaces and other invisible characters that can corrupt JSON
+        sanitized = sanitized.replace(/[\u200B-\u200D\uFEFF]/g, '');
+
+        // Normalize curly quotes to straight quotes (contenteditable sometimes adds these)
+        sanitized = sanitized.replace(/[\u201C\u201D]/g, '"');
+        sanitized = sanitized.replace(/[\u2018\u2019]/g, "'");
+
+        // Remove null bytes and other control characters
+        sanitized = sanitized.replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, '');
+
+        // Trim and normalize whitespace
+        sanitized = sanitized.trim();
+        sanitized = sanitized.replace(/\s+/g, ' ');
+
+        return sanitized;
+    }
+
     // Build HTML content from editables (store as JSON-encoded HTML)
     function buildHTMLFromEditables() {
         let contentMap = {};
@@ -1057,18 +1098,28 @@
             const key = $(this).data('key');
             let content = $(this).html();
 
-            // Trim leading/trailing whitespace and normalize
-            content = content.trim();
-
-            // Remove excessive whitespace (multiple spaces/newlines)
-            content = content.replace(/\s+/g, ' ');
+            // Sanitize content for safe JSON serialization
+            content = sanitizeContentForJSON(content);
 
             contentMap[key] = content;
         });
 
-        // Store as JSON in special format that won't be parsed as Markdown
-        // Format: <!--TIERLIEBE_HTML_START-->{"key":"content"}<!--TIERLIEBE_HTML_END-->
-        return '<!--TIERLIEBE_HTML_START-->' + JSON.stringify(contentMap) + '<!--TIERLIEBE_HTML_END-->';
+        // Validate JSON before returning to prevent corruption
+        try {
+            const jsonString = JSON.stringify(contentMap);
+
+            // Try to parse it back to ensure it's valid JSON
+            JSON.parse(jsonString);
+
+            // Store as JSON in special format that won't be parsed as Markdown
+            // Format: <!--TIERLIEBE_HTML_START-->{"key":"content"}<!--TIERLIEBE_HTML_END-->
+            return '<!--TIERLIEBE_HTML_START-->' + jsonString + '<!--TIERLIEBE_HTML_END-->';
+        } catch (e) {
+            console.error('JSON serialization failed:', e);
+            console.error('Content map:', contentMap);
+            showMessage('❌ Fehler: Content konnte nicht gespeichert werden. JSON ist korrupt. Bitte Seite neu laden.', 'error');
+            throw e;
+        }
     }
 
     // Show Message
