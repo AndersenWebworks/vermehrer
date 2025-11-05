@@ -505,7 +505,91 @@ function tierliebe_clear_text_cache($post_id) {
 }
 add_action('save_post', 'tierliebe_clear_text_cache');
 
-// AJAX Handler: Save edited text from frontend
+// Helper: Validate JSON data structure
+function tierliebe_validate_json_structure($json_data) {
+    if (!is_array($json_data)) {
+        return array('valid' => false, 'error' => 'JSON muss ein Array/Object sein');
+    }
+
+    // Check for valid keys (no empty keys, no special characters that could break JSON)
+    foreach ($json_data as $key => $value) {
+        if (empty($key) || !is_string($key)) {
+            return array('valid' => false, 'error' => 'Ungültiger Key: ' . var_export($key, true));
+        }
+
+        if (!is_string($value)) {
+            return array('valid' => false, 'error' => 'Wert für Key "' . $key . '" muss ein String sein');
+        }
+
+        // Check for null bytes and other problematic characters
+        if (strpos($value, "\0") !== false) {
+            return array('valid' => false, 'error' => 'Key "' . $key . '" enthält Null-Bytes');
+        }
+
+        // Check for invalid UTF-8
+        if (!mb_check_encoding($value, 'UTF-8')) {
+            return array('valid' => false, 'error' => 'Key "' . $key . '" enthält ungültige UTF-8 Zeichen');
+        }
+    }
+
+    return array('valid' => true);
+}
+
+// Helper: Create automatic backup before save
+function tierliebe_create_backup($post_id) {
+    $current_content = get_post_field('post_content', $post_id);
+
+    if (empty($current_content)) {
+        return true; // Nothing to backup
+    }
+
+    // Store backup in post meta with timestamp
+    $backup_key = 'tierliebe_backup_' . time();
+
+    // Keep only last 5 backups
+    $existing_backups = get_post_meta($post_id, 'tierliebe_backup_keys', true);
+    if (!is_array($existing_backups)) {
+        $existing_backups = array();
+    }
+
+    // Add new backup
+    update_post_meta($post_id, $backup_key, $current_content);
+    $existing_backups[] = $backup_key;
+
+    // Remove old backups (keep only last 5)
+    if (count($existing_backups) > 5) {
+        $old_backup = array_shift($existing_backups);
+        delete_post_meta($post_id, $old_backup);
+    }
+
+    update_post_meta($post_id, 'tierliebe_backup_keys', $existing_backups);
+
+    return true;
+}
+
+// Helper: Restore from backup
+function tierliebe_restore_from_backup($post_id) {
+    $backup_keys = get_post_meta($post_id, 'tierliebe_backup_keys', true);
+
+    if (is_array($backup_keys) && !empty($backup_keys)) {
+        // Get most recent backup
+        $latest_backup_key = end($backup_keys);
+        $backup_content = get_post_meta($post_id, $latest_backup_key, true);
+
+        if (!empty($backup_content)) {
+            // Restore the backup
+            wp_update_post(array(
+                'ID'           => $post_id,
+                'post_content' => $backup_content
+            ));
+            return true;
+        }
+    }
+
+    return false;
+}
+
+// AJAX Handler: Save edited text from frontend (HARDENED VERSION)
 function tierliebe_save_text_ajax() {
     // Security check
     check_ajax_referer('tierliebe_edit_nonce', 'nonce');
@@ -521,28 +605,55 @@ function tierliebe_save_text_ajax() {
     // Extract the JSON string (use stripslashes to handle WordPress escaping)
     $raw_content = stripslashes($_POST['content']);
 
-    if (preg_match('/<!--TIERLIEBE_HTML_START-->(.*)<!--TIERLIEBE_HTML_END-->/s', $raw_content, $matches)) {
-        // Decode JSON to validate it
-        $json_data = json_decode($matches[1], true);
-
-        if (is_array($json_data)) {
-            // Re-encode to ensure clean JSON format in post_content
-            $content = json_encode($json_data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
-        } else {
-            $error_msg = 'Ungültiges JSON-Format';
-            if (json_last_error() !== JSON_ERROR_NONE) {
-                $error_msg .= ': ' . json_last_error_msg();
-            }
-            wp_send_json_error($error_msg);
-            return;
-        }
-    } else {
-        wp_send_json_error('Ungültiges Content-Format');
+    // === STEP 1: Extract JSON from wrapper ===
+    if (!preg_match('/<!--TIERLIEBE_HTML_START-->(.*)<!--TIERLIEBE_HTML_END-->/s', $raw_content, $matches)) {
+        wp_send_json_error('Ungültiges Content-Format: Wrapper fehlt');
         return;
     }
 
-    // Find existing post
-    // Note: Home page has slug 'tierliebe-home', others have just their name (e.g. 'adoption')
+    $json_string = $matches[1];
+
+    // === STEP 2: Validate JSON syntax ===
+    $json_data = json_decode($json_string, true);
+
+    if ($json_data === null && json_last_error() !== JSON_ERROR_NONE) {
+        $error_details = array(
+            'error' => 'JSON Parsing fehlgeschlagen',
+            'json_error' => json_last_error_msg(),
+            'json_error_code' => json_last_error(),
+            'raw_sample' => substr($json_string, 0, 200) // First 200 chars for debugging
+        );
+        error_log('Tierliebe JSON Parse Error: ' . print_r($error_details, true));
+        wp_send_json_error($error_details);
+        return;
+    }
+
+    // === STEP 3: Validate JSON structure ===
+    $validation = tierliebe_validate_json_structure($json_data);
+    if (!$validation['valid']) {
+        error_log('Tierliebe JSON Validation Error: ' . $validation['error']);
+        wp_send_json_error(array(
+            'error' => 'JSON Validierung fehlgeschlagen',
+            'details' => $validation['error']
+        ));
+        return;
+    }
+
+    // === STEP 4: Re-encode to ensure clean JSON ===
+    $content = json_encode($json_data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+
+    // === STEP 5: Verify re-encoded JSON is still valid ===
+    $verify = json_decode($content, true);
+    if ($verify === null && json_last_error() !== JSON_ERROR_NONE) {
+        error_log('Tierliebe JSON Re-encode Error: ' . json_last_error_msg());
+        wp_send_json_error(array(
+            'error' => 'JSON Re-encoding fehlgeschlagen',
+            'details' => json_last_error_msg()
+        ));
+        return;
+    }
+
+    // === STEP 6: Find existing post ===
     $post_slug = ($page_slug === 'home') ? 'tierliebe-home' : $page_slug;
 
     $query = new WP_Query(array(
@@ -552,45 +663,81 @@ function tierliebe_save_text_ajax() {
         'post_status'    => 'any'
     ));
 
-    if ($query->have_posts()) {
-        $query->the_post();
-        $post_id = get_the_ID();
-        wp_reset_postdata();
-
-        // Temporarily disable content filters to prevent wpautop from breaking JSON
-        remove_filter('content_save_pre', 'wp_filter_post_kses');
-        remove_filter('content_save_pre', 'wp_targeted_link_rel');
-        remove_filter('content_save_pre', 'convert_invalid_entities');
-
-        // Update post (now with revisions support)
-        $updated = wp_update_post(array(
-            'ID'           => $post_id,
-            'post_content' => $content
-        ), true);
-
-        // Re-enable filters
-        add_filter('content_save_pre', 'wp_filter_post_kses');
-        add_filter('content_save_pre', 'wp_targeted_link_rel');
-        add_filter('content_save_pre', 'convert_invalid_entities');
-
-        if ($updated && !is_wp_error($updated)) {
-            // Clear cache (both transient and object cache)
-            delete_transient('tierliebe_text_' . $page_slug);
-            wp_cache_delete($post_id, 'posts');
-            wp_cache_delete($post_id, 'post_meta');
-
-            // Clear all page caches if caching plugin exists
-            if (function_exists('wp_cache_flush')) {
-                wp_cache_flush();
-            }
-
-            wp_send_json_success('Text gespeichert');
-        } else {
-            wp_send_json_error('Fehler beim Speichern');
-        }
-    } else {
-        wp_send_json_error('Text nicht gefunden');
+    if (!$query->have_posts()) {
+        wp_send_json_error('Text nicht gefunden: ' . $post_slug);
+        return;
     }
+
+    $query->the_post();
+    $post_id = get_the_ID();
+    wp_reset_postdata();
+
+    // === STEP 7: Create automatic backup ===
+    if (!tierliebe_create_backup($post_id)) {
+        error_log('Tierliebe Backup Warning: Backup creation failed for post ' . $post_id);
+    }
+
+    // === STEP 8: Save with filters disabled ===
+    remove_filter('content_save_pre', 'wp_filter_post_kses');
+    remove_filter('content_save_pre', 'wp_targeted_link_rel');
+    remove_filter('content_save_pre', 'convert_invalid_entities');
+
+    $updated = wp_update_post(array(
+        'ID'           => $post_id,
+        'post_content' => $content
+    ), true);
+
+    add_filter('content_save_pre', 'wp_filter_post_kses');
+    add_filter('content_save_pre', 'wp_targeted_link_rel');
+    add_filter('content_save_pre', 'convert_invalid_entities');
+
+    // === STEP 9: Verify save and validate saved content ===
+    if (!$updated || is_wp_error($updated)) {
+        // Rollback from backup
+        tierliebe_restore_from_backup($post_id);
+
+        $error_message = is_wp_error($updated) ? $updated->get_error_message() : 'Unbekannter Fehler';
+        error_log('Tierliebe Save Error: ' . $error_message);
+
+        wp_send_json_error(array(
+            'error' => 'Speichern fehlgeschlagen (Backup wiederhergestellt)',
+            'details' => $error_message
+        ));
+        return;
+    }
+
+    // === STEP 10: Verify saved content is still valid JSON ===
+    $saved_content = get_post_field('post_content', $post_id);
+    $verify_saved = json_decode($saved_content, true);
+
+    if ($verify_saved === null && json_last_error() !== JSON_ERROR_NONE) {
+        // Critical error - saved content is corrupted!
+        error_log('Tierliebe CRITICAL: Saved content is corrupted! Rolling back...');
+        tierliebe_restore_from_backup($post_id);
+
+        wp_send_json_error(array(
+            'error' => 'KRITISCH: Gespeicherte Daten waren korrupt',
+            'details' => 'Backup wurde wiederhergestellt. Bitte Änderungen erneut vornehmen.',
+            'json_error' => json_last_error_msg()
+        ));
+        return;
+    }
+
+    // === STEP 11: Clear caches ===
+    delete_transient('tierliebe_text_' . $page_slug);
+    wp_cache_delete($post_id, 'posts');
+    wp_cache_delete($post_id, 'post_meta');
+
+    if (function_exists('wp_cache_flush')) {
+        wp_cache_flush();
+    }
+
+    // === SUCCESS ===
+    wp_send_json_success(array(
+        'message' => 'Text gespeichert',
+        'validated' => true,
+        'backup_created' => true
+    ));
 }
 add_action('wp_ajax_tierliebe_save_text', 'tierliebe_save_text_ajax');
 

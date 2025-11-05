@@ -1052,12 +1052,15 @@
                     // Exit edit mode (no reload needed - changes are already visible)
                     exitEditMode();
                 } else {
-                    showMessage('Fehler: ' + response.data, 'error');
+                    // Enhanced error display with details
+                    displayDetailedError(response.data);
                 }
             },
             error: function(xhr, status, error) {
                 showMessage('AJAX-Fehler: ' + error, 'error');
                 console.error('AJAX Error:', xhr.responseText);
+                console.error('Status:', status);
+                console.error('Response:', xhr);
             },
             complete: function() {
                 $('.tierliebe-save-btn').prop('disabled', false).text('💾 Speichern');
@@ -1137,6 +1140,97 @@
                 $(this).remove();
             });
         }, 3000);
+    }
+
+    // Display detailed error information
+    function displayDetailedError(errorData) {
+        // Close any existing error modals
+        $('.error-detail-modal').remove();
+
+        // Determine error message and details
+        let errorMessage = 'Unbekannter Fehler';
+        let errorDetails = '';
+        let errorLog = '';
+
+        if (typeof errorData === 'string') {
+            errorMessage = errorData;
+        } else if (typeof errorData === 'object') {
+            errorMessage = errorData.error || errorData.message || 'Unbekannter Fehler';
+            errorDetails = errorData.details || '';
+
+            // Build detailed error log
+            if (errorData.json_error) {
+                errorLog += 'JSON Fehler: ' + errorData.json_error + '\n';
+            }
+            if (errorData.json_error_code) {
+                errorLog += 'Fehler-Code: ' + errorData.json_error_code + '\n';
+            }
+            if (errorData.raw_sample) {
+                errorLog += 'Daten-Sample: ' + errorData.raw_sample + '\n';
+            }
+        }
+
+        // Create error modal
+        const $modal = $(`
+            <div class="error-detail-modal">
+                <div class="error-detail-box">
+                    <h3>⚠️ Speichern fehlgeschlagen</h3>
+                    <div class="error-main">${escapeHtml(errorMessage)}</div>
+                    ${errorDetails ? '<div class="error-details"><strong>Details:</strong> ' + escapeHtml(errorDetails) + '</div>' : ''}
+                    ${errorLog ? '<div class="error-log"><strong>Technische Details:</strong><pre>' + escapeHtml(errorLog) + '</pre></div>' : ''}
+                    <div class="error-help">
+                        <p><strong>Was kannst du tun?</strong></p>
+                        <ul>
+                            <li>Prüfe die Browser-Console (F12) für weitere Details</li>
+                            <li>Versuche, die Änderungen in kleineren Schritten zu speichern</li>
+                            <li>Wenn das Problem weiterhin besteht, lade die Seite neu (Strg+R)</li>
+                            <li>Dein Backup wurde automatisch wiederhergestellt</li>
+                        </ul>
+                    </div>
+                    <div class="error-buttons">
+                        <button class="btn-close-error">Verstanden</button>
+                        <button class="btn-reload">Seite neu laden</button>
+                    </div>
+                </div>
+            </div>
+        `);
+
+        // Log to console for debugging
+        console.error('=== TIERLIEBE SAVE ERROR ===');
+        console.error('Message:', errorMessage);
+        console.error('Details:', errorDetails);
+        console.error('Full Error Data:', errorData);
+        console.error('===========================');
+
+        // Event handlers
+        $modal.find('.btn-close-error').on('click', function() {
+            $modal.remove();
+        });
+
+        $modal.find('.btn-reload').on('click', function() {
+            location.reload();
+        });
+
+        $modal.on('click', function(e) {
+            if (e.target === this) $modal.remove();
+        });
+
+        $('body').append($modal);
+
+        // Also show brief message
+        showMessage('❌ Fehler beim Speichern (Details im Popup)', 'error');
+    }
+
+    // Escape HTML for safe display
+    function escapeHtml(text) {
+        const map = {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#039;'
+        };
+        return String(text).replace(/[&<>"']/g, function(m) { return map[m]; });
     }
 
     // Open URL Edit Modal
