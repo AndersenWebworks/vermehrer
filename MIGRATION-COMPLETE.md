@@ -1,7 +1,7 @@
 # Migration Complete: CPT → Pages + Content Verification
 
-**Datum:** 2025-01-05
-**Status:** ✅ Abgeschlossen
+**Datum:** 5. November 2025
+**Status:** ✅ Abgeschlossen (Historisches Dokument)
 
 ---
 

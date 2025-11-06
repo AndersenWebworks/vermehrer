@@ -4,7 +4,8 @@
 
 **Ziel:** VM-Seite Content (https://vm.andersen-webworks.de/) in strukturierte WordPress-Template-Seiten überführen
 
-**Status:** Sektion 1 + 2 fertig, CSS noch inline, keine Aufteilung
+**Status:** ✅ ARCHIVIERT - Projekt abgeschlossen (8/11 Templates live, CSS v6.0.0 modular, Editor v3.1.0)
+**Siehe:** [PROJECT-OVERVIEW.md](PROJECT-OVERVIEW.md) für aktuelle Dokumentation
 
 **Workflow:** Sektion für Sektion analysieren → Plan → Styling → Einbauen → Nächste Sektion
 

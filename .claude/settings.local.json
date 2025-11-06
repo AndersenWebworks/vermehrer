@@ -1,37 +1,7 @@
 {
   "permissions": {
     "allow": [
-      "Bash(python -m json.tool:*)",
-      "Bash(git log:*)",
-      "Bash(python:*)",
-      "Bash(powershell.exe -ExecutionPolicy Bypass -File .vscodeftp-upload.ps1)",
-      "Bash(powershell.exe -ExecutionPolicy Bypass -File \".vscode\\ftp-upload.ps1\")",
-      "Bash(curl:*)",
-      "Bash(qa-check.py)",
-      "Bash(nul)",
-      "Bash(qa-report-simple.py)",
-      "Bash(git add:*)",
-      "Bash(dir:*)",
-      "Bash(powershell.exe -ExecutionPolicy Bypass -File \".vscode/ftp-upload.ps1\")",
-      "Bash(cat:*)",
-      "Bash(paste - - -)",
-      "Bash(wp-json-keys.txt)",
-      "Bash(powershell.exe -ExecutionPolicy Bypass -File c:AndersenWebworksGitHubWebworksvermehrer.vscodeftp-upload.ps1)",
-      "Bash(powershell.exe -ExecutionPolicy Bypass -File \"c:\\Andersen\\Webworks\\GitHub\\Webworks\\vermehrer\\.vscode\\ftp-upload.ps1\")",
-      "Bash(for i in {1..24})",
-      "Bash(do grep -q \"\"\"kleintiere-liste-$i\"\"\" rebuild-kleintiere-page-547-KOMPLETT.py)",
-      "Bash(echo:*)",
-      "Bash(done)",
-      "Bash(powershell.exe -ExecutionPolicy Bypass -File \"C:\\Andersen\\Webworks\\GitHub\\Webworks\\vermehrer\\.vscode\\ftp-upload.ps1\")",
-      "Bash(powershell.exe -ExecutionPolicy Bypass -File upload-exoten-json.ps1)",
-      "Bash(wissen-live-check.html)",
-      "Bash(wissen-live-neu.html)",
-      "Bash(bash restore-qualzucht.sh:*)",
-      "Bash(wissen-live-final.html)",
-      "Bash(kontakt-live-check.html)",
-      "Bash(php:*)",
-      "Bash(rm:*)",
-      "Bash(git clean:*)"
+      "Bash(do echo '### $f')"
     ],
     "deny": [],
     "ask": []
