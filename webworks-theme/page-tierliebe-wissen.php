@@ -35,7 +35,7 @@ $content = get_tierliebe_text('wissen');
             <div class="tab-content active" id="tab-kastration">
                 <h2 class="editable" data-key="kastration-titel" style="margin-bottom: 30px;"><?php echo wp_kses_post($content['kastration-titel'] ?? ''); ?></h2>
 
-                <div class="info-box" style="background: var(--pastel-mint); margin-bottom: 40px;">
+                <div class="info-box warning" data-emoji="⚠️" style="background: var(--pastel-mint); margin-bottom: 40px;">
                     <p class="editable" data-key="kastration-intro" style="font-size: 1.2rem; line-height: 1.8;">
                         <?php echo wp_kses_post($content['kastration-intro'] ?? ''); ?>
                     </p>
@@ -44,7 +44,7 @@ $content = get_tierliebe_text('wissen');
                 <div class="accordion">
                     <div class="accordion-item">
                         <button class="accordion-header">
-                            <span class="editable" data-key="kastration-acc-1-header"><?php echo esc_html(strip_tags($content['kastration-acc-1-header'] ?? '')); ?></span>
+                            <span>⚠️ <span class="editable" data-key="kastration-acc-1-header"><?php echo esc_html(strip_tags($content['kastration-acc-1-header'] ?? '')); ?></span></span>
                             <span class="accordion-icon">+</span>
                         </button>
                         <div class="accordion-content">
@@ -62,7 +62,7 @@ $content = get_tierliebe_text('wissen');
 
                     <div class="accordion-item">
                         <button class="accordion-header">
-                            <span class="editable" data-key="kastration-acc-2-header"><?php echo esc_html(strip_tags($content['kastration-acc-2-header'] ?? '')); ?></span>
+                            <span>⏰ <span class="editable" data-key="kastration-acc-2-header"><?php echo esc_html(strip_tags($content['kastration-acc-2-header'] ?? '')); ?></span></span>
                             <span class="accordion-icon">+</span>
                         </button>
                         <div class="accordion-content">
@@ -74,7 +74,7 @@ $content = get_tierliebe_text('wissen');
                             <p><strong>Vorteile:</strong> Vollständige natürliche Entwicklung, Verhalten besser einschätzbar</p>
                             <p><strong>Nachteile:</strong> Gefahr dass Tier sich bereits vermehrt hat, Markieren/Aggression bereits ausgeprägt</p>
 
-                            <div class="info-box" style="margin-top: 25px; background: var(--pastel-lavender);">
+                            <div class="info-box info" data-emoji="💡" style="margin-top: 25px; background: var(--pastel-lavender);">
                                 <strong>Empfehlung:</strong>
                                 <ul class="editable" data-key="wissen-liste-3" style="margin-top: 10px;">
             <?php echo wp_kses_post($content['wissen-liste-3'] ?? ''); ?>
@@ -85,7 +85,7 @@ $content = get_tierliebe_text('wissen');
 
                     <div class="accordion-item">
                         <button class="accordion-header">
-                            <span class="editable" data-key="kastration-acc-3-header"><?php echo esc_html(strip_tags($content['kastration-acc-3-header'] ?? '')); ?></span>
+                            <span>💰 <span class="editable" data-key="kastration-acc-3-header"><?php echo esc_html(strip_tags($content['kastration-acc-3-header'] ?? '')); ?></span></span>
                             <span class="accordion-icon">+</span>
                         </button>
                         <div class="accordion-content">
@@ -178,7 +178,7 @@ $content = get_tierliebe_text('wissen');
                     </div>
                 </div>
 
-                <div class="info-box" style="margin-top: 40px; background: var(--pastel-peach);">
+                <div class="info-box info" data-emoji="📊" style="margin-top: 40px; background: var(--pastel-peach);">
                     <h4 class="editable" data-key="geschlechter-box-titel"><?php echo esc_html(strip_tags($content['geschlechter-box-titel'] ?? '')); ?></h4>
                     <p class="editable" data-key="geschlechter-box-text1"><?php echo wp_kses_post($content['geschlechter-box-text1'] ?? ''); ?></p>
                     <p class="editable" data-key="geschlechter-box-text2" style="margin-top: 15px;"><?php echo wp_kses_post($content['geschlechter-box-text2'] ?? ''); ?></p>
@@ -219,7 +219,7 @@ $content = get_tierliebe_text('wissen');
                     </div>
                 </div>
 
-                <div class="info-box" style="margin-top: 50px; background: var(--pastel-lavender);">
+                <div class="info-box love" data-emoji="💭" style="margin-top: 50px; background: var(--pastel-lavender);">
                     <h4 class="editable" data-key="notfall-box-titel"><?php echo wp_kses_post($content['notfall-box-titel'] ?? ''); ?></h4>
                     <p class="editable" data-key="notfall-box-text" style="font-size: 1.1rem; margin-top: 15px;">
                         <?php echo wp_kses_post($content['notfall-box-text'] ?? ''); ?>
@@ -231,8 +231,20 @@ $content = get_tierliebe_text('wissen');
             <div class="tab-content" id="tab-glossar">
                 <h2 class="editable" data-key="glossar-titel" style="margin-bottom: 30px;"><?php echo wp_kses_post($content['glossar-titel'] ?? ''); ?></h2>
 
-                <div class="glossar-grid editable" data-key="glossar-inhalt">
-                    <?php echo wp_kses_post($content['glossar-inhalt'] ?? ''); ?>
+                <div class="glossar-grid">
+                    <?php
+                    // Glossar-Items aus JSON-Array rendern
+                    if (isset($content['glossar-items']) && is_array($content['glossar-items'])) {
+                        foreach ($content['glossar-items'] as $item) {
+                            if (isset($item['term']) && isset($item['definition'])) {
+                                echo '<div class="glossar-item">';
+                                echo '<h4>' . esc_html($item['term']) . '</h4>';
+                                echo '<p>' . wp_kses_post($item['definition']) . '</p>';
+                                echo '</div>';
+                            }
+                        }
+                    }
+                    ?>
                 </div>
             </div>
         </div>

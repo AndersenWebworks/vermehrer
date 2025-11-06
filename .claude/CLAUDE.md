@@ -216,6 +216,29 @@ Bei größeren Features:
 
 ## WICHTIGE HINWEISE
 
+### ⚠️ KRITISCH: Straight Quotes Bug (November 2025)
+
+**NIEMALS straight quotes `"` in Content verwenden!**
+
+**Problem:**
+- Content mit `"Beispiel"` (straight quotes) macht JSON beim Speichern kaputt
+- `JSON.stringify()` escaped zu `\"Beispiel\"`
+- Nach Reload: Seite leer, alle Texte weg
+
+**Lösung implementiert:**
+- **Alle `"` werden automatisch zu `′` (Prime-Symbol) ersetzt**
+- Prime sieht fast gleich aus, wird aber nicht escaped
+- Code in: `tierliebe-edit-v2.js` (L167, L388) + `functions.php` (L462-470)
+
+**Falls Seite trotzdem kaputt:**
+1. **🔄 Button klicken** (links unten neben Edit-Button)
+2. Stellt automatisch letzte gültige WordPress Revision wieder her
+3. Bei Fehler: [PROJECT-OVERVIEW.md Sektion 20.5](../PROJECT-OVERVIEW.md#205-kritischer-bug-straight-quotes-in-json-november-2025) lesen
+
+**Wichtig für Content-Autoren:**
+- Immer typografische Quotes verwenden: `"Beispiel"` oder `′Beispiel′`
+- NIEMALS straight quotes: `"Beispiel"` ❌
+
 ### Security
 ```php
 // HTML erlaubt

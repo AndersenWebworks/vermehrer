@@ -22,7 +22,7 @@ $content = get_tierliebe_text('test');
         </p>
     </div>
 
-    <div class="info-box responsibility-box" style="max-width: 800px; margin: 0 auto 40px;">
+    <div class="info-box responsibility-box" data-emoji="💭" style="max-width: 800px; margin: 0 auto 40px;">
         <p class="editable" data-key="responsibility-text" style="font-size: 1.1rem; line-height: 1.7;">
             <?php echo wp_kses_post($content['responsibility-text'] ?? ''); ?>
         </p>

@@ -53,9 +53,10 @@ $content = get_tierliebe_text('qualzucht');
 
             <!-- Rasse 1: Mops & Französische Bulldogge -->
             <div class="qualzucht-card">
-                <div class="qualzucht-image">
+                <div class="qualzucht-image editable-image" data-image-meta="qualzucht_bild_1">
                     <?php
-                    $img_id = get_post_meta(get_the_ID(), 'qualzucht_bild_1', true);
+                    // Try JSON first, fallback to Post Meta
+                    $img_id = $content['qualzucht_bild_1'] ?? get_post_meta(get_the_ID(), 'qualzucht_bild_1', true);
 if ($img_id) {
     echo wp_get_attachment_image($img_id, 'large', false, ['alt' => 'Mops & Französische Bulldogge', 'loading' => 'lazy']);
 } else {
@@ -83,9 +84,10 @@ if ($img_id) {
 
             <!-- Rasse 2: Perserkatze -->
             <div class="qualzucht-card">
-                <div class="qualzucht-image">
+                <div class="qualzucht-image editable-image" data-image-meta="qualzucht_bild_2">
                     <?php
-$img_id = get_post_meta(get_the_ID(), 'qualzucht_bild_2', true);
+                    // Try JSON first, fallback to Post Meta
+                    $img_id = $content['qualzucht_bild_2'] ?? get_post_meta(get_the_ID(), 'qualzucht_bild_2', true);
 if ($img_id) {
     echo wp_get_attachment_image($img_id, 'large', false, ['alt' => 'Perserkatze', 'loading' => 'lazy']);
 } else {
@@ -113,9 +115,10 @@ if ($img_id) {
 
             <!-- Rasse 3: Schauwellensittich -->
             <div class="qualzucht-card">
-                <div class="qualzucht-image">
+                <div class="qualzucht-image editable-image" data-image-meta="qualzucht_bild_3">
                     <?php
-$img_id = get_post_meta(get_the_ID(), 'qualzucht_bild_3', true);
+                    // Try JSON first, fallback to Post Meta
+                    $img_id = $content['qualzucht_bild_3'] ?? get_post_meta(get_the_ID(), 'qualzucht_bild_3', true);
 if ($img_id) {
     echo wp_get_attachment_image($img_id, 'large', false, ['alt' => 'Schauwellensittich', 'loading' => 'lazy']);
 } else {
@@ -143,9 +146,10 @@ if ($img_id) {
 
             <!-- Rasse 4: Widderkaninchen -->
             <div class="qualzucht-card">
-                <div class="qualzucht-image">
+                <div class="qualzucht-image editable-image" data-image-meta="qualzucht_bild_4">
                     <?php
-$img_id = get_post_meta(get_the_ID(), 'qualzucht_bild_4', true);
+                    // Try JSON first, fallback to Post Meta
+                    $img_id = $content['qualzucht_bild_4'] ?? get_post_meta(get_the_ID(), 'qualzucht_bild_4', true);
 if ($img_id) {
     echo wp_get_attachment_image($img_id, 'large', false, ['alt' => 'Widderkaninchen', 'loading' => 'lazy']);
 } else {
@@ -173,9 +177,10 @@ if ($img_id) {
 
             <!-- Rasse 5: Schleierschwanz-Goldfisch -->
             <div class="qualzucht-card">
-                <div class="qualzucht-image">
+                <div class="qualzucht-image editable-image" data-image-meta="qualzucht_bild_5">
                     <?php
-$img_id = get_post_meta(get_the_ID(), 'qualzucht_bild_5', true);
+                    // Try JSON first, fallback to Post Meta
+                    $img_id = $content['qualzucht_bild_5'] ?? get_post_meta(get_the_ID(), 'qualzucht_bild_5', true);
 if ($img_id) {
     echo wp_get_attachment_image($img_id, 'large', false, ['alt' => 'Schleierschwanz-Goldfisch', 'loading' => 'lazy']);
 } else {
@@ -203,9 +208,10 @@ if ($img_id) {
 
             <!-- Rasse 6: Albino-Reptilien -->
             <div class="qualzucht-card">
-                <div class="qualzucht-image">
+                <div class="qualzucht-image editable-image" data-image-meta="qualzucht_bild_6">
                     <?php
-$img_id = get_post_meta(get_the_ID(), 'qualzucht_bild_6', true);
+                    // Try JSON first, fallback to Post Meta
+                    $img_id = $content['qualzucht_bild_6'] ?? get_post_meta(get_the_ID(), 'qualzucht_bild_6', true);
 if ($img_id) {
     echo wp_get_attachment_image($img_id, 'large', false, ['alt' => 'Albino-Reptilien', 'loading' => 'lazy']);
 } else {
@@ -233,9 +239,10 @@ if ($img_id) {
 
             <!-- Rasse 7: Malteser & Zwerghunde -->
             <div class="qualzucht-card">
-                <div class="qualzucht-image">
+                <div class="qualzucht-image editable-image" data-image-meta="qualzucht_bild_7">
                     <?php
-$img_id = get_post_meta(get_the_ID(), 'qualzucht_bild_7', true);
+                    // Try JSON first, fallback to Post Meta
+                    $img_id = $content['qualzucht_bild_7'] ?? get_post_meta(get_the_ID(), 'qualzucht_bild_7', true);
 if ($img_id) {
     echo wp_get_attachment_image($img_id, 'large', false, ['alt' => 'Malteser & Zwerghunde', 'loading' => 'lazy']);
 } else {
@@ -263,9 +270,10 @@ if ($img_id) {
 
             <!-- Rasse 8: Scottish-Fold-Katze -->
             <div class="qualzucht-card">
-                <div class="qualzucht-image">
+                <div class="qualzucht-image editable-image" data-image-meta="qualzucht_bild_8">
                     <?php
-$img_id = get_post_meta(get_the_ID(), 'qualzucht_bild_8', true);
+                    // Try JSON first, fallback to Post Meta
+                    $img_id = $content['qualzucht_bild_8'] ?? get_post_meta(get_the_ID(), 'qualzucht_bild_8', true);
 if ($img_id) {
     echo wp_get_attachment_image($img_id, 'large', false, ['alt' => 'Scottish-Fold-Katze', 'loading' => 'lazy']);
 } else {

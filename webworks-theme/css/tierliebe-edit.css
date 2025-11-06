@@ -87,15 +87,45 @@ body.edit-mode .editable.field-changed {
 }
 
 /* Feature 20b: Images in edit mode get cursor pointer */
-body.edit-mode img {
+body.edit-mode .editable-image {
+    position: relative;
     cursor: pointer;
     transition: all 0.2s ease;
 }
 
-body.edit-mode img:hover {
-    opacity: 0.8;
-    outline: 2px dashed #667eea;
+body.edit-mode .editable-image::after {
+    content: "🖼️ Bild ändern";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(102, 126, 234, 0.95);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    opacity: 0;
+    transition: all 0.3s ease;
+    pointer-events: none;
+    white-space: nowrap;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+body.edit-mode .editable-image:hover::after {
+    opacity: 1;
+}
+
+body.edit-mode .editable-image:hover {
+    opacity: 0.7;
+    outline: 3px solid #667eea;
     outline-offset: 2px;
+}
+
+body.edit-mode .editable-image img {
+    display: block;
+    width: 100%;
+    height: 100%;
 }
 
 /* Edit Mode Indicator */
@@ -174,6 +204,33 @@ body.edit-mode .tierliebe-save-btn {
 .tierliebe-save-btn:disabled {
     opacity: 0.6;
     cursor: not-allowed;
+}
+
+/* Cache Clear Button (Emergency) */
+.tierliebe-cache-clear-btn {
+    position: fixed;
+    left: 20px;
+    top: calc(50% + 70px);
+    transform: translateY(-50%);
+    z-index: 9999;
+    background: linear-gradient(135deg, #f5576c 0%, #f093fb 100%);
+    color: white;
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(245, 87, 108, 0.4);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+}
+
+.tierliebe-cache-clear-btn:hover {
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 6px 20px rgba(245, 87, 108, 0.6);
 }
 
 /* Success/Error Messages */

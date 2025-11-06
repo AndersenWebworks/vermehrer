@@ -1,7 +1,8 @@
 /**
  * Tierliebe Filter
- * Version: 1.0
+ * Version: 1.3
  * Description: Filter functionality for myth cards and other filterable content
+ * Changelog v1.3: CSS-only smooth fade transitions, no complex animations
  */
 
 (function($) {
@@ -109,7 +110,7 @@
             new TierliebeFilter(this);
         });
 
-        // Mythen Page Filter (enhanced with animation)
+        // Mythen Page Filter (smooth CSS-only animation)
         $('.filter-btn').on('click', function() {
             const filter = $(this).data('filter');
 
@@ -117,59 +118,28 @@
             $('.filter-btn').removeClass('active');
             $(this).addClass('active');
 
-            const $grid = $('.mythos-grid');
             const $cards = $('.mythos-card');
 
-            // Lock grid height with fixed height (not min-height)
-            const currentHeight = $grid.height();
-            $grid.css({
-                'height': currentHeight + 'px',
-                'overflow': 'hidden',
-                'transition': 'height 0.5s ease'
-            });
+            // Fade out all cards first
+            $cards.addClass('filter-hiding');
 
-            // Remove hidden class from all to allow fade-out animation
-            $cards.removeClass('hidden');
-
-            // Trigger fade out on ALL cards
+            // Wait for fade out, then switch visibility
             setTimeout(function() {
-                $cards.addClass('filter-out');
-            }, 10);
-
-            // Wait for fade out animation
-            setTimeout(function() {
-                // Hide all cards
-                $cards.removeClass('filter-out').addClass('hidden');
-
-                // Show filtered cards with fade in
                 if (filter === 'all') {
-                    $cards.removeClass('hidden').addClass('filter-in');
+                    $cards.removeClass('filter-hidden').removeClass('filter-hiding');
                 } else {
                     $cards.each(function() {
-                        const category = $(this).data('category');
+                        const $card = $(this);
+                        const category = $card.data('category');
+
                         if (category === filter || category === 'all') {
-                            $(this).removeClass('hidden').addClass('filter-in');
+                            $card.removeClass('filter-hidden').removeClass('filter-hiding');
+                        } else {
+                            $card.addClass('filter-hidden').removeClass('filter-hiding');
                         }
                     });
                 }
-
-                // Measure new height and animate to it
-                setTimeout(function() {
-                    const newHeight = $grid[0].scrollHeight;
-                    $grid.css('height', newHeight + 'px');
-
-                    // Clean up after animation
-                    setTimeout(function() {
-                        $cards.removeClass('filter-in');
-                        // Release height lock
-                        $grid.css({
-                            'height': '',
-                            'overflow': '',
-                            'transition': ''
-                        });
-                    }, 500);
-                }, 100);
-            }, 400);
+            }, 350);
         });
     });
 

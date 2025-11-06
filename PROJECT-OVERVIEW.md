@@ -2,8 +2,8 @@
 
 > **Für zukünftige Claude-Instanzen: Lies dieses Dokument ZUERST. Es enthält ALLES Wissen über das Projekt.**
 
-**Letzte Aktualisierung:** 5. November 2025
-**Version:** 1.0.0
+**Letzte Aktualisierung:** 6. November 2025
+**Version:** 1.1.0
 **Live-URL:** https://vm.andersen-webworks.de/
 
 ---
@@ -1592,6 +1592,158 @@ Fix: Remove whitespace pollution
 3. **Modular beats Monolith** - CSS-Breakup war richtige Entscheidung
 4. **Frontend-Editor rocks** - Bessere UX als WordPress Admin
 5. **JSON-CMS works** - Einfacher als erwartet
+
+### 20.5 KRITISCHER BUG: Straight Quotes in JSON (November 2025)
+
+**⚠️ WICHTIG FÜR ZUKÜNFTIGE ENTWICKLUNG:**
+
+#### Das Problem
+Content mit **deutschen Anführungszeichen** `"Beispiel"` verursachte JSON-Fehler beim Speichern. Symptome:
+- Speichern funktionierte scheinbar
+- Nach Reload: Seite leer, alle Texte weg
+- Nur auf Seiten mit `"` im Content (z.B. Qualzucht-Page)
+- Andere Seiten (Kontakt) funktionierten normal
+
+#### Root Cause
+1. **JavaScript** liest Content aus HTML → enthält `"Beispiel"` (straight quotes)
+2. **`JSON.stringify()`** escaped diese zu `\"Beispiel\"`
+3. **PHP** empfängt escaped JSON → speichert in Datenbank
+4. **Nächstes Laden:** `json_decode()` schlägt fehl weil JSON doppelt escaped
+5. **Result:** Leere Seite
+
+#### Die Lösung
+**Straight Quotes `"` werden durch Prime-Symbol `′` ersetzt** (U+2032):
+
+**JavaScript** ([tierliebe-edit-v2.js:167](webworks-theme/js/tierliebe-edit-v2.js#L167) + [388](webworks-theme/js/tierliebe-edit-v2.js#L388)):
+```javascript
+// CRITICAL FIX: Replace straight quotes " with prime symbol ′
+// Prime (U+2032) looks similar but doesn't trigger JSON escaping
+content = content.replace(/"/g, '′');
+```
+
+**PHP** ([functions.php:462-470](webworks-theme/functions.php#L462-L470)):
+```php
+// CRITICAL FIX: Replace straight quotes with prime symbol
+if (is_array($parsed)) {
+    array_walk_recursive($parsed, function (&$value) {
+        if (is_string($value)) {
+            $value = str_replace('"', '′', $value);
+        }
+    });
+}
+```
+
+#### Warum Prime-Symbol?
+- ✅ Sieht fast identisch aus wie `"`
+- ✅ Wird von `JSON.stringify()` **NICHT** escaped
+- ✅ Wird vom Browser **NICHT** normalisiert (contenteditable)
+- ✅ Ist kein JSON-Sonderzeichen
+- ✅ Funktioniert auch mit typografischen Quotes `"` und `"`
+
+#### Debugging-Prozess (wichtige Learnings)
+1. **Cache war das erste Hindernis** - Transient Cache (1h) verhinderte Tests
+2. **Browser normalisiert contenteditable** - Emojis/Unicode werden zu straight quotes
+3. **PHP `stripslashes()` war irreführend** - Eigentliches Problem war JSON-Escaping
+4. **Test mit 🔴** zeigte: PHP funktioniert, JS macht es kaputt
+5. **contenteditable ist der Schuldige** - Browser normalisiert ALLE Zeichen außer Prime
+
+#### Emergency Recovery
+**Cache-Clear-Button** (🔄) implementiert:
+- Löscht Transient Cache
+- Prüft ob Content kaputt ist
+- Stellt automatisch letzte gültige **WordPress Revision** wieder her
+- Fallback auf manuelles Backup
+
+**Code:** [tierliebe-edit-v2.js:486-519](webworks-theme/js/tierliebe-edit-v2.js#L486-L519), [functions.php:725-798](webworks-theme/functions.php#L725-L798)
+
+#### Präventionsmaßnahmen
+1. **NIEMALS straight quotes `"` in Content verwenden** - Immer typografisch oder Prime
+2. **Fail-Safe Validierung** - Min. 10 Keys beim Speichern
+3. **Backup vor jedem Save** - `_tierliebe_content_backup` Meta-Field
+4. **WordPress Revisions** nutzen für Recovery
+5. **Debug-Logs** für JSON-Parsing-Fehler
+
+#### Testing Checklist für ähnliche Bugs
+```
+☐ Teste mit deutschen Quotes: "Beispiel"
+☐ Teste mit typografischen: "Beispiel"
+☐ Teste mit Mixed: "Test" und 'Single'
+☐ Teste Edit-Mode ohne Änderungen → Save → Reload
+☐ Teste Bild-Änderung → Save → Reload
+☐ Teste Text-Änderung mit Quotes → Save → Reload
+☐ Prüfe Console auf JSON-Warnings
+☐ Prüfe PHP error.log für json_decode Fehler
+```
+
+**Fazit:** Straight Quotes sind **GIFT** für JSON-basierte Content-Systeme mit contenteditable!
+
+### 20.6 IMAGE-MIGRATION: Post Meta → JSON (November 2025)
+
+**Problem erkannt:** Nach Fix des Straight-Quotes-Bugs wurde klar, dass **Bilder NICHT in WordPress Revisionen** gespeichert werden → Undo-Button stellte nur Texte wieder her, nicht Bilder!
+
+#### Das Problem
+- **Texte:** Im `post_content` JSON gespeichert → WordPress Revisionen out-of-the-box
+- **Bilder:** Als Post Meta gespeichert (`qualzucht_bild_1` bis `qualzucht_bild_8`) → NICHT in Revisionen!
+- **Result:** Undo-Button restaurierte Texte, aber Bilder blieben geändert
+
+#### Die Lösung: Bilder ins JSON migrieren
+
+**1. Migration Script** ([migrate-qualzucht-images-to-json.php](migrate-qualzucht-images-to-json.php)):
+```php
+// Liest aktuelle Post Meta Bilder
+// Fügt sie ins JSON ein
+// Speichert aktualisiertes JSON
+// Verifiziert Migration
+// Post Meta bleibt als Fallback
+```
+
+**2. Template Anpassung** ([page-tierliebe-qualzucht.php](webworks-theme/page-tierliebe-qualzucht.php)):
+```php
+// VORHER: Nur Post Meta
+$img_id = get_post_meta(get_the_ID(), 'qualzucht_bild_1', true);
+
+// NACHHER: JSON First, Post Meta Fallback
+$img_id = $content['qualzucht_bild_1'] ?? get_post_meta(get_the_ID(), 'qualzucht_bild_1', true);
+```
+
+**3. Backend Cleanup** ([functions.php](webworks-theme/functions.php)):
+- ❌ Entfernt: `tierliebe_save_image_meta_ajax()` (separate Image-Save-Funktion)
+- ❌ Entfernt: Post Meta Update-Loop in `tierliebe_save_all_ajax()`
+- ✅ Bilder werden jetzt automatisch mit Texten im JSON gespeichert
+
+**4. Frontend Vereinfachung** ([tierliebe-edit-v2.js](webworks-theme/js/tierliebe-edit-v2.js)):
+- ❌ Entfernt: `changedImages = {}` (separates Image-Tracking)
+- ✅ Bilder werden in `originalContents` gespeichert (wie Texte)
+- ✅ Bilder werden im `contentMap` mitgeschickt (wie Texte)
+- ✅ Media Library setzt `data-attachment-id` beim Auswählen
+
+#### Vorteile der neuen Architektur
+1. ✅ **WordPress Revisionen** funktionieren für Bilder
+2. ✅ **Undo-Button** stellt Texte UND Bilder wieder her
+3. ✅ **Konsistente Architektur** - alles im JSON
+4. ✅ **Weniger Code** - keine separate Image-Save-Logik
+5. ✅ **Bessere Performance** - 1 Query statt N
+6. ✅ **Einfacheres Backup** - 1 JSON-Blob statt N Meta-Fields
+7. ✅ **Portabilität** - Export/Import trivial
+
+#### Migration Durchführung
+```bash
+1. Migration Script hochladen
+2. Via Browser aufrufen: https://vm.andersen-webworks.de/migrate-qualzucht-images-to-json.php
+3. Verifizieren: 8/8 Bilder migriert
+4. Code deployen (Template, Functions, JavaScript)
+5. Testen: Bild ändern → Save → Reload → Undo
+```
+
+**Status:** Migration erfolgreich durchgeführt am 6. November 2025
+- Qualzucht-Page: 61 Keys → 69 Keys (8 Bilder hinzugefügt)
+- Post Meta bleibt als Fallback für Abwärtskompatibilität
+
+#### Lessons Learned
+1. **WordPress Revisionen speichern nur post_content** - Nie Post Meta für kritische Daten
+2. **Architektur-Konsistenz ist wichtig** - Alles im JSON vereinfacht vieles
+3. **Migration-Scripts sind Gold wert** - One-Click-Migration spart Zeit
+4. **Fallbacks sind wichtig** - Während Migration beides unterstützen
 
 ---
 
