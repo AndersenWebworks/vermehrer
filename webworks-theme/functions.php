@@ -775,73 +775,73 @@ function tierliebe_undo_save_ajax()
 
     // Find first valid revision that is DIFFERENT from current content
     foreach ($revisions as $revision) {
-            $revision_content = $revision->post_content;
-            $revision_decoded = html_entity_decode($revision_content, ENT_QUOTES | ENT_HTML5, 'UTF-8');
-            $revision_decoded = strip_tags($revision_decoded);
-            $revision_parsed = json_decode($revision_decoded, true);
+        $revision_content = $revision->post_content;
+        $revision_decoded = html_entity_decode($revision_content, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+        $revision_decoded = strip_tags($revision_decoded);
+        $revision_parsed = json_decode($revision_decoded, true);
 
-            // Skip if revision is same as current content
-            if ($revision_parsed === $current_parsed) {
-                continue;
-            }
-
-            if (is_array($revision_parsed) && count($revision_parsed) >= 10) {
-                // Found valid revision - restore it
-                $restore_content = json_encode($revision_parsed, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
-
-                $result = wp_update_post([
-                    'ID' => $page_id,
-                    'post_content' => $restore_content
-                ]);
-
-                if (!is_wp_error($result)) {
-                    delete_transient($transient_key);
-
-                    $revision_date = get_the_date('d.m.Y H:i', $revision->ID);
-
-                    wp_send_json_success([
-                        'message' => 'Cache geleert und Revision wiederhergestellt',
-                        'restored' => true,
-                        'source' => 'revision',
-                        'revision_date' => $revision_date,
-                        'keys' => count($revision_parsed)
-                    ]);
-                    return;
-                }
-            }
+        // Skip if revision is same as current content
+        if ($revision_parsed === $current_parsed) {
+            continue;
         }
 
-        // Fallback: Try manual backup
-        $backup_content = get_post_meta($page_id, '_tierliebe_content_backup', true);
-        if ($backup_content) {
-            $backup_decoded = html_entity_decode($backup_content, ENT_QUOTES | ENT_HTML5, 'UTF-8');
-            $backup_decoded = strip_tags($backup_decoded);
-            $backup_parsed = json_decode($backup_decoded, true);
+        if (is_array($revision_parsed) && count($revision_parsed) >= 10) {
+            // Found valid revision - restore it
+            $restore_content = json_encode($revision_parsed, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
 
-            if (is_array($backup_parsed) && count($backup_parsed) >= 10) {
-                $restore_content = json_encode($backup_parsed, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+            $result = wp_update_post([
+                'ID' => $page_id,
+                'post_content' => $restore_content
+            ]);
 
-                $result = wp_update_post([
-                    'ID' => $page_id,
-                    'post_content' => $restore_content
+            if (!is_wp_error($result)) {
+                delete_transient($transient_key);
+
+                $revision_date = get_the_date('d.m.Y H:i', $revision->ID);
+
+                wp_send_json_success([
+                    'message' => 'Cache geleert und Revision wiederhergestellt',
+                    'restored' => true,
+                    'source' => 'revision',
+                    'revision_date' => $revision_date,
+                    'keys' => count($revision_parsed)
                 ]);
-
-                if (!is_wp_error($result)) {
-                    delete_transient($transient_key);
-
-                    wp_send_json_success([
-                        'message' => 'Cache geleert und manuelles Backup wiederhergestellt',
-                        'restored' => true,
-                        'source' => 'manual_backup',
-                        'keys' => count($backup_parsed)
-                    ]);
-                    return;
-                }
+                return;
             }
         }
-
-        wp_send_json_error('Keine gültige Revision gefunden!');
     }
+
+    // Fallback: Try manual backup
+    $backup_content = get_post_meta($page_id, '_tierliebe_content_backup', true);
+    if ($backup_content) {
+        $backup_decoded = html_entity_decode($backup_content, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+        $backup_decoded = strip_tags($backup_decoded);
+        $backup_parsed = json_decode($backup_decoded, true);
+
+        if (is_array($backup_parsed) && count($backup_parsed) >= 10) {
+            $restore_content = json_encode($backup_parsed, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+
+            $result = wp_update_post([
+                'ID' => $page_id,
+                'post_content' => $restore_content
+            ]);
+
+            if (!is_wp_error($result)) {
+                delete_transient($transient_key);
+
+                wp_send_json_success([
+                    'message' => 'Cache geleert und manuelles Backup wiederhergestellt',
+                    'restored' => true,
+                    'source' => 'manual_backup',
+                    'keys' => count($backup_parsed)
+                ]);
+                return;
+            }
+        }
+    }
+
+    wp_send_json_error('Keine gültige Revision gefunden!');
+}
 add_action('wp_ajax_tierliebe_undo_save', 'tierliebe_undo_save_ajax');
 
 // Enqueue Edit Assets for Admins
@@ -883,6 +883,15 @@ function tierliebe_enqueue_edit_assets()
             get_stylesheet_directory_uri() . '/js/tierliebe-edit-v2.js',
             array('jquery'),
             '2.2.0',
+            true
+        );
+
+        // Element Duplicator v1.0 (depends on tierliebe-edit)
+        wp_enqueue_script(
+            'tierliebe-element-duplicator',
+            get_stylesheet_directory_uri() . '/js/tierliebe-element-duplicator.js',
+            array('jquery', 'tierliebe-edit'),
+            '1.0.0',
             true
         );
 

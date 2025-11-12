@@ -758,3 +758,146 @@ body.edit-mode .editable:hover .collab-badge {
         display: flex !important;
     }
 }
+
+/* ============================================================
+   ELEMENT DUPLICATOR v1.0
+   ============================================================ */
+
+/* Element Control Buttons Container */
+.element-control-buttons {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    gap: 8px;
+    z-index: 100;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+body.edit-mode .qualzucht-card:hover .element-control-buttons,
+body.edit-mode .accordion-item:hover .element-control-buttons,
+body.edit-mode .info-box:hover .element-control-buttons,
+body.edit-mode .info-card:hover .element-control-buttons,
+body.edit-mode .timeline-item:hover .element-control-buttons,
+body.edit-mode .mythos-card:hover .element-control-buttons,
+body.edit-mode .quick-link-card:hover .element-control-buttons,
+body.edit-mode .card:hover .element-control-buttons,
+body.edit-mode .glossar-item:hover .element-control-buttons,
+body.edit-mode .honesty-box:hover .element-control-buttons,
+body.edit-mode .calculation-box:hover .element-control-buttons {
+    opacity: 1;
+}
+
+/* Element Control Buttons */
+.element-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid white;
+    background: var(--pastel-mint);
+    color: var(--text-dark);
+    font-size: 1.2rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    line-height: 1;
+}
+
+.element-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.element-btn:active {
+    transform: scale(0.95);
+}
+
+/* Specific Button Colors */
+.element-move-up,
+.element-move-down {
+    background: var(--pastel-lavender);
+}
+
+.element-duplicate {
+    background: var(--pastel-mint);
+}
+
+.element-delete {
+    background: var(--pastel-coral);
+}
+
+.element-delete:hover {
+    background: #ff6b6b;
+}
+
+/* Animation: Element Cloned */
+.element-cloned {
+    outline: 3px solid var(--cute-mint) !important;
+    animation: pulseGreen 2s ease-in-out;
+}
+
+@keyframes pulseGreen {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(160, 231, 229, 0.4);
+    }
+    50% {
+        box-shadow: 0 0 0 15px rgba(160, 231, 229, 0);
+    }
+}
+
+/* Animation: Element Deleting */
+.element-deleting {
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 0.3s ease;
+}
+
+/* Animation: Element Moving Up */
+.element-moving-up {
+    transform: translateY(-20px);
+    opacity: 0.5;
+    transition: all 0.3s ease;
+}
+
+/* Animation: Element Moving Down */
+.element-moving-down {
+    transform: translateY(20px);
+    opacity: 0.5;
+    transition: all 0.3s ease;
+}
+
+/* Responsive Element Duplicator */
+@media (max-width: 768px) {
+    .element-control-buttons {
+        top: 5px;
+        right: 5px;
+        gap: 5px;
+    }
+
+    .element-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
+    }
+
+    /* Auf Mobile immer sichtbar (kein Hover) */
+    body.edit-mode .qualzucht-card .element-control-buttons,
+    body.edit-mode .accordion-item .element-control-buttons,
+    body.edit-mode .info-box .element-control-buttons,
+    body.edit-mode .info-card .element-control-buttons,
+    body.edit-mode .timeline-item .element-control-buttons,
+    body.edit-mode .mythos-card .element-control-buttons,
+    body.edit-mode .quick-link-card .element-control-buttons,
+    body.edit-mode .card .element-control-buttons,
+    body.edit-mode .glossar-item .element-control-buttons,
+    body.edit-mode .honesty-box .element-control-buttons,
+    body.edit-mode .calculation-box .element-control-buttons {
+        opacity: 1;
+    }
+}

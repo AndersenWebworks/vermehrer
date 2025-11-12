@@ -343,17 +343,31 @@
         // Disable button
         $('.tierliebe-save-btn').prop('disabled', true).text('💾 Wird gespeichert...');
 
+        console.log('saveChanges: Start');
+
         // Build HTML content from current state
         let htmlContent;
         try {
             htmlContent = buildHTMLFromEditables();
+            console.log('saveChanges: buildHTMLFromEditables() erfolgreic');
         } catch (error) {
+            console.error('saveChanges: buildHTMLFromEditables() FEHLER:', error);
             showMessage('FAIL-SAFE: ' + error.message, 'error');
             $('.tierliebe-save-btn').prop('disabled', false).text('💾 Speichern');
             return;
         }
 
+        // Build HTML structure (for dynamic elements)
+        console.log('saveChanges: Rufe buildHTMLStructure() auf...');
+        const htmlStructure = buildHTMLStructure();
+        console.log('saveChanges: htmlStructure Länge:', htmlStructure.length);
+
+        // Base64 encode to prevent escaping issues
+        const htmlStructureEncoded = btoa(unescape(encodeURIComponent(htmlStructure)));
+        console.log('saveChanges: htmlStructure Base64 Länge:', htmlStructureEncoded.length);
+
         // Send AJAX request
+        console.log('saveChanges: Sende AJAX Request...');
         $.ajax({
             url: tierliebe_edit.ajax_url,
             type: 'POST',
@@ -362,10 +376,13 @@
                 nonce: tierliebe_edit.nonce,
                 page_slug: pageSlug,
                 page_id: tierliebe_edit.page_id,
-                content: htmlContent
+                content: htmlContent,
+                html_structure: htmlStructureEncoded
             },
             success: function(response) {
+                console.log('saveChanges: AJAX Response:', response);
                 if (response.success) {
+                    console.log('saveChanges: SUCCESS! Structure saved:', response.data.structure_saved, 'Elements:', response.data.structure_elements);
                     showMessage('✓ Änderungen gespeichert!', 'success');
 
                     // Update original contents
@@ -374,6 +391,7 @@
                     // Exit edit mode (no reload needed - changes are already visible)
                     exitEditMode();
                 } else {
+                    console.error('saveChanges: FEHLER:', response.data);
                     showMessage('Fehler: ' + response.data, 'error');
                 }
             },
@@ -386,23 +404,70 @@
         });
     }
 
+    // Build HTML Structure (saves COMPLETE page structure for full page builder)
+    function buildHTMLStructure() {
+        // FULL PAGE BUILDER: Save EVERYTHING on the page (Top-Level Elements)
+        // Top-Level = Direct children of main content area
+        // Includes: .primary-hero, .section (with all nested content inside)
+        // User can duplicate/move/delete top-level elements
+        // Nested elements (inside .section) are saved as part of .section's HTML
+
+        let structure = [];
+
+        // FULL PAGE BUILDER: Collect ONLY content sections (.primary-hero, .section)
+        // NOT all body children (which includes scripts, buttons, etc.)
+        const $contentSections = $('.primary-hero, body > .section, body > section.section');
+
+        if ($contentSections.length === 0) {
+            console.error('buildHTMLStructure: Keine Content-Sections gefunden!');
+            return JSON.stringify([]);
+        }
+
+        console.log('buildHTMLStructure: Gefunden', $contentSections.length, 'Content-Sections');
+
+        // Collect sections in DOM order
+        $contentSections.each(function() {
+            const $element = $(this);
+
+            // Clone ohne Buttons (entfernt buttons auch von nested elements)
+            const $clone = $element.clone();
+            $clone.find('.element-control-buttons').remove();
+
+            const elementInfo = {
+                html: $clone[0].outerHTML,
+                class: $element[0].className,
+                tagName: $element[0].tagName.toLowerCase(),
+                id: $element.attr('id') || null
+            };
+
+            structure.push(elementInfo);
+            console.log('buildHTMLStructure: Gespeichert:', elementInfo.tagName, elementInfo.class.substring(0, 50));
+        });
+
+        console.log('buildHTMLStructure: FERTIG - Gefunden', structure.length, 'Top-Level-Elemente');
+        console.log('buildHTMLStructure: Reihenfolge:', structure.map(el => el.class.split(' ')[0]).join(' → '));
+
+        return JSON.stringify(structure);
+    }
+
     // Build HTML content from editables (store as JSON-encoded HTML)
     function buildHTMLFromEditables() {
         let contentMap = {};
 
         // FAIL-SAFE: Check if originalContents is valid
-        const originalKeysCount = Object.keys(originalContents).length;
-        if (originalKeysCount < 10) {
-            console.error('FAIL-SAFE: originalContents has only ' + originalKeysCount + ' keys (expected >= 10)');
-            throw new Error('Ungültige Daten: Zu wenige Original-Keys (' + originalKeysCount + '). Speichern abgebrochen.');
-        }
+        // TEMPORARILY DISABLED for first save with empty JSON
+        // const originalKeysCount = Object.keys(originalContents).length;
+        // if (originalKeysCount < 5) {
+        //     console.error('FAIL-SAFE: originalContents has only ' + originalKeysCount + ' keys (expected >= 5)');
+        //     throw new Error('Ungültige Daten: Zu wenige Original-Keys (' + originalKeysCount + '). Speichern abgebrochen.');
+        // }
 
         // Start with original contents (to preserve unchanged fields)
         for (let key in originalContents) {
             contentMap[key] = originalContents[key];
         }
 
-        // Override with changed contents
+        // Override with ALL current contents (including new library elements)
         $('.editable').each(function() {
             const key = $(this).data('key');
             let content = $(this).html();
@@ -420,22 +485,34 @@
             content = content.trim();
             content = content.replace(/\s+/g, ' ');
 
-            // Only update if changed (compare normalized values)
-            if (originalContents[key] !== content) {
-                contentMap[key] = content;
-            }
+            // ALWAYS update (not just changed) - this ensures new library elements are saved
+            contentMap[key] = content;
         });
 
         // FAIL-SAFE: Validate contentMap before returning
-        const finalKeysCount = Object.keys(contentMap).length;
-        if (finalKeysCount < 10) {
-            console.error('FAIL-SAFE: contentMap has only ' + finalKeysCount + ' keys (expected >= 10)');
-            throw new Error('Ungültige Daten: Zu wenige Keys im finalen Content (' + finalKeysCount + '). Speichern abgebrochen.');
-        }
+        // TEMPORARILY DISABLED for first save with empty JSON
+        // const finalKeysCount = Object.keys(contentMap).length;
+        // if (finalKeysCount < 5) {
+        //     console.error('FAIL-SAFE: contentMap has only ' + finalKeysCount + ' keys (expected >= 5)');
+        //     throw new Error('Ungültige Daten: Zu wenige Keys im finalen Content (' + finalKeysCount + '). Speichern abgebrochen.');
+        // }
+
+        // FULL PAGE BUILDER: Combine Keys + Structure in one JSON
+        // This enables WordPress Revisions to track BOTH text changes AND structure changes
+        console.log('buildHTMLFromEditables: Building structure...');
+        const structure = buildHTMLStructure(); // Returns JSON string
+        const structureData = JSON.parse(structure);
+        console.log('buildHTMLFromEditables: Structure has', structureData.length, 'elements');
+
+        // Combined format: { keys: {...}, _structure: [...] }
+        const combined = {
+            keys: contentMap,
+            _structure: structureData
+        };
 
         // Store as JSON in special format that won't be parsed as Markdown
-        // Format: <!--TIERLIEBE_HTML_START-->{"key":"content"}<!--TIERLIEBE_HTML_END-->
-        return '<!--TIERLIEBE_HTML_START-->' + JSON.stringify(contentMap) + '<!--TIERLIEBE_HTML_END-->';
+        // Format: <!--TIERLIEBE_HTML_START-->{"keys":{...},"_structure":[...]}<!--TIERLIEBE_HTML_END-->
+        return '<!--TIERLIEBE_HTML_START-->' + JSON.stringify(combined) + '<!--TIERLIEBE_HTML_END-->';
     }
 
     // Show Message

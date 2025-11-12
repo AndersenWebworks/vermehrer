@@ -9,6 +9,14 @@
 get_template_part('tierliebe-parts/header');
 
 $content = get_tierliebe_text('test');
+
+// Try dynamic rendering first (FULL PAGE BUILDER mode)
+if (render_tierliebe_dynamic_structure()) {
+    get_template_part('tierliebe-parts/footer');
+    return;
+}
+
+// Fallback: Static template
 ?>
 
 <section id="test" class="section">

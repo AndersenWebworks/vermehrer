@@ -47,24 +47,11 @@ $content = get_tierliebe_text('home');
 <!-- Bin ich bereit Sektion -->
 <section class="section" style="background: var(--bg-white);">
     <div class="container">
-        <h2 class="section-title editable" data-key="sektion-bin-ich-bereit-fur-ein-tier" style="text-align: center; margin-bottom: 30px;">
+        <h2 class="section-title editable" data-key="sektion-bin-ich-bereit-titel" style="text-align: center; margin-bottom: 30px;">
             Bin ich bereit für ein Tier?
         </h2>
-        <p class="editable" data-key="sektion-bin-ich-bereit-fur-ein-tier" style="text-align: center; max-width: 800px; margin: 0 auto 30px; font-size: 1.15rem; color: var(--text-medium);">
-            <?php
-            if (isset($content['sektion-bin-ich-bereit-fur-ein-tier'])) {
-                $lines = explode("\n", $content['sektion-bin-ich-bereit-fur-ein-tier']);
-                foreach ($lines as $line) {
-                    if (strpos($line, '**Einleitungstext:**') !== false) {
-                        $text = trim(str_replace(['**Einleitungstext:**', '"'], '', $line));
-                        echo wp_kses_post($text);
-                        break;
-                    }
-                }
-            } else {
-                echo 'Du denkst darüber nach, ein Tier aufzunehmen? Dann nimm dir bitte kurz Zeit für diese Fragen – ganz ehrlich, nur für dich. Denn ein Tier ist keine Phase. Es ist ein Teil deines Lebens – und komplett abhängig von dir.';
-            }
-?>
+        <p class="editable" data-key="sektion-bin-ich-bereit-text" style="text-align: center; max-width: 800px; margin: 0 auto 30px; font-size: 1.15rem; color: var(--text-medium);">
+            <?php echo isset($content['sektion-bin-ich-bereit-text']) ? wp_kses_post($content['sektion-bin-ich-bereit-text']) : 'Du denkst darüber nach, ein Tier aufzunehmen? Dann nimm dir bitte kurz Zeit für diese Fragen – ganz ehrlich, nur für dich. Denn ein Tier ist keine Phase. Es ist ein Teil deines Lebens – und komplett abhängig von dir.'; ?>
         </p>
         <p class="editable" data-key="zentrale-frage" style="text-align: center; max-width: 800px; margin: 0 auto 50px; font-size: 1.2rem; color: var(--text-dark); font-weight: 600;">
             Bist du der Typ Tierhalter, den Tiere sich wünschen würden?
@@ -111,9 +98,14 @@ $content = get_tierliebe_text('home');
                 </a>
             </div>
         </div>
+    </div>
+</section>
 
+<!-- Die Wahrheit über Haustiere Section -->
+<section class="section" style="background: var(--bg-white);">
+    <div class="container">
         <!-- Die Wahrheit über Haustiere - Einleitung -->
-        <div style="margin-top: 80px; margin-bottom: 50px;">
+        <div style="margin-bottom: 50px;">
             <h2 class="section-title editable" data-key="einleitung-die-wahrheit-uber-haustiere" style="text-align: center; margin-bottom: 30px;">
                 Die Wahrheit über Haustiere
             </h2>

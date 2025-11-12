@@ -10,6 +10,15 @@ get_template_part('tierliebe-parts/header');
 
 // Load content from database
 $content = get_tierliebe_text('kontakt');
+
+// Try dynamic rendering first (FULL PAGE BUILDER mode)
+if (render_tierliebe_dynamic_structure()) {
+    // Dynamic structure rendered - page is complete
+    get_template_part('tierliebe-parts/footer');
+    return;
+}
+
+// Fallback: Static template (if no structure saved yet)
 ?>
 
 <section class="section">
@@ -36,7 +45,7 @@ $content = get_tierliebe_text('kontakt');
     </div>
 
     <!-- Persönliche Erfahrung -->
-    <div class="info-box" style="background: var(--pastel-mint); margin-top: 40px;">
+    <div class="info-box" data-emoji="🌱" style="background: var(--pastel-mint); margin-top: 40px;">
         <h3 class="editable" data-key="erfahrung-titel" style="margin-bottom: 20px;">
             <?php echo wp_kses_post($content['erfahrung-titel'] ?? ''); ?>
         </h3>
@@ -49,7 +58,7 @@ $content = get_tierliebe_text('kontakt');
     </div>
 
     <!-- Ziel der Website -->
-    <div class="info-box" style="background: var(--pastel-lavender); margin-top: 40px;">
+    <div class="info-box" data-emoji="🎯" style="background: var(--pastel-lavender); margin-top: 40px;">
         <h3 class="editable" data-key="ziel-titel" style="margin-bottom: 20px;">
             <?php echo wp_kses_post($content['ziel-titel'] ?? ''); ?>
         </h3>
@@ -107,7 +116,7 @@ $content = get_tierliebe_text('kontakt');
             </div>
         </div>
 
-        <div class="info-box" style="margin-top: 50px; background: var(--pastel-peach); text-align: center;">
+        <div class="info-box" data-emoji="💕" style="margin-top: 50px; background: var(--pastel-peach); text-align: center;">
             <p class="editable" data-key="quote-text" style="font-size: 1.2rem; line-height: 1.8;">
                 <?php echo wp_kses_post($content['quote-text'] ?? ''); ?>
             </p>
