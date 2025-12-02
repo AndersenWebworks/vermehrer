@@ -1,12 +1,23 @@
 {
   "permissions": {
     "allow": [
-      "Bash(do echo '### $f')",
-      "Bash(powershell.exe -ExecutionPolicy Bypass -File .vscodeftp-upload.ps1)",
-      "Bash(powershell.exe -ExecutionPolicy Bypass -File \".vscode\\ftp-upload.ps1\")",
+      "Bash(git push:*)",
+      "Bash(git log:*)",
+      "Bash(cat:*)",
+      "Bash(/dev/null)",
+      "Bash(python -m json.tool:*)",
+      "Bash(powershell.exe -ExecutionPolicy Bypass -File \".vscode/ftp-upload.ps1\")",
+      "Bash(powershell.exe -ExecutionPolicy Bypass -File enable-wp-debug.ps1)",
+      "Bash(powershell.exe -ExecutionPolicy Bypass -File modify-wp-config.ps1)",
+      "Bash(powershell.exe -ExecutionPolicy Bypass -File read-debug-log.ps1)",
       "Bash(git add:*)",
-      "Bash(curl -s \"https://vm.andersen-webworks.de/tierliebe-qualzucht/\")",
-      "Bash(curl:*)"
+      "Bash(php -l:*)",
+      "Bash(powershell.exe -ExecutionPolicy Bypass -File .vscode/ftp-upload.ps1)",
+      "Bash(php find-duplicate-keys.php:*)",
+      "Bash(powershell.exe -ExecutionPolicy Bypass -File find-duplicates.ps1)",
+      "Bash(git ls-tree:*)",
+      "Bash(python tools/restore-from-revisions.py:*)",
+      "Bash(winget install Python.Python.3.12 --accept-source-agreements --accept-package-agreements)"
     ],
     "deny": [],
     "ask": []

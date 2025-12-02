@@ -415,24 +415,249 @@ _______________________________*/
 // NOTE: CPT 'tierliebe_text' removed - system now uses WordPress Pages directly
 // Content stored as JSON in page post_content field
 
-// Get Tierliebe Text Content by Page Slug
-function get_tierliebe_text($page_slug = null)
+// Normalize WordPress-modified quotes inside JSON blobs
+function tierliebe_normalize_json_quotes($string)
 {
-    // Use current post if no slug provided
+    // WordPress + editors tend to convert straight quotes to typographic variants.
+    // Convert every double-quote variant back so json_decode can run safely.
+    $double_quote_variants = array('′', '“', '”', '„', '‟', '«', '»', '‹', '›');
+    return str_replace($double_quote_variants, '"', $string);
+}
+
+// Resolve renamed/missing keys between legacy structures and new content keys
+function tierliebe_get_content_value($key, $tag, $content)
+{
+    if (isset($content[$key]) && $content[$key] !== '') {
+        return $content[$key];
+    }
+
+    static $alias_map = array(
+        'sektion-bin-ich-bereit-fur-ein-tier' => array(
+            'h2' => 'sektion-bin-ich-bereit-titel',
+            'p'  => 'sektion-bin-ich-bereit-text',
+            '*'  => 'sektion-bin-ich-bereit-text'
+        ),
+        'section-titel'     => 'header-titel',
+        'section-subtitle'  => 'einleitungstext',
+        'section-frage'     => 'zentrale-frage',
+        'responsibility-text' => 'info-box'
+    );
+
+    if (isset($alias_map[$key])) {
+        $alias = $alias_map[$key];
+        if (is_array($alias)) {
+            $candidate = $alias[$tag] ?? ($alias['*'] ?? null);
+        } else {
+            $candidate = $alias;
+        }
+
+        if ($candidate && isset($content[$candidate]) && $content[$candidate] !== '') {
+            return $content[$candidate];
+        }
+    }
+
+    // Hard-coded defaults for legacy structures that lost content keys
+    if ($key === 'sektion-bin-ich-bereit-fur-ein-tier') {
+        return ($tag === 'h2')
+            ? 'Bin ich bereit für ein Tier?'
+            : 'Du denkst darüber nach, ein Tier aufzunehmen? Dann nimm dir bitte kurz Zeit für diese Fragen – ganz ehrlich, nur für dich. Denn ein Tier ist keine Phase. Es ist ein Teil deines Lebens – und komplett abhängig von dir.';
+    }
+
+    return null;
+}
+
+// Render Dynamic HTML Structure (if available)
+function render_tierliebe_dynamic_structure()
+{
     global $post;
 
     if (!$post || $post->post_type !== 'page') {
-        return array();
+        error_log('TIERLIEBE RENDER: No post or not a page');
+        return false;
     }
+
+    $post_id = $post->ID;
+    error_log('TIERLIEBE RENDER: Post ID = ' . $post_id);
+
+    // FULL PAGE BUILDER: Try NEW format first (structure in post_content)
+    // This enables WordPress Revisions to track structure changes!
+    $content = $post->post_content;
+    $content = html_entity_decode($content, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+
+    // If the JSON is still wrapped in safety markers, extract it before decoding
+    if (strpos($content, '<!--TIERLIEBE_HTML_START-->') !== false && preg_match('/<!--TIERLIEBE_HTML_START-->(.*)<!--TIERLIEBE_HTML_END-->/s', $content, $matches)) {
+        $content = $matches[1];
+    }
+
+    $content = trim($content); // Remove leading/trailing whitespace
+    // CRITICAL: Normalize any typographic quotes back to straight quotes before decoding
+    $content = tierliebe_normalize_json_quotes($content);
+    $parsed = json_decode($content, true);
+
+    $structure_data = null;
+
+    // Check if NEW format: { keys: {...}, _structure: [...] }
+    if (is_array($parsed) && isset($parsed['_structure']) && is_array($parsed['_structure'])) {
+        error_log('TIERLIEBE RENDER: Using NEW format (structure from post_content)');
+        $structure_data = $parsed['_structure'];
+    } else {
+        // FALLBACK: OLD format (structure in meta-field)
+        error_log('TIERLIEBE RENDER: NEW format not found, trying OLD format (meta-field)');
+
+        // Bypass cache - get directly from DB
+        global $wpdb;
+        $html_structure = $wpdb->get_var($wpdb->prepare(
+            "SELECT meta_value FROM $wpdb->postmeta WHERE post_id = %d AND meta_key = '_tierliebe_html_structure' ORDER BY meta_id DESC LIMIT 1",
+            $post_id
+        ));
+        error_log('TIERLIEBE RENDER: Meta value length (direct DB) = ' . strlen($html_structure));
+
+        if (empty($html_structure)) {
+            error_log('TIERLIEBE RENDER: Meta field is EMPTY - returning FALSE');
+            return false; // No dynamic structure saved
+        }
+
+        // WordPress may have serialized the data - try to unserialize first
+        if (is_serialized($html_structure)) {
+            $html_structure = maybe_unserialize($html_structure);
+            error_log('TIERLIEBE RENDER: Unserialized data, new length = ' . strlen($html_structure));
+        }
+
+        $structure_data = json_decode($html_structure, true);
+        error_log('TIERLIEBE RENDER: JSON decode result: ' . (is_array($structure_data) ? count($structure_data) . ' elements' : 'FAILED'));
+    }
+
+    if (!is_array($structure_data) || empty($structure_data)) {
+        error_log('TIERLIEBE RENDER: JSON Error: ' . json_last_error_msg());
+        error_log('TIERLIEBE RENDER: Invalid or empty structure - returning FALSE');
+        return false;
+    }
+
+    // Get content data for replacing placeholders
+    $content = get_tierliebe_text();
+
+    error_log('TIERLIEBE RENDER: Rendering ' . count($structure_data) . ' top-level elements');
+
+    // FULL PAGE BUILDER: Render top-level elements directly (NO wrapper!)
+    // Each element is complete (hero, section, grid, etc.)
+    foreach ($structure_data as $index => $element) {
+        if (!isset($element['html'])) {
+            error_log('TIERLIEBE RENDER: Element ' . $index . ' has no HTML');
+            continue;
+        }
+
+        $html = $element['html'];
+        // Normalize quotes that were converted to prime symbols inside stored HTML
+        $html = str_replace(['′', '“', '”'], ['\'', '"', '"'], $html);
+
+        // CRITICAL: Remove leading <br /> and <p></p> tags that WordPress adds
+        // Only remove the tags themselves and immediately following whitespace, nothing more
+        $html = preg_replace('/^(?:<br\s*\/?>|<p>\s*<\/p>)\s*/s', '', $html);
+
+        // Simple regex-based content replacement (NO DOMDocument - too error-prone)
+        // Find all data-key attributes and replace content
+        // This works recursively - replaces ALL data-keys in nested elements too
+        $html = preg_replace_callback(
+            '/<([a-z][a-z0-9]*)\s+([^>]*?data-key="([^"]+)"[^>]*)>(.*?)<\/\1>/is',
+            function ($matches) use ($content) {
+                $tag = $matches[1];
+                $attributes = $matches[2];
+                $key = $matches[3];
+                $old_content = $matches[4];
+
+                // Get content for this key, fallback to old content
+                $new_content = tierliebe_get_content_value($key, $tag, $content);
+                if ($new_content === null) {
+                    $new_content = $old_content;
+                }
+
+                // Add editable class if not present
+                if (strpos($attributes, 'editable') === false && strpos($attributes, 'class=') !== false) {
+                    $attributes = preg_replace('/class="([^"]*)"/', 'class="$1 editable"', $attributes);
+                } elseif (strpos($attributes, 'class=') === false) {
+                    $attributes .= ' class="editable"';
+                }
+
+                return '<' . $tag . ' ' . $attributes . '>' . $new_content . '</' . $tag . '>';
+            },
+            $html
+        );
+
+        // Render element directly (no wrapper)
+        echo $html . "\n";
+        error_log('TIERLIEBE RENDER: Element ' . $index . ' (' . ($element['tagName'] ?? 'unknown') . '.' . substr($element['class'] ?? '', 0, 30) . ') rendered (' . strlen($html) . ' bytes)');
+    }
+
+    error_log('TIERLIEBE RENDER: Rendering complete - ' . count($structure_data) . ' elements');
+    return true;
+}
+
+// Get Tierliebe Text Content by Page Slug
+function get_tierliebe_text($page_slug = null)
+{
+    // NEW v3 parser (early return)
+    {
+        global $post;
+        if (!$post || $post->post_type !== 'page') {
+            return array();
+        }
+
+        $post_id = $post->ID;
+        $transient_key = 'tierliebe_page_content_v3_' . $post_id;
+        $cached = get_transient($transient_key);
+        if (is_array($cached) && count($cached) > 0) {
+            return $cached;
+        }
+
+        $content = $post->post_content;
+        if (empty($content)) {
+            $backup = get_post_meta($post_id, '_tierliebe_content_backup', true);
+            if (empty($backup)) {
+                return array();
+            }
+            $content = $backup;
+        }
+
+        $content = html_entity_decode($content, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+        if (strpos($content, '<!--TIERLIEBE_HTML_START-->') !== false && preg_match('/<!--TIERLIEBE_HTML_START-->(.*)<!--TIERLIEBE_HTML_END-->/s', $content, $matches)) {
+            $content = $matches[1];
+        }
+        $content = trim($content);
+        // Unwrap <p>{...}</p> if present
+        if (preg_match('/^<p>\\s*(\\{.*\\})\\s*<\\/p>$/s', $content, $m)) {
+            $content = $m[1];
+        }
+
+        $parsed = json_decode($content, true);
+        if (!is_array($parsed)) {
+            $clean = tierliebe_clean_json_string_simple($content);
+            $parsed = json_decode($clean, true);
+            if (is_array($parsed)) {
+                $content = $clean;
+            }
+        }
+        if (is_array($parsed) && isset($parsed['keys']) && is_array($parsed['keys'])) {
+            $parsed = $parsed['keys'];
+        }
+        if (!is_array($parsed) || count($parsed) < 1) {
+            return array();
+        }
+
+        set_transient($transient_key, $parsed, HOUR_IN_SECONDS);
+        return $parsed;
+    }
+
+    // Legacy code (kept for reference, not executed)
 
     $post_id = $post->ID;
 
     // Check if we have a cached version (cache by post ID now)
-    $transient_key = 'tierliebe_page_content_' . $post_id;
+    // Cache key version bump to bypass stale transients
+    $transient_key = 'tierliebe_page_content_v3_' . $post_id;
     $cached = get_transient($transient_key);
 
     // FAIL-SAFE: Validate cached data before returning
-    if ($cached !== false && is_array($cached) && count($cached) >= 10) {
+    if ($cached !== false && is_array($cached) && count($cached) >= 1) {
         return $cached;
     }
 
@@ -453,11 +678,45 @@ function get_tierliebe_text($page_slug = null)
     // Decode HTML entities before JSON parsing (WordPress stores content with HTML entities)
     $content = html_entity_decode($content, ENT_QUOTES | ENT_HTML5, 'UTF-8');
 
-    // Strip HTML tags (WordPress wraps content in <p> tags)
-    $content = strip_tags($content);
+    // If safety markers are still present (older saves), extract the JSON payload first
+    if (strpos($content, '<!--TIERLIEBE_HTML_START-->') !== false && preg_match('/<!--TIERLIEBE_HTML_START-->(.*)<!--TIERLIEBE_HTML_END-->/s', $content, $matches)) {
+        $content = $matches[1];
+    }
+
+    $content = trim($content); // Remove leading/trailing whitespace
+
+    // CRITICAL: Normalize typographic quotes back to straight quotes for JSON parsing
+    $content = tierliebe_normalize_json_quotes($content);
 
     // Parse JSON content into structured array
+    $len = strlen($content);
     $parsed = json_decode($content, true);
+
+    // REPAIR PATH: If parse fails, attempt to clean and decode again
+    if (!is_array($parsed)) {
+        error_log("TIERLIEBE: JSON parse failed for page {$post_id} (len {$len}) - " . json_last_error_msg());
+        $content_clean = tierliebe_clean_json_string($content);
+        $parsed = json_decode($content_clean, true);
+        if (is_array($parsed)) {
+            // Successful repair -> use cleaned content going forward
+            $content = $content_clean;
+            error_log("TIERLIEBE: Repaired JSON for page {$post_id} (keys " . count($parsed) . ")");
+        } else {
+            error_log("TIERLIEBE: Repair failed for page {$post_id} - " . json_last_error_msg());
+        }
+    }
+
+    // FULL PAGE BUILDER: Handle new combined format { keys: {...}, _structure: [...] }
+    // NEW FORMAT (v3.2+): Keys + Structure together for WordPress Revisions
+    // OLD FORMAT (v3.0-3.1): Flat key-value pairs
+    if (is_array($parsed) && isset($parsed['keys']) && is_array($parsed['keys'])) {
+        // NEW FORMAT: Extract keys, structure will be read by render_tierliebe_dynamic_structure()
+        error_log("TIERLIEBE: Using NEW combined format (keys + structure) for page {$post_id}");
+        $parsed = $parsed['keys'];
+    } elseif (is_array($parsed)) {
+        // OLD FORMAT: Already flat key-value pairs
+        error_log("TIERLIEBE: Using OLD format (flat keys) for page {$post_id}");
+    }
 
     // CRITICAL FIX: Replace straight quotes with prime symbol
     // Prime (U+2032) looks similar but doesn't trigger JSON escaping
@@ -470,7 +729,7 @@ function get_tierliebe_text($page_slug = null)
     }
 
     // FAIL-SAFE: Validate parsed data, try backup if invalid
-    if (!is_array($parsed) || count($parsed) < 10) {
+    if (!is_array($parsed) || count($parsed) < 1) {
         error_log("FAIL-SAFE: Invalid parsed content for page {$post_id}, trying backup");
 
         $backup_content = get_post_meta($post_id, '_tierliebe_content_backup', true);
@@ -479,7 +738,7 @@ function get_tierliebe_text($page_slug = null)
             $backup_content = strip_tags($backup_content);
             $backup_parsed = json_decode($backup_content, true);
 
-            if (is_array($backup_parsed) && count($backup_parsed) >= 10) {
+            if (is_array($backup_parsed) && count($backup_parsed) >= 1) {
                 error_log("FAIL-SAFE: Successfully restored from backup for page {$post_id}");
                 $parsed = $backup_parsed;
             } else {
@@ -491,11 +750,45 @@ function get_tierliebe_text($page_slug = null)
     }
 
     // FAIL-SAFE: Only cache if valid
-    if (is_array($parsed) && count($parsed) >= 10) {
+    if (is_array($parsed) && count($parsed) >= 1) {
         set_transient($transient_key, $parsed, HOUR_IN_SECONDS);
     }
 
     return $parsed;
+}
+
+// Helper: Clean JSON string (entities, control chars, smart quotes, newlines)
+function tierliebe_clean_json_string($content)
+{
+    // Decode entities again (safety)
+    $content = html_entity_decode($content, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+
+    // Remove control chars except tab/newline
+    $content = preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/u', '', $content);
+
+    // Normalize smart quotes to straight quotes
+    $search = ["\xC2\xAB", "\xC2\xBB", "„", "“", "”", "‚", "‘", "’", "´", "˝", "¨"];
+    $replace = ['"', '"', '"', '"', '"', "'", "'", "'", "'", '"', '"', '"'];
+    $content = str_replace($search, $replace, $content);
+
+    // Normalize line breaks
+    $content = str_replace(["\r\n", "\r"], "\n", $content);
+
+    // If a literal newline slipped into JSON string values, escape it
+    $content = str_replace("\n", '\\n', $content);
+
+    return trim($content);
+}
+
+// Simplified cleaner used by v3 parser
+function tierliebe_clean_json_string_simple($content)
+{
+    $content = html_entity_decode($content, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+    $content = preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/u', '', $content);
+    $content = str_replace(array("„", "“", "”", "‚", "‘", "’", "´", "˝", "¨"), '"', $content);
+    $content = str_replace(array("\r\n", "\r"), "\n", $content);
+    $content = str_replace("\n", '\\n', $content);
+    return trim($content);
 }
 
 // Clear cache when page is updated
@@ -505,7 +798,7 @@ function tierliebe_clear_page_cache($post_id)
 
     if ($post && $post->post_type === 'page') {
         // Clear cache for this page (cache by post ID now)
-        delete_transient('tierliebe_page_content_' . $post_id);
+        delete_transient('tierliebe_page_content_v3_' . $post_id);
     }
 }
 add_action('save_post', 'tierliebe_clear_page_cache');
@@ -514,7 +807,7 @@ add_action('save_post', 'tierliebe_clear_page_cache');
 function tierliebe_clear_all_caches()
 {
     global $wpdb;
-    $wpdb->query("DELETE FROM {$wpdb->options} WHERE option_name LIKE '_transient_tierliebe_page_content_%' OR option_name LIKE '_transient_timeout_tierliebe_page_content_%'");
+    $wpdb->query("DELETE FROM {$wpdb->options} WHERE option_name LIKE '_transient_tierliebe_page_content_v3_%' OR option_name LIKE '_transient_timeout_tierliebe_page_content_v3_%'");
 }
 
 // Add cache clear to admin init (can be triggered via URL parameter)
@@ -608,7 +901,7 @@ function tierliebe_save_text_ajax()
 
         if ($updated && !is_wp_error($updated)) {
             // Clear cache for this page
-            delete_transient('tierliebe_page_content_' . $post_id);
+            delete_transient('tierliebe_page_content_v3_' . $post_id);
 
             wp_cache_delete($post_id, 'posts');
             wp_cache_delete($post_id, 'post_meta');
@@ -620,7 +913,7 @@ function tierliebe_save_text_ajax()
 
             // Force clear all tierliebe transients
             global $wpdb;
-            $wpdb->query("DELETE FROM {$wpdb->options} WHERE option_name LIKE '_transient_tierliebe_page_content_%' OR option_name LIKE '_transient_timeout_tierliebe_page_content_%'");
+            $wpdb->query("DELETE FROM {$wpdb->options} WHERE option_name LIKE '_transient_tierliebe_page_content_v3_%' OR option_name LIKE '_transient_timeout_tierliebe_page_content_v3_%'");
 
             wp_send_json_success('Text gespeichert');
         } else {
@@ -646,24 +939,36 @@ function tierliebe_save_all_ajax()
     $page_slug = sanitize_text_field($_POST['page_slug']);
     $page_id = intval($_POST['page_id']);
 
-    // Save text content (same as tierliebe_save_text_ajax)
-    // IMPORTANT: Try WITHOUT stripslashes first (modern PHP doesn't need it)
+    // DEBUG: Log all POST keys
+    error_log('TIERLIEBE SAVE: POST keys: ' . implode(', ', array_keys($_POST)));
+    error_log('TIERLIEBE SAVE: html_structure isset: ' . (isset($_POST['html_structure']) ? 'YES' : 'NO'));
+    error_log('TIERLIEBE SAVE: html_structure empty: ' . (empty($_POST['html_structure']) ? 'YES' : 'NO'));
+
+    // Save text content
+    // CRITICAL: Do NOT use stripslashes on raw content!
+    // In modern PHP (no magic_quotes), stripslashes('\n') becomes 'n' which breaks JSON
     $raw_content = $_POST['content'];
 
     if (preg_match('/<!--TIERLIEBE_HTML_START-->(.*)<!--TIERLIEBE_HTML_END-->/s', $raw_content, $matches)) {
         $json_string = $matches[1];
 
-        // Try to decode without stripslashes first
+        // Try to decode directly first
         $json_data = json_decode($json_string, true);
 
-        // If that fails, try WITH stripslashes (for legacy magic_quotes)
-        if ($json_data === null && json_last_error() !== JSON_ERROR_NONE) {
-            $json_string = stripslashes($json_string);
-            $json_data = json_decode($json_string, true);
+        // If that fails AND we detect escaped backslashes, try stripslashes
+        if ($json_data === null && strpos($json_string, '\\\\') !== false) {
+            $json_data = json_decode(stripslashes($json_string), true);
         }
 
         if (is_array($json_data)) {
-            $content = json_encode($json_data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+            // KEEP the original JSON string instead of re-encoding!
+            // Re-encoding via json_encode produces \n which WordPress wp_unslash corrupts
+            $content = $json_string;
+
+            // Only re-encode if we had to stripslashes
+            if (strpos($json_string, '\\\\') !== false) {
+                $content = stripslashes($json_string);
+            }
         } else {
             wp_send_json_error('Ungültiges JSON-Format: ' . json_last_error_msg());
             return;
@@ -673,30 +978,13 @@ function tierliebe_save_all_ajax()
         return;
     }
 
-    // Find page by slug
-    $query = new WP_Query(array(
-        'post_type'      => 'page',
-        'name'           => $page_slug,
-        'posts_per_page' => 1,
-        'post_status'    => 'any'
-    ));
-
-    if (!$query->have_posts()) {
-        wp_send_json_error('Seite nicht gefunden: ' . $page_slug);
+    // Verify page exists and user can edit it (use page_id directly, not slug)
+    $page = get_post($page_id);
+    if (!$page || $page->post_type !== 'page') {
+        wp_send_json_error('Seite nicht gefunden (ID: ' . $page_id . ')');
         return;
     }
 
-    $query->the_post();
-    $found_page_id = get_the_ID();
-    wp_reset_postdata();
-
-    // Verify page_id matches
-    if ($page_id !== $found_page_id) {
-        wp_send_json_error('Page ID Mismatch');
-        return;
-    }
-
-    // Check user can edit this page
     if (!current_user_can('edit_post', $page_id)) {
         wp_send_json_error('Keine Berechtigung für diese Seite');
         return;
@@ -709,33 +997,195 @@ function tierliebe_save_all_ajax()
         update_post_meta($page_id, '_tierliebe_backup_timestamp', current_time('mysql'));
     }
 
-    // FAIL-SAFE: Validate JSON has minimum number of keys
+    // FAIL-SAFE: Validate JSON structure
     $json_data = json_decode($content, true);
-    if (!is_array($json_data) || count($json_data) < 10) {
-        wp_send_json_error('FAIL-SAFE: Ungültiges JSON - zu wenige Keys (' . count($json_data) . ', erwartet >= 10). Speichern abgebrochen, alte Daten bleiben erhalten.');
+    if (!is_array($json_data)) {
+        wp_send_json_error('FAIL-SAFE: Ungültiges JSON - kein Array. Speichern abgebrochen.');
         return;
     }
 
-    // Save content (includes text AND images in JSON)
+    // Handle both new format (keys + _structure) and old format (flat keys)
+    $keys_to_check = isset($json_data['keys']) ? $json_data['keys'] : $json_data;
+    if (!is_array($keys_to_check) || count($keys_to_check) < 1) {
+        wp_send_json_error('FAIL-SAFE: Ungültiges JSON - keine Keys gefunden. Speichern abgebrochen.');
+        return;
+    }
+
+    // Temporarily disable ALL content filters to prevent wpautop from breaking JSON
+    remove_filter('content_save_pre', 'wp_filter_post_kses');
+    remove_filter('content_save_pre', 'wp_targeted_link_rel');
+    remove_filter('content_save_pre', 'convert_invalid_entities');
+
+    // CRITICAL: WordPress wp_update_post internally calls wp_unslash which converts \n to n
+    // We must double-escape backslashes so wp_unslash leaves us with correct \n
+
+    // NEW: Embed structure in post_content for unified WordPress Revisions
+    $final_content = $json_data; // Already decoded keys
+
+    // Add structure if provided (so both are in one revision)
+    if (isset($_POST['html_structure']) && !empty($_POST['html_structure'])) {
+        $html_structure_encoded = $_POST['html_structure'];
+        $html_structure = base64_decode($html_structure_encoded);
+        $structure_data_for_content = json_decode($html_structure, true);
+        if (is_array($structure_data_for_content)) {
+            $final_content = [
+                'keys' => $json_data,
+                '_structure' => $structure_data_for_content
+            ];
+        }
+    }
+
+    $content_to_save = json_encode($final_content, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+    $content_escaped = str_replace('\\', '\\\\', $content_to_save);
+
+    // Save content (includes text AND structure in JSON for unified revisions)
     $result = wp_update_post([
         'ID' => $page_id,
-        'post_content' => $content
+        'post_content' => $content_escaped
     ]);
+
+    // Re-enable filters
+    add_filter('content_save_pre', 'wp_filter_post_kses');
+    add_filter('content_save_pre', 'wp_targeted_link_rel');
+    add_filter('content_save_pre', 'convert_invalid_entities');
 
     if (is_wp_error($result)) {
         wp_send_json_error('Fehler beim Speichern: ' . $result->get_error_message());
         return;
     }
 
-    // Clear cache
+    // Save HTML structure (for dynamic rendering) - NEW
+    $structure_saved = false;
+    if (isset($_POST['html_structure']) && !empty($_POST['html_structure'])) {
+        $html_structure_encoded = $_POST['html_structure'];
+        error_log('TIERLIEBE: html_structure empfangen (Base64), Länge: ' . strlen($html_structure_encoded));
+
+        // Decode Base64
+        $html_structure = base64_decode($html_structure_encoded);
+        error_log('TIERLIEBE: html_structure decoded, Länge: ' . strlen($html_structure));
+
+        // Validate JSON
+        $structure_data = json_decode($html_structure, true);
+        if (is_array($structure_data)) {
+            // FORCE delete ALL old entries via direct DB access
+            global $wpdb;
+            $deleted = $wpdb->delete(
+                $wpdb->postmeta,
+                array(
+                    'post_id' => $page_id,
+                    'meta_key' => '_tierliebe_html_structure'
+                )
+            );
+            error_log('TIERLIEBE: Deleted ' . $deleted . ' old meta entries');
+
+            // Insert fresh value
+            $inserted = $wpdb->insert(
+                $wpdb->postmeta,
+                array(
+                    'post_id' => $page_id,
+                    'meta_key' => '_tierliebe_html_structure',
+                    'meta_value' => $html_structure
+                )
+            );
+            $structure_saved = ($inserted !== false);
+            error_log('TIERLIEBE: html_structure inserted, ' . count($structure_data) . ' Elemente, Result: ' . ($structure_saved ? 'SUCCESS' : 'FAILED'));
+
+            // Verify it was saved correctly
+            $verify = $wpdb->get_var($wpdb->prepare(
+                "SELECT meta_value FROM $wpdb->postmeta WHERE post_id = %d AND meta_key = '_tierliebe_html_structure' ORDER BY meta_id DESC LIMIT 1",
+                $page_id
+            ));
+            error_log('TIERLIEBE: Verify saved length: ' . strlen($verify));
+        } else {
+            error_log('TIERLIEBE: html_structure JSON decode FAILED: ' . json_last_error_msg());
+            error_log('TIERLIEBE: First 500 chars: ' . substr($html_structure, 0, 500));
+        }
+    } else {
+        error_log('TIERLIEBE: KEINE html_structure in $_POST');
+    }
+
+    // Clear cache (including meta cache)
     delete_transient('tierliebe_text_' . $page_slug);
+    delete_transient('tierliebe_page_content_v3_' . $page_id);
+    wp_cache_delete($page_id, 'post_meta'); // Clear meta cache
 
     wp_send_json_success([
         'message' => 'Alle Inhalte gespeichert (Texte + Bilder im JSON)',
-        'keys' => count($json_data)
+        'keys' => count($json_data),
+        'structure_saved' => $structure_saved,
+        'structure_elements' => isset($structure_data) ? count($structure_data) : 0
     ]);
 }
 add_action('wp_ajax_tierliebe_save_all', 'tierliebe_save_all_ajax');
+
+// NEW v3.0: Simplified Save Handler (no structure, just key-value pairs)
+function tierliebe_save_content_ajax()
+{
+    check_ajax_referer('tierliebe_edit_nonce', 'nonce');
+
+    if (!current_user_can('edit_posts')) {
+        wp_send_json_error('Keine Berechtigung');
+    }
+
+    $page_id = intval($_POST['page_id']);
+    $content_json = stripslashes($_POST['content']);
+
+    // Validate JSON
+    $content = json_decode($content_json, true);
+    if (!is_array($content) || empty($content)) {
+        wp_send_json_error('Ungültiges JSON-Format');
+        return;
+    }
+
+    // Verify page exists
+    $page = get_post($page_id);
+    if (!$page || $page->post_type !== 'page') {
+        wp_send_json_error('Seite nicht gefunden');
+        return;
+    }
+
+    if (!current_user_can('edit_post', $page_id)) {
+        wp_send_json_error('Keine Berechtigung für diese Seite');
+        return;
+    }
+
+    // Create backup
+    if (!empty($page->post_content)) {
+        update_post_meta($page_id, '_tierliebe_content_backup', $page->post_content);
+    }
+
+    // Encode content for storage
+    $content_to_save = json_encode($content, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+
+    // WordPress wp_unslash fix
+    $content_escaped = str_replace('\\', '\\\\', $content_to_save);
+
+    // Disable filters
+    remove_filter('content_save_pre', 'wp_filter_post_kses');
+
+    // Save
+    $result = wp_update_post([
+        'ID' => $page_id,
+        'post_content' => $content_escaped
+    ]);
+
+    // Re-enable filters
+    add_filter('content_save_pre', 'wp_filter_post_kses');
+
+    if (is_wp_error($result)) {
+        wp_send_json_error('Fehler: ' . $result->get_error_message());
+        return;
+    }
+
+    // Clear cache
+    delete_transient('tierliebe_page_content_v3_' . $page_id);
+
+    wp_send_json_success([
+        'message' => 'Gespeichert',
+        'keys' => count($content)
+    ]);
+}
+add_action('wp_ajax_tierliebe_save_content', 'tierliebe_save_content_ajax');
 
 // Undo Last Save - Restore previous WordPress revision
 function tierliebe_undo_save_ajax()
@@ -752,7 +1202,7 @@ function tierliebe_undo_save_ajax()
     $page_slug = sanitize_text_field($_POST['page_slug']);
 
     // Clear transient cache
-    $transient_key = 'tierliebe_page_content_' . $page_id;
+    $transient_key = 'tierliebe_page_content_v3_' . $page_id;
     delete_transient($transient_key);
 
     // Get current post content (to skip it in revisions)
@@ -785,9 +1235,13 @@ function tierliebe_undo_save_ajax()
             continue;
         }
 
-        if (is_array($revision_parsed) && count($revision_parsed) >= 10) {
+        if (is_array($revision_parsed) && count($revision_parsed) >= 1) {
             // Found valid revision - restore it
             $restore_content = json_encode($revision_parsed, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+
+            // CRITICAL: WordPress wp_update_post calls wp_unslash which converts \n to n
+            // Must double-escape backslashes
+            $restore_content = str_replace('\\', '\\\\', $restore_content);
 
             $result = wp_update_post([
                 'ID' => $page_id,
@@ -797,14 +1251,39 @@ function tierliebe_undo_save_ajax()
             if (!is_wp_error($result)) {
                 delete_transient($transient_key);
 
+                // NEW: Also restore structure if present in revision
+                $structure_restored = false;
+                if (isset($revision_parsed['_structure']) && is_array($revision_parsed['_structure'])) {
+                    global $wpdb;
+                    // Delete old structure
+                    $wpdb->delete(
+                        $wpdb->postmeta,
+                        array('post_id' => $page_id, 'meta_key' => '_tierliebe_html_structure')
+                    );
+                    // Insert restored structure
+                    $structure_json = json_encode($revision_parsed['_structure'], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+                    $wpdb->insert(
+                        $wpdb->postmeta,
+                        array(
+                            'post_id' => $page_id,
+                            'meta_key' => '_tierliebe_html_structure',
+                            'meta_value' => $structure_json
+                        )
+                    );
+                    $structure_restored = true;
+                    wp_cache_delete($page_id, 'post_meta');
+                }
+
                 $revision_date = get_the_date('d.m.Y H:i', $revision->ID);
+                $keys_count = isset($revision_parsed['keys']) ? count($revision_parsed['keys']) : count($revision_parsed);
 
                 wp_send_json_success([
-                    'message' => 'Cache geleert und Revision wiederhergestellt',
+                    'message' => 'Revision wiederhergestellt' . ($structure_restored ? ' (Text + Struktur)' : ' (nur Text)'),
                     'restored' => true,
                     'source' => 'revision',
                     'revision_date' => $revision_date,
-                    'keys' => count($revision_parsed)
+                    'keys' => $keys_count,
+                    'structure_restored' => $structure_restored
                 ]);
                 return;
             }
@@ -818,8 +1297,12 @@ function tierliebe_undo_save_ajax()
         $backup_decoded = strip_tags($backup_decoded);
         $backup_parsed = json_decode($backup_decoded, true);
 
-        if (is_array($backup_parsed) && count($backup_parsed) >= 10) {
+        if (is_array($backup_parsed) && count($backup_parsed) >= 1) {
             $restore_content = json_encode($backup_parsed, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+
+            // CRITICAL: WordPress wp_update_post calls wp_unslash which converts \n to n
+            // Must double-escape backslashes
+            $restore_content = str_replace('\\', '\\\\', $restore_content);
 
             $result = wp_update_post([
                 'ID' => $page_id,
@@ -880,18 +1363,9 @@ function tierliebe_enqueue_edit_assets()
 
         wp_enqueue_script(
             'tierliebe-edit',
-            get_stylesheet_directory_uri() . '/js/tierliebe-edit-v2.js',
+            get_stylesheet_directory_uri() . '/js/tierliebe-edit-v3.js',
             array('jquery'),
-            '2.2.0',
-            true
-        );
-
-        // Element Duplicator v1.0 (depends on tierliebe-edit)
-        wp_enqueue_script(
-            'tierliebe-element-duplicator',
-            get_stylesheet_directory_uri() . '/js/tierliebe-element-duplicator.js',
-            array('jquery', 'tierliebe-edit'),
-            '1.0.0',
+            '3.0.0',
             true
         );
 
@@ -899,7 +1373,8 @@ function tierliebe_enqueue_edit_assets()
         wp_localize_script('tierliebe-edit', 'tierliebe_edit', array(
             'ajax_url' => admin_url('admin-ajax.php'),
             'nonce'    => wp_create_nonce('tierliebe_edit_nonce'),
-            'page_id'  => get_the_ID()
+            'page_id'  => get_the_ID(),
+            'page_slug' => $post->post_name
         ));
     }
 }

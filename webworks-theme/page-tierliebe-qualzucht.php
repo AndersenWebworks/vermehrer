@@ -3,20 +3,11 @@
  * Template Name: Tierliebe - Qualzucht
  * Template Post Type: page
  * Description: Überzüchtung - 8 Rassen mit Bildern
- * Version: 1.1.0 - Dynamic Rendering Support
+ * Version: 1.1.0
  */
 
 get_template_part('tierliebe-parts/header');
-
 $content = get_tierliebe_text('qualzucht');
-
-// Try dynamic rendering first (for pages with library elements)
-if (render_tierliebe_dynamic_structure()) {
-    get_template_part('tierliebe-parts/footer');
-    exit;
-}
-
-// Fallback: Static template
 ?>
 
 <!-- Hidden Page Slug for Editor -->

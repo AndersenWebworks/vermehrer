@@ -7,32 +7,25 @@
  */
 
 get_template_part('tierliebe-parts/header');
-
 $content = get_tierliebe_text('test');
-
-// Try dynamic rendering first (FULL PAGE BUILDER mode)
-if (render_tierliebe_dynamic_structure()) {
-    get_template_part('tierliebe-parts/footer');
-    return;
-}
-
-// Fallback: Static template
 ?>
 
 <section id="test" class="section">
     <div class="section-header">
-        <h2 class="section-title editable" data-key="section-titel"><?php echo wp_kses_post($content['section-titel'] ?? ''); ?></h2>
+        <h2 class="section-title editable" data-key="section-titel">
+            <?php echo wp_kses_post($content['section-titel'] ?? '✨ Bin ich bereit für ein Tier?'); ?>
+        </h2>
         <p class="section-subtitle editable" data-key="section-subtitle" style="max-width: 800px; margin: 0 auto 20px;">
-            <?php echo wp_kses_post($content['section-subtitle'] ?? ''); ?>
+            <?php echo wp_kses_post($content['section-subtitle'] ?? 'Ein ehrlicher Selbst-Check – keine Beschönigung, keine Ausreden. Nur die Wahrheit.'); ?>
         </p>
         <p class="editable" data-key="section-frage" style="font-size: 1.2rem; font-weight: 600; text-align: center; margin-bottom: 40px;">
-            <?php echo wp_kses_post($content['section-frage'] ?? ''); ?>
+            <?php echo wp_kses_post($content['section-frage'] ?? 'Bist du wirklich bereit?'); ?>
         </p>
     </div>
 
     <div class="info-box responsibility-box" data-emoji="💭" style="max-width: 800px; margin: 0 auto 40px;">
         <p class="editable" data-key="responsibility-text" style="font-size: 1.1rem; line-height: 1.7;">
-            <?php echo wp_kses_post($content['responsibility-text'] ?? ''); ?>
+            <?php echo wp_kses_post($content['responsibility-text'] ?? 'Dieser Test ist kein Spiel. Er zeigt dir ehrlich, wo du stehst. Manche Antworten werden unbequem sein. Aber genau darum geht es – um echte Verantwortung.'); ?>
         </p>
     </div>
 

@@ -31,9 +31,10 @@ wp-content/cache/*
 
 # SFTP/FTP credentials (sensitive data)
 sftp.json
+
+# Temporary upload scripts (keep only the main one in .vscode)
 tools/*.ps1
 **/upload*.ps1
-**/ftp-upload.ps1
 
 # Temporary files
 *.tmp
@@ -43,3 +44,21 @@ tools/*.ps1
 # E-Mail Daten & Import
 *.eml
 import-utm-data.sql
+
+# Debug/Development PHP files (should not be in production)
+debug-*.php
+restore-*.php
+fix-*.php
+test-*.php
+clear-*.php
+extract-*.php
+import-*.php
+init-*.php
+repair-*.php
+verify-*.php
+temp_*.php
+enable-debug.php
+read-debug-log.php
+update-templates.php
+migrate-*.php
+FINAL-*.php

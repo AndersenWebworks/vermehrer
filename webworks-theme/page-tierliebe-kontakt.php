@@ -7,18 +7,7 @@
  */
 
 get_template_part('tierliebe-parts/header');
-
-// Load content from database
 $content = get_tierliebe_text('kontakt');
-
-// Try dynamic rendering first (FULL PAGE BUILDER mode)
-if (render_tierliebe_dynamic_structure()) {
-    // Dynamic structure rendered - page is complete
-    get_template_part('tierliebe-parts/footer');
-    return;
-}
-
-// Fallback: Static template (if no structure saved yet)
 ?>
 
 <section class="section">

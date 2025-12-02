@@ -7,17 +7,7 @@
  */
 
 get_template_part('tierliebe-parts/header');
-
-// Load content from database
 $content = get_tierliebe_text('irrtuemer');
-
-// Try dynamic rendering first (FULL PAGE BUILDER mode)
-if (render_tierliebe_dynamic_structure()) {
-    get_template_part('tierliebe-parts/footer');
-    return;
-}
-
-// Fallback: Static template
 ?>
 
 <!-- Hero Section -->

@@ -3,7 +3,7 @@
  * Template Name: Tierliebe - Start
  * Template Post Type: page
  * Description: Startseite für Tierliebe-Portal (Dynamic Content)
- * Version: 3.0.0
+ * Version: 3.1.0 - Dynamic Rendering Support
  */
 
 get_template_part('tierliebe-parts/header');

@@ -11,6 +11,7 @@
 - **Live-URL:** https://vm.andersen-webworks.de/
 - **Tech-Stack:** WordPress + Custom Theme, Modular CSS (v6.0.0), Frontend-Editor (v3.1.0)
 - **Master-Dokumentation:** [PROJECT-OVERVIEW.md](../PROJECT-OVERVIEW.md) (1500+ Zeilen, ALLES Wissen)
+- **Startseite:** ID 543, Slug `tierliebe-start` (NICHT `tierliebe-home`!)
 
 ---
 
@@ -238,6 +239,34 @@ Bei größeren Features:
 **Wichtig für Content-Autoren:**
 - Immer typografische Quotes verwenden: `"Beispiel"` oder `′Beispiel′`
 - NIEMALS straight quotes: `"Beispiel"` ❌
+
+### ✅ GELÖST: Duplicate Data-Key Bug (November 2025)
+
+**Problem (war):**
+- Mehrere Elemente können denselben `data-key` haben (z.B. H2 Titel + P Beschreibung)
+- Beim Speichern iteriert JavaScript über ALLE `.editable` Elemente
+- Das letzte Element überschreibt den Wert des ersten
+- Resultat: User-Edits gehen verloren, alter Content wird gespeichert
+
+**Dreifacher Schutz implementiert (Editor v2.3.0):**
+
+1. **Runtime-Fix** (`buildHTMLFromEditables()` L501-511):
+   - Nur geänderte Werte werden in `contentMap` geschrieben
+   - Unveränderte Werte (wie das zweite Element mit gleichem key) überschreiben nicht
+
+2. **Validation beim Laden** (`checkForDuplicateKeys()` L77-161):
+   - Prüft beim Seitenaufruf auf duplicate data-keys
+   - Zeigt rote Warnung für Admins wenn Duplicates gefunden
+   - Loggt Details in Browser-Console
+
+3. **Alle Templates geprüft & sauber** (November 2025):
+   - PowerShell-Script `find-duplicates.ps1` prüft alle Templates
+   - Stand: 11/11 Templates = 0 Duplicates
+
+**Regel für Template-Entwicklung:**
+- JEDES `data-key` Attribut MUSS eindeutig sein pro Seite
+- Beispiel: `sektion-titel` und `sektion-text` statt beide `sektion-name`
+- Bei neuen Templates: Script ausführen um Duplicates zu finden
 
 ### Security
 ```php

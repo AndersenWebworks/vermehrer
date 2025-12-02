@@ -3,20 +3,11 @@
  * Template Name: Tierliebe - Katzen
  * Template Post Type: page
  * Description: Mythen und Fakten über Katzen
- * Version: 1.3.0 - Dynamic Rendering Support
+ * Version: 1.3.0
  */
 
 get_template_part('tierliebe-parts/header');
 $content = get_tierliebe_text('katzen');
-
-// Try dynamic rendering first (for pages with library elements)
-if (render_tierliebe_dynamic_structure()) {
-    // Dynamic structure rendered successfully
-    get_template_part('tierliebe-parts/footer');
-    exit;
-}
-
-// Fallback: Static template (for existing pages without dynamic structure)
 ?>
 
 <section class="section">

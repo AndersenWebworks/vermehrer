@@ -402,6 +402,7 @@
     left           : 50%;
     transform      : translateX(-50%);
     font-size      : 3.5rem;
+    font-family    : "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif;
     background     : white;
     width          : 70px;
     height         : 70px;
@@ -411,6 +412,11 @@
     justify-content: center;
     border         : 3px solid;
     box-shadow     : var(--shadow-sm);
+}
+
+/* Fallback to force icons even if data-emoji is missing/stripped */
+.info-box.warning::before {
+    content: attr(data-emoji, "⚠️");
 }
 
 .info-box.warning {

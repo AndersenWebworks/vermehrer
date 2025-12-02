@@ -9,14 +9,6 @@
 get_template_part('tierliebe-parts/header');
 
 $content = get_tierliebe_text('adoption');
-
-// Try dynamic rendering first (FULL PAGE BUILDER mode)
-if (render_tierliebe_dynamic_structure()) {
-    get_template_part('tierliebe-parts/footer');
-    return;
-}
-
-// Fallback: Static template
 ?>
 
 <!-- Hero Section -->
@@ -42,7 +34,7 @@ if (render_tierliebe_dynamic_structure()) {
         </ul>
         </div>
 
-        <div class="info-box" style="margin-top: 30px; background: var(--pastel-coral); color: white;">
+        <div class="info-box" data-emoji="💔" style="margin-top: 30px; background: var(--pastel-coral); color: white;">
             <h3 class="editable" data-key="zoofach-system-titel" style="color: white;"><?php echo wp_kses_post($content['zoofach-system-titel'] ?? ''); ?></h3>
             <p class="editable" data-key="zoofach-system-text1" style="font-size: 1.1rem; line-height: 1.8; margin-top: 15px;">
                 <?php echo wp_kses_post($content['zoofach-system-text1'] ?? ''); ?>
@@ -52,7 +44,7 @@ if (render_tierliebe_dynamic_structure()) {
             </p>
         </div>
 
-        <div class="info-box" style="margin-top: 30px; background: var(--pastel-mint);">
+        <div class="info-box" data-emoji="✅" style="margin-top: 30px; background: var(--pastel-mint);">
             <h3 class="editable" data-key="zoofach-alternative-titel"><?php echo wp_kses_post($content['zoofach-alternative-titel'] ?? ''); ?></h3>
             <ul style="font-size: 1.1rem; line-height: 1.8; margin-top: 15px;" class="editable" data-key="zoofach-alternative-liste">
             <?php echo wp_kses_post($content['zoofach-alternative-liste'] ?? ''); ?>
@@ -69,7 +61,7 @@ if (render_tierliebe_dynamic_structure()) {
             <?php echo wp_kses_post($content['vergleich-subtitle'] ?? ''); ?>
         </p>
         <div style="max-width: 900px; margin: 0 auto 50px;">
-            <div class="info-box" style="background: var(--pastel-peach);">
+            <div class="info-box" data-emoji="ℹ️" style="background: var(--pastel-peach);">
                 <p class="editable" data-key="vergleich-frage" style="font-size: 1.1rem; margin-bottom: 15px;"><?php echo wp_kses_post($content['vergleich-frage'] ?? ''); ?></p>
                 <p class="editable" data-key="vergleich-antwort" style="font-size: 1.1rem;"><?php echo wp_kses_post($content['vergleich-antwort'] ?? ''); ?></p>
             </div>
@@ -179,7 +171,7 @@ if (render_tierliebe_dynamic_structure()) {
             </div>
         </div>
 
-        <div class="info-box" style="margin-top: 50px; background: var(--pastel-lavender);">
+        <div class="info-box" data-emoji="💜" style="margin-top: 50px; background: var(--pastel-lavender);">
             <h3 class="editable" data-key="prozess-box-titel" style="margin-bottom: 15px;"><?php echo wp_kses_post($content['prozess-box-titel'] ?? ''); ?></h3>
             <p class="editable" data-key="prozess-box-text"><?php echo wp_kses_post($content['prozess-box-text'] ?? ''); ?></p>
             <ul style="margin-top: 15px;" class="editable" data-key="prozess-box-liste">
@@ -215,7 +207,7 @@ if (render_tierliebe_dynamic_structure()) {
             <?php echo wp_kses_post($content['accordion-1-liste-2'] ?? ''); ?>
         </ul>
 
-                    <div class="info-box" style="margin-top: 30px; background: var(--pastel-coral);">
+                    <div class="info-box" data-emoji="🧾" style="margin-top: 30px; background: var(--pastel-coral);">
                         <h4 class="editable" data-key="accordion-1-box-titel"><?php echo esc_html(strip_tags($content['accordion-1-box-titel'] ?? '')); ?></h4>
                         <p class="editable" data-key="accordion-1-box-text"><?php echo wp_kses_post($content['accordion-1-box-text'] ?? ''); ?></p>
                     </div>
@@ -237,7 +229,7 @@ if (render_tierliebe_dynamic_structure()) {
                         </p>
                     </div>
 
-                    <div class="info-box" style="margin-top: 30px; background: var(--pastel-peach);">
+                    <div class="info-box" data-emoji="💡" style="margin-top: 30px; background: var(--pastel-peach);">
                         <h4>⚠️ Aber das ist nur die halbe Wahrheit!</h4>
                         <ul class="editable" data-key="accordion-2-liste">
             <?php echo wp_kses_post($content['accordion-2-liste'] ?? ''); ?>
@@ -261,7 +253,7 @@ if (render_tierliebe_dynamic_structure()) {
             <?php echo wp_kses_post($content['accordion-3-liste'] ?? ''); ?>
         </ul>
 
-                    <div class="info-box" style="margin-top: 30px; background: var(--cute-coral); color: white;">
+                    <div class="info-box" data-emoji="🛑" style="margin-top: 30px; background: var(--cute-coral); color: white;">
                         <h4 class="editable" data-key="accordion-3-box-titel" style="color: white;"><?php echo esc_html(strip_tags($content['accordion-3-box-titel'] ?? '')); ?></h4>
                         <p class="editable" data-key="accordion-3-box-text1" style="font-size: 1.2rem; line-height: 1.6;">
                             <?php echo wp_kses_post($content['accordion-3-box-text1'] ?? ''); ?>
@@ -308,7 +300,7 @@ if (render_tierliebe_dynamic_structure()) {
             </div>
         </div>
 
-        <div class="info-box" style="margin-top: 50px; background: var(--pastel-mint);">
+        <div class="info-box" data-emoji="🤔" style="margin-top: 50px; background: var(--pastel-mint);">
             <h3 class="editable" data-key="abgabe-box-titel"><?php echo wp_kses_post($content['abgabe-box-titel'] ?? ''); ?></h3>
             <ul style="margin-top: 15px; font-size: 1.1rem;" class="editable" data-key="abgabe-box-liste">
             <?php echo wp_kses_post($content['abgabe-box-liste'] ?? ''); ?>
@@ -341,3 +333,4 @@ if (current_user_can('edit_posts')) {
 
 get_template_part('tierliebe-parts/footer');
 ?>
+
