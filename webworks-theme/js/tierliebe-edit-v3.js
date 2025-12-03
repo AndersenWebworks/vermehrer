@@ -1,7 +1,9 @@
 /**
- * Tierliebe Edit v3.2.0 - Lightweight front-end editor
+ * Tierliebe Edit v3.5.0 - Lightweight front-end editor
  * Features: toggle edit, text/image edit, save, undo, revision restore, links
- * NEW: Global editable footer (saved in wp_options, appears on all pages)
+ * v3.3.0: Quote sanitization to prevent JSON corruption (REMOVED in v3.5.0)
+ * v3.4.0: Line break handling (Enter = <br>, newlines normalized)
+ * v3.5.0: Removed quote sanitization workaround - proper JSON handling via intelligent stripslashes
  */
 (function($) {
     'use strict';
@@ -57,24 +59,35 @@
     function normalize(html) {
         if (!html) return '';
 
-        // Fix: Convert DIVs to BR tags (browser creates DIVs when pressing Enter in contenteditable)
-        // This prevents invalid HTML like <p><div>...</div></p>
         let normalized = html;
 
-        // Replace closing </div> followed by opening <div> with <br><br> (paragraph break)
-        normalized = normalized.replace(/<\/div>\s*<div>/gi, '<br><br>');
+        // Step 1: Normalize Windows/Mac line endings
+        normalized = normalized.replace(/\r\n/g, '\n');
+        normalized = normalized.replace(/\r/g, '\n');
 
-        // Remove opening <div> tags
-        normalized = normalized.replace(/<div>/gi, '');
+        // Step 2: Handle browser DIV behavior (Enter key creates DIVs)
+        // Browser DIV = 1 paragraph break, not 2
+        // Pattern: </div><div> = transition between paragraphs = single <br>
+        normalized = normalized.replace(/<\/div>\s*<div>/gi, '<br>');
+        // Opening <div> = start of new line = single <br>
+        normalized = normalized.replace(/<div>/gi, '<br>');
+        // Closing </div> = end of block = nothing
+        normalized = normalized.replace(/<\/div>/gi, '');
 
-        // Replace closing </div> with <br>
-        normalized = normalized.replace(/<\/div>/gi, '<br>');
+        // Step 3: Convert newlines to appropriate breaks
+        // Double newline = paragraph (Absatz)
+        normalized = normalized.replace(/\n\s*\n/g, '<br><br>');
+        // Single newline = line break (Umbruch)
+        normalized = normalized.replace(/\n/g, '<br>');
 
-        // Clean up multiple consecutive <br> tags (max 2)
-        normalized = normalized.replace(/(<br\s*\/?>){3,}/gi, '<br><br>');
+        // Step 4: Normalize all BR variants to consistent <br>
+        normalized = normalized.replace(/<br\s*\/?>/gi, '<br>');
 
-        // Remove trailing <br> tags
-        normalized = normalized.replace(/(<br\s*\/?>)+$/gi, '');
+        // Step 5: Clean up - max 2 consecutive BRs (1 paragraph worth)
+        normalized = normalized.replace(/(<br>){3,}/g, '<br><br>');
+
+        // Step 6: Remove leading BRs (artifact from DIV conversion)
+        normalized = normalized.replace(/^(<br>)+/g, '');
 
         return normalized.trim();
     }

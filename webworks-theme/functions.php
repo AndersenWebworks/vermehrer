@@ -150,6 +150,10 @@ function tierliebe_enqueue_assets()
                               is_page_template('page-tierliebe-kontakt.php');
 
     if ($is_tierliebe_template) {
+        // Mobile Cache-Buster: timestamp für aggressive mobile caches
+        $is_mobile = wp_is_mobile();
+        $css_v6 = $is_mobile ? time() : '6.0.0';
+
         // Enqueue modular CSS files (v6.0.0 - Modular Architecture)
 
         // 1. Core (Variables, Reset, Base) - must load first
@@ -157,7 +161,7 @@ function tierliebe_enqueue_assets()
             'tierliebe-core',
             get_stylesheet_directory_uri() . '/css/tierliebe-core.css',
             array(),
-            '6.0.0'
+            $css_v6
         );
 
         // 2. Layout (Hero, Sections, Containers)
@@ -165,7 +169,7 @@ function tierliebe_enqueue_assets()
             'tierliebe-layout',
             get_stylesheet_directory_uri() . '/css/tierliebe-layout.css',
             array('tierliebe-core'),
-            '6.0.0'
+            $css_v6
         );
 
         // 3. Navigation (Header, Desktop & Mobile Nav)
@@ -173,7 +177,7 @@ function tierliebe_enqueue_assets()
             'tierliebe-navigation',
             get_stylesheet_directory_uri() . '/css/tierliebe-navigation.css',
             array('tierliebe-core'),
-            '6.0.0'
+            $css_v6
         );
 
         // 4. Components (Accordion, Tabs, Buttons, Forms, etc.)
@@ -181,7 +185,7 @@ function tierliebe_enqueue_assets()
             'tierliebe-components',
             get_stylesheet_directory_uri() . '/css/tierliebe-components.css',
             array('tierliebe-core'),
-            '6.0.0'
+            $css_v6
         );
 
         // 5. Pages (Page-specific styles)
@@ -189,7 +193,7 @@ function tierliebe_enqueue_assets()
             'tierliebe-pages',
             get_stylesheet_directory_uri() . '/css/tierliebe-pages.css',
             array('tierliebe-core', 'tierliebe-components'),
-            '6.0.0'
+            $css_v6
         );
 
         // 6. Animations (Keyframes, Transitions)
@@ -197,7 +201,7 @@ function tierliebe_enqueue_assets()
             'tierliebe-animations',
             get_stylesheet_directory_uri() . '/css/tierliebe-animations.css',
             array('tierliebe-core'),
-            '6.0.0'
+            $css_v6
         );
 
         // 7. Responsive (Media Queries) - must load last
@@ -205,18 +209,23 @@ function tierliebe_enqueue_assets()
             'tierliebe-responsive',
             get_stylesheet_directory_uri() . '/css/tierliebe-responsive.css',
             array('tierliebe-core', 'tierliebe-layout', 'tierliebe-navigation', 'tierliebe-components', 'tierliebe-pages'),
-            '6.0.0'
+            $css_v6
         );
 
         // Enqueue jQuery (WordPress default)
         wp_enqueue_script('jquery');
+
+        // JS versions (cache-buster for mobile)
+        $js_v2 = $is_mobile ? time() : '2.0.0';
+        $js_v1 = $is_mobile ? time() : '1.0.0';
+        $js_v1_3 = $is_mobile ? time() : '1.3.0';
 
         // Enqueue Mobile Menu
         wp_enqueue_script(
             'tierliebe-mobile-menu',
             get_stylesheet_directory_uri() . '/js/tierliebe-mobile-menu.js',
             array('jquery'),
-            '2.0.0',
+            $js_v2,
             true
         );
 
@@ -225,7 +234,7 @@ function tierliebe_enqueue_assets()
             'tierliebe-desktop-menu',
             get_stylesheet_directory_uri() . '/js/tierliebe-desktop-menu.js',
             array('jquery'),
-            '1.0.0',
+            $js_v1,
             true
         );
 
@@ -234,7 +243,7 @@ function tierliebe_enqueue_assets()
             'tierliebe-keyboard-nav',
             get_stylesheet_directory_uri() . '/js/tierliebe-keyboard-nav.js',
             array('jquery'),
-            '1.0.0',
+            $js_v1,
             true
         );
 
@@ -243,7 +252,7 @@ function tierliebe_enqueue_assets()
             'tierliebe-tabs',
             get_stylesheet_directory_uri() . '/js/tierliebe-tabs.js',
             array('jquery'),
-            '1.0.0',
+            $js_v1,
             true
         );
 
@@ -252,7 +261,7 @@ function tierliebe_enqueue_assets()
             'tierliebe-accordion',
             get_stylesheet_directory_uri() . '/js/tierliebe-accordion.js',
             array('jquery'),
-            '1.0.0',
+            $js_v1,
             true
         );
 
@@ -261,7 +270,7 @@ function tierliebe_enqueue_assets()
             'tierliebe-filter',
             get_stylesheet_directory_uri() . '/js/tierliebe-filter.js',
             array('jquery'),
-            '1.3.0',
+            $js_v1_3,
             true
         );
 
@@ -270,7 +279,7 @@ function tierliebe_enqueue_assets()
             'tierliebe-gallery',
             get_stylesheet_directory_uri() . '/js/tierliebe-gallery.js',
             array('jquery'),
-            '1.0.0',
+            $js_v1,
             true
         );
 
@@ -280,7 +289,7 @@ function tierliebe_enqueue_assets()
                 'tierliebe-quiz',
                 get_stylesheet_directory_uri() . '/js/tierliebe-quiz.js',
                 array('jquery'),
-                '1.0.0',
+                $js_v1,
                 true
             );
         }
@@ -607,7 +616,7 @@ function get_tierliebe_text($page_slug = null)
         }
 
         $post_id = $post->ID;
-        $transient_key = 'tierliebe_page_content_v4_' . $post_id;
+        $transient_key = 'tierliebe_page_content_v5_' . $post_id;
         $cached = get_transient($transient_key);
         if (is_array($cached) && count($cached) > 0) {
             return $cached;
@@ -647,19 +656,36 @@ function get_tierliebe_text($page_slug = null)
             return array();
         }
 
-        // Fix: Convert DIVs to BRs in all values (prevents invalid HTML like <p><div>...</div></p>)
+        // Normalize all string values for consistent line break handling
         foreach ($parsed as $key => $value) {
-            if (is_string($value) && strpos($value, '<div>') !== false) {
-                // Replace closing </div> followed by opening <div> with <br><br> (paragraph break)
-                $value = preg_replace('/<\/div>\s*<div>/i', '<br><br>', $value);
-                // Remove opening <div> tags
-                $value = preg_replace('/<div>/i', '', $value);
-                // Replace closing </div> with <br>
-                $value = preg_replace('/<\/div>/i', '<br>', $value);
-                // Clean up multiple consecutive <br> tags (max 2)
-                $value = preg_replace('/(<br\s*\/?>){3,}/i', '<br><br>', $value);
-                // Remove trailing <br> tags
-                $value = preg_replace('/(<br\s*\/?>)+$/i', '', $value);
+            if (is_string($value)) {
+                // Step 1: Normalize line endings
+                $value = str_replace("\r\n", "\n", $value);
+                $value = str_replace("\r", "\n", $value);
+
+                // Step 2: Convert DIVs to BRs (browser contenteditable creates DIVs)
+                // Browser DIV = 1 paragraph break, not 2
+                if (strpos($value, '<div>') !== false) {
+                    $value = preg_replace('/<\/div>\s*<div>/i', '<br>', $value);
+                    $value = preg_replace('/<div>/i', '<br>', $value);
+                    $value = preg_replace('/<\/div>/i', '', $value);
+                }
+
+                // Step 3: Convert newlines to <br> tags
+                // Double newline = paragraph (Absatz)
+                $value = preg_replace('/\n\s*\n/', '<br><br>', $value);
+                // Single newline = line break (Umbruch)
+                $value = str_replace("\n", '<br>', $value);
+
+                // Step 4: Normalize all BR variants to consistent <br>
+                $value = preg_replace('/<br\s*\/?>/i', '<br>', $value);
+
+                // Step 5: Clean up - max 2 consecutive BRs
+                $value = preg_replace('/(<br>){3,}/', '<br><br>', $value);
+
+                // Step 6: Remove leading BRs (artifact from DIV conversion)
+                $value = preg_replace('/^(<br>)+/', '', $value);
+
                 $parsed[$key] = trim($value);
             }
         }
@@ -1149,12 +1175,18 @@ function tierliebe_save_content_ajax()
     }
 
     $page_id = intval($_POST['page_id']);
-    $content_json = stripslashes($_POST['content']);
 
-    // Validate JSON
-    $content = json_decode($content_json, true);
+    // Try to decode without stripslashes first (modern PHP)
+    $content = json_decode($_POST['content'], true);
+
+    // Fallback: try WITH stripslashes (legacy magic_quotes)
+    if ($content === null && json_last_error() !== JSON_ERROR_NONE) {
+        $content = json_decode(stripslashes($_POST['content']), true);
+    }
+
+    // Validate
     if (!is_array($content) || empty($content)) {
-        wp_send_json_error('Ungültiges JSON-Format');
+        wp_send_json_error('Ungültiges JSON-Format: ' . json_last_error_msg());
         return;
     }
 
@@ -1200,6 +1232,7 @@ function tierliebe_save_content_ajax()
     // Clear cache
     delete_transient('tierliebe_page_content_v3_' . $page_id);
     delete_transient('tierliebe_page_content_v4_' . $page_id);
+    delete_transient('tierliebe_page_content_v5_' . $page_id);
 
     wp_send_json_success([
         'message' => 'Gespeichert',
@@ -1464,18 +1497,23 @@ function tierliebe_enqueue_edit_assets()
             wp_enqueue_media();
         }
 
+        // Mobile Cache-Buster: timestamp für aggressive mobile caches
+        $is_mobile = wp_is_mobile();
+        $edit_css_v = $is_mobile ? time() : '2.0.0';
+        $edit_js_v = $is_mobile ? time() : '3.5.0';
+
         wp_enqueue_style(
             'tierliebe-edit',
             get_stylesheet_directory_uri() . '/css/tierliebe-edit.css',
             array(),
-            '2.0.0'
+            $edit_css_v
         );
 
         wp_enqueue_script(
             'tierliebe-edit',
             get_stylesheet_directory_uri() . '/js/tierliebe-edit-v3.js',
             array('jquery'),
-            '3.2.0',
+            $edit_js_v,
             true
         );
 
