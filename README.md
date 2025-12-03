@@ -3,28 +3,23 @@
 > **Aufklärungswebsite über verantwortungsvolle Tierhaltung**
 
 **Live:** https://vm.andersen-webworks.de/
-**Version:** 1.1.0
-**Letztes Update:** 6. November 2025
+**Version:** 1.2.0
+**Letztes Update:** 3. Dezember 2025
 
 ---
 
 ## 📚 Dokumentation
 
 **LIES ZUERST:**
-- **[PROJECT-OVERVIEW.md](PROJECT-OVERVIEW.md)** - Vollständige Projekt-Dokumentation (1800+ Zeilen)
+- **[PROJECT-OVERVIEW.md](PROJECT-OVERVIEW.md)** - Vollständige Projekt-Dokumentation (1500+ Zeilen)
 - **[.claude/CLAUDE.md](.claude/CLAUDE.md)** - Kontext für Claude-Instanzen
 
-**Workflows:**
-- **[WORKFLOW.md](WORKFLOW.md)** - Operative Anleitung
-- **[.claude/WORKFLOW-CONTENT-SYNC.md](.claude/WORKFLOW-CONTENT-SYNC.md)** - Content-Sync Workflow
-
-**Roadmaps:**
-- **[EDITOR-ENHANCEMENTS.md](EDITOR-ENHANCEMENTS.md)** - Editor Feature-Roadmap
-
 **Historisch:**
-- **[MIGRATION-COMPLETE.md](MIGRATION-COMPLETE.md)** - CPT → Pages Migration (Nov 2025)
-- **[TIERLIEBE_PROJEKT_PLAN.md](TIERLIEBE_PROJEKT_PLAN.md)** - Ursprünglicher Projektplan (archiviert)
-- **[CLEANUP-2025-11-06.md](CLEANUP-2025-11-06.md)** - Cleanup Report
+- **[MIGRATION-COMPLETE.md](tools/archive/MIGRATION-COMPLETE.md)** - CPT → Pages Migration (Nov 2025, archiviert)
+- **[tools/archive/EDITOR-ENHANCEMENTS.md](tools/archive/EDITOR-ENHANCEMENTS.md)** - Editor Feature-Roadmap (archiviert)
+- **[tools/archive/TIERLIEBE_PROJEKT_PLAN.md](tools/archive/TIERLIEBE_PROJEKT_PLAN.md)** - Ursprünglicher Projektplan (archiviert)
+- **[tools/archive/CLEANUP-2025-11-06.md](tools/archive/CLEANUP-2025-11-06.md)** - Cleanup Report (archiviert)
+- **[tools/archive/SEO-WORKFLOW.md](tools/archive/SEO-WORKFLOW.md)** - SEO Workflow (archiviert)
 
 ---
 
@@ -38,16 +33,12 @@
 
 ### Content bearbeiten
 ```bash
-# Option 1: Frontend-Editor (empfohlen)
+# Frontend-Editor
 https://vm.andersen-webworks.de/tierliebe-*/
 → Als Admin einloggen
 → ✏️ Button klicken
 → Inline editieren
 → 💾 Speichern
-
-# Option 2: Markdown
-vim texte/page-tierliebe-*.md
-python scripts/sync/fix-adoption-page-548.py
 ```
 
 ---
@@ -56,16 +47,18 @@ python scripts/sync/fix-adoption-page-548.py
 
 ```
 vermehrer/
-├── .claude/              # Claude-Kontext & Workflows
+├── .claude/              # Claude-Kontext
 ├── .vscode/              # VSCode Config + FTP Auto-Upload
-├── scripts/              # Utility Scripts (sync, debug)
-├── texte/                # Content-Markdown (Source of Truth)
+├── tools/                # Utility Scripts & Archive
+│   ├── archive/          # Historische Dokumentation
+│   ├── fetch-from-wordpress.py
+│   └── fix-html-entities-v2.py
+├── texte/                # Content-Markdown (Backup/Reference)
 ├── webworks-theme/       # WordPress Theme
 │   ├── css/              # 8 CSS-Module (v6.0.0)
-│   ├── js/               # 11 JavaScript-Module
+│   ├── js/               # JavaScript-Module (inkl. Editor v3.1.0+)
 │   ├── page-tierliebe-*.php  # 11 Page Templates
 │   └── functions.php     # Theme-Kern
-├── migrate-qualzucht-images-to-json.php  # Migration Script (Doku)
 └── *.md                  # Dokumentation
 ```
 
@@ -73,13 +66,14 @@ vermehrer/
 
 ## ✨ Features
 
-- **Frontend WYSIWYG Editor** (v3.1.0) - Inline-Editing ohne WordPress Admin
+- **Frontend WYSIWYG Editor** (v3.1.0+) - Inline-Editing ohne WordPress Admin
 - **Modular CSS** (v6.0.0) - 8 Module, klare Struktur
 - **JSON-basiertes CMS** - Content als JSON in post_content
 - **Quiz-System** - 8 Fragen mit komplexem Scoring
-- **Undo-Button** (↩️) - Stellt letzte WordPress Revision wieder her
+- **Undo-Button** (🔄) - Stellt letzte WordPress Revision wieder her
 - **Zero-Click Deployment** - Speichern → FTP → Live (<2s)
 - **WordPress Revisionen** - Automatisches Backup bei jedem Save
+- **DIV-to-BR Conversion** - Verhindert ungültiges HTML in contenteditable
 
 ---
 
@@ -128,23 +122,14 @@ git commit -m "Editor v3.1.0 - Feature XYZ"
 git commit -m "Auto commit"
 ```
 
-### Scripts
-```bash
-# Content-Sync
-python scripts/sync/fix-adoption-page-548.py
-
-# Debug
-python scripts/debug/check-adoption-status.py
-```
-
 ---
 
 ## 📊 Status
 
-- **8/11 Templates** live
-- **Editor** v3.1.0 (Phase 2)
+- **11/11 Templates** live und funktional
+- **Editor** v3.1.0+ (Production-ready)
 - **CSS** v6.0.0 (Modular)
-- **Nächste Steps:** Irrtümer, Adoption, Wissen Templates
+- **Nächste Steps:** Performance-Optimierung, SEO
 
 ---
 

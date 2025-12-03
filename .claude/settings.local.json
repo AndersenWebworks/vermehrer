@@ -17,7 +17,19 @@
       "Bash(powershell.exe -ExecutionPolicy Bypass -File find-duplicates.ps1)",
       "Bash(git ls-tree:*)",
       "Bash(python tools/restore-from-revisions.py:*)",
-      "Bash(winget install Python.Python.3.12 --accept-source-agreements --accept-package-agreements)"
+      "Bash(winget install Python.Python.3.12 --accept-source-agreements --accept-package-agreements)",
+      "Bash(curl -s \"https://vm.andersen-webworks.de/wp-content/themes/fetch-content.php?slug=tierliebe-start\" -o tierliebe-start-content.json)",
+      "Bash(python tools/fetch-from-wordpress.py:*)",
+      "Bash(py tools/fetch-from-wordpress.py:*)",
+      "Bash(py:*)",
+      "Bash(python:*)",
+      "Bash(curl:*)",
+      "Bash(powershell.exe -ExecutionPolicy Bypass -File .vscodeftp-upload.ps1)",
+      "Bash(done)",
+      "Bash(git restore:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nFix: Tierliebe Editor - Saving, Encoding & Page Slugs\n\n- Fixed wpdb force update (saves now persist)\n- Repaired UTF-8 encoding in all 9 Tierliebe pages\n- Corrected page slugs in all 11 templates\n- Added DIV-to-BR conversion (prevents invalid HTML)\n- Added Irrtum 14 (Garten ersetzt keine Spaziergänge)\n- Cache version bump v3 → v4\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(xargs touch:*)",
+      "Bash(git commit:*)"
     ],
     "deny": [],
     "ask": []

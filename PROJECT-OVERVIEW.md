@@ -2,8 +2,8 @@
 
 > **Für zukünftige Claude-Instanzen: Lies dieses Dokument ZUERST. Es enthält ALLES Wissen über das Projekt.**
 
-**Letzte Aktualisierung:** 6. November 2025
-**Version:** 1.1.0
+**Letzte Aktualisierung:** 3. Dezember 2025
+**Version:** 1.2.0
 **Live-URL:** https://vm.andersen-webworks.de/
 
 ---
@@ -41,8 +41,8 @@
 Potenzielle Tierhalter **ehrlich aufklären** und von Impulskäufen/unverantwortlicher Tierhaltung **abhalten**.
 
 ### Status
-- **8/11 Templates live**
-- **Editor v3.1.0** (Phase 2 in Entwicklung)
+- **11/11 Templates live** ✅
+- **Editor v3.1.0+** (Production-ready)
 - **CSS v6.0.0** (Modular Architecture)
 - **Aktive Entwicklung** seit Oktober 2025
 
@@ -1744,6 +1744,179 @@ $img_id = $content['qualzucht_bild_1'] ?? get_post_meta(get_the_ID(), 'qualzucht
 2. **Architektur-Konsistenz ist wichtig** - Alles im JSON vereinfacht vieles
 3. **Migration-Scripts sind Gold wert** - One-Click-Migration spart Zeit
 4. **Fallbacks sind wichtig** - Während Migration beides unterstützen
+
+### 20.7 Save & Encoding Bugs (Dezember 2025)
+
+**Kontext:** Nach Hinzufügen von Irrtum 14 ("Ein Garten ersetzt Spaziergänge") wurden mehrere kritische Bugs beim Speichern entdeckt.
+
+#### Symptome
+1. **Saves nicht persistent** - Success-Meldung, aber nach Reload alter Content
+2. **UTF-8 Encoding korrupt** - `ðŸ¶` statt 🐶, `kÃ¶nnen` statt können, `â€"` statt –
+3. **Ungültiges HTML** - `<p><div>...</div></p>` nach Editieren
+4. **Fehlende Page Slugs** - Save-Funktion auf manchen Pages nicht verfügbar
+
+#### Root Causes
+
+**Problem 1: wp_update_post() schreibt nicht**
+- `wp_update_post()` gab `SUCCESS` zurück, aber `post_modified` Date änderte sich nicht
+- WordPress erkannte "keine Änderung" und skippte DB-Write
+- User-Edits gingen verloren trotz Success-Message
+
+**Problem 2: Doppeltes UTF-8 Encoding**
+- Daten wurden mit falscher Encoding-Handling gespeichert
+- `str_replace('\\', '\\\\')` vor `wp_update_post()` doppelt-escaped Daten
+- `stripslashes()` war korrekt, aber Remove davon führte zu "Ungültiges JSON"
+
+**Problem 3: Browser generiert DIVs in contenteditable**
+- Beim Enter-Drücken generiert Browser `<div>` statt `<br>`
+- Resultat: `<p><div>text</div></p>` = ungültiges HTML
+- HTML Parser korrigiert zu `<p></p><div>text</div>` = Layout bricht
+
+**Problem 4: Page-Slug Identifiers fehlten**
+- Templates hatten keine `<input id="tierliebe-page-slug">` Elemente
+- Editor konnte Page nicht identifizieren → Save unmöglich
+- Falsche Slugs verwendet (Template-Name statt WordPress-Slug)
+
+#### Fixes Implementiert
+
+**1. wpdb->update() Force Save** ([functions.php L1181-1198](webworks-theme/functions.php#L1181-L1198))
+```php
+// Ersetzt wp_update_post() mit direktem wpdb->update()
+// Erzwingt DB-Write auch wenn WordPress "keine Änderung" detektiert
+global $wpdb;
+$result = $wpdb->update(
+    $wpdb->posts,
+    [
+        'post_content' => $content_to_save,
+        'post_modified' => current_time('mysql'),
+        'post_modified_gmt' => current_time('mysql', 1)
+    ],
+    ['ID' => $page_id],
+    ['%s', '%s', '%s'],
+    ['%d']
+);
+
+// Clear BOTH v3 and v4 caches
+delete_transient('tierliebe_page_content_v3_' . $page_id);
+delete_transient('tierliebe_page_content_v4_' . $page_id);
+```
+
+**2. DIV-to-BR Conversion**
+
+**JavaScript** ([tierliebe-edit-v3.js L57-80](webworks-theme/js/tierliebe-edit-v3.js#L57-L80)):
+```javascript
+function normalize(html) {
+    if (!html) return '';
+
+    let normalized = html;
+    // Replace closing </div> + opening <div> with <br><br>
+    normalized = normalized.replace(/<\/div>\s*<div>/gi, '<br><br>');
+    // Remove opening <div> tags
+    normalized = normalized.replace(/<div>/gi, '');
+    // Replace closing </div> with <br>
+    normalized = normalized.replace(/<\/div>/gi, '<br>');
+    // Clean up multiple consecutive <br> tags (max 2)
+    normalized = normalized.replace(/(<br\s*\/?>){3,}/gi, '<br><br>');
+    // Remove trailing <br> tags
+    normalized = normalized.replace(/(<br\s*\/?>)+$/gi, '');
+
+    return normalized.trim();
+}
+```
+
+**PHP** ([functions.php L650-665](webworks-theme/functions.php#L650-L665)):
+```php
+// Fix: Convert DIVs to BRs in all values
+foreach ($parsed as $key => $value) {
+    if (is_string($value) && strpos($value, '<div>') !== false) {
+        $value = preg_replace('/<\/div>\s*<div>/i', '<br><br>', $value);
+        $value = preg_replace('/<div>/i', '', $value);
+        $value = preg_replace('/<\/div>/i', '<br>', $value);
+        $value = preg_replace('/(<br\s*\/?>){3,}/i', '<br><br>', $value);
+        $value = preg_replace('/(<br\s*\/?>)+$/i', '', $value);
+        $parsed[$key] = trim($value);
+    }
+}
+```
+
+**3. Page Slug Fix**
+- Alle 11 Templates bekamen `<input type="hidden" id="tierliebe-page-slug" value="SLUG">`
+- Korrekte WordPress-Slugs verwendet (nicht Template-Namen):
+  ```
+  page-tierliebe-home.php     → tierliebe-home
+  page-tierliebe-hunde.php    → hunde
+  page-tierliebe-katzen.php   → katzen
+  page-tierliebe-irrtuemer.php → irrtuemer
+  ... etc
+  ```
+- Python-Script zur systematischen Korrektur aller Templates
+
+**4. UTF-8 Encoding Repair**
+- **fix-all-pages.php** Script erstellt:
+  ```php
+  1. Iteriert über alle Pages
+  2. Lädt Content via get_tierliebe_text() (dekodiert korrekt)
+  3. Re-save mit JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES
+  4. wpdb->update() Force Write
+  5. Clear v3 + v4 Caches
+  ```
+- **Ergebnis:** Fixed 9 Tierliebe-Seiten, UTF-8 sauber
+
+**5. Cache Version Bump**
+- v3 → v4 ([functions.php L610](webworks-theme/functions.php#L610))
+- BEIDE Versionen werden beim Save gelöscht
+- Force Browser-Cache-Bust
+
+#### Zusätzlich: Irrtum 14 hinzugefügt
+**Neuer Hunde-Mythos** in [page-tierliebe-irrtuemer.php L235-248](webworks-theme/page-tierliebe-irrtuemer.php#L235-L248):
+- **Titel:** "Ein Garten ersetzt Spaziergänge"
+- **Icon:** 🏡
+- **Kategorie:** hunde
+- **Wahrheit:** Garten ist Bonus, kein Ersatz. Hunde brauchen neue Gerüche, Umweltreize, Sozialkontakte.
+
+#### Testing & Verification
+```bash
+# Test auf allen 11 Seiten
+for page in home hunde katzen kleintiere exoten qualzucht test kontakt irrtuemer adoption wissen; do
+    echo "Testing tierliebe-$page..."
+    # Edit → Save → Reload → Verify
+done
+
+# Encoding Check
+python tools/fetch-from-wordpress.py > test.json
+# Prüfe auf ðŸ, Ã, â€" → KEINE gefunden
+
+# DIV-Check
+curl -s https://vm.andersen-webworks.de/tierliebe-hunde/ | grep -E '<p><div>'
+# KEINE Matches → ✅
+```
+
+#### Deployment
+```bash
+# Scripts (temporär, lokal)
+fix-all-pages.php
+restore-revision.php
+debug-content.php
+fix-encoding.php
+
+# Cleanup nach Fix
+rm webworks-theme/{fix-all-pages,restore-revision,debug-content,fix-encoding}.php
+
+# Commit
+git commit -m "Fix: Tierliebe Editor - Saving, Encoding & Page Slugs"
+```
+
+**Commit:** [20a1f89](https://github.com/.../commit/20a1f89)
+**Files Changed:** 18 files, +1034/-229 lines
+**Date:** 3. Dezember 2025
+
+#### Lessons Learned
+1. **wp_update_post() ist nicht zuverlässig** - Bei Problemen direkt wpdb->update() nutzen
+2. **contenteditable generiert immer DIVs** - IMMER normalisieren vor Save UND nach Load
+3. **Page-Slugs ≠ Template-Namen** - WordPress-Slugs aus DB holen, nicht raten
+4. **UTF-8 braucht JSON_UNESCAPED_UNICODE** - Sonst escapet PHP Unicode-Chars
+5. **Cache muss VOR UND NACH Fix gelöscht werden** - Alte Caches verhindern Tests
+6. **Beide Cache-Versionen löschen** - Bei Version-Bump alte nicht vergessen
 
 ---
 

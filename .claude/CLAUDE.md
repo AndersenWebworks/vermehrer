@@ -105,9 +105,8 @@ Bei größeren Features:
 
 ### Dokumentation (ZUERST LESEN)
 - **[PROJECT-OVERVIEW.md](../PROJECT-OVERVIEW.md)** - Vollständige Projekt-Dokumentation (1500+ Zeilen)
-- **[WORKFLOW.md](../WORKFLOW.md)** - Operative Anleitung
-- **[TIERLIEBE_PROJEKT_PLAN.md](../TIERLIEBE_PROJEKT_PLAN.md)** - Master-Plan
-- **[EDITOR-ENHANCEMENTS.md](../EDITOR-ENHANCEMENTS.md)** - Editor Roadmap
+- **[tools/archive/TIERLIEBE_PROJEKT_PLAN.md](../tools/archive/TIERLIEBE_PROJEKT_PLAN.md)** - Master-Plan (archiviert)
+- **[tools/archive/EDITOR-ENHANCEMENTS.md](../tools/archive/EDITOR-ENHANCEMENTS.md)** - Editor Roadmap (archiviert)
 
 ### Code (Kern-Dateien)
 - **webworks-theme/functions.php** - Theme-Kern (Enqueues, Custom Walker, CMS)
@@ -198,18 +197,17 @@ Bei größeren Features:
 ## STATUS & ROADMAP
 
 ### Fertig ✅
-- 8/11 Templates live
-- Editor v3.0.0 (Phase 1)
-- CSS v6.0.0 (Modular Architecture)
-- Quiz-System funktional
-- Deployment-Automation
-
-### In Entwicklung ⏳
-- 3 Templates (Irrtümer, Adoption, Wissen)
-- Editor v3.1.0 (Phase 2: Field History, Validation)
+- **11/11 Templates live** ✅
+- **Editor v3.1.0+** (Production-ready)
+- **CSS v6.0.0** (Modular Architecture)
+- **Quiz-System** funktional
+- **Deployment-Automation** (<2s)
+- **Save & Encoding Fixes** (Dezember 2025)
+- **Page Slug Fix** - Alle 11 Templates
+- **DIV-to-BR Conversion** - Verhindert ungültiges HTML
 
 ### Geplant
-- Editor v3.2.0 (Phase 3: Dashboard, Export/Import)
+- Editor v3.2.0 (Dashboard, Export/Import)
 - Performance-Optimierung (Minification, WebP)
 - SEO (Meta Descriptions, Schema.org)
 
@@ -267,6 +265,52 @@ Bei größeren Features:
 - JEDES `data-key` Attribut MUSS eindeutig sein pro Seite
 - Beispiel: `sektion-titel` und `sektion-text` statt beide `sektion-name`
 - Bei neuen Templates: Script ausführen um Duplicates zu finden
+
+### ✅ GELÖST: Save & Encoding Bugs (Dezember 2025)
+
+**Probleme (waren):**
+- Saves zeigten "Success", aber Daten wurden nicht persistiert (post_modified änderte sich nicht)
+- UTF-8 Encoding korrupt in Datenbank (`ðŸ¶` statt 🐶, `kÃ¶nnen` statt können)
+- DIVs in P-Tags (ungültiges HTML: `<p><div>...</div></p>`) nach Editieren
+- Fehlende/falsche Page-Slug Identifiers in Templates
+
+**Fixes implementiert:**
+
+1. **wpdb->update() Force Save** ([functions.php L1181-1198](../webworks-theme/functions.php#L1181-L1198))
+   - Ersetzt `wp_update_post()` mit direktem `$wpdb->update()`
+   - Erzwingt DB-Write auch wenn WordPress "keine Änderung" erkennt
+   - Clear v3 UND v4 Caches nach Save
+
+2. **DIV-to-BR Conversion** ([tierliebe-edit-v3.js L57-80](../webworks-theme/js/tierliebe-edit-v3.js#L57-L80), [functions.php L650-665](../webworks-theme/functions.php#L650-L665))
+   - JavaScript: Konvertiert beim Speichern
+   - PHP: Konvertiert beim Laden
+   - Verhindert ungültiges HTML durch Browser-generierte DIVs
+
+3. **Page Slug Fix**
+   - Alle 11 Templates haben jetzt `<input type="hidden" id="tierliebe-page-slug" value="SLUG">`
+   - Korrekte WordPress-Slugs verwendet:
+     - `page-tierliebe-home.php` → `tierliebe-home` (⚠️ NOT tierliebe-start!)
+     - `page-tierliebe-hunde.php` → `hunde`
+     - `page-tierliebe-irrtuemer.php` → `irrtuemer`
+     - etc.
+
+4. **UTF-8 Encoding Repair**
+   - `fix-all-pages.php` Script reparierte alle 9 Tierliebe-Seiten
+   - `get_tierliebe_text()` dekodiert korrekt → Re-save mit `JSON_UNESCAPED_UNICODE`
+
+5. **Cache Version Bump v3 → v4**
+   - Force Browser-Cache-Bust
+   - BEIDE Versionen werden beim Save gelöscht
+
+**Zusätzlich:** Irrtum 14 hinzugefügt ("Ein Garten ersetzt Spaziergänge")
+
+**Commit:** 20a1f89 (3. Dezember 2025)
+**Details:** [PROJECT-OVERVIEW.md Sektion 20.7](../PROJECT-OVERVIEW.md#207-save--encoding-bugs-dezember-2025)
+
+**Lessons Learned:**
+- `wp_update_post()` ist nicht zuverlässig → Bei Problemen direkt `wpdb->update()` nutzen
+- contenteditable generiert IMMER DIVs → Immer normalisieren (vor Save UND nach Load)
+- Page-Slugs ≠ Template-Namen → WordPress-Slugs aus DB holen, nicht raten
 
 ### Security
 ```php
