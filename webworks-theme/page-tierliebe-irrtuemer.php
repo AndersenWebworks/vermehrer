@@ -250,6 +250,66 @@ $content = get_tierliebe_text('irrtuemer');
                 </div>
             </div>
 
+            <!-- Irrtum 15 -->
+            <div class="mythos-card" data-category="katzen">
+                <div class="mythos-header">
+                    <span class="mythos-icon">😺</span>
+                    <h3 class="mythos-irrtum editable" data-key="irrtum-15-titel">
+                        <?php echo wp_kses_post($content['irrtum-15-titel'] ?? 'Katzen sind Einzelgänger'); ?>
+                    </h3>
+                </div>
+                <div class="mythos-content">
+                    <p class="mythos-wahrheit editable" data-key="irrtum-15-text">
+                        <?php echo wp_kses_post($content['irrtum-15-text'] ?? 'Das Bild vom stur unabhängigen Einzelgänger passt auf viele Katzen nicht.<br>In freier Umgebung leben Katzen oft in lockeren Gruppen, schlafen zusammen, putzen sich gegenseitig und ziehen gemeinsam Junge auf.<br>Manche Katzen mögen ihre Ruhe, andere leiden allein. Wichtiger als pauschale Aussagen ist die Einschätzung des einzelnen Tieres und der Wohnsituation.<br>Viele Katzen sind im passenden Doppelpack deutlich ausgeglichener als allein.'); ?>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Irrtum 16 -->
+            <div class="mythos-card" data-category="kleintiere">
+                <div class="mythos-header">
+                    <span class="mythos-icon">🐰</span>
+                    <h3 class="mythos-irrtum editable" data-key="irrtum-16-titel">
+                        <?php echo wp_kses_post($content['irrtum-16-titel'] ?? 'Kaninchen sind pflegeleicht und billig'); ?>
+                    </h3>
+                </div>
+                <div class="mythos-content">
+                    <p class="mythos-wahrheit editable" data-key="irrtum-16-text">
+                        <?php echo wp_kses_post($content['irrtum-16-text'] ?? 'Kaninchen brauchen viel Platz, mindestens einen Artgenossen, täglich frisches Grünfutter, tierärztliche Versorgung und saubere, gut durchlüftete Gehege.<br>Magen-Darm-Probleme und Zahnprobleme sind bei Kaninchen häufig und können schnell teuer werden.<br>Die laufenden Kosten liegen je nach Haltung und Gesundheitszustand im zwei- bis dreistelligen Bereich pro Monat – Billigtiere sind sie ganz sicher nicht.'); ?>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Irrtum 17 -->
+            <div class="mythos-card" data-category="voegel">
+                <div class="mythos-header">
+                    <span class="mythos-icon">🦜</span>
+                    <h3 class="mythos-irrtum editable" data-key="irrtum-17-titel">
+                        <?php echo wp_kses_post($content['irrtum-17-titel'] ?? 'Vögel gehören in einen Käfig, dann sind sie sicher'); ?>
+                    </h3>
+                </div>
+                <div class="mythos-content">
+                    <p class="mythos-wahrheit editable" data-key="irrtum-17-text">
+                        <?php echo wp_kses_post($content['irrtum-17-text'] ?? 'Ein Käfig ist kein vollständiger Lebensraum, sondern höchstens Schlafplatz und Futterstelle.<br>Kleinvögel brauchen täglich mehrere Stunden sicheren Freiflug in der Wohnung oder in einer großen Voliere, um zu fliegen, zu klettern und ihr natürliches Verhalten auszuleben.<br>Dauerhafte Käfighaltung ohne Freiflug bedeutet massiven Stress, Langeweile und oft Verhaltensstörungen.'); ?>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Irrtum 18 -->
+            <div class="mythos-card" data-category="exoten">
+                <div class="mythos-header">
+                    <span class="mythos-icon">🦎</span>
+                    <h3 class="mythos-irrtum editable" data-key="irrtum-18-titel">
+                        <?php echo wp_kses_post($content['irrtum-18-titel'] ?? 'Exoten sind gut für Anfänger'); ?>
+                    </h3>
+                </div>
+                <div class="mythos-content">
+                    <p class="mythos-wahrheit editable" data-key="irrtum-18-text">
+                        <?php echo wp_kses_post($content['irrtum-18-text'] ?? 'Viele Exoten werden als pflegeleicht verkauft, weil sie nicht spazieren gehen müssen und kaum sichtbar reagieren.<br>In Wahrheit reagieren sie extrem empfindlich auf Fehler bei Temperatur, Luftfeuchtigkeit, UV-Licht und Futter. Schon kleine Fehler können Organ- oder Knochenschäden verursachen.<br>Wer keine Zeit und Lust hat, sich intensiv einzuarbeiten und Technik regelmäßig zu kontrollieren, sollte keine Exoten halten.'); ?>
+                    </p>
+                </div>
+            </div>
+
         </div>
 
         <!-- CTA -->
