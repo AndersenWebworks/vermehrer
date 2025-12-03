@@ -4,8 +4,27 @@
  * Usage: https://vm.andersen-webworks.de/fetch-content.php?slug=tierliebe-start
  */
 
-// Load WordPress
-require_once(__DIR__ . '/wp-load.php');
+// Load WordPress (adjust path based on where this file is located)
+// If in theme root: ../../wp-load.php
+// If in WP root: ./wp-load.php
+$wp_load_paths = [
+    __DIR__ . '/wp-load.php',           // Same directory
+    __DIR__ . '/../../wp-load.php',     // Two levels up (if in theme folder)
+    __DIR__ . '/../../../wp-load.php',  // Three levels up (if in theme subfolder)
+];
+
+$wp_loaded = false;
+foreach ($wp_load_paths as $path) {
+    if (file_exists($path)) {
+        require_once($path);
+        $wp_loaded = true;
+        break;
+    }
+}
+
+if (!$wp_loaded) {
+    die('Could not find wp-load.php');
+}
 
 // Security: Only allow if user is admin (optional - remove if you want public access)
 // if (!current_user_can('administrator')) {

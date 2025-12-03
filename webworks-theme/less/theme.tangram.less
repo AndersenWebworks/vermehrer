@@ -44,9 +44,9 @@ _______________________________*/
 @global-background: @pastel-cream;              // Cream statt grau
 @global-muted-background: @pastel-mint;
 
-// Briefing-Farben nur als Akzente
-@global-link-color: #3A7D44;                    // Briefing-Grün für Links
-@global-link-hover-color: #E67E22;              // Briefing-Orange für Hover
+// Links erben Textfarbe
+@global-link-color: @global-color;              // Erbt Parent-Farbe
+@global-link-hover-color: @global-color;        // Bleibt gleich, nur Opacity ändert sich
 
 // Danger & Warning
 @global-danger-background: #C0392B;
