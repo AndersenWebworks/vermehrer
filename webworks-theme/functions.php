@@ -85,8 +85,12 @@ function tierliebe_quiz_shortcode_new()
     ?>
     <div class="quiz-container">
         <div class="quiz-intro">
-            <h3>🌈 Bereit für die Wahrheit?</h3>
-            <p>Dieser Test zeigt dir ehrlich, ob du bereit bist. Keine Beschönigung, keine Ausreden. Es geht nicht um Perfektion - sondern um Realität und echte Verantwortung. 💕</p>
+            <h3>Bereit für ehrliche Antworten?</h3>
+            <p>Klick dich in Ruhe durch die Fragen.<br>
+            Versuche so zu antworten, wie dein Leben wirklich aussieht, nicht so, wie du es dir ideal wünschst.</p>
+            <p>Am Ende bekommst du eine Einschätzung, ob jetzt ein guter Zeitpunkt für ein Tier ist oder ob du lieber noch warten und weiter planen solltest.</p>
+            <p>Es geht nicht darum, perfekt zu sein.<br>
+            Es geht darum, realistisch zu sein und im Sinne der Tiere zu entscheiden.</p>
         </div>
 
         <div class="progress-container">
@@ -603,7 +607,7 @@ function get_tierliebe_text($page_slug = null)
         }
 
         $post_id = $post->ID;
-        $transient_key = 'tierliebe_page_content_v3_' . $post_id;
+        $transient_key = 'tierliebe_page_content_v4_' . $post_id;
         $cached = get_transient($transient_key);
         if (is_array($cached) && count($cached) > 0) {
             return $cached;
@@ -641,6 +645,23 @@ function get_tierliebe_text($page_slug = null)
         }
         if (!is_array($parsed) || count($parsed) < 1) {
             return array();
+        }
+
+        // Fix: Convert DIVs to BRs in all values (prevents invalid HTML like <p><div>...</div></p>)
+        foreach ($parsed as $key => $value) {
+            if (is_string($value) && strpos($value, '<div>') !== false) {
+                // Replace closing </div> followed by opening <div> with <br><br> (paragraph break)
+                $value = preg_replace('/<\/div>\s*<div>/i', '<br><br>', $value);
+                // Remove opening <div> tags
+                $value = preg_replace('/<div>/i', '', $value);
+                // Replace closing </div> with <br>
+                $value = preg_replace('/<\/div>/i', '<br>', $value);
+                // Clean up multiple consecutive <br> tags (max 2)
+                $value = preg_replace('/(<br\s*\/?>){3,}/i', '<br><br>', $value);
+                // Remove trailing <br> tags
+                $value = preg_replace('/(<br\s*\/?>)+$/i', '', $value);
+                $parsed[$key] = trim($value);
+            }
         }
 
         set_transient($transient_key, $parsed, HOUR_IN_SECONDS);
@@ -1157,28 +1178,28 @@ function tierliebe_save_content_ajax()
     // Encode content for storage
     $content_to_save = json_encode($content, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
 
-    // WordPress wp_unslash fix
-    $content_escaped = str_replace('\\', '\\\\', $content_to_save);
+    // FORCE update using wpdb (wp_update_post might skip if content looks same)
+    global $wpdb;
+    $result = $wpdb->update(
+        $wpdb->posts,
+        [
+            'post_content' => $content_to_save,
+            'post_modified' => current_time('mysql'),
+            'post_modified_gmt' => current_time('mysql', 1)
+        ],
+        ['ID' => $page_id],
+        ['%s', '%s', '%s'],
+        ['%d']
+    );
 
-    // Disable filters
-    remove_filter('content_save_pre', 'wp_filter_post_kses');
-
-    // Save
-    $result = wp_update_post([
-        'ID' => $page_id,
-        'post_content' => $content_escaped
-    ]);
-
-    // Re-enable filters
-    add_filter('content_save_pre', 'wp_filter_post_kses');
-
-    if (is_wp_error($result)) {
-        wp_send_json_error('Fehler: ' . $result->get_error_message());
+    if ($result === false) {
+        wp_send_json_error('DB Update failed: ' . $wpdb->last_error);
         return;
     }
 
     // Clear cache
     delete_transient('tierliebe_page_content_v3_' . $page_id);
+    delete_transient('tierliebe_page_content_v4_' . $page_id);
 
     wp_send_json_success([
         'message' => 'Gespeichert',
@@ -1327,9 +1348,98 @@ function tierliebe_undo_save_ajax()
 }
 add_action('wp_ajax_tierliebe_undo_save', 'tierliebe_undo_save_ajax');
 
+// List recent revisions (timestamps) for the current page
+function tierliebe_list_revisions_ajax()
+{
+    check_ajax_referer('tierliebe_edit_nonce', 'nonce');
+
+    if (!current_user_can('edit_posts')) {
+        wp_send_json_error('Keine Berechtigung');
+    }
+
+    $page_id = intval($_POST['page_id']);
+    $limit = isset($_POST['limit']) ? intval($_POST['limit']) : 6;
+    $limit = max(1, min($limit, 10));
+
+    $revisions = wp_get_post_revisions($page_id, array(
+        'posts_per_page' => $limit,
+        'order' => 'DESC',
+    ));
+
+    if (empty($revisions)) {
+        wp_send_json_error('Keine Revisionen gefunden');
+    }
+
+    $result = array();
+    foreach ($revisions as $rev) {
+        $result[] = array(
+            'id'   => $rev->ID,
+            'date' => get_date_from_gmt($rev->post_date_gmt, 'd.m.Y H:i'),
+            'user' => get_the_author_meta('display_name', $rev->post_author),
+        );
+    }
+
+    wp_send_json_success($result);
+}
+add_action('wp_ajax_tierliebe_list_revisions', 'tierliebe_list_revisions_ajax');
+
+// Restore specific revision by ID
+function tierliebe_restore_revision_ajax()
+{
+    check_ajax_referer('tierliebe_edit_nonce', 'nonce');
+
+    if (!current_user_can('edit_posts')) {
+        wp_send_json_error('Keine Berechtigung');
+    }
+
+    $page_id = intval($_POST['page_id']);
+    $revision_id = intval($_POST['revision_id']);
+
+    if (!$page_id || !$revision_id) {
+        wp_send_json_error('Ungültige Parameter');
+    }
+
+    $revision = get_post($revision_id);
+    if (!$revision || $revision->post_parent != $page_id) {
+        wp_send_json_error('Revision gehört nicht zu dieser Seite');
+    }
+
+    $revision_content = html_entity_decode($revision->post_content, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+    $parsed = json_decode(strip_tags($revision_content), true);
+
+    if (!is_array($parsed) || count($parsed) < 1) {
+        wp_send_json_error('Revision enthält kein gültiges JSON');
+    }
+
+    // Save revision content back to page (escape backslashes)
+    $content_to_save = json_encode($parsed, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+    $content_to_save = str_replace('\\', '\\\\', $content_to_save);
+
+    $result = wp_update_post(array(
+        'ID' => $page_id,
+        'post_content' => $content_to_save
+    ), true);
+
+    if (is_wp_error($result)) {
+        wp_send_json_error('Fehler: ' . $result->get_error_message());
+    }
+
+    // Clear cache
+    delete_transient('tierliebe_page_content_v3_' . $page_id);
+
+    wp_send_json_success('Revision wiederhergestellt');
+}
+add_action('wp_ajax_tierliebe_restore_revision', 'tierliebe_restore_revision_ajax');
+
 // Enqueue Edit Assets for Admins
 function tierliebe_enqueue_edit_assets()
 {
+    global $post;
+
+    if (!$post) {
+        return;
+    }
+
     // Only for logged-in admins on Tierliebe pages
     if (!current_user_can('edit_posts')) {
         return;
@@ -1365,7 +1475,7 @@ function tierliebe_enqueue_edit_assets()
             'tierliebe-edit',
             get_stylesheet_directory_uri() . '/js/tierliebe-edit-v3.js',
             array('jquery'),
-            '3.0.0',
+            '3.2.0',
             true
         );
 
@@ -1379,3 +1489,58 @@ function tierliebe_enqueue_edit_assets()
     }
 }
 add_action('wp_enqueue_scripts', 'tierliebe_enqueue_edit_assets');
+
+/* WORDPRESS REVISIONS
+_______________________________*/
+
+// Set maximum number of post revisions to 50
+add_filter('wp_revisions_to_keep', function($num, $post) {
+    return 50;
+}, 10, 2);
+
+/* GLOBAL FOOTER CONTENT
+_______________________________*/
+
+/**
+ * Get global footer content from WordPress options
+ * @return array Footer content fields
+ */
+function get_tierliebe_footer() {
+    // Get from options table (global, not per-page)
+    $content_json = get_option('tierliebe_footer_content', '{}');
+    $content = json_decode($content_json, true);
+
+    // Return empty array if JSON decode failed
+    return is_array($content) ? $content : array();
+}
+
+/**
+ * AJAX Handler: Save global footer content
+ */
+function tierliebe_save_footer() {
+    // Security check
+    check_ajax_referer('tierliebe_edit_nonce', 'nonce');
+
+    if (!current_user_can('edit_posts')) {
+        wp_send_json_error('Unauthorized');
+    }
+
+    // Get footer content from POST
+    $footer_content = isset($_POST['footer_content']) ? $_POST['footer_content'] : array();
+
+    // Sanitize each field
+    $sanitized = array();
+    foreach ($footer_content as $key => $value) {
+        $sanitized[sanitize_key($key)] = wp_kses_post($value);
+    }
+
+    // Save to options table
+    $json = json_encode($sanitized, JSON_UNESCAPED_UNICODE);
+    update_option('tierliebe_footer_content', $json);
+
+    wp_send_json_success(array(
+        'message' => 'Footer gespeichert (global auf allen Seiten)',
+        'fields' => count($sanitized)
+    ));
+}
+add_action('wp_ajax_tierliebe_save_footer', 'tierliebe_save_footer');

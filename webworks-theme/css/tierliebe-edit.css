@@ -13,16 +13,19 @@ _______________________________*/
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     border: none;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
+    min-width: 48px;
+    height: 44px;
+    padding: 0 16px;
+    border-radius: 999px;
     cursor: pointer;
     box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
     transition: all 0.3s ease;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 20px;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
 }
 
 .tierliebe-edit-btn:hover {
@@ -172,6 +175,40 @@ body.edit-mode .editable-image img {
     }
 }
 
+/* Link Button */
+.tierliebe-link-btn {
+    position: fixed;
+    right: 20px;
+    top: calc(50% - 56px);
+    transform: translateY(-50%);
+    z-index: 9999;
+    background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%);
+    color: white;
+    border: none;
+    min-width: 48px;
+    height: 44px;
+    padding: 0 16px;
+    border-radius: 999px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+    transition: all 0.3s ease;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 1;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.tierliebe-link-btn:hover {
+    transform: translateY(-50%) scale(1.05);
+    box-shadow: 0 6px 20px rgba(255, 107, 107, 0.6);
+}
+
+body.edit-mode .tierliebe-link-btn {
+    display: flex;
+}
+
 /* Save Button */
 .tierliebe-save-btn {
     position: fixed;
@@ -182,14 +219,20 @@ body.edit-mode .editable-image img {
     background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
     color: white;
     border: none;
-    padding: 15px 30px;
-    border-radius: 50px;
+    min-width: 48px;
+    height: 44px;
+    padding: 0 16px;
+    border-radius: 999px;
     cursor: pointer;
     box-shadow: 0 4px 15px rgba(17, 153, 142, 0.4);
     transition: all 0.3s ease;
     font-weight: 600;
-    font-size: 16px;
+    font-size: 18px;
+    line-height: 1;
     display: none;
+    display: none;
+    align-items: center;
+    justify-content: center;
 }
 
 body.edit-mode .tierliebe-save-btn {
@@ -204,6 +247,72 @@ body.edit-mode .tierliebe-save-btn {
 .tierliebe-save-btn:disabled {
     opacity: 0.6;
     cursor: not-allowed;
+}
+
+.tierliebe-revisions-btn {
+    position: fixed;
+    right: 20px;
+    top: calc(50% + 56px);
+    transform: translateY(-50%);
+    z-index: 9999;
+    background: linear-gradient(135deg, #5a8dee 0%, #2b6cc4 100%);
+    color: white;
+    border: none;
+    min-width: 48px;
+    height: 44px;
+    padding: 0 16px;
+    border-radius: 999px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(42, 105, 196, 0.4);
+    transition: all 0.3s ease;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 1;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.tierliebe-revisions-btn:hover {
+    transform: translateY(-50%) scale(1.05);
+    box-shadow: 0 6px 20px rgba(42, 105, 196, 0.6);
+}
+
+body.edit-mode .tierliebe-revisions-btn {
+    display: block;
+}
+
+.tierliebe-undo-btn {
+    position: fixed;
+    right: 20px;
+    top: calc(50% + 112px);
+    transform: translateY(-50%);
+    z-index: 9999;
+    background: linear-gradient(135deg, #f5a623 0%, #f76b1c 100%);
+    color: white;
+    border: none;
+    min-width: 48px;
+    height: 44px;
+    padding: 0 16px;
+    border-radius: 999px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(247, 107, 28, 0.4);
+    transition: all 0.3s ease;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 1;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+body.edit-mode .tierliebe-undo-btn {
+    display: block;
+}
+
+ .tierliebe-undo-btn:hover {
+    transform: translateY(-50%) scale(1.05);
+    box-shadow: 0 6px 20px rgba(247, 107, 28, 0.6);
 }
 
 /* Cache Clear Button (Emergency) */
@@ -260,6 +369,67 @@ body.edit-mode .tierliebe-save-btn {
 .tierliebe-message.info {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
+}
+
+/* Revision Modal */
+#tierliebe-revision-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+#tierliebe-revision-modal .rev-box {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    min-width: 280px;
+    max-width: 360px;
+    box-shadow: 0 12px 35px rgba(0,0,0,0.25);
+}
+
+#tierliebe-revision-modal h4 {
+    margin-top: 0;
+    margin-bottom: 12px;
+    font-size: 18px;
+}
+
+#tierliebe-revision-modal .rev-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#tierliebe-revision-modal .rev-item {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #d8e2f3;
+    background: #f7faff;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+#tierliebe-revision-modal .rev-item:hover {
+    background: #e8f0ff;
+    border-color: #5a8dee;
+}
+
+#tierliebe-revision-modal .rev-close {
+    margin-top: 14px;
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: none;
+    background: linear-gradient(135deg, #f5576c 0%, #f093fb 100%);
+    color: white;
+    cursor: pointer;
+    font-weight: 600;
 }
 
 /* Feature 18: Auto-Save Indicator */
@@ -451,15 +621,22 @@ body.edit-mode .tierliebe-save-btn {
 /* Responsive */
 @media (max-width: 768px) {
     .tierliebe-edit-btn,
-    .tierliebe-save-btn {
-        width: 45px;
-        height: 45px;
-        font-size: 18px;
+    .tierliebe-save-btn,
+    .tierliebe-link-btn {
+        min-width: 50px;
+        height: 50px;
+        font-size: 20px;
     }
 
     .tierliebe-save-btn {
-        padding: 12px 20px;
-        font-size: 14px;
+        padding: 0;
+    }
+
+    .tierliebe-link-btn {
+        /* Größerer Touch-Target auf Mobile */
+        min-width: 50px;
+        height: 50px;
+        font-size: 20px;
     }
 
     .edit-mode-indicator {

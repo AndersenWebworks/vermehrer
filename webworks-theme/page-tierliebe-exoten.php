@@ -10,6 +10,9 @@ get_template_part('tierliebe-parts/header');
 $content = get_tierliebe_text('exoten');
 ?>
 
+<!-- Hidden Page Slug for Editor -->
+<input type="hidden" id="tierliebe-page-slug" value="exoten">
+
 <section class="section">
     <div class="section-header">
         <h2 class="section-title editable" data-key="section-title">
@@ -667,10 +670,6 @@ $content = get_tierliebe_text('exoten');
 
 </section>
 
-<?php
-if (current_user_can('edit_posts')) {
-    echo '';
-}
-?>
+
 
 <?php get_template_part('tierliebe-parts/footer'); ?>

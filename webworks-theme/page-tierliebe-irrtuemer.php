@@ -10,6 +10,9 @@ get_template_part('tierliebe-parts/header');
 $content = get_tierliebe_text('irrtuemer');
 ?>
 
+<!-- Hidden Page Slug for Editor -->
+<input type="hidden" id="tierliebe-page-slug" value="irrtuemer">
+
 <!-- Hero Section -->
 <section class="primary-hero" style="min-height: 50vh;">
     <div class="hero-content">
@@ -232,6 +235,21 @@ $content = get_tierliebe_text('irrtuemer');
                 </div>
             </div>
 
+            <!-- Irrtum 14 -->
+            <div class="mythos-card" data-category="hunde">
+                <div class="mythos-header">
+                    <span class="mythos-icon">🏡</span>
+                    <h3 class="mythos-irrtum editable" data-key="irrtum-14-titel">
+                        <?php echo wp_kses_post($content['irrtum-14-titel'] ?? 'Ein Garten ersetzt Spaziergänge'); ?>
+                    </h3>
+                </div>
+                <div class="mythos-content">
+                    <p class="mythos-wahrheit editable" data-key="irrtum-14-text">
+                        <?php echo wp_kses_post($content['irrtum-14-text'] ?? 'Ein Garten ist ein Bonus, kein Ersatz für Spaziergänge.<br>Hunde brauchen neue Gerüche, Umweltreize, Sozialkontakte und gemeinsame Zeit mit dir draußen.<br>Ein Hund, der nur „mal eben in den Garten gelassen wird", langweilt sich schnell, baut Verhaltensprobleme auf oder wird übergewichtig, obwohl „doch ein Garten da ist".<br>Ein guter Alltag besteht aus beidem: sicheren Pausen zu Hause und richtigen Spaziergängen.'); ?>
+                    </p>
+                </div>
+            </div>
+
         </div>
 
         <!-- CTA -->
@@ -249,10 +267,5 @@ $content = get_tierliebe_text('irrtuemer');
 </section>
 
 <?php
-// Add page slug for edit mode
-if (current_user_can('edit_posts')) {
-    echo '';
-}
-
 get_template_part('tierliebe-parts/footer');
 ?>

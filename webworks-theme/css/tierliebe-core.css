@@ -106,14 +106,45 @@ h4 {
 /* ============================================
    LINKS & FOCUS STATES
    ============================================ */
-a {
-    color          : inherit;
-    text-decoration: none;
+
+/* Links die Container/Cards/Panels/Navigation sind - kein underline */
+a[class*="-card"],
+a[class*="-panel"],
+a.card,
+a.panel,
+.nav-links a,
+.header a,
+nav a,
+.uk-nav a {
+    text-decoration: none !important;
+}
+
+a[class*="-card"] *,
+a[class*="-panel"] *,
+a.card *,
+a.panel *,
+.nav-links a *,
+.header a *,
+nav a *,
+.uk-nav a * {
+    text-decoration: none !important;
+}
+
+/* Normale Text-Links - mit underline */
+a:not(.uk-button):not(.btn):not([class*="button"]):not(.nav-link):not(.logo):not([class*="-card"]):not([class*="-panel"]):not(.card):not(.panel) {
+    color          : inherit !important;
+    text-decoration: underline;
     transition     : all 0.3s ease;
 }
 
-a:hover {
-    opacity: 0.8;
+a:not(.uk-button):not(.btn):not([class*="button"]):not(.nav-link):not(.logo):not([class*="-card"]):not([class*="-panel"]):not(.card):not(.panel):hover {
+    color          : inherit !important;
+    opacity        : 0.7;
+    text-decoration: underline;
+}
+
+a:not(.uk-button):not(.btn):not([class*="button"]):not(.nav-link):not(.logo):not([class*="-card"]):not([class*="-panel"]):not(.card):not(.panel):active {
+    opacity: 0.5;
 }
 
 a:focus {
@@ -124,10 +155,6 @@ a:focus {
 a:focus-visible {
     outline       : 2px solid var(--cute-coral);
     outline-offset: 2px;
-}
-
-a:active {
-    opacity: 0.6;
 }
 
 /* ============================================

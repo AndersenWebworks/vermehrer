@@ -10,6 +10,9 @@ get_template_part('tierliebe-parts/header');
 $content = get_tierliebe_text('hunde');
 ?>
 
+<!-- Hidden Page Slug for Editor -->
+<input type="hidden" id="tierliebe-page-slug" value="hunde">
+
 <!-- CONTENT: Hunde -->
 <section class="section">
     <div class="section-header">
@@ -171,9 +174,5 @@ $content = get_tierliebe_text('hunde');
 </section>
 
 <?php
-if (current_user_can('edit_posts')) {
-    echo '';
-}
-
 get_template_part('tierliebe-parts/footer');
 ?>

@@ -10,6 +10,9 @@ get_template_part('tierliebe-parts/header');
 $content = get_tierliebe_text('kleintiere');
 ?>
 
+<!-- Hidden Page Slug for Editor -->
+<input type="hidden" id="tierliebe-page-slug" value="kleintiere">
+
 <section class="section">
     <div class="section-header">
         <h2 class="section-title editable" data-key="header-titel">

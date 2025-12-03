@@ -1,12 +1,17 @@
 <!-- Footer -->
 <!-- Tierliebe Footer Partial -->
-<footer class="footer">
+<?php
+// Load global footer content from WordPress options
+$footer_content = get_tierliebe_footer();
+?>
+<footer class="footer" data-edit-context="footer">
     <div class="footer-content">
-        <h3>🌍 Denk an die Tiere, Wälder & das Klima</h3>
-        <p>Jeder unnötige Ausdruck dieser Seite kostet Ressourcen, zerstört Lebensräume und belastet das Klima.</p>
-        <p style="margin-top: 15px; font-size: 0.95rem; opacity: 0.8;">
-            Mit 💕 für alle Tiere gemacht
-        </p>
+        <div class="editable" data-key="footer-text">
+            <?php echo wp_kses_post($footer_content['footer-text'] ?? 'Jeder unnötige Ausdruck dieser Seite kostet Ressourcen, zerstört Lebensräume und belastet das Klima.'); ?>
+        </div>
+        <div class="editable" data-key="footer-signatur" style="margin-top: 15px; font-size: 0.95rem; opacity: 0.8;">
+            <?php echo wp_kses_post($footer_content['footer-signatur'] ?? 'Mit 💕 für alle Tiere gemacht'); ?>
+        </div>
     </div>
 </footer>
 

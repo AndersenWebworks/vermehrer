@@ -10,6 +10,9 @@ get_template_part('tierliebe-parts/header');
 $content = get_tierliebe_text('wissen');
 ?>
 
+<!-- Hidden Page Slug for Editor -->
+<input type="hidden" id="tierliebe-page-slug" value="wissen">
+
 <!-- Hero Section -->
 <section class="primary-hero" style="min-height: 50vh;">
     <div class="hero-content">

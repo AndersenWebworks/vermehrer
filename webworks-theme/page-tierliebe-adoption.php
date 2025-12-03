@@ -11,6 +11,9 @@ get_template_part('tierliebe-parts/header');
 $content = get_tierliebe_text('adoption');
 ?>
 
+<!-- Hidden Page Slug for Editor -->
+<input type="hidden" id="tierliebe-page-slug" value="adoption">
+
 <!-- Hero Section -->
 <section class="primary-hero" style="min-height: 60vh;">
     <div class="hero-content">

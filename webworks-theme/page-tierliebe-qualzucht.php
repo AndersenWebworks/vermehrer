@@ -11,6 +11,9 @@ $content = get_tierliebe_text('qualzucht');
 ?>
 
 <!-- Hidden Page Slug for Editor -->
+<input type="hidden" id="tierliebe-page-slug" value="qualzucht">
+
+<!-- Hidden Page Slug for Editor -->
 
 
 <!-- Hero Section -->
